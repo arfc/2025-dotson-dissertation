@@ -1,5 +1,5 @@
 
-# 2023-dotson-prelim
+# 2025-dotson-dissertation
 
 This repository holds my preliminary exam document. The style guide comes from the University of Illinois Urbana-Champaign Graduate College. A link to the resources may be found [here](https://grad.illinois.edu/thesis/format).
 
