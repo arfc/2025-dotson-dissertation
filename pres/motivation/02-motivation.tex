@@ -1,0 +1,626 @@
+\subsection{Observations}
+
+\begin{frame}
+    \frametitle{The Challenge at Hand}
+    \begin{block}{Purpose of Energy System Modeling}
+        Modeling allows us to make predictions, test hypotheses, and understand
+        counterintuitive behavior.\\~\\
+        \textit{Models inform energy policy with prescriptive analyses
+        \cite{decarolis_using_2011}.}
+    \end{block}
+    \begin{block}{Problem} % But, models are limited. Quantitative models are
+    % especially limited in their ability to describe the ``human dimension.''
+        Policies affect people --- energy systems models cannot adequately
+        capture the ``human dimension'' \cite{pfenninger_energy_2014}.
+    \end{block}
+    \begin{block}{What is the ``human dimension?''}
+        \begin{enumerate}
+            \item People have preferences about their sources of energy that are
+            ignored.
+            \item Models cannot describe policy outcomes related to fairness or
+            justice.
+        \end{enumerate}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Three tenets of justice}
+    \begin{figure}
+        \centering
+        % \resizebox{0.7\columnwidth}{!}{
+            \begin{tikzpicture}
+                \begin{scope}[blend group = soft light]
+                    % \fill[red!30!white]   ( 90:1.2) circle (2);
+                    \fill[illiniorange]   ( 90:1.2) circle (2);
+                    % \fill[green!30!white] (210:1.2) circle (2);
+                    \fill[illiniorange] (210:1.2) circle (2);
+                    % \fill[blue!30!white]  (330:1.2) circle (2);
+                    \fill[illiniorange]  (330:1.2) circle (2);
+                \end{scope}
+                \node at ( 90:2)    {Recognition}; 
+                \node at ( 210:2) {Distribution}; 
+                \node at ( 330:2)   {Procedural}; 
+                \node[font=\Large] {\textcolor{black}{Justice}};
+              \end{tikzpicture}
+
+        % }
+        \caption{Three aspects of justice \cite{schlosberg_1_2007}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Distributional}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[vertex](v3) at (0,2)
+                    {\textcolor{black}{\textbf{Distribution}}};
+                    \node[unfocus](v2) at (0,0)
+                    {\textcolor{gray}{\textbf{Procedural}}}; \node[unfocus](v1)
+                    at (0,-2) {\textcolor{gray}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{Distributional Justice}
+            Related to the distribution of burdens and benefits.
+        \end{block}
+        \begin{block}{Normative Question}
+            What is the fairest way to distribute benefits and burdens?
+        \end{block}
+        \begin{block}{Examples of injustice}
+            \begin{itemize}
+                \item Dispossession of land and benefits
+                \cite{yenneti_spatial_2016,sovacool_dispossessed_2021}. 
+                \item Poorer air quality around fossil fuel plants --- primarily
+                located in poorer communities \cite{mohai_which_2015}.
+                \item Solar panel subsidies and installations benefitting
+                wealthier communities \cite{reames_distributional_2020}.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Procedural}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[unfocus](v3) at (0,2)
+                    {\textcolor{gray}{\textbf{Distribution}}}; \node[vertex](v2)
+                    at (0,0) {\textcolor{black}{\textbf{Procedural}}};
+                    \node[unfocus](v1) at (0,-2)
+                    {\textcolor{gray}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{Procedural Justice}
+            Related to decision-making processes --- method and inclusion.
+        \end{block}
+        \begin{block}{Normative Question}
+            What is the fairest way to make decisions affecting specific groups
+            of people?
+        \end{block}
+        \begin{block}{Examples of injustice}
+            \begin{itemize}
+                \item Dismissal of testimony for its lack of technical expertise
+                \cite{johnson_dakota_2021}. 
+                \item Lack of transparency in decision making.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Recognitional}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[unfocus](v3) at (0,2)
+                    {\textcolor{gray}{\textbf{Distribution}}};
+                    \node[unfocus](v2) at (0,0)
+                    {\textcolor{gray}{\textbf{Procedural}}}; \node[vertex](v1)
+                    at (0,-2) {\textcolor{black}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{Recognitional Justice}
+            Related to social value of people or groups derived from
+            relationships, laws, and cultural standing.
+        \end{block}
+        \begin{block}{Normative Question}
+            How much and in what ways should a person or group of people be
+            valued?
+        \end{block}
+        \begin{block}{Examples of injustice}
+            \begin{itemize}
+                \item Energy policies that interfere with loving relationships
+                (e.g., stress from energy
+                insecurity) \cite{van_uffelen_revisiting_2022}.
+                \item Lack of labor protections for
+                workers \cite{van_uffelen_revisiting_2022}.
+                \item Exclusion from a policy process\cite{van_uffelen_revisiting_2022}.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Climate change highlights energy system injustices}
+
+    \begin{columns}
+        \column[t]{5cm}
+        \begin{figure}
+            \centering
+            \resizebox{\columnwidth}{!}{\input{../docs/figures/mauna-loa-co2.pgf}}            
+            \caption{Observed increase in CO$_2$ levels at Mauna Loa Observatory
+            \cite{kane_atmospheric_1996}.}
+            \label{figure:mauna-loa}
+        \end{figure}
+        
+        \column[t]{5cm}
+        \begin{figure}
+            \centering
+            \resizebox{\columnwidth}{!}{\input{../docs/figures/emissions-by-source.pgf}}
+            \caption{Lifecycle carbon emissions by energy source
+            \cite{united_nations_economic_commission_for_europe_carbon_2022}.}
+            \label{figure:energy-emissions}
+        \end{figure}
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Addressing climate change?}
+
+        \begin{block}{Energy Transition}
+            \begin{enumerate}
+                \item Requires new, low carbon, energy projects.
+                \item Adhering to values of democracy necessitates local support
+                for these projects.
+            \end{enumerate}
+        \end{block}
+        \begin{block}{Public Opposition --- it's not NIMBY}
+            Perceptions of fairness and inclusion, rather than NIMBY attitudes,
+            condition local support
+            \cite{konisky_proximity_2021,aitken_why_2010,stokes_prevalence_2023,firestone_public_2012-1}.
+        \end{block}
+        \begin{block}{}
+            Public testimony can be dismissed for being non-technical
+            \cite{johnson_dakota_2021}. Existing energy planning processes and
+            new energy projects (even ``clean energy'' projects) reproduce
+            existing sociopolitical structures that violate principles of
+            justice.
+        \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Energy Modeling and Distributional Justice}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[vertex](v3) at (0,2)
+                    {\textcolor{black}{\textbf{Distribution}}};
+                    \node[unfocus](v2) at (0,0)
+                    {\textcolor{gray}{\textbf{Procedural}}}; \node[unfocus](v1)
+                    at (0,-2) {\textcolor{gray}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{ESOMs and Distributional Justice}
+            ESOM literature has begun considering distributional justice
+            \cite{neumann_near-optimal_2021,sasse_distributional_2019,obrecht_integrating_2020}.
+        \end{block}
+        \begin{block}{}
+            \begin{itemize}
+                \item Quantifiable
+                \item ``Objective'' --- research questions can be purely
+                descriptive.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Energy Modeling and Procedural/Recognition Justice}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[unfocus](v3) at (0,2){\textcolor{gray}{\textbf{Distribution}}}; 
+                    \node[vertex](v2) at (0,0) {\textcolor{black}{\textbf{Procedural}}};
+                    \node[vertex](v1) at (0,-2){\textcolor{black}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{Procedural Justice}
+            ESOM literature now emphasizes code and data transparency
+            \cite{decarolis_formalizing_2017} and highlights the importance of
+            producing \textit{insight} rather than \textit{answers}
+            \cite{decarolis_using_2011}.
+        \end{block}
+        \begin{block}{}
+            However, the literature does not consider the ways its methods
+            inform policies. Do energy system models make this more transparent or less?
+        \end{block}
+        \begin{block}{Recognition Justice}
+            As a corrolary of its lack of self-awareness, the ESOM literature
+            does not address recognition justice at all --- modeling is
+            independent from public influence.
+        \end{block}
+        \begin{block}{}
+            How inclusive is energy modeling of community preferences?
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+
+% \begin{frame} \frametitle{How does modeling contribute to justice issues?}
+
+%     \begin{block}{Question 2}
+%         How does energy modeling contribute to this problem [of public opposition to energy projects]?    
+%     \end{block}
+% \end{frame}
+
+% \begin{frame} \frametitle{How does modeling contribute to justice issues?}
+
+%     \begin{block}{Question 2}
+%         How does energy modeling contribute to \st{this problem [of public opposition to energy projects]}?
+%         \hspace{2.5cm} violations of procedural/recognition justice?    
+%     \end{block}
+% \end{frame}
+
+\subsection{Background: Energy system models}
+\begin{frame}
+    \frametitle{Why ESOMs struggle with the ``human dimension''}
+    \begin{figure}
+        \centering
+        \resizebox{0.8\columnwidth}{!}{
+            \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                \tikzstyle{every node}=[font=\small]
+                \tikzstyle{vertex} = [circle, draw=black]
+                \tikzstyle{hidden} = [draw=none]
+                \tikzstyle{edge} = [<->, very thick]
+                
+                \node[vertex, fill=LightGray](v1) at (0,5) {\textbf{Normative}};
+                \node[vertex, fill=illiniblue](v2) at (4,0) {\textbf{Structural}};
+                \node[vertex, fill=blue2](v3) at (-4,0) {\textbf{Parametric}};
+    
+                \draw[edge] (v1) -- (v2);
+                \draw[edge] (v2) -- (v3);
+                \draw[edge] (v1) -- (v3);
+    
+                % hidden nodes for v1
+                \node[hidden](h1) at (-0.75, 5) {};
+                \node[hidden](h2) at (0.75, 5) {};
+    
+                % hidden nodes for v2
+                \node[hidden](h3) at (4, 0.75) {};
+                \node[hidden](h4) at (4, -0.7) {};
+    
+                % hidden nodes for v3
+                \node[hidden](h5) at (-4, -0.7) {};
+                \node[hidden](h6) at (-4, 0.75) {};
+    
+                \draw[draw=none] (h4) -- (h5) node[anchor=mid, midway, sloped]{\textbf{Descriptive}};
+                \draw[draw=none] (h6) -- (h1) node[anchor=mid, midway, sloped]{\textbf{Pre-descriptive}};
+                \draw[draw=none] (h2) -- (h3) node[anchor=mid, midway, sloped]{\textbf{Prescriptive}};
+
+                % objectivity scale
+                \node[hidden](u1) at (-6,5) {\textbf{Epistemic}};
+                \node[hidden](u2) at (-6,0) {\textbf{Aleatory}};
+                \draw[edge] (u1) -- (u2);
+
+
+                % objectivity scale
+                \node[hidden](u1) at (6,5) {\textbf{Subjective}};
+                \node[hidden](u2) at (6,0) {\textbf{Objective}}; \draw[edge]
+                (u1) -- (u2);
+    
+    
+        \end{tikzpicture}
+        }
+        \caption{A summary of three uncertainties and their interactions. Note: Shading does not indicate a rigorous comparison.} 
+    \end{figure}
+\end{frame}
+
+% talk about how esoms currently work
+\begin{frame}
+    \frametitle{Energy System Optimization Models (ESOMs)}
+    
+    \begin{block}{Formulation}
+        ESOMs consist of:
+        \begin{itemize}
+            \item A set of decision variables
+            \item ``An economic objective'' \cite{hobbs_optimization_1995}
+            \item A set of constraints
+        \end{itemize}
+    \end{block}
+    \begin{block}{Solution method}
+        Linear programming (LP) / mixed-integer linear programming (MILP)
+    \end{block}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Simple Example Linear Program}
+    
+    \begin{columns}
+        \column[t]{4cm}
+        \begin{block}{Decision variables}
+            Determine the mix of energy sources...
+            \begin{align}
+                \mathbf{X} = {\mathrm{x}_1, \mathrm{x}_2 \mid \mathrm{x} \in \mathbf{R}+}
+            \end{align}
+        \end{block}
+        \begin{block}{Objective}
+            ...that minimizes total cost...
+            \begin{align}
+                \mathrm{min}\left(\mathrm{c}_1\mathrm{x}_1 + \mathrm{c}_2\mathrm{x}_2\right)
+            \end{align}
+        \end{block}
+        \begin{block}{Constraint}
+            ...such that energy demand is always met.
+            \begin{align}
+                \mathrm{x}_1 + \mathrm{x}_2 = 1
+            \end{align}
+        \end{block}
+        \column[t]{6cm}
+        \begin{figure}
+            \centering
+            \resizebox{\columnwidth}{!}{\input{images/simple_esom_lp.pgf}}
+            \caption{Solving a simple linear program by inspection.}
+            \label{fig:simple-lp}
+        \end{figure}
+
+    \end{columns}
+
+\end{frame}
+
+\input{uncertainty/01-parametric01.tex}
+
+\begin{frame}
+    \frametitle{Considering Parametric Uncertainty in a Linear Program}
+    \begin{columns}
+        \column[t]{10cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.75\columnwidth}{!}{\input{images/parametric_uc_lp.pgf}}
+            \caption{Solving a simple linear program by inspection.}
+            \label{fig:param-uc}
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+\input{uncertainty/02-structural01.tex}
+
+\input{tech-gaps/02-gap.tex}
+
+% \section{Methodology}
+\input{proposal/osier.tex}
+
+%
+\section{Motivation and Background II}
+\subsection{Cognitive Myopia}
+\begin{frame}
+    \frametitle{What's still missing?}
+
+    Despite awareness of structural and parametric uncertainties modelers still
+    don't address
+    \begin{itemize}
+        \item How parameter distributions are chosen?
+        \item Why are certain objectives chosen (why should an economic
+        objective be \textit{assumed})?
+        \item If structural uncertainty is addressed by presenting mutliple solutions,
+        how should society choose among those alternatives?
+        \item What motivated the specified set of decision variables (why are
+        technologies included/excluded)?
+        \item How can members of the public adequately deliberate on issues perceived
+        by experts as highly technical?
+    \end{itemize}
+
+    This alludes to another kind of uncertainty... 
+\end{frame}
+
+\input{uncertainty/03-normative01.tex}
+
+\subsection{Proposal}
+\input{tech-gaps/03-gap.tex}
+
+\section{Components II+III: Details}
+\subsection{Component II: How engineering relates to energy justice}
+\begin{frame}
+    \frametitle{How energy modeling can incorporate energy justice}
+    \input{uncertainty/07-triarchic-uncertainty.tex}
+\end{frame}
+\subsection{Component III: Regional Case Study}
+\begin{frame}[allowframebreaks]
+    \frametitle{Regional Case Study}
+
+    \begin{block}{Research Question}
+        How could deliberative processes incorporate a systems model to enhance
+        understanding of community priorities to make derived energy policies
+        more representative?
+    \end{block}
+
+    \begin{block}{Methods}
+        \begin{itemize}
+            \item \boldorange{Semi-structured interviews}: 
+            \begin{itemize}
+                \item Understand existing procedures for creating energy visions
+                and policies in the Champaign-Urbana region.
+                \item Understand how energy planners could/would understand
+                tradeoffs presented with a systems model.
+            \end{itemize}
+            \item \boldorange{Potentially analyzed with:} % I will decide this based on what the data looks like
+            \begin{itemize}
+                \item Discursive Analysis % "the extent to which I understand these methods..."
+                \item Thematic Analysis
+                \item Process Tracing
+                \item or another method... 
+            \end{itemize}
+        \end{itemize}
+    \end{block}
+    \begin{block}{Results}
+        Rather than producing quantitative data to incorporate into the
+        modeling, the results will inform a process that enhances the
+        recognition and procedural justice aspects for developing energy visions
+        and policies.
+
+        \begin{itemize}
+            \item Elucidate what is actually important to community members ---
+            not simply modeling assumptions.
+            \item Update model objectives based on feedback.
+        \end{itemize}
+    \end{block}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Summary}
+    \begin{enumerate}
+        \item Energy models inform policy but can't capture the ``human dimension''
+        \item Discussed different aspects of justice and how ESOMs consider them
+        \item Introduced \texttt{Osier} as a solution to the problem of single-objective optimization
+        \item Explained three types of uncertainties and how they relate ESOMs and energy justice.
+        \item Proposed enhancements to \texttt{Osier} and a paradigmatic case-study for validation.
+    \end{enumerate}
+
+\end{frame}
+
+
+\section*{Backup Slides}
+
+\begin{frame}
+    \frametitle{}
+
+    \begin{center}
+        \Huge Backup Slides
+    \end{center}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Near-optimal Space for Cost and Carbon Emissions}
+
+    \begin{figure}
+        \centering 
+        % \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/results/temoa_osier_benchmark_01.pgf}}
+        \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/osier_mga_subset_01.pgf}}
+        \caption{Sampling the near-optimal space for \texttt{Osier}'s Pareto
+        front.}
+        \label{fig:osier-temoa-benchmark-1}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Optimizing four objectives: Alternative Visualization}
+
+    \begin{figure}
+        \centering 
+        % \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/results/temoa_osier_benchmark_01.pgf}}
+        \resizebox{0.9\columnwidth}{!}{\input{../docs/figures/4_obj_design_space_total_cost.pgf}}
+        \caption{The five lowest cost solutions. Darker shade corresponds to lower cost.}
+        \label{fig:4-obj-design-space-total-cost}
+    \end{figure}
+
+\end{frame}
+
+\input{uncertainty/05-structural-norm01.tex}
+
+
+% \begin{itemize} \item Provides an illusion of objectivity that can be used to
+%     dismiss non-technical concerns. \item Even ``transparent'' models are
+%     opaque to public scrutiny. \end{itemize}
+
+
+% \begin{frame} \frametitle{Enhanced Participation?}
+
+%     \begin{enumerate} \item Although public hearings exist during licensing
+%         procedures for many types of energy projects these hearings
+%         \textit{close down} rather than \textit{open up} debate
+%         \cite{wilsdon_see-through_2004,stirling_opening_2008}. \item This is
+%         because public testimony can be dismissed as ``untechnical,'' such as
+%         testimonies raising concerns about the Dakota Access Pipeline (DAPL)
+%         running through Illinois \cite{johnson_dakota_2021}. \item Opposition
+%         does not always stop but it can delay progress towards adopting clean
+%         energy technologies, and the lack of participatory options does not
+%         improve public trust in a technology, regardless. \item Does the
+%         public even know what their preferences are? \item The issue
+%         transforms into the following: how can we bridge the communication gap
+%         between the lay public and engineers in a way that maintains technical
+%         rigor but also directly incorporates public preferences?
+
+%     \end{enumerate}
+
+% \end{frame}
+
+% \begin{frame} \frametitle{Energy Systems as a Social Experiment}
+
+%     \begin{enumerate} \item Multi-objective methods are useful for
+%         articulating preferences and identifying tradeoffs in an iterative
+%         process. \item This iterative process is useful for highlighting the
+%         priorities of the public. Especially in the sense of energy systems as
+%         ``social experiments'' \cite{van_de_poel_nuclear_2011} the
+%         consequences of which may not always be known in advance. But they
+%         must always be considered in the context of alternatives, because
+%         maintaining the status quo is also a social experiment which in our
+%         present circumstances produces deleterious consequences for the
+%         environment and human thriving. \end{enumerate}
+
+% \end{frame}

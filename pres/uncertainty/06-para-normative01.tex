@@ -1,0 +1,91 @@
+\begin{frame}
+    \frametitle{How normativity influences parametric uncertainty}
+    \begin{columns}
+        \column[t]{4cm}
+        \begin{figure}
+            \centering
+            \resizebox{\columnwidth}{!}{
+            \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=illiniblue] \tikzstyle{hidden} =
+                    [draw=none] \tikzstyle{edge} = [<->, very thick]
+                    
+                    \node[vertex](v1) at (0,5) {\textbf{Normative}};
+                    % \node[vertex](v2) at (4,0) {\textbf{Structural}};
+                    \node[vertex](v3) at (-4,0) {\textbf{Parametric}};
+
+                    \draw[edge] (v1) -- (v3);
+
+                    \node[hidden](h1) at (-0.75, 5) {};
+
+                    \node[hidden](h6) at (-4, 0.75) {};
+
+                    \draw[draw=none] (h6) -- (h1) node[anchor=mid, midway,
+                    sloped]{\textbf{Pre-descriptive}};
+                    
+            \end{tikzpicture}
+            }
+            % \caption{Parametric Uncertainty} \label{fig:triarchic-uncertainty}
+        \end{figure}
+
+        \column[t]{6cm}
+        Related to model inputs, modelers may:
+        \begin{itemize}
+            \item \boldorange{Curate} input data from other sources,
+            \item \boldorange{Generate} data from prior model runs,
+            \item \boldorange{Produce} an input distribution from experience.
+        \end{itemize}
+    \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{How are representative probability distributions chosen?}
+
+    \begin{columns}
+        \column[t]{5cm}
+        \begin{figure}
+            \centering
+            \resizebox{\columnwidth}{!}{
+                \input{../docs/figures/many-dist-single-param.pgf}
+            }
+            \caption{Possible distributions for a single parameter. Which is best?}
+            \label{fig:many-distributions}
+        \end{figure}
+        \column[t]{5cm}
+            \textit{The probability distributions are usually obtained through modelers'
+            judgement or expert elicitations \cite{yue_review_2018}.}\\~\\
+
+            \boldblue{Problem:} Without understanding how or why a modeler created or 
+            chose a distribution, the twin goals of reproducibility and transparency are
+            challenged.
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{What influences the choice of probability distribution?}
+        \begin{block}{Knightian/Deep/Epistemic Uncertainty}
+            Unknowable unknowns --- uncertainties that cannot be quantified or measured due to a 
+            lack of knowledge or understanding \cite{knight_risk_1921}. 
+        \end{block}
+        \pause
+        \begin{block}{Ambiguity Aversion / Ellsberg Paradox}
+            A decision maker will choose a highly risky option with quantifiable uncertainties
+            over an option with deep uncertainties \cite{ellsberg_risk_1961}.
+        \end{block}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Considerations with Ambiguity Aversion}
+
+    For those highly \boldorange{epistemic} uncertainties...
+
+    \begin{enumerate}
+        \item Awareness of the Ellsberg Paradox does not alleviate ambiguity aversion \cite{jia_learning_2020}.
+        \item Ambiguity aversion produces a cautionary shift (i.e. more conservative estimation) \cite{keller_examination_2007}.
+    \end{enumerate}
+
+\end{frame}

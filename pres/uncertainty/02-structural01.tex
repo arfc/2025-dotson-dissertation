@@ -1,0 +1,123 @@
+\begin{frame}
+    \frametitle{Structural Uncertainty}
+
+    \begin{columns}
+        \column[t]{4cm}
+        \begin{figure}
+            \centering
+            \resizebox{\columnwidth}{!}{
+            \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small]
+                    \tikzstyle{vertex} = [circle, draw=black, fill=illiniblue]
+                    \tikzstyle{hidden} = [draw=none]
+                    \tikzstyle{edge} = [<->, very thick]
+                    
+                    % \node[vertex](v1) at (0,5) {\textbf{Normative}};
+                    \node[vertex](v2) at (4,0) {\textbf{Structural}};
+
+        
+            \end{tikzpicture}
+            }
+            % \caption{Parametric Uncertainty}
+            % \label{fig:triarchic-uncertainty}
+        \end{figure}
+
+        \column[t]{6cm}
+        \begin{block}{Structural Uncertainty}
+            [R]efers to the imperfect and incomplete nature of the equations describing the system \cite{decarolis_using_2011}.
+        \end{block}
+        
+        This type of uncertainty will \textit{always} persist.
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example Sources of Structural Uncertainty}
+
+    Unmodeled or unmodelable aspects of the model related to:
+
+    \begin{enumerate}
+        \item Objective functions
+        \item Physics fidelity, for example
+        \begin{itemize}
+            \item optimal power flow,
+            \item turbulence (air flow, water flow, etc.),
+            \item thermodynamics (e.g., weather impacting a power plant's ultimate heat sink)
+        \end{itemize} 
+    \end{enumerate}
+
+\end{frame}
+
+% \begin{frame}
+%     \frametitle{Consequences of unhandled structural uncertainty}
+
+%     \begin{enumerate}
+%         \item Overconfidence in results
+%         \item Cognitive myopia
+%         \item Missed acceptable alternatives
+%     \end{enumerate}
+
+% \end{frame}
+
+\begin{frame}
+    \frametitle{Addressing Structural Uncertainty}
+        \begin{block}{}
+            \begin{center}
+                Generate \textit{insight} rather than \textit{answers}.
+            \end{center}
+        \end{block}
+        \begin{block}{Idea}
+            Look for alternatives in the ``near-optimal'' space.            
+        \end{block}
+
+        \begin{block}{Modeling-to-generate-alternatives (MGA)}
+            \begin{enumerate}
+                \item \boldorange{Relax} the objective function.
+                \item \boldorange{Search} for maximally different solutions in the design space.
+                \item \boldorange{Iterate} until enough solutions have been generated.
+            \end{enumerate}        
+        \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Structural Uncertainty in an ESOM}
+
+    \begin{columns}
+        \column[t]{10cm}
+        \begin{figure}
+            \centering
+            % \resizebox{\columnwidth}{!}{\input{../docs/figures/standard-mga.pgf}}
+            \resizebox{0.75\columnwidth}{!}{\input{images/naive_mga_lp.pgf}}
+            \caption{Illustration of the MGA algorithm.}
+            \label{fig:standard-mga}
+        \end{figure}
+    \end{columns}
+
+\end{frame}
+
+% \begin{frame}
+%     \frametitle{Addressing Structural Uncertainty}
+
+%     \begin{columns}
+%         \column[t]{4cm}
+%         \boldblue{Idea:} Look for alternatives in the ``near-optimal'' space.\\~\\
+
+%         How? Modeling-to-generate-alternatives (MGA)
+%         \begin{enumerate}
+%             \item \boldorange{Relax} the objective function.
+%             \item \boldorange{Search} for maximally different solutions in the design space.
+%             \item \boldorange{Iterate} until enough solutions have been generated.
+%         \end{enumerate}
+    
+%         \column[t]{6cm}
+%         \begin{figure}
+%             \centering
+%             % \resizebox{\columnwidth}{!}{\input{../docs/figures/standard-mga.pgf}}
+%             \resizebox{\columnwidth}{!}{\input{images/naive_mga_lp.pgf}}
+%             \caption{Illustration of the MGA algorithm.}
+%             \label{fig:standard-mga}
+%         \end{figure}
+%     \end{columns}
+
+% \end{frame}

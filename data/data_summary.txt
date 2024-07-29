@@ -1,0 +1,33 @@
+Data summary for Osier simulations
+
+11/14/22 (files without a date)
+
+- The results for this simulation are pretty good, however the total system cost is significantly higher than Temoa's. This is
+because Temoa truncates annual payments at the end of the simulation. In this case, the undiscounted objective for a single year
+is essentially the same as dividing by the average technology lifetime (I made all technology lifetimes 25 years). 
+
+11/15/22
+
+- I modified the capital cost calculation by dividing the average technology lifetime (25 years). Another successful run! The
+least cost simulations were much more consistent with the value from Temoa. In fact, it looks like the (cost, co2) pair 
+lies along the pareto front! However, the co2 values are a bit strange... I think the specific co2 (co2 / energy) were given in kg/GWh?
+Since I don't trust these values, I want to run it again.
+
+11/16/22 
+
+- The data are modified again. Now the CO2 values are in units of Million metric tons per GWh (confirmed by unyt).
+
+12-11-22
+
+- This run used the USNGA-3 algorithm, and ran for 4 days (103 hours). 
+- There are known issues with this version. Primarily with the value of lost load -- which was set way too high
+(due to my failure to convert units). Thus, the most expensive result has a total cost of ~1e8 million dollars.
+Which is utterly nonsensical. The demand is in GWh, power is in GW. I need to make sure that the data are all 
+in the correct units.
+
+12-18-22
+- The dispatch model now includes stronger unit handling which should have solved the problem of extremely high
+costs. However, the results of this run show that the high end costs are still ~1e6, which is far too high. 
+
+12-27-22
+- This run turns off the "allow_blackout" flag, which forces the model to balance energy exactly.
