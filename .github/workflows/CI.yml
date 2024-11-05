@@ -12,7 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        # os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest]
 
     defaults:
       run:
@@ -22,11 +23,11 @@ jobs:
       # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+          
       - name: Create environment with Mamba
         uses: conda-incubator/setup-miniconda@v2
         with:
-          miniforge-variant: Mambaforge # mamba is faster than base conda
+          miniforge-variant: Miniforge # mamba is faster than base conda
           miniforge-version: latest
           channels: conda-forge, bioconda
           auto-activate-base: false
@@ -68,18 +69,9 @@ jobs:
           fi
 
       # Execute the Snakemake workflow
-      - name: Run Snakemake workflow (Basic)
+      - name: Run Snakemake workflow
         run: |
           cd analysis && snakemake -j2
-      - name: Run Snakemake workflow (Windows)
-        if: matrix.os == 'windows-latest'
-        run: |
-          cd analysis && snakemake -j2
-
-      - name: Run Snakemake workflow (Unix)
-        if: matrix.os != 'windows-latest'
-        run: |
-          (cd analysis && snakemake -j2)
 
       # Upload the generated PDF as an artifact
       - name: Upload PDF artifact
