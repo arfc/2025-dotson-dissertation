@@ -22,11 +22,33 @@ $ cd 2025-dotson-dissertation/docs
 $ make
 ```
 
-
 ## From the template repository
 ### uiucthesis class
 
 A LaTeX package for formatting theses in the format required by the University of Illinois at Urbana-Champaign.
+
+
+# Reproducing the Analysis
+
+Many of the plots that were present in the original preliminary document were produced using a `juptyer notebook`. The analyses new to this thesis were developed using a `snakemake` workflow. This repository includes an `environment.yaml` file to facilitate reproducibility of this work.
+
+## Setting up the environment
+
+To set up the `mamba` environment, run the following commands in either command prompt or terminal.
+
+```bash
+cd 2025-dotson-dissertation
+mamba create
+```
+
+## Running the workflow
+
+To run execute the `snakemake` workflow run the following commands in either command prompt or terminal.
+
+```bash
+cd analysis/workflow
+snakemake --cores=1
+```
 
 #### Update Notes
 

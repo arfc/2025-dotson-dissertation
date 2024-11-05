@@ -26,7 +26,7 @@
 *.bcf
 *.run.xml
 *.pyg
-
+.env
 __pycache__/
 .ipynb_checkpoints/
 data/benchmark/data/*

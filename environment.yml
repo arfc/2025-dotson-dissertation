@@ -1,0 +1,60 @@
+name: thesis
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python<3.12
+  - pip 
+
+  - ipython
+  - ipykernel
+  - jupyterlab
+  - snakemake-minimal>=8.14
+  - yaml
+  - lxml
+
+  - dask
+  - pandas
+  - scipy
+  - numpy
+  - matplotlib
+  - seaborn 
+  - unyt
+
+  - pytest
+  - pytest-cov
+
+  - pypsa >= 0.3
+  - linopy
+  - pyomo
+  - glpk
+  - coincbc
+
+  - geopandas>=1
+  - xarray>=2023.11.0
+  - rioxarray
+  - netcdf4
+  - networkx
+  - shapely>=2.0
+  - proj
+  - fiona
+  - country_converter
+  - geopy
+  - tqdm
+
+  - cartopy
+  - descartes
+  - rasterio!=1.2.10
+
+  - pip:
+    - pymoo
+    - pyentrp
+    - deap
+    - dill
+    - openpyxl
+    - osier
+    - highspy
+    - python-dotenv
+    - git+https://github.com/kmax12/gridstatus.git
+    - us
+    
