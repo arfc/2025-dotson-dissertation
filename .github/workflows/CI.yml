@@ -1,4 +1,4 @@
-name: Test LaTeX Workflow
+name: Build Dissertation
 
 on:
   push:
