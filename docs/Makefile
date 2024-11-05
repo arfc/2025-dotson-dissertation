@@ -1,4 +1,4 @@
-manuscript = thesis
+manuscript = 2025-dotson-thesis
 references = $(wildcard *.bib)
 latexopt   = -shell-escape -halt-on-error -file-line-error 
 

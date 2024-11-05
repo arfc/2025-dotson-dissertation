@@ -7,32 +7,40 @@ latexopt = """
             -halt-on-error
             """
 
+docs_path = "../docs/"
+
+with open(f"{docs_path}Makefile", "r") as file:
+    lines = file.readlines()
+
+output_name = lines[0].strip('\n').replace(' ', '').split('=')[-1]
+
+#============================RULES================================
 rule targets:
     input:
-        thesis = "../docs/thesis.pdf",
+        thesis = f"{docs_path}{output_name}.pdf",
         dag = "dag.png"
 
 if sys.platform == 'Windows':
     rule build_thesis:
         input: 
-            main_tex = "../docs/thesis.tex"
-        output: "../docs/thesis.pdf"
+            main_tex = f"{docs_path}{output_name}.tex"
+        output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
             cd ../docs && \
-            pdflatex {latexopt} thesis.tex && \
-            biber thesis && \
-            pdflatex {latexopt} thesis.tex && \
-            pdflatex {latexopt} thesis.tex &&
+            pdflatex {latexopt} {output_name}.tex && \
+            biber {output_name} && \
+            pdflatex {latexopt} {output_name}.tex && \
+            pdflatex {latexopt} {output_name}.tex &&
             """
 elif sys.platform in ['darwin', 'linux']:
     rule build_thesis:
         input: 
-            main_tex = "../docs/thesis.tex"
-        output: "../docs/thesis.pdf"
+            main_tex = f"{docs_path}{output_name}.tex"
+        output: f"{docs_path}{output_name}.pdf"
         shell:
-            """
-            (cd ../docs && make)
+            f"""
+            (cd {docs_path} && make)
             """
 
 rule build_dag:
