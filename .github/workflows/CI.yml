@@ -24,13 +24,15 @@ jobs:
         uses: actions/checkout@v3
 
       - uses: actions/checkout@v3
-      - name: Set up conda
+      - name: Create environment with Mamba
         uses: conda-incubator/setup-miniconda@v2
         with:
           miniforge-variant: Mambaforge # mamba is faster than base conda
           miniforge-version: latest
           channels: conda-forge, bioconda
+          auto-activate-base: false
           activate-environment: 2025-dotson-thesis
+          environment-file: environment.yml
           use-mamba: true
           use-only-tar-bz2: true
       - run: |
