@@ -5,6 +5,11 @@ on:
     branches:
       - main
   pull_request:
+    branches:
+      - main
+
+env:
+  CACHE_NUMBER: 0 
 
 jobs:
   build:
@@ -35,24 +40,26 @@ jobs:
           environment-file: environment.yml
           use-mamba: true
           use-only-tar-bz2: true
+          cache-env: true
       - run: |
           conda config --env --set pip_interop_enabled True
 
       # Set up caching to speed up subsequent runs
-      - name: Set up cache
+      - name: Set up LaTeX cache
         uses: actions/cache@v3
+        id: latex-cache
         with:
           path: |
             ~/.texlive
-            ~/.miktex
             /usr/local/texlive
-            ${{ runner.temp }}/latex_cache
           key: ${{ runner.os }}-latex-${{ hashFiles('**/Snakefile') }}
           restore-keys: |
             ${{ runner.os }}-latex-
 
       # Install LaTeX on each OS
       - name: Install LaTeX
+        env: 
+          CACHE_HIT: ${{ steps.latex-cache.outputs.cache-hit }}
         run: |
           if [[ ${{ matrix.os }} == 'ubuntu-latest' ]]; then
             sudo apt-get update
@@ -77,5 +84,5 @@ jobs:
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v3
         with:
-          name: thesis-pdf
-          path: docs/thesis.pdf
+          name: 2025-dotson-thesis
+          path: docs/2025-dotson-thesis.pdf
