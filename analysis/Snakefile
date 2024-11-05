@@ -17,7 +17,7 @@ if sys.platform == 'Windows':
         input: 
             main_tex = "../docs/thesis.tex"
         output: "../docs/thesis.pdf"
-        run:
+        shell:
             f"""
             cd ../docs && \
             pdflatex {latexopt} thesis.tex && \
@@ -30,7 +30,7 @@ elif sys.platform in ['darwin', 'linux']:
         input: 
             main_tex = "../docs/thesis.tex"
         output: "../docs/thesis.pdf"
-        run:
+        shell:
             """
             (cd ../docs && make)
             """
