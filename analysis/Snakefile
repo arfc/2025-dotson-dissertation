@@ -1,5 +1,11 @@
 import sys
 
+latexopt = """
+            -shell-escape 
+            -interaction nonstopmode 
+            -file-line-error 
+            -halt-on-error
+            """
 
 rule targets:
     input:
@@ -12,12 +18,12 @@ if sys.platform == 'Windows':
             main_tex = "../docs/thesis.tex"
         output: "../docs/thesis.pdf"
         run:
-            """
-            cd C:/path/to/thesis_directory && \
-            pdflatex -shell-escape thesis.tex && \
+            f"""
+            cd ../docs && \
+            pdflatex {latexopt} thesis.tex && \
             biber thesis && \
-            pdflatex -shell-escape thesis.tex && \
-            pdflatex -shell-escape thesis.tex
+            pdflatex {latexopt} thesis.tex && \
+            pdflatex {latexopt} thesis.tex &&
             """
 elif sys.platform in ['darwin', 'linux']:
     rule build_thesis:
