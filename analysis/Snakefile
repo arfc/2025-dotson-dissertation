@@ -1,0 +1,22 @@
+rule targets:
+    input:
+        thesis = "../docs/thesis.pdf",
+        dag = "dag.png"
+
+
+rule build_thesis:
+    input: 
+        main_tex = "../docs/thesis.tex"
+    output: "../docs/thesis.pdf"
+    run:
+        """
+        (cd ../docs && make)
+        """
+
+
+rule build_dag:
+    input: "Snakefile"
+    output:
+        "dag.png"
+    shell:
+        "snakemake --dag | dot -Tpng > {output}"

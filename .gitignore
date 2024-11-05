@@ -27,6 +27,7 @@
 *.run.xml
 *.pyg
 .env
+.snakemake
 __pycache__/
 .ipynb_checkpoints/
 data/benchmark/data/*
