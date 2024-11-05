@@ -1,0 +1,83 @@
+name: Test LaTeX Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - uses: actions/checkout@v3
+      - name: Set up conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-variant: Mambaforge # mamba is faster than base conda
+          miniforge-version: latest
+          channels: conda-forge, bioconda
+          activate-environment: 2025-dotson-thesis
+          use-mamba: true
+          use-only-tar-bz2: true
+      - run: |
+          conda config --env --set pip_interop_enabled True
+
+      # Set up caching to speed up subsequent runs
+      - name: Set up cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.texlive
+            ~/.miktex
+            /usr/local/texlive
+            ${{ runner.temp }}/latex_cache
+          key: ${{ runner.os }}-latex-${{ hashFiles('**/Snakefile') }}
+          restore-keys: |
+            ${{ runner.os }}-latex-
+
+      # Install LaTeX on each OS
+      - name: Install LaTeX
+        run: |
+          if [[ ${{ matrix.os }} == 'ubuntu-latest' ]]; then
+            sudo apt-get update
+            sudo apt-get install -y texlive-full biber
+          elif [[ ${{ matrix.os }} == 'macos-latest' ]]; then
+            brew install --cask mactex-no-gui
+            sudo tlmgr update --self && sudo tlmgr install biber
+          elif [[ ${{ matrix.os }} == 'windows-latest' ]]; then
+            choco install miktex -y
+            miktexsetup finish
+            initexmf --update-fndb
+            initexmf --mklinks
+            initexmf --mklangs
+          fi
+
+      # Execute the Snakemake workflow
+      - name: Run Snakemake workflow (Basic)
+        run: |
+          cd analysis && snakemake -j2
+      - name: Run Snakemake workflow (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd analysis && snakemake -j2
+
+      - name: Run Snakemake workflow (Unix)
+        if: matrix.os != 'windows-latest'
+        run: |
+          (cd analysis && snakemake -j2)
+
+      # Upload the generated PDF as an artifact
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: thesis-pdf
+          path: docs/thesis.pdf
