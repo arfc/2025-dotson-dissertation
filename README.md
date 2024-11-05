@@ -1,6 +1,8 @@
 
 # 2025-dotson-dissertation
 
+[![Build Dissertation](https://github.com/arfc/2025-dotson-dissertation/actions/workflows/CI.yml/badge.svg)](https://github.com/arfc/2025-dotson-dissertation/actions/workflows/CI.yml)
+
 This repository holds my preliminary exam document. The style guide comes from the University of Illinois Urbana-Champaign Graduate College. A link to the resources may be found [here](https://grad.illinois.edu/thesis/format).
 
 # Compiling the prelim document
