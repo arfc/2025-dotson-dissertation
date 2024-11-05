@@ -9,7 +9,7 @@ dependencies:
   - ipython
   - ipykernel
   - jupyterlab
-  - snakemake-minimal>=8.14
+  - snakemake-minimal
   - yaml
   - lxml
   - graphviz
@@ -31,8 +31,8 @@ dependencies:
   - glpk
   - coincbc
 
-  - geopandas>=1
-  - xarray>=2023.11.0
+  - geopandas
+  - xarray
   - rioxarray
   - netcdf4
   - networkx
