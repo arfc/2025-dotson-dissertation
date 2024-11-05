@@ -39,14 +39,19 @@ To set up the `mamba` environment, run the following commands in either command 
 ```bash
 cd 2025-dotson-dissertation
 mamba create
+mamba activate 2025-dotson-thesis
 ```
 
 ## Running the workflow
 
+The `snakemake` workflow used here is shown by the DAG below.
+
+![dag](analysis/dag.png)
+
 To run execute the `snakemake` workflow run the following commands in either command prompt or terminal.
 
 ```bash
-cd analysis/workflow
+cd analysis
 snakemake --cores=1
 ```
 
