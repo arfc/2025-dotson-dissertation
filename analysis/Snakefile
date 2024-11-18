@@ -18,12 +18,24 @@ output_name = lines[0].strip('\n').replace(' ', '').split('=')[-1]
 rule targets:
     input:
         thesis = f"{docs_path}{output_name}.pdf",
-        dag = "dag.png"
+        dag = "dag.png",
+
+rule collect_figures:
+    input:
+        social_max_plot = "../docs/figures/social_max.pgf",
+        elasticity_plot = "../docs/figures/elasticity.pgf"
+    output:
+        log = "figure-log.txt"
+    shell:
+        f"""
+        echo {input} > figure-log.txt
+        """
 
 if sys.platform == 'Windows':
     rule build_thesis:
         input: 
-            main_tex = f"{docs_path}{output_name}.tex"
+            main_tex = f"{docs_path}{output_name}.tex",
+            log = "figure-log.txt"
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -36,7 +48,8 @@ if sys.platform == 'Windows':
 elif sys.platform in ['darwin', 'linux']:
     rule build_thesis:
         input: 
-            main_tex = f"{docs_path}{output_name}.tex"
+            main_tex = f"{docs_path}{output_name}.tex",
+            log = "figure-log.txt"
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -49,3 +62,11 @@ rule build_dag:
         "dag.png"
     shell:
         "snakemake --dag | dot -Tpng > {output}"
+
+
+rule plot_social_welfare_max:
+    input: "scripts/social_welfare_maximization.py"
+    output: 
+        social_max_plot = "../docs/figures/social_max.pgf",
+        elasticity_plot = "../docs/figures/elasticity.pgf"
+    script: ""
