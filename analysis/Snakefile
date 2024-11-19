@@ -8,6 +8,7 @@ latexopt = """
             """
 
 docs_path = "../docs/"
+figure_log = "figures.log"
 
 with open(f"{docs_path}Makefile", "r") as file:
     lines = file.readlines()
@@ -22,24 +23,29 @@ rule targets:
 
 rule collect_figures:
     input:
-        social_max_plot = "../docs/figures/social_max.pgf",
-        elasticity_plot = "../docs/figures/elasticity.pgf"
+        social_max_plot = f"{docs_path}figures/social_max.pgf",
+        elasticity_plot = f"{docs_path}figures/elasticity.pgf",
+        example_pareto_plot = f"{docs_path}/figures/truss2d_pareto.pgf",
+        near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf",
+        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf"
     output:
-        log = "figure-log.txt"
+        log = figure_log
     shell:
-        f"""
-        echo {input} > figure-log.txt
+        """
+        for file in {input}; do
+            echo $file >> {output.log}
+        done
         """
 
 if sys.platform == 'Windows':
     rule build_thesis:
         input: 
             main_tex = f"{docs_path}{output_name}.tex",
-            log = "figure-log.txt"
+            log = figure_log
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
-            cd ../docs && \
+            cd {docs_path} && \
             pdflatex {latexopt} {output_name}.tex && \
             biber {output_name} && \
             pdflatex {latexopt} {output_name}.tex && \
@@ -49,7 +55,7 @@ elif sys.platform in ['darwin', 'linux']:
     rule build_thesis:
         input: 
             main_tex = f"{docs_path}{output_name}.tex",
-            log = "figure-log.txt"
+            log = figure_log
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -67,6 +73,21 @@ rule build_dag:
 rule plot_social_welfare_max:
     input: "scripts/social_welfare_maximization.py"
     output: 
-        social_max_plot = "../docs/figures/social_max.pgf",
-        elasticity_plot = "../docs/figures/elasticity.pgf"
-    script: ""
+        social_max_plot = f"{docs_path}figures/social_max.pgf",
+        elasticity_plot = f"{docs_path}figures/elasticity.pgf"
+    script: f"{input}"
+
+
+rule plot_example_fronts:
+    input: "scripts/pareto_front.py"
+    output:
+        example_pareto_plot = f"{docs_path}/figures/truss2d_pareto.pgf",
+        near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf"
+    script: f"{input}"
+
+
+rule plot_3d_fronts:
+    input: "scripts/pareto_3D.py"
+    output:
+        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf"
+    script: f"{input}"
