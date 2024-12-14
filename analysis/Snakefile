@@ -25,7 +25,7 @@ rule collect_figures:
     input:
         social_max_plot = f"{docs_path}figures/social_max.pgf",
         elasticity_plot = f"{docs_path}figures/elasticity.pgf",
-        example_pareto_plot = f"{docs_path}/figures/truss2d_pareto.pgf",
+        example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
         near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf",
         pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf"
     output:
@@ -81,7 +81,7 @@ rule plot_social_welfare_max:
 rule plot_example_fronts:
     input: "scripts/pareto_front.py"
     output:
-        example_pareto_plot = f"{docs_path}/figures/truss2d_pareto.pgf",
+        example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
         near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf"
     script: f"{input}"
 
