@@ -1,15 +1,12 @@
 \section{Dispatch Model}
-\ac{osier} offers three models for dispatching energy. The first is a merit order
+\ac{osier} offers two models for dispatching energy. The first is a merit order
 dispatch model that optimally dispatches electricity according to the marginal
 cost of generation with perfect foresight. This model is formulated as a
 \acf{lp} and written in \ac{pyomo}. Similarly, the second dispatch model follows
 merit-order but electricity is dispatched according to a hierarchy of rules and
-is myopic. This approach is advantageous over the \ac{lp} formulation because it
-facilitates parallelization and doesn't have the overhead cost of setting up the
-problem. However, dispatch solutions may be sub-optimal compared to the \ac{lp}
-approach. The third model is a simplified dispatch model that is very fast,
-taking advantage of vectorization, but makes several assumptions about the
-energy system and is not appropriate for general use.
+is myopic. This approach facilitates parallelization and reduces the overhead
+cost of problem setup. However, dispatch solutions may be sub-optimal compared 
+to the \ac{lp} formulation.
 
 \subsection{Economic/Merit-order dispatch}
 \label{section:merit_order}
@@ -70,4 +67,79 @@ electricity is identical to the marginal cost of producing electricity.
 
 \subsection{Hierarchical dispatch}
 
-\subsection{Simplified dispatch}
+Similar to the \ac{lp} formulation described in Section
+\ref{section:merit_order}, the hierarchical dispatch follows a set of rules to
+dispatch energy. Technologies are first sorted by their marginal cost. If two
+technologies have the same marginal cost the tie is broken by comparing the 
+technology efficiencies. Then, model loops through each value in the provided 
+electricity demand time series. A second loop runs through the sorted list of 
+technology objects and calculates the power output for each technology. There
+are three broad types of technologies in \ac{osier}: Standard technologies,
+ramping technologies, and storage technologies. The power output for a standard
+technology is given by
+
+\begin{align}
+    x_{g,t} &= \text{max}\left(0, \text{min}\left(D_t, \textbf{CAP}_g\right)\right)\label{eq:std_tech_output}.
+\end{align}
+
+\noindent
+This equation guarantees that a standard technology will produce energy between
+zero and its rated capacity. In addition to Equation \ref{eq:std_tech_output},
+a ``ramping'' technology will calculate the maximum and minimum attainable power
+levels given its ramp rates and the problem's time resolution. The power output
+is given by
+
+\begin{align}
+    x_{g,t} &= \begin{cases}
+         \text{max}\left(D_t, P_{min}\right) & D_t < x_{g,t-1}\\
+         \text{min}\left(D_t, P_{max}\right) & x_{g,t-1} \leq D_t \leq \textbf{CAP}_g \\
+         P_{max} & x_{g,t-1} \leq \textbf{CAP}_g \leq D_t
+     \end{cases}
+     \intertext{where}
+     P_{min} &= \text{max}\left(0, \left(x_{g,t-1}-\rho_g^{down}\Delta t\right)\right),\nonumber\\
+     P_{max} &= \text{min}\left(\left(x_{g,t-1}+\rho_g^{up}\Delta t\right), \textbf{CAP}_g\right).\nonumber
+\end{align}
+
+\textcolor{red}{$\rho_g$ is not the same $rho_g$ as in the LP formulation! Maybe
+choose another variable and explain its meaning... It should be the "ramp up"
+which is the ramp rate times the capacity.}
+
+Finally, a storage technology has a charging and discharging mode, depending on
+whether the current demand level is positive or negative.
+
+
+Figure \ref{fig:hierarchy_algorithm} illustrates the algorithm.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=1.7cm]
+            \tikzstyle{every node}=[font=\small] 
+            \node (1) [lbblock]{\textbf{Sort technologies by marginal cost}}; 
+            \node(2) [lbblock, below of =1] {\textbf{Start dispatch loop}};
+            \node(3) [lbblock, below of=2] {\textbf{Calculate power output for
+            current technology}};
+            \node(4) [lbblock, below of=3] {\textbf{Decrement current demand
+            value \\ by power output}};
+            \node(5) [lbblock, below of=4] {\textbf{Reached last technology?}};
+            \node (7) [lbblock, below of=5] {\textbf{Reached the end of the
+            demand time series?}}; 
+            \node (8) [loblock,below of=7] {\textbf{Done}}; 
+            \draw [arrow] (1) -- (2); 
+            \draw [arrow] (2) -- (3);
+            \draw [arrow] (3) -- (4);
+            \draw [arrow] (4) -- (5);
+            \draw [arrow] (5) -- node[anchor=east]{yes} (7); 
+            \draw [arrow] (5) -- ([shift={(0.5cm,0cm)}]5.east) -- node[anchor=west] 
+            {no} ([shift={(0.5cm,0cm)}]3.east)--(3);
+            \draw [arrow] (7) -- (8); 
+            \draw [arrow] (7) -- node[anchor=east]{yes} (8); 
+            \draw [arrow] (7) -- ([shift={(1.15cm,0cm)}]7.east) -- node[anchor=west] 
+            {no} ([shift={(1.15cm,0cm)}]2.east)--(2);
+    \end{tikzpicture}
+    \caption{The hierarchical dispatch flow.}
+    \label{fig:hierarchy_algorithm}
+\end{figure}
+
+\subsubsection{Technology output calculation}
+
+Each technology object 
