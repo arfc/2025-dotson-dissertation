@@ -68,3 +68,36 @@ if __name__ == "__main__":
     ax.set_ylim(min(F2),max(F2))
     ax.legend(fontsize=14)
     plt.savefig("../docs/figures/near-optimal-pareto.pgf")
+
+
+    """
+    Visualize interior points
+    """
+    F3 = F*(1+slack)
+
+    rng = np.random.default_rng(seed=1234)
+    R = rng.uniform(1000,2)
+    R[:,1] = R[:,1]*15e4
+    R[:,0] = R[:,0]*8e-2
+    R_sub = R[(R[:,1] < 12e4) & (R[:,0] < 0.06)]
+
+    interior_pts = []
+    for p in R_sub:
+        cond_1 = np.any((p < F3).sum(axis=1) == 2)
+        cond_2 = np.any((p > F).sum(axis=1) == 2)
+        if cond_1 and cond_2:
+            interior_pts.append(p)
+
+    fig, ax = plt.subplots(figsize=(8,6))
+    ax.plot(*zip(*F), color='black', lw=3, label='Pareto Front')
+    ax.plot(*zip(*F3), color='black', lw=1, alpha=0.2)
+    ax.scatter(*zip(*R_sub), c='tab:blue', s=3, label='Tested points')
+    ax.scatter(*zip(*np.array(interior_pts)), c='tab:red', s=20, label="Alternative solutions")
+    ax.fill(np.append(F[:,0], F3[:,0][::-1]), np.append(F[:,1],F3[:,1][::-1]), alpha=0.2, color='gray')
+    ax.fill_between(f1*0.98, f2*0.98, alpha=1, color='w')
+    ax.set_xlim(min(F1),max(F1))
+    ax.set_ylim(min(F2),max(F2))
+    ax.set_xlabel('f1', fontsize=14)
+    ax.set_ylabel('f2', fontsize=14)
+    ax.legend(fontsize=14, shadow=True, loc='upper right')
+    plt.savefig("../docs/figures/nd-mga-paretofront.pgf")
