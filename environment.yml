@@ -50,6 +50,7 @@ dependencies:
   - pip:
     - pymoo
     - pyentrp
+    - mycolorpy
     - deap
     - dill
     - openpyxl
