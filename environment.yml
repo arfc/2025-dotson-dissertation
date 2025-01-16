@@ -17,7 +17,7 @@ dependencies:
   - dask
   - pandas
   - scipy
-  - numpy
+  - numpy<2.0
   - matplotlib
   - seaborn 
   - unyt
@@ -54,9 +54,10 @@ dependencies:
     - deap
     - dill
     - openpyxl
-    - osier
+    - git+https://github.com/arfc/osier.git
     - highspy
     - python-dotenv
     - git+https://github.com/kmax12/gridstatus.git
     - us
+    - mycolorpy
     
