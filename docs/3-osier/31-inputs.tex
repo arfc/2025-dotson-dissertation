@@ -1,14 +1,41 @@
 \section{Inputs}
 
-\textcolor{red}{General thoughts:}
+% \textcolor{red}{General thoughts:}
 
-Accurate input data are essential but represents a challenging step in the
-modeling process. \ac{osier} attempts to lower this barrier by providing a
-variety of technology data from ``reliable'' sources.
+% Accurate input data are essential but curating data represents a challenging step in the
+% modeling process. \ac{osier} attempts to lower this barrier by providing a
+% variety of technology data from ``reliable'' sources.
 
-This section connects to the normative and descriptive portions of modeling. 
+% This section connects to the normative and descriptive portions of modeling. 
+
+This section describes the inputs for an \ac{osier} simulation. Broadly, \ac{osier} needs
+technology data and some objectives to optimize. 
 
 \subsection{Technology Data}
+\ac{osier} only requires marginal costs and technology names in order to run successfully.
+These data are needed to run the dispatch model. \ac{osier} also accepts operational data, such
+as ramp rates and storage capacities. Additionally, \ac{osier} will understand any bespoke 
+piece of data (e.g., ``popularity,'' ``technology-readiness score,'' or anything else) that
+might be needed for a user-defined objective. All of these data are passed to \ac{osier}
+through an \texttt{osier.Technology} object. Code listing \ref{listing:user-defined-technologies}
+shows how users can create a simple technology object.
+
+\begin{listing}[!ht]
+    \caption{A basic technology object in \ac{osier}.}
+    \label{listing:user-defined-technologies}
+    \begin{minted}
+    [ frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray,
+    fontsize=\footnotesize, linenos ] {python} 
+    from osier import ThermalTechnology
+
+    fusion = ThermalTechnology(technology_name="Fusion",
+                               dispatchable=True,
+                               renewable=False,
+                               fuel_cost=10*(GWh)**-1,
+                               lifecycle_co2_rate=0.0,
+                               )
+    \end{minted}
+    \end{listing}
 
 \subsection{Objectives}
 \label{section:osier_objectives}
@@ -22,8 +49,8 @@ some quantity, it must be negated first.
 
 Some quantities of interest depend on the \textit{capacity} of each technology.
 For example, land use of different energy producers is often reported as a power
-density $\text{MW}/\text{km}^2$. A general power density may be $\text{MW} /
-\text{unit}$. The objective function for these quantities reads
+density $\text{km}^2/\text{MW}$. A general power density may be $\text{unit}/\text{MW}
+$. The objective function for these quantities reads
 \begin{align}
     \mathcal{K} &= \sum_g^G \textbf{CAP}_g \kappa_g ,
     \intertext{Where}

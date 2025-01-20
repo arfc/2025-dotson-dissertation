@@ -73,7 +73,7 @@ D = distance_matrix(X=X_int)
 
 n_hist = 1000
 
-n_pts = 5
+n_pts = 6
 idxs = farthest_first(X=X_int, D=D, n_points=n_pts, seed=seed)
 
 F_select = F_int[idxs]
@@ -92,17 +92,17 @@ cmap = plt.get_cmap(cmap_name, n_pts)
 fig, ax = plt.subplots(1,2, figsize=(14,6))
 
 ax[0].set_title("Objective Space", fontsize=16)
-ax[0].scatter(F_hist[:n_hist,0], F_hist[:n_hist,1], facecolor="none", edgecolor="lightgray", alpha=0.8,label='tested points')
+ax[0].scatter(F_hist[:n_hist,0], F_hist[:n_hist,1], facecolor="none", edgecolor="lightgray", alpha=1,label='tested points')
 ax[0].scatter(res.F[:,0], res.F[:,1], facecolor="none", edgecolor="red", label='optimal points')
 # ax[0].plot(PF[:,0], PF[:,1], color="g", alpha=1, label='Pareto front', lw=2)
 ax[0].scatter(F_select[:,0], F_select[:,1], c=color1, s=80, label='selected points')
 
-ax[0].fill(np.append(f1, F1[::-1]), np.append(f2, F2[::-1]), 'lightgrey', alpha=alpha, label="Near-optimal space")
+ax[0].fill(np.append(f1, F1[::-1]), np.append(f2, F2[::-1]), 'lightgrey', alpha=0.3, label="Near-optimal space")
 ax[0].legend(fontsize=14)
 
 
 ax[1].set_title("Design Space", fontsize=16)
-ax[1].scatter(X_hist[:n_hist,0], X_hist[:n_hist,1], facecolor="none", edgecolor="lightgray", alpha=0.8, label='tested points')
+ax[1].scatter(X_int[:n_hist,0], X_int[:n_hist,1], facecolor="none", edgecolor="lightgray", alpha=1, label='tested points')
 ax[1].scatter(res.X[:,0], res.X[:,1], facecolor="none", edgecolor="red", label='optimal points')
 ax[0].tick_params(labelsize=14)
 ax[1].tick_params(labelsize=14)
