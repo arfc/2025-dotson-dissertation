@@ -71,7 +71,7 @@ Similar to the \ac{lp} formulation described in Section
 \ref{section:merit_order}, the hierarchical dispatch follows a set of rules to
 dispatch energy. Technologies are first sorted by their marginal cost. If two
 technologies have the same marginal cost the tie is broken by comparing the 
-technology efficiencies. Then, model loops through each value in the provided 
+technology efficiencies. Then, the model loops through each value in the provided 
 electricity demand time series. A second loop runs through the sorted list of 
 technology objects and calculates the power output for each technology. There
 are three broad types of technologies in \ac{osier}: Standard technologies,
@@ -81,7 +81,7 @@ technology is given by
 \begin{align}
     x_{g,t} &= \text{max}\left(0, \text{min}\left(D_t, \textbf{CAP}_g\right)\right)\label{eq:std_tech_output}.
 \end{align}
-
+ß
 \noindent
 This equation guarantees that a standard technology will have a power output between
 zero and its rated capacity. In addition to Equation \ref{eq:std_tech_output},
@@ -100,7 +100,7 @@ is given by
      P_{max} &= \text{min}\left(\left(x_{g,t-1}+\rho_g^{up}\Delta \tau\right), \textbf{CAP}_g\right).\nonumber
 \end{align}
 
-\textcolor{red}{$\rho_g$ is not the same $rho_g$ as in the LP formulation! Maybe
+\textcolor{red}{$\rho_g$ is not the same $\rho_g$ as in the LP formulation! Maybe
 choose another variable and explain its meaning... It should be the "ramp up/down"
 which is the ramp rate times the capacity.}
 
@@ -114,7 +114,7 @@ extends Equation \ref{eq:std_tech_output} by checking that the storage unit has 
         -\frac{E_{in}}{\Delta \tau} & D_t < 0\\
         \frac{E_{out}}{\Delta \tau} & D_t \geq 0\\
     \end{cases}
-    \intertext{where}
+    \intertext{where}~~
     E_{in} &= \text{min}\left(\left(\textbf{CAP}^S_g-\textbf{SOC}_{g,t}\right), P_{in}\Delta \tau\right),\nonumber \\
     E_{out} &= \text{min}\left(P_{out}\Delta \tau, \textbf{SOC}_{g,t}\right),\nonumber \\
     P_{out} &= \text{max}\left(0, \text{min}\left(D_t, \textbf{CAP}_{g}\right)\right),\nonumber\\

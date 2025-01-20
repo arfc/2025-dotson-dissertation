@@ -8,7 +8,7 @@ This thesis applies some ideas from \ac{mga} to the analysis of the sub-optimal
 space from a \acl{moo} problem. Due to their iterative process, \acp{ga}
 naturally generate many samples in a problem's feasible space. However, this
 does not lead to a ``limited set'' of solutions but rather a potentially
-infinite set. Some literature developed \acp{ga} that directly use \ac{mga} in
+unbounded set. Some literature developed \acp{ga} that directly use \ac{mga} in
 the iterative process
 \cite{zechman_evolutionary_2004,zechman_evolutionary_2013}. However, existing
 Python libraries such as \ac{pymoo} and \ac{deap} do not implement these
@@ -34,8 +34,9 @@ developed in this thesis to search the near-feasible space is the following:
     farthest-first-traversal algorithm to restrict the number of analyzed solutions.
 \end{enumerate}
 \noindent
-Figure \ref{fig:nd-mga} and Figure \ref{fig:3d-mga} demonstrate this algorithm
-with 10 percent slack for a 2-D and 3-D Pareto front, respectively. Figure
+Figure \ref{fig:nd-mga} and Figure \ref{fig:3d-mga} show ``near-feasible fronts''
+and interior points with 10 percent slack for a 2-D and 3-D Pareto front, respectively. 
+Figure
 \ref{fig:nd-mga} shows clearly that only points within the near-optimal space
 (gray) are considered. Illustrating this behavior in three dimensions (and
 above) is considerably more difficult. The 3-D interior points should be covered
@@ -46,7 +47,6 @@ translucent Pareto front, revealing interior points and the near-optimal front
 (blue). Finally, the view from underneath the near-optimal front once again
 obscures the interior points, except for two near the edges of the sub-optimal
 space. The tested points are omitted for clarity.
- 
 
 \begin{figure}[h]
   \centering
@@ -61,4 +61,14 @@ space. The tested points are omitted for clarity.
   \resizebox{1\columnwidth}{!}{\input{figures/3d-mga-paretofront.pgf}}
   \caption{From left to right: An opaque Pareto front; a translucent Pareto front showing the interior points above a sub-optimal front; and the sub-optimal front hiding the interior points from a different angle.}
   \label{fig:3d-mga}
+\end{figure}
+
+Figure \ref{fig:mga-fft} demonstrates \ac{mga} with ``farthest-first-traversal.'' The left plot in Figure \ref{fig:mga-fft} shows the objective space for the same problem as in Figure \ref{fig:nd-mga}. The plot on the right shows the design
+space for same problem.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{1\columnwidth}{!}{\input{figures/mga-fft-example.pgf}}
+  \caption{Shows the objective and design spaces for the problem.}
+  \label{fig:mga-fft}
 \end{figure}

@@ -22,7 +22,8 @@ from pymoo.util.plotting import plot
 from pymoo.visualization.scatter import Scatter
 
 if __name__ == "__main__":
-    F = get_problem("truss2d").pareto_front()
+    # F = get_problem("truss2d").pareto_front()
+    F = get_problem("bnh").pareto_front()
     a = min(F[:,0])
     b = max(F[:,0])
     f1 = F[:,0]
@@ -76,10 +77,15 @@ if __name__ == "__main__":
     F3 = F*(1+slack)
 
     rng = np.random.default_rng(seed=1234)
-    R = rng.uniform(1000,2)
-    R[:,1] = R[:,1]*15e4
-    R[:,0] = R[:,0]*8e-2
-    R_sub = R[(R[:,1] < 12e4) & (R[:,0] < 0.06)]
+    R = rng.uniform(size=(1000,2))
+    # for Truss2d
+    # R[:,1] = R[:,1]*15e4
+    # R[:,0] = R[:,0]*8e-2
+    # R_sub = R[(R[:,1] < 12e4) & (R[:,0] < 0.06)]
+    # for BNH
+    R[:,1] = R[:,1]*65
+    R[:,0] = R[:,0]*165    
+    R_sub = R[(R[:,1] < 65) & (R[:,0] < 165)]
 
     interior_pts = []
     for p in R_sub:
@@ -100,4 +106,5 @@ if __name__ == "__main__":
     ax.set_xlabel('f1', fontsize=14)
     ax.set_ylabel('f2', fontsize=14)
     ax.legend(fontsize=14, shadow=True, loc='upper right')
+    ax.tick_params(axis='both', which='major', labelsize=14)
     plt.savefig("../docs/figures/nd-mga-paretofront.pgf")

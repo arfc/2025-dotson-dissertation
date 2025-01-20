@@ -43,17 +43,17 @@ if __name__ == "__main__":
     ax.scatter3D(*zip(*np.array(int_pts)), facecolor=pt_color, s=pt_size)
     ax.plot_trisurf(*zip(*pf_slack),color='tab:green', alpha=0.2)
     ax.view_init(azim=45, elev=45)
-    ax.set_xlabel('f1', fontsize=14, labelpad=10)
-    ax.set_ylabel('f2', fontsize=14, labelpad=10)
-    ax.set_zlabel('f3', fontsize=14, labelpad=10)
+    ax.set_xlabel('f1', fontsize=14, labelpad=2)
+    ax.set_ylabel('f2', fontsize=14, labelpad=2)
+    ax.set_zlabel('f3', fontsize=14, labelpad=2)
 
     ax3.plot_trisurf(*zip(*pf), alpha=1, color=pf_color)
     ax3.scatter3D(*zip(*np.array(int_pts)), facecolor=pt_color, s=pt_size)
     ax3.plot_trisurf(*zip(*pf_slack),color='tab:green', alpha=1)
     ax3.view_init(azim=45, elev=45)
-    ax3.set_xlabel('f1', fontsize=14, labelpad=10)
-    ax3.set_ylabel('f2', fontsize=14, labelpad=10)
-    ax3.set_zlabel('f3', fontsize=14, labelpad=10)
+    ax3.set_xlabel('f1', fontsize=14, labelpad=2)
+    ax3.set_ylabel('f2', fontsize=14, labelpad=2)
+    ax3.set_zlabel('f3', fontsize=14, labelpad=2)
 
     ax2.plot_trisurf(*zip(*pf), alpha=1, color=pf_color)
     ax2.scatter3D(*zip(*np.array(int_pts)), facecolor=pt_color, s=pt_size)
@@ -61,8 +61,22 @@ if __name__ == "__main__":
 
     ax2.view_init(azim=225, elev=-45)
 
-    ax2.set_xlabel('f1', fontsize=14, labelpad=10)
-    ax2.set_ylabel('f2', fontsize=14, labelpad=10)
-    ax2.set_zlabel('f3', fontsize=14, labelpad=10)
+    ax2.set_xlabel('f1', fontsize=14, labelpad=2)
+    ax2.set_ylabel('f2', fontsize=14, labelpad=2)
+    ax2.set_zlabel('f3', fontsize=14, labelpad=2)
+
+    # turn off tick labels 
+    ax.axes.xaxis.set_ticklabels([])
+    ax.axes.yaxis.set_ticklabels([])
+    ax.axes.zaxis.set_ticklabels([])
+
+    ax2.axes.xaxis.set_ticklabels([])
+    ax2.axes.yaxis.set_ticklabels([])
+    ax2.axes.zaxis.set_ticklabels([])
+
+    ax3.axes.xaxis.set_ticklabels([])
+    ax3.axes.yaxis.set_ticklabels([])
+    ax3.axes.zaxis.set_ticklabels([])
+
     plt.tight_layout()
     plt.savefig("../docs/figures/3d-mga-paretofront.pgf")

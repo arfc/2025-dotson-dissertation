@@ -28,7 +28,8 @@ rule collect_figures:
         example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
         near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf",
         interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
-        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf"
+        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf",
+        example_mga_plot = f"{docs_path}figures/mga-fft-example.pgf",
     output:
         log = figure_log
     shell:
@@ -85,6 +86,13 @@ rule plot_example_fronts:
         example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
         interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
         near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf"
+    script: f"{input}"
+
+
+rule plot_mga_example:
+    input: "scripts/mga_fft_example.py"
+    output:
+        example_mga_plot = f"{docs_path}figures/mga-fft-example.pgf",
     script: f"{input}"
 
 
