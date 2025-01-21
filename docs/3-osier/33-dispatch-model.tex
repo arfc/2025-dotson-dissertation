@@ -81,12 +81,12 @@ technology is given by
 \begin{align}
     x_{g,t} &= \text{max}\left(0, \text{min}\left(D_t, \textbf{CAP}_g\right)\right)\label{eq:std_tech_output}.
 \end{align}
-ß
+
 \noindent
 This equation guarantees that a standard technology will have a power output between
 zero and its rated capacity. In addition to Equation \ref{eq:std_tech_output},
 a ``ramping'' technology will calculate the maximum and minimum attainable power
-levels given its ramp rates and the problem's time resolution. The power output
+levels given its ramp rates, rated capacity, and the problem's time resolution. The power output
 is given by
 
 \begin{align}
@@ -96,14 +96,14 @@ is given by
          P_{max} & x_{g,t-1} \leq \textbf{CAP}_g \leq D_t
      \end{cases}
      \intertext{where}
-     P_{min} &= \text{max}\left(0, \left(x_{g,t-1}-\rho_g^{down}\Delta \tau\right)\right),\nonumber\\
-     P_{max} &= \text{min}\left(\left(x_{g,t-1}+\rho_g^{up}\Delta \tau\right), \textbf{CAP}_g\right).\nonumber
+     P_{min} &= \text{max}\left(0, \left(x_{g,t-1}-\left(\rho_g^{down}\textbf{CAP}_g\right)\Delta \tau\right)\right),\nonumber\\
+     P_{max} &= \text{min}\left(\left(x_{g,t-1}+\left(\rho_g^{up}\textbf{CAP}_g\right)\Delta \tau\right), \textbf{CAP}_g\right).\nonumber
 \end{align}
 
-\textcolor{red}{$\rho_g$ is not the same $\rho_g$ as in the LP formulation! Maybe
-choose another variable and explain its meaning... It should be the "ramp up/down"
-which is the ramp rate times the capacity.}
-
+% \textcolor{red}{$\rho_g$ is not the same $\rho_g$ as in the LP formulation! Maybe
+% choose another variable and explain its meaning... It should be the "ramp up/down"
+% which is the ramp rate times the capacity.}
+\noindent
 Finally, a storage technology has a charging and discharging mode, depending on
 whether the current demand level is positive or negative. A storage technology
 extends Equation \ref{eq:std_tech_output} by checking that the storage unit has enough
@@ -137,7 +137,7 @@ method is faster from reduced problem setup. Section
             \node (1) [lbblock]{\textbf{Sort technologies by marginal cost}}; 
             \node(2) [lbblock, below of =1] {\textbf{Start dispatch loop}};
             \node(3) [lbblock, below of=2] {\textbf{Calculate power output for
-            current technology}};
+            next technology}};
             \node(4) [lbblock, below of=3] {\textbf{Decrement current demand
             value \\ by power output}};
             \node(5) [lbblock, below of=4] {\textbf{Reached last technology?}};

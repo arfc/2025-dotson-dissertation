@@ -38,7 +38,7 @@ developed in this thesis to search the near-feasible space is the following:
 \end{enumerate}
 \noindent
 Figure \ref{fig:nd-mga} and Figure \ref{fig:3d-mga} show ``near-feasible
-fronts'' and interior points with 10 percent slack for a 2-D and 3-D Pareto
+fronts'' and interior points with 20 percent slack for a 2-D and 3-D Pareto
 front, respectively. Figure \ref{fig:nd-mga} shows clearly that only points
 within the near-optimal space (gray) are considered. Illustrating this behavior
 in three dimensions (and above) is considerably more difficult. The 3-D interior
@@ -68,7 +68,7 @@ the edges of the sub-optimal space. The tested points are omitted for clarity.
 \end{figure}
 
 \subsection{Farthest First Traversal}
-Previous studies emphasized that a key benefit of \ac{mga} with \ac{hsj} is
+Previous studies emphasized that a key benefit of \ac{mga} is
 obtaining a set of near-optimal solutions that are maximally different in design
 space \cite{decarolis_modelling_2016, yue_review_2018-1}. Instead of
 constraining a linear program to guarantee a maximally-different solution set.
@@ -86,7 +86,7 @@ solutions \cite{hochbaum_best_1985}. The algorithm is
 Figure \ref{fig:mga-fft} demonstrates \ac{mga} with
 ``farthest-first-traversal.'' The left plot in Figure \ref{fig:mga-fft} shows
 the objective space for the same problem as in Figure \ref{fig:nd-mga}. The plot
-on the right shows the design space for same problem. Both plots show the Pareto
+on the right shows the corresponding design space. Both plots show the Pareto
 front as red dots. The colored dots represent the points selected by the ``farthest-first-traversal''
 algorithm. These points are connected by similarly colored arrows in the design space plot. The arrow
 color corresponds to the color of the next selected point (i.e., the next farthest point).
