@@ -41,14 +41,14 @@ res = minimize(problem,
 
 PF = problem.pareto_front()
 F = res.F
-a = min(F[:,0])
-b = max(F[:,0])
-f1 = PF[:,0]
-f2 = PF[:,1]
+a = min(F[:, 0])
+b = max(F[:, 0])
+f1 = PF[:, 0]
+f2 = PF[:, 1]
 slack = 0.2
 alpha = 0.5
-F1 = f1 * (1+slack)
-F2 = f2 * (1+slack)
+F1 = f1 * (1 + slack)
+F2 = f2 * (1 + slack)
 
 X_hist = np.array([history.pop.get("X")
                   for history in res.history]).reshape(n_gen * pop_size, 2)
@@ -85,43 +85,49 @@ mga_df = pd.concat([F_df, X_df], axis=1)
 
 
 cmap_name = 'tab10'
-color1=mcp.gen_color(cmap=cmap_name,n=n_pts)
+color1 = mcp.gen_color(cmap=cmap_name, n=n_pts)
 cmap = plt.get_cmap(cmap_name, n_pts)
 
 # with plt.style.context('dark_background'):
-fig, ax = plt.subplots(1,2, figsize=(14,6))
+fig, ax = plt.subplots(1, 2, figsize=(14, 6))
 
 ax[0].set_title("Objective Space", fontsize=16)
-ax[0].scatter(F_hist[:n_hist,0], F_hist[:n_hist,1], facecolor="none", edgecolor="lightgray", alpha=1,label='tested points')
-ax[0].scatter(res.F[:,0], res.F[:,1], facecolor="none", edgecolor="red", label='optimal points')
+ax[0].scatter(F_hist[:n_hist, 0], F_hist[:n_hist, 1], facecolor="none",
+              edgecolor="lightgray", alpha=1, label='tested points')
+ax[0].scatter(res.F[:, 0], res.F[:, 1], facecolor="none",
+              edgecolor="red", label='optimal points')
 # ax[0].plot(PF[:,0], PF[:,1], color="g", alpha=1, label='Pareto front', lw=2)
-ax[0].scatter(F_select[:,0], F_select[:,1], c=color1, s=80, label='selected points')
+ax[0].scatter(F_select[:, 0], F_select[:, 1],
+              c=color1, s=80, label='selected points')
 
-ax[0].fill(np.append(f1, F1[::-1]), np.append(f2, F2[::-1]), 'lightgrey', alpha=0.3, label="Near-optimal space")
+ax[0].fill(np.append(f1, F1[::-1]), np.append(f2, F2[::-1]),
+           'lightgrey', alpha=0.3, label="Near-optimal space")
 ax[0].legend(fontsize=14)
 
 
 ax[1].set_title("Design Space", fontsize=16)
-ax[1].scatter(X_int[:n_hist,0], X_int[:n_hist,1], facecolor="none", edgecolor="lightgray", alpha=1, label='tested points')
-ax[1].scatter(res.X[:,0], res.X[:,1], facecolor="none", edgecolor="red", label='optimal points')
+ax[1].scatter(X_int[:n_hist, 0], X_int[:n_hist, 1], facecolor="none",
+              edgecolor="lightgray", alpha=1, label='tested points')
+ax[1].scatter(res.X[:, 0], res.X[:, 1], facecolor="none",
+              edgecolor="red", label='optimal points')
 ax[0].tick_params(labelsize=14)
 ax[1].tick_params(labelsize=14)
 ax[1].set_xlim(0, 5)
 ax[1].set_ylim(0, 3)
 ax[0].set_xlim(0, 160)
-ax[0].set_ylim(min(res.F[:,1]), 60)
+ax[0].set_ylim(min(res.F[:, 1]), 60)
 # ax[1].legend(loc='upper left')
 
 style = "Simple, tail_width=0.5, head_width=4, head_length=8"
 arrows = []
 prev = X_select[0]
-for i, (c, (x, y)) in enumerate(zip(color1,X_select)):
+for i, (c, (x, y)) in enumerate(zip(color1, X_select)):
     ax[1].scatter(x, y, color=c, s=100)
     if i == 0:
         pass
     else:
         kw = dict(arrowstyle=style, color=c, linewidth=3)
-        curr = (x,y)
+        curr = (x, y)
         arrows.append(patches.FancyArrowPatch(prev, curr, **kw))
         prev = curr
 

@@ -20,8 +20,8 @@ from pymoo.visualization.scatter import Scatter
 
 from osier import n_mga
 from osier.utils import *
-from osier import distance_matrix 
-from osier import farthest_first 
+from osier import distance_matrix
+from osier import farthest_first
 from osier import check_if_interior
 
 mpl.use("pgf")
@@ -35,7 +35,6 @@ plt.rcParams['savefig.bbox'] = 'tight'
 plt.rcParams['font.family'] = "serif"
 
 
-
 if __name__ == "__main__":
     problem = get_problem("bnh")
 
@@ -44,31 +43,31 @@ if __name__ == "__main__":
     algorithm = NSGA2(pop_size=pop_size)
 
     res = minimize(problem,
-                algorithm,
-                ('n_gen', n_gen),
-                seed=1,
-                verbose=False,
-                save_history=True
-                )
-    
+                   algorithm,
+                   ('n_gen', n_gen),
+                   seed=1,
+                   verbose=False,
+                   save_history=True
+                   )
+
     F = problem.pareto_front()
-    a = min(F[:,0])
-    b = max(F[:,0])
-    f1 = F[:,0]
-    f2 = F[:,1]
+    a = min(F[:, 0])
+    b = max(F[:, 0])
+    f1 = F[:, 0]
+    f2 = F[:, 1]
     shift = 0.75
     slack = 0.2
     alpha = 0.5
-    F1 = f1 * (1+slack)
-    F2 = f2 * (1+slack)
-    X_hist = np.array([history.pop.get("X") 
-                       for history in res.history]).reshape(n_gen*pop_size,2)
-    F_hist = np.array([history.pop.get("F") 
-                       for history in res.history]).reshape(n_gen*pop_size,2)
+    F1 = f1 * (1 + slack)
+    F2 = f2 * (1 + slack)
+    X_hist = np.array([history.pop.get("X")
+                       for history in res.history]).reshape(n_gen * pop_size, 2)
+    F_hist = np.array([history.pop.get("F")
+                       for history in res.history]).reshape(n_gen * pop_size, 2)
 
-    slack_front = np.c_[F1,F2]
-    int_pts = check_if_interior(points=F_hist, 
-                                par_front=F, 
+    slack_front = np.c_[F1, F2]
+    int_pts = check_if_interior(points=F_hist,
+                                par_front=F,
                                 slack_front=slack_front)
     X_int = X_hist[int_pts]
     F_int = F_hist[int_pts]
