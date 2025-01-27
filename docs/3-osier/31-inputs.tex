@@ -8,7 +8,7 @@
 
 % This section connects to the normative and descriptive portions of modeling. 
 
-This section describes the inputs for an \ac{osier} simulation. Broadly, \ac{osier} needs
+This section describes the input data and parameters that users must provide to run an \ac{osier} simulation. Broadly, \ac{osier} needs
 technology data and some objectives to optimize. 
 
 \subsection{Technology Data}
@@ -43,21 +43,21 @@ shows how users can create a simple technology object.
 There are many possible objectives to optimize. This section summarizes a few of
 them and how they may be calculated in \ac{osier}. Due to \ac{pymoo}'s
 structure, all objectives are minimized. Therefore, if users wish to maximize
-some quantity, it must be negated first.
+some quantity, it must be reformatted with a reversal in sign to be an equivalent minimization objective.
 
 \subsubsection{Per-unit-capacity}
 
 Some quantities of interest depend on the \textit{capacity} of each technology.
-For example, land use of different energy producers is often reported as a power
-density $\text{km}^2/\text{MW}$. A general power density may be $\text{unit}/\text{MW}
-$. The objective function for these quantities reads
+For example, land use of different energy producers is often reported as a land
+density $\text{km}^2/\text{MW}$. A generalized specific \textit{density} with respect to power 
+may be $\text{unit}/\text{MW}$. The objective function for these quantities reads
 \begin{align}
     \mathcal{K} &= \sum_g^G \textbf{CAP}_g \kappa_g ,
     \intertext{Where}
     \kappa &= \text{the power density of the \textit{g-th} technology} \quad \left[\frac{-}{MW}\right].
 \end{align}
 
-Table \ref{tab:objectives-per-capacity} lists some example objectives could be
+Table \ref{tab:objectives-per-capacity} lists some example objectives that could be
 minimized or maximized.
 
 \begin{table}[h]
@@ -80,8 +80,8 @@ minimized or maximized.
 
 Some quantities of interest depend on the \textit{amount of energy produced} by
 each technology. For example, carbon emissions only occur when a coal or natural
-gas plant burns fuel. A general energy density may be in $\text{unit}/\text{MWh}$. 
-The objective function for these quantities reads
+gas plant burns fuel. A generalized specific \textit{intensity} with respect to energy 
+may be in $\text{unit}/\text{MWh}$. The objective function for these quantities reads
 \begin{align}
     \mathcal{E} &= \sum_g^G \xi_g \sum_t^T x_{g,t},
     \intertext{where}
@@ -113,8 +113,9 @@ on the dispatch method. A hierarchical flow, which dispatches energy based on a
 set of rules (as opposed to true cost minimization), may simply report the
 fraction of hours when electricity demand was not met by the model
 \cite{donado_hyres_2020,bilil_multiobjective_2014,kamjoo_multi-objective_2016,riou_multi-objective_2021}.
-In an \ac{lp} or \ac{milp} problem, electricity demand must be satisfied at all
-times. Thus reliability may be translated into a cost by determining consumers'
+\acs{lp} or \acs{milp} formulations typically have an energy balance constraint requiring 
+electricity demand to be satisfied at all times, or within some specified tolerance. 
+Thus reliability may be translated into a cost by determining consumers'
 \ac{wtp} for electricity \cite{gorman_quest_2022, najafi_value_2021}. However,
 this thesis relates system reliability to price volatility and net demand
 predictability. Since the price of electricity is determined by matching supply
@@ -133,7 +134,7 @@ In this thesis, I measure the  predictability of hourly electricity prices and
 net demand using a measure from complexity science, \ac{wpe}
 \cite{fadlallah_weighted-permutation_2013}. Permutation entropy, the precursor
 to \ac{wpe}, is essentially the Shannon entropy for particular sequences of
-values called `motifs' \cite{bandt_permutation_2002}. \ac{wpe} expands on this
+values called \textit{motifs} \cite{bandt_permutation_2002}. \ac{wpe} expands on this
 concept by weighting each instance of a motif by its variance
 \cite{fadlallah_weighted-permutation_2013,garland_model-free_2014}. \ac{wpe} is
 defined as
@@ -169,11 +170,11 @@ I contributed to the open source package \texttt{PyEntropy}
 \subsubsection{User-defined Objectives}
 
 A key feature of \ac{osier} is the ability for users to define their own
-objectives and make it relatively easy to do so. This feature is required
+objectives relatively easily. This feature is required
 because modelers cannot know \textit{a priori} every objective that users might
 be interested in optimizing. While \ac{osier} ships with some standard objective
 functions, allowing users to create their own objectives makes every model
-bespoke. \textit{Any quantitative metric may be used as an objective in
+bespoke. With requisite user-supplied data \textit{any quantitative metric may be used as an objective in
 \ac{osier}.} Every objective function has at least two arguments, the list of
 technologies used in the model and the solved dispatch model. Users will never
 have to pass these arguments manually since \ac{osier} will automatically call
