@@ -2,13 +2,13 @@
 \ac{osier} offers two models for dispatching energy. The first is a merit order
 dispatch model that optimally dispatches electricity according to the marginal
 cost of generation with perfect foresight. This model is formulated as a
-\acf{lp} and written in \ac{pyomo}. Similarly, the second dispatch model follows
+linear program and written in \ac{pyomo}. Similarly, the second dispatch model follows
 merit-order but electricity is dispatched according to a hierarchy of rules and
-is myopic. This approach facilitates parallelization and reduces the overhead
-cost of problem setup. However, dispatch solutions may be sub-optimal compared 
-to the \ac{lp} formulation.
+is myopic, unaware of future timesteps. This approach facilitates parallelization 
+and reduces the overhead cost of problem setup. However, dispatch solutions may be 
+sub-optimal compared to the \ac{lp} formulation.
 
-\subsection{Economic/Merit-order dispatch}
+\subsection{Optimal dispatch}
 \label{section:merit_order}
 
  The economic dispatch model minimizes the generation cost subject to physical
@@ -59,7 +59,9 @@ represents a minor penalty to prevent the unphysical behavior of simultaneous
 charging and discharging from storage technologies. I used this approach because
 constraining this behavior requires a binary variable that makes the problem
 non-convex and therefore requires a more sophisticated solver. A small but
-sufficiently large $\pi$ will always nullify the penalty term. This dispatch
+sufficiently large $\pi$ will always nullify the penalty term. That is,
+the model will never prefer simultaneous charging and discharging over avoiding 
+even a slight penalty. This dispatch
 model reflects the minimum physical constraints for an energy system without
 considering fine-scale operational details such as frequency control. Equation
 \ref{eq:dispatch-objective} assumes that the retail cost for generating
@@ -75,7 +77,8 @@ technology efficiencies. Then, the model loops through each value in the provide
 electricity demand time series. A second loop runs through the sorted list of 
 technology objects and calculates the power output for each technology. There
 are three broad types of technologies in \ac{osier}: Standard technologies,
-ramping technologies, and storage technologies. The power output for a standard
+ramping technologies (e.g.,  conventional coal and nuclear plants), and storage 
+technologies (e.g., fly-wheels, \acp{lib}). The power output for a standard 
 technology is given by
 
 \begin{align}

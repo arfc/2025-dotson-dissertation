@@ -51,8 +51,8 @@ energy systems model.
 types of operators being applied to the selection, crossover, and mutation
 steps. Section \ref{section:moo-in-energy} showed that \ac{nsga2} is a popular
 genetic algorithm choice. However, this algorithm performs poorly with greater
-than three objectives \cite{deb_fast_2002, seada_unified_2016}. In this thesis,
-I use a more modern algorithm, \ac{unsga3}. \ac{unsga3} builds on its
+than three objectives \cite{deb_fast_2002, seada_unified_2016}. This thesis
+uses a more modern algorithm, \ac{unsga3}. \ac{unsga3} builds on its
 predecessors \ac{nsga2} and \ac{nsga3} by unifying efficient solutions of mono-,
 multi-, and many-objective problems in a single algorithm.
 
@@ -76,7 +76,8 @@ uniformly spaced points on the unit simplex \cite{seada_unified_2016,
 blank_generating_2021}. In this thesis, I use the Riesz s- Energy method
 described by Blank et al. to calculate these points for a problem with an
 arbitrary number of objectives \cite{blank_generating_2021}. Figure
-\ref{fig:ref-dirs} illustrates a set of initialized reference directions.
+\ref{fig:ref-dirs} illustrates a set of initialized reference directions used
+in such methods.
 
 \begin{figure}[h]
   \centering
@@ -90,6 +91,7 @@ better for many-objective problems. \ac{unsga3} can handle any number of
 objectives by introducing the binary tournament from \ac{nsga2} and reducing to
 the most efficient algorithm for the problem at hand \cite{seada_unified_2016}.
 Chapter \ref{chapter:benchmark-results} demonstrates these three algorithms in 
+Section \ref{section:4-exercise-1}.
 
 \subsection{Hyperparameter Tuning}
 Similar to other machine learning models, \acp{ga} have several hyperparameters
@@ -99,9 +101,9 @@ parents, number of offspring, and population size. Determining ideal
 hyperparameters is often performed using either a grid search or random sampling
 \cite{bergstra_random_2012}. This thesis adopts the approach from Blank and Deb
 \cite{blank_pymoo_2020} using a genetic algorithm to identify the ideal
-hyperparameters. A problem is converted into a single objective problem using
-the desired algorithm, then a second genetic algorithm drives the problem where
-the decision variables are hyperparameters of the desired algorithm.
+hyperparameters. A multi-objective problem is converted into a single objective problem 
+by choosing one objective and optimized with the target \ac{ga}, then a second \ac{ga} 
+drives a new problem where the decision variables are hyperparameters of the desired algorithm.
 
 \subsection{Convergence}
 There are several ways to stop a simulation in \ac{pymoo}. A simulation may end
@@ -135,7 +137,10 @@ implements several \acp{ga} out-of-the-box and offers a set of visualization
 tools and hyperparameter tuning. \ac{deap} is another open-source library
 offering a toolkit for constructing \acp{ga} and therefore has fewer prepackaged
 algorithms than \ac{pymoo}. There are robust reasons to use both libraries, so
-\ac{osier} facilitates both.
+\ac{osier} facilitates both. \ac{pymoo} provides a broader range of tools 
+while \ac{deap} enables greater flexibility with \ac{ga} implementation and more
+straightforward procedures for stopping a simulation and restarting at a later
+time.
 
 
 
