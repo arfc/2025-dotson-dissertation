@@ -118,7 +118,7 @@ ax[0].set_xlim(0, 160)
 ax[0].set_ylim(min(res.F[:, 1]), 60)
 # ax[1].legend(loc='upper left')
 
-style = "Simple, tail_width=0.5, head_width=4, head_length=8"
+style = "Simple, tail_width=0.5, head_width=10, head_length=15"
 arrows = []
 prev = X_select[0]
 for i, (c, (x, y)) in enumerate(zip(color1, X_select)):
