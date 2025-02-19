@@ -1,0 +1,163 @@
+\section{Dispatch Model}
+\ac{osier} offers two models for dispatching energy. The first is a merit order
+dispatch model that optimally dispatches electricity according to the marginal
+cost of generation with perfect foresight. This model is formulated as a
+linear program and written in \ac{pyomo}. Similarly, the second dispatch model follows
+merit-order but electricity is dispatched according to a hierarchy of rules and
+is myopic, unaware of future timesteps. This approach facilitates parallelization 
+and reduces the overhead cost of problem setup. However, dispatch solutions may be 
+sub-optimal compared to the \ac{lp} formulation.
+
+\subsection{Optimal dispatch}
+\label{section:merit_order}
+
+ The economic dispatch model minimizes the generation cost subject to physical
+ constraints but does not optimize capacity investments. The complete set of
+ equations for the model is detailed below.
+\begin{align}
+    \intertext{Minimize: }
+    \label{eq:dispatch-objective}
+    &\left(\sum_t^T\sum_g^G \left[C_{g,t}^{fuel} + C_{g,t}^{vom}\right]x_{g,t}
+    \right)+\left(\sum_t^T\sum_g^S x_{g,t}c_{g,t}\pi\right)\\
+    \intertext{such that generation meets demand, less the amount of energy stored or curtailed, 
+    within a user-specified tolerance (undersupply and oversupply),}
+    \left[\sum_g^Gx_{g,t}-\sum_g^S c_{g,t}\right] &\geq \left(1-\text{undersupply}\right)\text{D}_t\quad \forall \quad t \in T, S, \\
+    \left[\sum_g^Gx_{g,t}-\sum_g^S c_{g,t}\right] &\leq \left(1+\text{oversupply}\right)\text{D}_t \quad \forall \quad t \in T, S,
+    \intertext{a generator's production, $x_{g}$ does not exceed its capacity at any time, $t$}
+    x_{g,t} &\leq \textbf{CAP}_{g}\Delta \tau \quad \forall \quad g,t \in G,T
+    \intertext{a generator's ramping rate is never exceeded,}
+    \frac{x_{r,t} - x_{r,t-1}}{\Delta \tau} = \Delta P_{r,t} &\leq
+        \rho^{up}_g\textbf{CAP}_g\Delta\tau \quad \forall \quad r,t
+        \in R, T,\\
+    \frac{x_{r,t} - x_{r,t-1}}{\Delta \tau} = \Delta P_{r,t} &\leq
+        -\rho^{down}_g\textbf{CAP}_g\Delta\tau \quad \forall \quad r,t
+        \in R, T,
+    \intertext{storage capacity for each storage technology is never exceeded}
+    \textbf{SOC}_{s,t} &\leq \textbf{CAP}^S_{s} \quad \forall \quad s,t \in S,T,
+    \intertext{storage discharge cannot exceed stored energy.}
+    x_{s,t} &\leq \textbf{SOC}_{s,t} \quad \forall \quad s,t \in S,T,
+    \intertext{storage charge rate cannot exceed unit capacity}
+    c_{s,t} &\leq \textbf{CAP}_{s}\Delta \tau \quad \forall \quad s,t \in S,T,
+    \intertext{where,}
+    G &= \text{ the set of all generating technologies},\nonumber\\
+    R &= \text{ the set of all ramping technologies}, \quad R \subset G,\nonumber\\
+    S &= \text{ the set of all storage technologies}, \quad S \subset G,\nonumber\\
+    T &= \text{ the set of all time periods in the model},\nonumber\\
+    D_t &= \text{ the demand at each time period, \textit{t}},\nonumber\\
+    \textbf{CAP}_g &= \text{ the capacity of the \textit{g-th} technology}\quad \left[MW\right],\nonumber\\
+    \textbf{CAP}^S_g &= \text{ the storage capacity of the \textit{g-th} technology}\quad \left[MWh\right],\nonumber\\
+    \textbf{SOC}_{s,t} &= \text{ the state of charge of the \textit{g-th} technology at time \textit{t}}\quad \left[MWh\right]\nonumber,\\
+    \Delta\tau &= t_{i+1} - t_i \quad \forall \quad t_i \in T \quad \left[h\right],\nonumber\\
+    x_{g,t} &= \text{ the energy produced by generator, \textit{g}, at time, \textit{t}}\quad \left[MWh\right]\nonumber,\\
+    c_{s,t} &= \text{ the energy stored by storage technology, \textit{s}, at time, \textit{t}}\quad \left[MWh\right]\nonumber,\\
+    \rho_g &= \text{ the up/down ramp rate for technology, \textit{g}} \quad \left[-\right]\nonumber,\\
+    \pi &= \text{ A small penalty for simultaneous charging and discharging.}\nonumber
+\end{align}
+The second term in the objective function, Equation \ref{eq:dispatch-objective},
+represents a minor penalty to prevent the unphysical behavior of simultaneous
+charging and discharging from storage technologies. I used this approach because
+constraining this behavior requires a binary variable that makes the problem
+non-convex and therefore requires a more sophisticated solver. A small but
+sufficiently large $\pi$ will always nullify the penalty term. That is,
+the model will never prefer simultaneous charging and discharging over avoiding 
+even a slight penalty. This dispatch
+model reflects the minimum physical constraints for an energy system without
+considering fine-scale operational details such as frequency control. Equation
+\ref{eq:dispatch-objective} assumes that the retail cost for generating
+electricity is identical to the marginal cost of producing electricity. 
+
+\subsection{Hierarchical dispatch}
+
+Similar to the \ac{lp} formulation described in Section
+\ref{section:merit_order}, the hierarchical dispatch follows a set of rules to
+dispatch energy. Technologies are first sorted by their marginal cost. If two
+technologies have the same marginal cost the tie is broken by comparing the 
+technology efficiencies. Then, the model loops through each value in the provided 
+electricity demand time series. A second loop runs through the sorted list of 
+technology objects and calculates the power output for each technology. There
+are three broad types of technologies in \ac{osier}: Standard technologies,
+ramping technologies (e.g.,  conventional coal and nuclear plants), and storage 
+technologies (e.g., fly-wheels, \acp{lib}). The power output for a standard 
+technology is given by
+
+\begin{align}
+    x_{g,t} &= \text{max}\left(0, \text{min}\left(D_t, \textbf{CAP}_g\right)\right)\label{eq:std_tech_output}.
+\end{align}
+
+\noindent
+This equation guarantees that a standard technology will have a power output between
+zero and its rated capacity. In addition to Equation \ref{eq:std_tech_output},
+a ``ramping'' technology will calculate the maximum and minimum attainable power
+levels given its ramp rates, rated capacity, and the problem's time resolution. The power output
+is given by
+
+\begin{align}
+    x_{g,t} &= \begin{cases}
+         \text{max}\left(D_t, P_{min}\right) & D_t < x_{g,t-1}\\
+         \text{min}\left(D_t, P_{max}\right) & x_{g,t-1} \leq D_t \leq \textbf{CAP}_g \\
+         P_{max} & x_{g,t-1} \leq \textbf{CAP}_g \leq D_t
+     \end{cases}
+     \intertext{where}
+     P_{min} &= \text{max}\left(0, \left(x_{g,t-1}-\left(\rho_g^{down}\textbf{CAP}_g\right)\Delta \tau\right)\right),\nonumber\\
+     P_{max} &= \text{min}\left(\left(x_{g,t-1}+\left(\rho_g^{up}\textbf{CAP}_g\right)\Delta \tau\right), \textbf{CAP}_g\right).\nonumber
+\end{align}
+
+% \textcolor{red}{$\rho_g$ is not the same $\rho_g$ as in the LP formulation! Maybe
+% choose another variable and explain its meaning... It should be the "ramp up/down"
+% which is the ramp rate times the capacity.}
+\noindent
+Finally, a storage technology has a charging and discharging mode, depending on
+whether the current demand level is positive or negative. A storage technology
+extends Equation \ref{eq:std_tech_output} by checking that the storage unit has enough
+\textit{storage} capacity. Thus the power output is given by
+
+\begin{align}
+    x_{g,t} &= \begin{cases}
+        -\frac{E_{in}}{\Delta \tau} & D_t < 0\\
+        \frac{E_{out}}{\Delta \tau} & D_t \geq 0\\
+    \end{cases}
+    \intertext{where}~~
+    E_{in} &= \text{min}\left(\left(\textbf{CAP}^S_g-\textbf{SOC}_{g,t}\right), P_{in}\Delta \tau\right),\nonumber \\
+    E_{out} &= \text{min}\left(P_{out}\Delta \tau, \textbf{SOC}_{g,t}\right),\nonumber \\
+    P_{out} &= \text{max}\left(0, \text{min}\left(D_t, \textbf{CAP}_{g}\right)\right),\nonumber\\
+    P_{in} &= \text{min}\left(\lvert\text{min}\left(0, D_t\right)\rvert, \textbf{CAP}_g\right).\nonumber
+\end{align}
+
+\noindent
+Since this algorithm is myopic, solution optimality is not guaranteed. Higher
+penetration of renewable energy and energy storage increases the influence of
+this myopia due to the unpredictability of these resources. Thus, this approach
+may be more ``realistic'' than an truly optimal dispatch (e.g., as a ``real-time'' dispatch model). 
+Additionally, this method is faster from reduced problem setup. Section
+\ref{section:dispatch_benchmark} demonstrates these differences. Figure 
+\ref{fig:hierarchy_algorithm} illustrates the flow of the algorithm.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=1.7cm]
+            \tikzstyle{every node}=[font=\small] 
+            \node (1) [lbblock]{\textbf{Sort technologies by marginal cost}}; 
+            \node(2) [lbblock, below of =1] {\textbf{Start dispatch loop}};
+            \node(3) [lbblock, below of=2] {\textbf{Calculate power output for
+            next technology}};
+            \node(4) [lbblock, below of=3] {\textbf{Decrement current demand
+            value \\ by power output}};
+            \node(5) [lbblock, below of=4] {\textbf{Reached last technology?}};
+            \node (7) [lbblock, below of=5] {\textbf{Reached the end of the
+            demand time series?}}; 
+            \node (8) [loblock,below of=7] {\textbf{Done}}; 
+            \draw [arrow] (1) -- (2); 
+            \draw [arrow] (2) -- (3);
+            \draw [arrow] (3) -- (4);
+            \draw [arrow] (4) -- (5);
+            \draw [arrow] (5) -- node[anchor=east]{yes} (7); 
+            \draw [arrow] (5) -- ([shift={(0.5cm,0cm)}]5.east) -- node[anchor=west] 
+            {no} ([shift={(0.5cm,0cm)}]3.east)--(3);
+            \draw [arrow] (7) -- (8); 
+            \draw [arrow] (7) -- node[anchor=east]{yes} (8); 
+            \draw [arrow] (7) -- ([shift={(1.15cm,0cm)}]7.east) -- node[anchor=west] 
+            {no} ([shift={(1.15cm,0cm)}]2.east)--(2);
+    \end{tikzpicture}
+    \caption{The hierarchical dispatch flow.}
+    \label{fig:hierarchy_algorithm}
+\end{figure}

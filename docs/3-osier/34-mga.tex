@@ -1,0 +1,99 @@
+\section{\acs{mga} with \acl{moo}}
+\label{section:mga-moo}
+
+\ac{osier} addresses structural uncertainty in two ways. First, it uses 
+\ac{moo} to identify tradeoffs. Second, since structural uncertainty will
+persist regardless of the number of modeled objectives, \ac{osier} offers
+a high-dimensional version of the classic \ac{mga} approach to handling
+structural uncertainty.
+This thesis applies some ideas from \ac{mga} to the analysis of the sub-optimal
+space from a \acl{moo} problem. Due to their iterative process, \acp{ga}
+naturally generate many samples in a problem's feasible space. However, this
+does not lead to a ``limited set'' of solutions but rather a potentially
+unbounded set. Some literature developed \acp{ga} that directly use \ac{mga} in
+the iterative process
+\cite{zechman_evolutionary_2004,zechman_evolutionary_2013}. However, existing
+Python libraries such as \ac{pymoo} and \ac{deap} do not implement these
+methods, and the challenge is not an inability to sample the sub-optimal space,
+but rather to provide a comprehensible subset of solutions. The algorithm I
+developed in this thesis to search the near-feasible space is the following:
+
+\begin{enumerate}
+    \item Obtain a set of Pareto-optimal solutions \textit{using any \ac{ga}}.
+    \item Decide on a slack value (e.g., 10\% or 0.1), which represents an
+    acceptable deviation from the Pareto front.
+    \item Create a ``near-feasible front'' where the coordinates of each point
+    are multiplied by unity plus the slack value. This is equivalent to relaxing
+    the objective functions and converting them to a constraint. 
+    \item Every individual is checked if all of its coordinates are
+    \begin{itemize}
+        \item below all of the coordinates for at least one point on the
+        near-feasible front and
+        \item above all of the coordinates for at least one point on the Pareto
+        front.
+    \end{itemize}  
+    \item Lastly, the set of interior points may be sampled either randomly or
+    with a farthest-first-traversal algorithm to restrict the number of analyzed
+    solutions.
+\end{enumerate}
+\noindent
+Figure \ref{fig:nd-mga} and Figure \ref{fig:3d-mga} show ``near-feasible
+fronts'' and interior points with 20 percent slack for a 2-D and 3-D Pareto
+front, respectively. Figure \ref{fig:nd-mga} shows clearly that only points
+within the near-optimal space (gray) are considered. Illustrating this behavior
+in three dimensions (and above) is considerably more difficult. The 3-D interior
+points should be covered by both surfaces, obstructing their view. Figure
+\ref{fig:3d-mga} shows that this is the case in three panels. First, a top view
+of an opaque Pareto front (green) where no interior points can be observed.
+Second, the same view with a translucent Pareto front, revealing interior points
+and the near-optimal front (blue). Finally, the view from underneath the
+near-optimal front once again obscures the interior points, except for two near
+the edges of the sub-optimal space. The tested points are omitted for clarity.
+
+\begin{figure}[h]
+  \centering
+  \resizebox{0.6\columnwidth}{!}{\input{figures/nd-mga-paretofront.pgf}}
+  \caption{All of the alternative points inside the near-feasible space selected
+  using the algorithm described in Section \ref{section:mga-moo}.}
+  \label{fig:nd-mga}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \resizebox{1\columnwidth}{!}{\input{figures/3d-mga-paretofront.pgf}}
+  \caption{From left to right: An opaque Pareto front; a translucent Pareto front 
+  showing the interior points above a sub-optimal front; and the sub-optimal front 
+  hiding the interior points from a different angle.}
+  \label{fig:3d-mga}
+\end{figure}
+
+\subsection{Farthest First Traversal}
+Previous studies emphasized that a key benefit of \ac{mga} is
+obtaining a set of near-optimal solutions that are maximally different in design
+space \cite{decarolis_modelling_2016, yue_review_2018-1}. Instead of
+constraining a linear program to guarantee a maximally-different solution set.
+\ac{osier} implements a ``greedy'' search algorithm in decision space to find
+solutions \cite{hochbaum_best_1985}. The algorithm is
+\begin{enumerate}
+  \item Calculate a distance matrix $\mathcal{D}$ containing the distances among
+  all points. 
+  \item Choose an initial point (either randomly or a specified point).
+  \item Step towards the point that has the maximum distance from the current
+  point that has not already been visited.
+  \item Continue until the desired number of points has been reached.
+\end{enumerate}
+
+Figure \ref{fig:mga-fft} demonstrates \ac{mga} with
+``farthest-first-traversal.'' The left plot in Figure \ref{fig:mga-fft} shows
+the objective space for the same problem as in Figure \ref{fig:nd-mga}. The plot
+on the right shows the corresponding design space. Both plots show the Pareto
+front as red dots. The colored dots represent the points selected by the ``farthest-first-traversal''
+algorithm. These points are connected by similarly colored arrows in the design space plot. The arrow
+color corresponds to the color of the next selected point (i.e., the next farthest point).
+
+\begin{figure}[H]
+  \centering
+  \resizebox{1\columnwidth}{!}{\input{figures/mga-fft-example.pgf}}
+  \caption{Demonstrates the ``farthest-first-traversal'' algorithm with an example problem.}
+  \label{fig:mga-fft}
+\end{figure}

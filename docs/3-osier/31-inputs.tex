@@ -1,0 +1,242 @@
+\section{Inputs}
+
+% \textcolor{red}{General thoughts:}
+
+% Accurate input data are essential but curating data represents a challenging step in the
+% modeling process. \ac{osier} attempts to lower this barrier by providing a
+% variety of technology data from ``reliable'' sources.
+
+% This section connects to the normative and descriptive portions of modeling. 
+
+This section describes the input data and parameters that users must provide to run an \ac{osier} simulation. Broadly, \ac{osier} needs
+technology data and some objectives to optimize. 
+
+\subsection{Technology Data}
+\ac{osier} only requires marginal costs and technology names in order to run successfully.
+These data are needed to run the dispatch model. \ac{osier} also accepts operational data, such
+as ramp rates and storage capacities. Additionally, \ac{osier} will understand any bespoke 
+piece of data (e.g., ``popularity,'' ``technology-readiness score,'' or anything else) that
+might be needed for a user-defined objective. All of these data are passed to \ac{osier}
+through an \texttt{osier.Technology} object. Code listing \ref{listing:user-defined-technologies}
+shows how users can create a simple technology object.
+
+\begin{listing}[!ht]
+    \caption{A basic technology object in \ac{osier}.}
+    \label{listing:user-defined-technologies}
+    \begin{minted}
+    [ frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray,
+    fontsize=\footnotesize, linenos ] {python} 
+    from osier import ThermalTechnology
+
+    fusion = ThermalTechnology(technology_name="Fusion",
+                               dispatchable=True,
+                               renewable=False,
+                               fuel_cost=10*(GWh)**-1,
+                               lifecycle_co2_rate=0.0,
+                               )
+    \end{minted}
+    \end{listing}
+
+\subsection{Objectives}
+\label{section:osier_objectives}
+
+There are many possible objectives to optimize. This section summarizes a few of
+them and how they may be calculated in \ac{osier}. Due to \ac{pymoo}'s
+structure, all objectives are minimized. Therefore, if users wish to maximize
+some quantity, it must be reformatted with a reversal in sign to be an equivalent minimization objective.
+
+\subsubsection{Per-unit-capacity}
+
+Some quantities of interest depend on the \textit{capacity} of each technology.
+For example, land use of different energy producers is often reported as a land
+density $\text{km}^2/\text{MW}$. A generalized specific \textit{density} with respect to power 
+may be $\text{unit}/\text{MW}$. The objective function for these quantities reads
+\begin{align}
+    \mathcal{K} &= \sum_g^G \textbf{CAP}_g \kappa_g ,
+    \intertext{Where}
+    \kappa &= \text{the power density of the \textit{g-th} technology} \quad \left[\frac{-}{MW}\right].
+\end{align}
+
+Table \ref{tab:objectives-per-capacity} lists some example objectives that could be
+minimized or maximized.
+
+\begin{table}[h]
+    \centering
+    \caption{Example objectives on a per-unit-capacity basis.}
+    \begin{tabular}{cc}
+       \toprule
+       Quantity  & Units (per MW)\\
+       \midrule
+        Land Use & $\left[\text{km$^2$}\right]$\\
+        Employment & $\left[\text{jobs}\right]$\\
+        Capital Cost & $\left[\text{\$}\right]$\\
+        Fixed O\&M Cost & $\left[\text{\$ / year}\right]$\\
+        \bottomrule
+    \end{tabular}
+    \label{tab:objectives-per-capacity}
+\end{table}
+
+\subsubsection{Per-unit-energy}
+
+Some quantities of interest depend on the \textit{amount of energy produced} by
+each technology. For example, carbon emissions only occur when a coal or natural
+gas plant burns fuel. A generalized specific \textit{intensity} with respect to energy 
+may be in $\text{unit}/\text{MWh}$. The objective function for these quantities reads
+\begin{align}
+    \mathcal{E} &= \sum_g^G \xi_g \sum_t^T x_{g,t},
+    \intertext{where}
+    \xi_g &= \text{the energy density of the \textit{g-th} technology}\quad
+    \left[\frac{-}{MWh}\right].
+\end{align}
+
+\begin{table}[h]
+    \centering
+    \caption{Example objectives on a per-unit-energy basis.}
+    \begin{tabular}{cc}
+       \toprule
+       Quantity  & Units (per MWh)\\
+       \midrule
+        \acs{ghg} Emissions & $\left[\text{kg}\right]$ \\
+        Water Use & $\left[\text{L}\right]$\\
+        ``Safety'' & $\left[\text{deaths}\right]$\\
+        Fuel Cost & $\left[\text{\$}\right]$\\
+        Variable O\&M Cost & $\left[\text{\$}\right]$\\
+        \bottomrule
+    \end{tabular}
+    \label{tab:objectives-per-energy}
+\end{table}
+
+\subsubsection{Reliability and Predictability}
+
+Reliability has many definitions in the literature and it also depends heavily
+on the dispatch method. A hierarchical flow, which dispatches energy based on a
+set of rules (as opposed to true cost minimization), may simply report the
+fraction of hours when electricity demand was not met by the model
+\cite{donado_hyres_2020,bilil_multiobjective_2014,kamjoo_multi-objective_2016,riou_multi-objective_2021}.
+\acs{lp} or \acs{milp} formulations typically have an energy balance constraint requiring 
+electricity demand to be satisfied at all times, or within some specified tolerance. 
+Thus reliability may be translated into a cost by determining consumers'
+\ac{wtp} for electricity \cite{gorman_quest_2022, najafi_value_2021}. However,
+this thesis relates system reliability to price volatility and net demand
+predictability. Since the price of electricity is determined by matching supply
+and demand, the price will spike when supply and demand are out of phase. For
+instance, geopolitics may cause the supply of natural gas to drop, increasing
+the spot price of electricity. Or, more commonly, the availability of solar and
+wind resources may fall unexpectedly, leading to a greater demand for backup
+energy. Both of those examples are difficult to predict; otherwise, fuel
+reserves could be deployed, avoiding the price shock. Thus, I propose that
+measuring the predictability and volatility of an energy system is an
+appropriate proxy for reliability. Additionally, minimal price volatility is
+considered an aspect of energy justice \cite{sovacool_energy_2015,
+van_uffelen_revisiting_2022}.
+
+In this thesis, I measure the  predictability of hourly electricity prices and
+net demand using a measure from complexity science, \ac{wpe}
+\cite{fadlallah_weighted-permutation_2013}. Permutation entropy, the precursor
+to \ac{wpe}, is essentially the Shannon entropy for particular sequences of
+values called \textit{motifs} \cite{bandt_permutation_2002}. \ac{wpe} expands on this
+concept by weighting each instance of a motif by its variance
+\cite{fadlallah_weighted-permutation_2013,garland_model-free_2014}. \ac{wpe} is
+defined as
+\begin{align}
+    H_w(m) &= -\sum_{\pi \in \Pi} P_w(\pi)\log_2(P_w(\pi))
+    \intertext{where}
+    \pi &= \text{a particular motif,}\nonumber\\
+    P_w &= \text{the probability of a given motif, $\pi$,}\nonumber\\
+    &= \frac{\mathlarger{\sum\limits_{j\leq N}} w\left(x_j^{(m, \tau)}\right)\cdot\delta\left(\phi\left(x_j^{(m, \tau)}\right), \pi_i\right)}{\mathlarger{\sum\limits_{j\leq N}} w\left(x_j^{(m, \tau)}\right)}
+    \intertext{and}
+    w\left(x_j^{(m, \tau)}\right) &= \text{the weight of a particular vector}\nonumber\\
+      &= \frac{1}{m}{\sum_{j}^m} \left(x_j^{(m,\tau)} - \Bar{x}\right)^2,\\\
+     \phi(\cdot) &= \text{the ordinal pattern of a vector,}\nonumber\\
+     \delta(\cdot) &= \text{Kronecker delta,}\nonumber\\
+     m &= \text{the embedding dimension,}\nonumber\\
+     \tau &= \text{the time delay}\nonumber.
+\end{align}
+
+There are other reliability metrics in the literature, frequently employing some
+variation on the ``spread'' of data through standard deviation  or mean squared
+error \cite{galvani_optimal_2021, galvani_unified_2014,
+delsole_predictability_2004}. However, these metrics are unbounded and do not
+contain any information about the underlying dynamics that produce a certain
+distribution. Whereas \ac{wpe} can indicate a theoretical ceiling on
+predictability \cite{garland_model-free_2014}. Importantly, \ac{wpe} works for
+systems where the underlying dynamics are unknown. The Hurst exponent is another
+measure of predictability, but it too has drawbacks, such as computational
+expense and a stationarity requirement \cite{mesa_hurst_1993,
+chandrasekaran_investigation_2019}. This thesis uses the \ac{wpe} implementation
+I contributed to the open source package \texttt{PyEntropy}
+\cite{donets_pyentropy_2023}.
+
+\subsubsection{User-defined Objectives}
+
+A key feature of \ac{osier} is the ability for users to define their own
+objectives relatively easily. This feature is required
+because modelers cannot know \textit{a priori} every objective that users might
+be interested in optimizing. While \ac{osier} ships with some standard objective
+functions, allowing users to create their own objectives makes every model
+bespoke. With requisite user-supplied data \textit{any quantitative metric may be used as an objective in
+\ac{osier}.} Every objective function has at least two arguments, the list of
+technologies used in the model and the solved dispatch model. Users will never
+have to pass these arguments manually since \ac{osier} will automatically call
+the function during a simulation. One example of a user-defined objective might
+be technology readiness. This objective is independent from the energy produced
+and could be weighted by the capacity but is not a per-unit-capacity objective.
+The values of the readiness parameter must be passed to each \texttt{Technology}
+object, which can be accessed at run-time. Code listing
+\ref{listing:user-defined-objective} shows the basic approach to creating a new
+objective. 
+
+\begin{listing}[!ht]
+\caption{The fundamental way to create a novel objective in \ac{osier}.}
+\label{listing:user-defined-objective}
+\begin{minted}
+[ frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray,
+fontsize=\footnotesize, linenos ] {python} 
+
+nuclear.readiness = 9
+fusion.readiness = 3
+
+technology_list = [nuclear, fusion]
+
+def osier_objective(technology_list, solved_dispatch_model): 
+    """ 
+        Calculate the capacity-weighted technology readiness 
+        score for this energy mix. 
+    """
+
+    total_capacity = np.array([t.capacity for t in technology_list]).sum()
+    
+    objective_value = np.array([t.readiness*t.capacity 
+                                for t in technology_list]).sum()
+
+    return objective_value / total_capacity
+\end{minted}
+\end{listing}
+\noindent
+Importantly, because all technologies in \ac{osier} are Python objects, users
+can add attributes at will. Such as the technology readiness level as shown in
+Code listing \ref{listing:user-defined-objective}. 
+
+\subsection{Constraints}
+\label{section:constraints}
+
+Besides the physical constraints defined in Section \ref{section:dispatch},
+\ac{osier} does not have any default constraints. This is because each
+additional constraint corresponds to an additional assumption and will affect
+the trade-off analysis that makes \ac{moo} so powerful. However, there are some
+circumstances where the optimal solutions are still
+infeasible in practice. For instance, if a community wants to determine the best
+energy mix according to their unique objectives, this community might not have
+the budget for even a least-cost solution because the capital requirements are
+too high. Therefore, they must constrain the capital cost for their modeling
+problem. Thus, \ac{osier} enables the following:
+\begin{enumerate}
+    \item Users may define their own constraints.
+    \item Any objective function may be transformed into a constraint.
+\end{enumerate}
+This feature makes \ac{osier} unique among \acp{esom}.
+Single-objective \acp{esom} can never account for unique situations such as the
+one suggested above, nor any other bespoke considerations. In the case above,
+the capital cost may constrain the problem while still minimizing the total
+cost. The solutions under these conditions will have a higher total cost but
+could be achievable in the near term due to meeting capital cost requirements.

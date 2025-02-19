@@ -48,6 +48,14 @@ cd analysis
 snakemake --cores=1
 ```
 
+> [!NOTE]
+> _Why use `snakemake` to build the dissertation when there is already a `Make` file in the `docs` directory?_
+> 
+> Primarily because Windows _can't execute `make`_. There are additional
+> advantages as well. `snakemake` is arguably easier to understand and produces
+> a nice DAG model of the workflow itself.
+>  
+
 # Compiling the dissertation
 
 If you only want to reproduce the document itself without running any analysis,

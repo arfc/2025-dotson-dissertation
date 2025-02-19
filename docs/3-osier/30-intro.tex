@@ -1,0 +1,30 @@
+\chapter{\acf{osier}}
+\label{chapter:osier}
+
+This chapter introduces the \acf{osier}, a novel open-source energy system modeling
+framework for \acl{moo} \cite{dotson_osier_2024}. There are currently no
+\acp{esom} that enable \ac{moo} and \ac{osier} fills that gap. Figure 
+\ref{fig:osier_flow} illustrates the flow of data into and within \ac{osier}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/osier_flow}
+    \caption{The flow of data into and within \ac{osier}}
+    \label{fig:osier_flow}
+\end{figure}
+
+Technology data, objectives, constraints, and a dispatch model are all features
+within \ac{osier}, while \ac{pymoo} drives the optimization of these objectives \cite{blank_pymoo_2020}.
+The dispatch model is independently executable for inspecting specific test
+cases and mapping solutions from other solvers onto \ac{osier}'s objective
+space. The next sections elaborate on model inputs, \acfp{ga}, and the dispatch model's 
+formulation.
+
+% \textcolor{red}{This chapter is mostly written but there are a few things that
+% should be added.}
+
+\input{3-osier/31-inputs}
+\input{3-osier/32-genetic-algorithms}
+\input{3-osier/33-dispatch-model}
+\input{3-osier/34-mga}
+\input{3-osier/35-limitations}

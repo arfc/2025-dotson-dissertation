@@ -1,0 +1,31 @@
+\section{Limitations of \ac{osier}}
+
+Although \ac{osier} is the first \ac{esom} to allow arbitrary multi-objective
+optimization it still has some limitations. This section describes some of the limitations in \ac{osier}'s modeling details
+and scope.
+
+\begin{enumerate}
+    \item \ac{osier} is currently limited to optimizing a single future year.
+    \item Capacity expansion currently assumes ``green-field'' construction and
+    may not respect existing capacity.
+    \item \ac{osier} does not model interactions between the environment and the
+    energy system. Therefore, temperature feedbacks and geoengineering
+    technologies cannot be modeled adequately. 
+    % Although, \ac{osier} could handle a negative emissions technology.
+    \item Currently, \ac{osier}'s dispatch models can only model one energy carrier. That is, technologies
+    could produce heat (measured in MW$_{th}$) or electricity. But there is no method
+    to convert between the two endogenously.
+    \item There is no concept of transmission or distribution within \ac{osier}'s dispatch
+    models. 
+    \item Demand for energy is treated as perfectly inelastic. Therefore, \ac{osier} cannot model 
+    optional or deferrable loads.
+    \item Ancillary services, capacity auctions, and other markets are not included in \ac{osier}. The dispatch
+    model is strictly day-ahead or real time for the \ac{lp} and hierarchical formulations respectively.
+\end{enumerate}
+
+Many of these limitations are due to the underlying dispatch model. These limitations could be addressed 
+by coupling \ac{osier}'s genetic algorithm to an external dispatch model, such as \ac{pypsa} or \ac{temoa}.
+Other features, such as geoengineering and environmental interactions, are much more challenging to enclose.
+Avenues of future work are detailed in Section \ref{section:future-work}.
+
+% This responds to some of Cliff's comments on \ac{osier}.
