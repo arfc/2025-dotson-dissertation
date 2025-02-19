@@ -1,17 +1,18 @@
 \section{Modeling and Quantifying Energy Justice}
 
 The dearth of studies that incorporate energy justice into \acp{esom} highlights
-the challenge of combining these techniques. The literature on energy justice and
-socio-technical transitions tend to derogate modeling efforts as cold and
+the challenge of combining these techniques. The literature on energy justice
+and socio-technical transitions tend to derogate modeling efforts as cold and
 calculating \cite{sovacool_energy_2015,sovacool_energy_2016}, and most models do
 not account for energy justice in either equations or analysis. However, there
-have been some notable attempts to bridge this gap. The following studies by Patrizio 
-et al. (2020) \cite{patrizio_socially_2020} and Neumann \& Brown (2021) \cite{neumann_near-optimal_2021}
-explicitly use \acp{esom} in their analyses. Although the works by Chapman et al. (2018)
-\cite{chapman_prioritizing_2018} and Mayfield et al. (2019) \cite{mayfield_quantifying_2019}
-do not use \acp{esom} as described in Section \ref{section:esoms}, these contributions
-quantify some features of their respective energy systems and how they relate to
-notions of energy justice and equity.
+have been some notable attempts to bridge this gap. The following studies by
+Patrizio et al. (2020) \cite{patrizio_socially_2020} and Neumann \& Brown (2021)
+\cite{neumann_near-optimal_2021} explicitly use \acp{esom} in their analyses.
+Although the works by Chapman et al. (2018) \cite{chapman_prioritizing_2018} and
+Mayfield et al. (2019) \cite{mayfield_quantifying_2019} do not use \acp{esom} as
+described in Section \ref{section:esoms}, these contributions quantify some
+features of their respective energy systems and how they relate to notions of
+energy justice and equity.
 
 Patrizio et al. (2020) conducted a technology-agnostic `social equity' scenario
 that maximized the \ac{gva} of several countries' energy systems rather than
@@ -20,16 +21,15 @@ distinct from social welfare because it measures contributions to \ac{gdp} from
 individual producers rather than maximizing surplus. This metric enables
 sector-specific analysis of the impacts of energy infrastructure on employment
 and sales. Equity, in this context, is identical to socioeconomic development as
-measured by \ac{gdp}. Using this definition of equity, the researchers looked at a 
-socio-technical transition for
-three countries: Spain, the United Kingdom, and Poland. They found that a 100\%
-renewable energy system would reduce labor compensation by 50-60\% in the UK and
-Poland but could increase benefits in Spain. They argue this is due to the
-outsourcing of manufacturing and mining jobs in the former cases, while Spain
-has enough domestic resources to accommodate the transition. The researchers did
-not analyze possible shifts in power dynamics related to the energy systems, but
-they did identify that there is no one-size-fits-all solution to achieving
-net-zero carbon emissions.
+measured by \ac{gdp}. Using this definition of equity, the researchers looked at
+a socio-technical transition for three countries: Spain, the United Kingdom, and
+Poland. They found that a 100\% renewable energy system would reduce labor
+compensation by 50-60\% in the UK and Poland but could increase benefits in
+Spain. They argue this is due to the outsourcing of manufacturing and mining
+jobs in the former cases, while Spain has enough domestic resources to
+accommodate the transition. The researchers did not analyze possible shifts in
+power dynamics related to the energy systems, but they did identify that there
+is no one-size-fits-all solution to achieving net-zero carbon emissions.
 
 Neumann \& Brown (2021) performed a detailed analysis of the European energy
 system considering the expansion of transmission networks and energy producers
@@ -84,51 +84,138 @@ the policies maximize some measure of energy justice
 of detailed analyses may also be used to dismiss concerns or opposition from the
 public due to insufficient `technical expertise' \cite{johnson_dakota_2021}.
 Further, without meaningful participation from the affected public, this
-approach further entrenches procedural injustices. To credit the energy
-modeling community, there is significant awareness of the importance of
-transparency and repeatability in the space \cite{decarolis_case_2012,
-pfenninger_energy_2014, pfenninger_openmod_2022, forster_open_2022,
-hilpert_open_2018}. Yet these two goals are challenged by the computational
-resources required to run the more complex and detailed models, as well as the
-learning curve necessary to understand and modify the model inputs themselves.
-There has been some effort to reduce this learning curve and make modeling
-itself more accessible. Frameworks such as METIS, EnergyRT, and \ac{pygen} all
-emphasize reproducibility, user-friendliness, and a shallower learning curve
-\cite{sakellaris_metis_2018, lugovoy_energyrt_2022, dotson_python_2021}. The
-creators of METIS state their goal is to ``close the gap between modelers and
-policy-makers, enabling policy-makers to become modelers''
-\cite{sakellaris_metis_2018}. However, these frameworks do not offer
-computational resources to run their models. The \ac{temoa} project offers
-limited cloud computing capabilities, free of charge
+approach further entrenches procedural injustices. To credit the energy modeling
+community, there is significant awareness of the importance of transparency and
+repeatability in the space \cite{decarolis_case_2012, pfenninger_energy_2014,
+pfenninger_openmod_2022, forster_open_2022, hilpert_open_2018}. Yet these two
+goals are challenged by the computational resources required to run the more
+complex and detailed models, as well as the learning curve necessary to
+understand and modify the model inputs themselves. There has been some effort to
+reduce this learning curve and make modeling itself more accessible. Frameworks
+such as METIS, EnergyRT, and \ac{pygen} all emphasize reproducibility,
+user-friendliness, and a shallower learning curve \cite{sakellaris_metis_2018,
+lugovoy_energyrt_2022, dotson_python_2021}. The creators of METIS state their
+goal is to ``close the gap between modelers and policy-makers, enabling
+policy-makers to become modelers'' \cite{sakellaris_metis_2018}. However, these
+frameworks do not offer computational resources to run their models. The
+\ac{temoa} project offers limited cloud computing capabilities, free of charge
 \cite{temoa_project_temoa_2023}. However, the responsibility for creating an
 input file still falls to the user, which can be overwhelming even for
-experienced modelers. However, some studies investigated the potential for enhancing
-procedural justice through direct collaboration between energy modelers
-and communities themselves. The next section describes these efforts.
+experienced modelers. However, some studies investigated the potential for
+enhancing procedural justice through direct collaboration between energy
+modelers and communities themselves. The next section describes these efforts.
 
 
-Finally, it's not clear that perfectly accessible and
-transparent modeling tools will translate to more procedurally just
-policy-making. The next section outlines one method used to address this
-challenge.
+Finally, it's not clear that perfectly accessible and transparent modeling tools
+will translate to more procedurally just policy-making. The next section
+outlines one method used to address this challenge.
 
 
 \textcolor{red}{\subsection{Hyper-local energy system modeling}}
-\textcolor{red}{To the literature review, I want to add a section discussing 
-the research on modeling at the municipal level. These papers start with the 
-following: 
+\textcolor{red}{To the literature review, I want to add a section discussing the
+research on modeling at the municipal level. These papers start with the
+following:
 \cite{mckenna_combining_2018,johannsen_municipal_2023,ben_amer_too_2020}.}
 
 Questions to answer:
 
 \begin{enumerate}
-    \item Where have these studies been done?
-    \item Do the researchers mention energy justice? What kinds of justice are mentioned?
+    \item Where have these studies been done? What are some characteristics of
+    these municipalities (e.g., size, country, etc.)?
+    \begin{enumerate}
+        \item McKenna et al. 2018 \cite{mckenna_combining_2018} conducted their
+        study in Ebhausen, Germany. This rural municipality had a population of
+        4,700 in 2013 and covered 25 square kilometers. It has no industrial
+        loads and few commercial uses. This raises a question about engagement
+        and decision-making power. Smaller governments are naturally more
+        responsive to their constituents than larger, representative, ones.
+        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} used the
+        town of Oud-Heverlee, Belgium as a case study. Oud-Heverlee had a
+        population of 11,000 in 2023 with mostly residential energy demand
+        (88\%) and no industrial demands. But they considered multiple energy
+        sectors such as electricity, heat, and transportation.
+        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019}
+        investigated the Austrian city of Linz.
+    \end{enumerate}
+    \item Do the researchers mention energy justice? What kinds of justice are
+    mentioned?
+    \begin{enumerate}
+        \item McKenna et al. 2018 \cite{mckenna_combining_2018} do not mention
+        justice, equity, nor fairness in the text of the paper.
+        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} do not
+        mention justice, equity, nor fairness in the text of the paper.
+        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} do not
+        mention justice, equity, nor fairness in the text of the paper.
+    \end{enumerate}
     \item What modeling methods have the studies used?
+    \begin{enumerate}
+        \item McKenna et al. 2018 \cite{mckenna_combining_2018} used the
+        \ac{reason} model. This model allows users to optimize cost, carbon
+        emissions, and imports. Social acceptance is modeled as constraint be
+        strictly disallowing certain technologies. This is interesting because
+        \ac{osier} enables bespoke objective functions and could account for
+        social acceptance as a competing objective. Thus this study cannot
+        elucidate the tradeoffs between technology preferences and performance
+        objectives. Additionally, they did not fully co-optimize the three
+        objectives idenfitied by the community. Each option presented held one
+        of the three objectives as a free variable.
+        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} applied
+        \ac{moo} with the EnergyPLAN model to study the energy system of
+        Oud-Haverlee. They draw a distinction between ``expert-based
+        simulation,'' ``near-optimal solutions,'' and \ac{moo}, suggesting that
+        optimization methods are too structured for deep engagement with a
+        community, outside of filtering results. This thesis directly challenges
+        that assertion by developing \ac{osier}, a modeling tool capable of
+        user-defined objective functions.
+    \end{enumerate}
     \item How did the researchers engage with communities?
-    \item How did the researchers and communities select certain energy portfolios?
+    \begin{enumerate}
+        \item McKenna et al. 2018 \cite{mckenna_combining_2018} engaged with the
+        community by iterating between a focus group workshop and model
+        refinement. The first workshop identifies community priorities, followed
+        by an iteration where preference ``weights'' are elicited, and a final
+        workshop where consensus is hopefully reached (though the authors
+        acknowledge the possible need for additional iterations). The authors
+        describe methods for structuring problems, such as developing
+        ``cognitive maps.''
+        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} did not engage
+        with the community of Oud-Haverlee in a meaningful way.
+    \end{enumerate}
+    \item What objectives did the communities have?
+    \begin{enumerate}
+        \item In the study by McKenna et al. 2018 \cite{mckenna_combining_2018},
+        the community had three core objectives: affordability, environmental
+        (lower carbon emissions), and autonomy (fewer energy imports).
+        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} restricted themselves
+        to total cost and carbon dioxide emissions based on the limitations of
+        the EnergyPLAN model. They did not consult the studied community for their 
+        priorities.
+    \end{enumerate}
+    \item How did the researchers and communities select certain energy
+    portfolios?
+    \begin{enumerate}
+        \item Participants and the authors of McKenna et al. 2018
+        \cite{mckenna_combining_2018} used \ac{mavt}, a method used for
+        \ac{mcda}.
+        \item No final selection was made in Johannsen et al. 2023 \cite{johannsen_municipal_2023}
+        since they did not conduct a visioning exercise. Results consisted of complete Pareto fronts.
+    \end{enumerate}
     \item Did the authors have any calls for action?
-    \item How is my work extending the work of this literature? Especially as it pertains to the interviews I conducted.
+    \begin{enumerate}
+        \item McKenna et al. 2018 \cite{mckenna_combining_2018} suggested
+        developing tools to allow communities to conduct studies on their own
+        with limited external guidance. \textcolor{red}{This is something I
+        directly tried to address in my interviews.}
+        \item The authors of Johannsen et al. 2023 \cite{johannsen_municipal_2023} 
+        indicate that strict focus on carbon emissions and costs disregard the 
+        potential to ``evaluate scenarios based on an additional set of 
+        parameters.'' Again, this is precisely why I developed \ac{osier}.
+    \end{enumerate}
+    \item How is my work extending the work of this literature? Especially as it
+    pertains to the interviews I conducted.
+    \begin{enumerate}
+        \item .
+    \end{enumerate}
 \end{enumerate}
 
 
