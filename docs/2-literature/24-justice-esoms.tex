@@ -101,20 +101,20 @@ frameworks do not offer computational resources to run their models. The
 \ac{temoa} project offers limited cloud computing capabilities, free of charge
 \cite{temoa_project_temoa_2023}. However, the responsibility for creating an
 input file still falls to the user, which can be overwhelming even for
-experienced modelers. However, some studies investigated the potential for
-enhancing procedural justice through direct collaboration between energy
-modelers and communities themselves. The next section describes these efforts.
+experienced modelers. Some studies investigated the potential for enhancing
+procedural justice through direct collaboration between energy modelers and
+communities themselves. The next section describes these efforts.
 
-
+\textcolor{red}{The following sentence should go before the \ac{pve} section.}
 Finally, it's not clear that perfectly accessible and transparent modeling tools
 will translate to more procedurally just policy-making. The next section
 outlines one method used to address this challenge.
 
 
-\textcolor{red}{\subsection{Hyper-local energy system modeling}}
+\textcolor{red}{\subsection{Participatory modeling processes}}
 \textcolor{red}{To the literature review, I want to add a section discussing the
-research on modeling at the municipal level. These papers start with the
-following:
+research on modeling that engages with local stakeholders. These papers start
+with the following:
 \cite{mckenna_combining_2018,johannsen_municipal_2023,ben_amer_too_2020}.}
 
 Questions to answer:
@@ -135,7 +135,9 @@ Questions to answer:
         (88\%) and no industrial demands. But they considered multiple energy
         sectors such as electricity, heat, and transportation.
         \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019}
-        investigated the Austrian city of Linz.
+        investigated a single district in Linz, Austrian.
+        \item Zelt et al. 2019 \cite{zelt_long-term_2019} looked decarbonization
+        scenarios for three countries: Jordan, Morocco, Tunisia.
     \end{enumerate}
     \item Do the researchers mention energy justice? What kinds of justice are
     mentioned?
@@ -144,8 +146,21 @@ Questions to answer:
         justice, equity, nor fairness in the text of the paper.
         \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} do not
         mention justice, equity, nor fairness in the text of the paper.
-        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} do not
-        mention justice, equity, nor fairness in the text of the paper.
+        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} do
+        not mention justice, equity, nor fairness in the text of the paper.
+        \item While Zelt et al. 2019 \cite{zelt_long-term_2019} do not
+        explicitly mention justice, they conclude that ``[r]epresentatives of the
+        population need to be included in the discussion on the countries’
+        future electricity supply to increase public support for national
+        targets. There should be a strategy to assure that all societal groups
+        are empowered to participate in this process. Finally, action needs to
+        be taken to ensure that the local population has its fair share of
+        benefits from the increase in renewable energy technologies, such as new
+        green jobs or financial participation in decentralised projects.'' However,
+        the authors do not expand on their view of fairness or justice, indicating
+        a normative uncertainty. Also of note, the authors wanted to explicitly
+        investigate the ``normative'' assumption that renewable energy is the
+        ``cornerstone'' to decarbonization.
     \end{enumerate}
     \item What modeling methods have the studies used?
     \begin{enumerate}
@@ -167,6 +182,31 @@ Questions to answer:
         community, outside of filtering results. This thesis directly challenges
         that assertion by developing \ac{osier}, a modeling tool capable of
         user-defined objective functions.
+        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} used
+        \acf{ec} to optimize solutions from the URBS model.
+        \item Zelt et al. 2019 \cite{zelt_long-term_2019} used the ``renpass'' model.
+    \end{enumerate}
+    \item Why do the researchers believe or assert that community engagement is
+    important?
+    \begin{enumerate}
+        \item McKenna et al. 2018 \cite{mckenna_combining_2018} focused on a
+        smaller community because smaller municipalities ``typically have fewer
+        technical, administrative, and economic resources to devote to
+        sustainability projects.'' However, the authors do not indicate that
+        participation yields superior outcomes in general. Rather, they simply
+        that local context is important and that the study was done to help an
+        enthusiastic but otherwise ill-equipped community. Thus the role of
+        participation was more scale-oriented than process-oriented.
+        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} were light
+        on discussion about the significance of local participation, except
+        where it does and doesn't play a role in the modeling process, and that
+        local context is important for translating issues into an optimization
+        problem.
+        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} do
+        not mention ``engagement'' or ``participation'' anywhere in the article,
+        but assert that the tools they present will allow ``stakeholders'' to
+        calculate capabilities and restrictions of the local energy system. They
+        perceive ``city planners'' as the ultimate end-users.
     \end{enumerate}
     \item How did the researchers engage with communities?
     \begin{enumerate}
@@ -178,18 +218,22 @@ Questions to answer:
         acknowledge the possible need for additional iterations). The authors
         describe methods for structuring problems, such as developing
         ``cognitive maps.''
-        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} did not engage
-        with the community of Oud-Haverlee in a meaningful way.
+        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} did not
+        engage with the community of Oud-Haverlee in a meaningful way.
+        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} did
+        not describe any engagement with the studied community.
     \end{enumerate}
     \item What objectives did the communities have?
     \begin{enumerate}
         \item In the study by McKenna et al. 2018 \cite{mckenna_combining_2018},
         the community had three core objectives: affordability, environmental
         (lower carbon emissions), and autonomy (fewer energy imports).
-        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} restricted themselves
-        to total cost and carbon dioxide emissions based on the limitations of
-        the EnergyPLAN model. They did not consult the studied community for their 
-        priorities.
+        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} restricted
+        themselves to total cost and carbon dioxide emissions based on the
+        limitations of the EnergyPLAN model. They did not consult the studied
+        community for their priorities.
+        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019}
+        optimized on cost and emissions, without consulting local stakeholders.
     \end{enumerate}
     \item How did the researchers and communities select certain energy
     portfolios?
@@ -197,8 +241,13 @@ Questions to answer:
         \item Participants and the authors of McKenna et al. 2018
         \cite{mckenna_combining_2018} used \ac{mavt}, a method used for
         \ac{mcda}.
-        \item No final selection was made in Johannsen et al. 2023 \cite{johannsen_municipal_2023}
-        since they did not conduct a visioning exercise. Results consisted of complete Pareto fronts.
+        \item No final selection was made in Johannsen et al. 2023
+        \cite{johannsen_municipal_2023} since they did not conduct a visioning
+        exercise. Results consisted of complete Pareto fronts.
+        \item Similar to Johannsen et al. 2023, Fleischhacker et al. 2019
+        \cite{fleischhacker_portfolio_2019} did not conduct a visioning
+        exercise, rather they demonstrated tradeoffs and policy impacts (e.g.,
+        carbon taxes) without choosing or recommending a particular solution.
     \end{enumerate}
     \item Did the authors have any calls for action?
     \begin{enumerate}
@@ -206,10 +255,14 @@ Questions to answer:
         developing tools to allow communities to conduct studies on their own
         with limited external guidance. \textcolor{red}{This is something I
         directly tried to address in my interviews.}
-        \item The authors of Johannsen et al. 2023 \cite{johannsen_municipal_2023} 
-        indicate that strict focus on carbon emissions and costs disregard the 
-        potential to ``evaluate scenarios based on an additional set of 
-        parameters.'' Again, this is precisely why I developed \ac{osier}.
+        \item The authors of Johannsen et al. 2023
+        \cite{johannsen_municipal_2023} indicate that strict focus on carbon
+        emissions and costs disregard the potential to ``evaluate scenarios
+        based on an additional set of parameters.'' Again, this is precisely why
+        I developed \ac{osier}.
+        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} did
+        not have a call to action. For other modelers, but identified future
+        technical work.
     \end{enumerate}
     \item How is my work extending the work of this literature? Especially as it
     pertains to the interviews I conducted.
@@ -218,7 +271,7 @@ Questions to answer:
     \end{enumerate}
 \end{enumerate}
 
-
+\subsection{Progress on developing tools for local use}
 
 \subsection{\Acl{pve}}
 
