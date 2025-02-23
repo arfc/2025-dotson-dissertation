@@ -101,177 +101,22 @@ frameworks do not offer computational resources to run their models. The
 \ac{temoa} project offers limited cloud computing capabilities, free of charge
 \cite{temoa_project_temoa_2023}. However, the responsibility for creating an
 input file still falls to the user, which can be overwhelming even for
-experienced modelers. Some studies investigated the potential for enhancing
+experienced modelers. 
+
+\textcolor{red}{This section should also evaluate whether the current literature
+focuses only on the ``skill'' barriers to energy modeling or if it recognizes
+structural/political barriers to meaningful energy modeling.}
+
+\textcolor{red}{This section still works. But the section above should include a
+review of studies that looked at bridging the gap between models and their users.}
+
+Some studies investigated the potential for enhancing
 procedural justice through direct collaboration between energy modelers and
 communities themselves. The next section describes these efforts.
 
-\textcolor{red}{The following sentence should go before the \ac{pve} section.}
 Finally, it's not clear that perfectly accessible and transparent modeling tools
-will translate to more procedurally just policy-making. The next section
-outlines one method used to address this challenge.
-
-
-\textcolor{red}{\subsection{Participatory modeling processes}}
-\textcolor{red}{To the literature review, I want to add a section discussing the
-research on modeling that engages with local stakeholders. These papers start
-with the following:
-\cite{mckenna_combining_2018,johannsen_municipal_2023,ben_amer_too_2020}.}
-
-Questions to answer:
-
-\begin{enumerate}
-    \item Where have these studies been done? What are some characteristics of
-    these municipalities (e.g., size, country, etc.)?
-    \begin{enumerate}
-        \item McKenna et al. 2018 \cite{mckenna_combining_2018} conducted their
-        study in Ebhausen, Germany. This rural municipality had a population of
-        4,700 in 2013 and covered 25 square kilometers. It has no industrial
-        loads and few commercial uses. This raises a question about engagement
-        and decision-making power. Smaller governments are naturally more
-        responsive to their constituents than larger, representative, ones.
-        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} used the
-        town of Oud-Heverlee, Belgium as a case study. Oud-Heverlee had a
-        population of 11,000 in 2023 with mostly residential energy demand
-        (88\%) and no industrial demands. But they considered multiple energy
-        sectors such as electricity, heat, and transportation.
-        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019}
-        investigated a single district in Linz, Austrian.
-        \item Zelt et al. 2019 \cite{zelt_long-term_2019} looked decarbonization
-        scenarios for three countries: Jordan, Morocco, Tunisia.
-    \end{enumerate}
-    \item Do the researchers mention energy justice? What kinds of justice are
-    mentioned?
-    \begin{enumerate}
-        \item McKenna et al. 2018 \cite{mckenna_combining_2018} do not mention
-        justice, equity, nor fairness in the text of the paper.
-        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} do not
-        mention justice, equity, nor fairness in the text of the paper.
-        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} do
-        not mention justice, equity, nor fairness in the text of the paper.
-        \item While Zelt et al. 2019 \cite{zelt_long-term_2019} do not
-        explicitly mention justice, they conclude that ``[r]epresentatives of the
-        population need to be included in the discussion on the countries’
-        future electricity supply to increase public support for national
-        targets. There should be a strategy to assure that all societal groups
-        are empowered to participate in this process. Finally, action needs to
-        be taken to ensure that the local population has its fair share of
-        benefits from the increase in renewable energy technologies, such as new
-        green jobs or financial participation in decentralised projects.'' However,
-        the authors do not expand on their view of fairness or justice, indicating
-        a normative uncertainty. Also of note, the authors wanted to explicitly
-        investigate the ``normative'' assumption that renewable energy is the
-        ``cornerstone'' to decarbonization.
-    \end{enumerate}
-    \item What modeling methods have the studies used?
-    \begin{enumerate}
-        \item McKenna et al. 2018 \cite{mckenna_combining_2018} used the
-        \ac{reason} model. This model allows users to optimize cost, carbon
-        emissions, and imports. Social acceptance is modeled as constraint be
-        strictly disallowing certain technologies. This is interesting because
-        \ac{osier} enables bespoke objective functions and could account for
-        social acceptance as a competing objective. Thus this study cannot
-        elucidate the tradeoffs between technology preferences and performance
-        objectives. Additionally, they did not fully co-optimize the three
-        objectives idenfitied by the community. Each option presented held one
-        of the three objectives as a free variable.
-        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} applied
-        \ac{moo} with the EnergyPLAN model to study the energy system of
-        Oud-Haverlee. They draw a distinction between ``expert-based
-        simulation,'' ``near-optimal solutions,'' and \ac{moo}, suggesting that
-        optimization methods are too structured for deep engagement with a
-        community, outside of filtering results. This thesis directly challenges
-        that assertion by developing \ac{osier}, a modeling tool capable of
-        user-defined objective functions.
-        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} used
-        \acf{ec} to optimize solutions from the URBS model.
-        \item Zelt et al. 2019 \cite{zelt_long-term_2019} used the ``renpass'' model.
-    \end{enumerate}
-    \item Why do the researchers believe or assert that community engagement is
-    important?
-    \begin{enumerate}
-        \item McKenna et al. 2018 \cite{mckenna_combining_2018} focused on a
-        smaller community because smaller municipalities ``typically have fewer
-        technical, administrative, and economic resources to devote to
-        sustainability projects.'' However, the authors do not indicate that
-        participation yields superior outcomes in general. Rather, they simply
-        that local context is important and that the study was done to help an
-        enthusiastic but otherwise ill-equipped community. Thus the role of
-        participation was more scale-oriented than process-oriented.
-        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} were light
-        on discussion about the significance of local participation, except
-        where it does and doesn't play a role in the modeling process, and that
-        local context is important for translating issues into an optimization
-        problem.
-        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} do
-        not mention ``engagement'' or ``participation'' anywhere in the article,
-        but assert that the tools they present will allow ``stakeholders'' to
-        calculate capabilities and restrictions of the local energy system. They
-        perceive ``city planners'' as the ultimate end-users.
-    \end{enumerate}
-    \item How did the researchers engage with communities?
-    \begin{enumerate}
-        \item McKenna et al. 2018 \cite{mckenna_combining_2018} engaged with the
-        community by iterating between a focus group workshop and model
-        refinement. The first workshop identifies community priorities, followed
-        by an iteration where preference ``weights'' are elicited, and a final
-        workshop where consensus is hopefully reached (though the authors
-        acknowledge the possible need for additional iterations). The authors
-        describe methods for structuring problems, such as developing
-        ``cognitive maps.''
-        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} did not
-        engage with the community of Oud-Haverlee in a meaningful way.
-        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} did
-        not describe any engagement with the studied community.
-    \end{enumerate}
-    \item What objectives did the communities have?
-    \begin{enumerate}
-        \item In the study by McKenna et al. 2018 \cite{mckenna_combining_2018},
-        the community had three core objectives: affordability, environmental
-        (lower carbon emissions), and autonomy (fewer energy imports).
-        \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} restricted
-        themselves to total cost and carbon dioxide emissions based on the
-        limitations of the EnergyPLAN model. They did not consult the studied
-        community for their priorities.
-        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019}
-        optimized on cost and emissions, without consulting local stakeholders.
-    \end{enumerate}
-    \item How did the researchers and communities select certain energy
-    portfolios?
-    \begin{enumerate}
-        \item Participants and the authors of McKenna et al. 2018
-        \cite{mckenna_combining_2018} used \ac{mavt}, a method used for
-        \ac{mcda}.
-        \item No final selection was made in Johannsen et al. 2023
-        \cite{johannsen_municipal_2023} since they did not conduct a visioning
-        exercise. Results consisted of complete Pareto fronts.
-        \item Similar to Johannsen et al. 2023, Fleischhacker et al. 2019
-        \cite{fleischhacker_portfolio_2019} did not conduct a visioning
-        exercise, rather they demonstrated tradeoffs and policy impacts (e.g.,
-        carbon taxes) without choosing or recommending a particular solution.
-    \end{enumerate}
-    \item Did the authors have any calls for action?
-    \begin{enumerate}
-        \item McKenna et al. 2018 \cite{mckenna_combining_2018} suggested
-        developing tools to allow communities to conduct studies on their own
-        with limited external guidance. \textcolor{red}{This is something I
-        directly tried to address in my interviews.}
-        \item The authors of Johannsen et al. 2023
-        \cite{johannsen_municipal_2023} indicate that strict focus on carbon
-        emissions and costs disregard the potential to ``evaluate scenarios
-        based on an additional set of parameters.'' Again, this is precisely why
-        I developed \ac{osier}.
-        \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} did
-        not have a call to action. For other modelers, but identified future
-        technical work.
-    \end{enumerate}
-    \item How is my work extending the work of this literature? Especially as it
-    pertains to the interviews I conducted.
-    \begin{enumerate}
-        \item .
-    \end{enumerate}
-\end{enumerate}
-
-\subsection{Progress on developing tools for local use}
+will translate to more procedurally just policy-making. The next sections
+outline some methods used to address this challenge.
 
 \subsection{\Acl{pve}}
 
@@ -300,6 +145,215 @@ decision-making and participation was meaningful for the majority of subjects
 \cite{mouter_including_2021}. Although previous applications of \ac{pve} focused
 on economic policy levers, this approach offers a promising pathway toward
 identifying equitable and just energy mixes for the future.
+
+\subsection{Participatory modeling processes}
+
+Although \ac{pve} offers one method to elicit stakeholder input, researchers are
+beginning to explore transdisciplinary methods for engaging members of the public.
+McGookin et al. 2021 \cite{mcgookin_participatory_2021} systematically reviewed 
+existing literature on participatory energy modeling.
+
+The authors proposed a conceptual framework for successful integration of 
+participatory methods.
+\begin{enumerate}
+    \item Stakeholder engagement must occur before drawing conclusions from a
+    quantitative analysis. \textcolor{red}{I'm extending this conceptual framework
+    by describing precisely where in the modeling process stakeholder input can 
+    and should take place, and in what forms.}
+    \item There should be an iterative process where stakeholders can shape the 
+    process in addition to evaluating the results.
+    \item Lastly, the ideal process should include stakeholder input at every stage.
+\end{enumerate}
+Do the authors indicate why it's better to include this, beyond the ``usefulness''
+of `social intelligence?'
+
+Benefits of participatory energy modeling:
+\begin{enumerate}
+    \item Legitimacy and robustness --- discussion and tradeoff analysis lead to
+    solutions which are more socially and politically feasible.
+    \item Capacity building
+    \item Consensus building 
+\end{enumerate}
+
+Although the review doesn't explicitly identify these benefits with energy justice.
+The benefits of particpatory energy modeling evinced by the literature are well 
+aligned with both procedural and recognition justice. Further, only one of the apep
+
+
+The authors found that \acp{esom}, coupled with \ac{mcda}, were the most popular 
+quantitative tools used in the literature. \Ac{mcda} is a tool used to analyze 
+tradeoffs among different scenarios. 
+
+Persistent gaps
+
+\begin{enumerate}
+    \item Lack of awareness about the role of normativity in energy modeling. Only one 
+    paper in the review by McGookin et al. 2021 investigated the normative assertion 
+    that renewable energy is the ``cornerstone'' of decarbonization \cite{zelt_long-term_2019}.
+    \item Lack of understanding the normative premises that inform the rationale
+    for participatory methods. For example, there is little to no discussion about 
+    disproportionality in the relevant literature. Only one paper mentions ``procedural justice''
+    indicating that it's not yet a salient term among the modeling community \cite{knudsen_local_2015}.
+    \item There is a dearth of studies considering a participation in a U.S. context.
+    \item Studies reviewing model development focus on skill-based barriers rather than
+    structural barriers to energy modeling at the municipal level.
+    \item Although some studies in the McGookin review included non-academic participants, the
+    connection between the study objectives and actionable policies is unclear. How does modeling
+    fit into the policymaking process?
+\end{enumerate}
+
+% Questions to answer:
+% \begin{enumerate}
+%     \item Where have these studies been done? What are some characteristics of
+%     these municipalities (e.g., size, country, etc.)?
+%     \begin{enumerate}
+%         \item McKenna et al. 2018 \cite{mckenna_combining_2018} conducted their
+%         study in Ebhausen, Germany. This rural municipality had a population of
+%         4,700 in 2013 and covered 25 square kilometers. It has no industrial
+%         loads and few commercial uses. This raises a question about engagement
+%         and decision-making power. Smaller governments are naturally more
+%         responsive to their constituents than larger, representative, ones.
+%         \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} used the
+%         town of Oud-Heverlee, Belgium as a case study. Oud-Heverlee had a
+%         population of 11,000 in 2023 with mostly residential energy demand
+%         (88\%) and no industrial demands. But they considered multiple energy
+%         sectors such as electricity, heat, and transportation.
+%         \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019}
+%         investigated a single district in Linz, Austrian.
+%         \item Zelt et al. 2019 \cite{zelt_long-term_2019} looked decarbonization
+%         scenarios for three countries: Jordan, Morocco, Tunisia.
+%     \end{enumerate}
+%     \item Do the researchers mention energy justice? What kinds of justice are
+%     mentioned?
+%     \begin{enumerate}
+%         \item McKenna et al. 2018 \cite{mckenna_combining_2018} do not mention
+%         justice, equity, nor fairness in the text of the paper.
+%         \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} do not
+%         mention justice, equity, nor fairness in the text of the paper.
+%         \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} do
+%         not mention justice, equity, nor fairness in the text of the paper.
+%         \item While Zelt et al. 2019 \cite{zelt_long-term_2019} do not
+%         explicitly mention justice, they conclude that ``[r]epresentatives of the
+%         population need to be included in the discussion on the countries’
+%         future electricity supply to increase public support for national
+%         targets. There should be a strategy to assure that all societal groups
+%         are empowered to participate in this process. Finally, action needs to
+%         be taken to ensure that the local population has its fair share of
+%         benefits from the increase in renewable energy technologies, such as new
+%         green jobs or financial participation in decentralised projects.'' However,
+%         the authors do not expand on their view of fairness or justice, indicating
+%         a normative uncertainty. Also of note, the authors wanted to explicitly
+%         investigate the ``normative'' assumption that renewable energy is the
+%         ``cornerstone'' to decarbonization.
+%     \end{enumerate}
+%     \item What modeling methods have the studies used?
+%     \begin{enumerate}
+%         \item McKenna et al. 2018 \cite{mckenna_combining_2018} used the
+%         \ac{reason} model. This model allows users to optimize cost, carbon
+%         emissions, and imports. Social acceptance is modeled as constraint be
+%         strictly disallowing certain technologies. This is interesting because
+%         \ac{osier} enables bespoke objective functions and could account for
+%         social acceptance as a competing objective. Thus this study cannot
+%         elucidate the tradeoffs between technology preferences and performance
+%         objectives. Additionally, they did not fully co-optimize the three
+%         objectives idenfitied by the community. Each option presented held one
+%         of the three objectives as a free variable.
+%         \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} applied
+%         \ac{moo} with the EnergyPLAN model to study the energy system of
+%         Oud-Haverlee. They draw a distinction between ``expert-based
+%         simulation,'' ``near-optimal solutions,'' and \ac{moo}, suggesting that
+%         optimization methods are too structured for deep engagement with a
+%         community, outside of filtering results. This thesis directly challenges
+%         that assertion by developing \ac{osier}, a modeling tool capable of
+%         user-defined objective functions.
+%         \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} used
+%         \acf{ec} to optimize solutions from the URBS model.
+%         \item Zelt et al. 2019 \cite{zelt_long-term_2019} used the ``renpass'' model.
+%     \end{enumerate}
+%     \item Why do the researchers believe or assert that community engagement is
+%     important?
+%     \begin{enumerate}
+%         \item McKenna et al. 2018 \cite{mckenna_combining_2018} focused on a
+%         smaller community because smaller municipalities ``typically have fewer
+%         technical, administrative, and economic resources to devote to
+%         sustainability projects.'' However, the authors do not indicate that
+%         participation yields superior outcomes in general. Rather, they simply
+%         that local context is important and that the study was done to help an
+%         enthusiastic but otherwise ill-equipped community. Thus the role of
+%         participation was more scale-oriented than process-oriented.
+%         \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} were light
+%         on discussion about the significance of local participation, except
+%         where it does and doesn't play a role in the modeling process, and that
+%         local context is important for translating issues into an optimization
+%         problem.
+%         \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} do
+%         not mention ``engagement'' or ``participation'' anywhere in the article,
+%         but assert that the tools they present will allow ``stakeholders'' to
+%         calculate capabilities and restrictions of the local energy system. They
+%         perceive ``city planners'' as the ultimate end-users.
+%     \end{enumerate}
+%     \item How did the researchers engage with communities?
+%     \begin{enumerate}
+%         \item McKenna et al. 2018 \cite{mckenna_combining_2018} engaged with the
+%         community by iterating between a focus group workshop and model
+%         refinement. The first workshop identifies community priorities, followed
+%         by an iteration where preference ``weights'' are elicited, and a final
+%         workshop where consensus is hopefully reached (though the authors
+%         acknowledge the possible need for additional iterations). The authors
+%         describe methods for structuring problems, such as developing
+%         ``cognitive maps.''
+%         \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} did not
+%         engage with the community of Oud-Haverlee in a meaningful way.
+%         \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} did
+%         not describe any engagement with the studied community.
+%     \end{enumerate}
+%     \item What objectives did the communities have?
+%     \begin{enumerate}
+%         \item In the study by McKenna et al. 2018 \cite{mckenna_combining_2018},
+%         the community had three core objectives: affordability, environmental
+%         (lower carbon emissions), and autonomy (fewer energy imports).
+%         \item Johannsen et al. 2023 \cite{johannsen_municipal_2023} restricted
+%         themselves to total cost and carbon dioxide emissions based on the
+%         limitations of the EnergyPLAN model. They did not consult the studied
+%         community for their priorities.
+%         \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019}
+%         optimized on cost and emissions, without consulting local stakeholders.
+%     \end{enumerate}
+%     \item How did the researchers and communities select certain energy
+%     portfolios?
+%     \begin{enumerate}
+%         \item Participants and the authors of McKenna et al. 2018
+%         \cite{mckenna_combining_2018} used \ac{mavt}, a method used for
+%         \ac{mcda}.
+%         \item No final selection was made in Johannsen et al. 2023
+%         \cite{johannsen_municipal_2023} since they did not conduct a visioning
+%         exercise. Results consisted of complete Pareto fronts.
+%         \item Similar to Johannsen et al. 2023, Fleischhacker et al. 2019
+%         \cite{fleischhacker_portfolio_2019} did not conduct a visioning
+%         exercise, rather they demonstrated tradeoffs and policy impacts (e.g.,
+%         carbon taxes) without choosing or recommending a particular solution.
+%     \end{enumerate}
+%     \item Did the authors have any calls for action?
+%     \begin{enumerate}
+%         \item McKenna et al. 2018 \cite{mckenna_combining_2018} suggested
+%         developing tools to allow communities to conduct studies on their own
+%         with limited external guidance. \textcolor{red}{This is something I
+%         directly tried to address in my interviews.}
+%         \item The authors of Johannsen et al. 2023
+%         \cite{johannsen_municipal_2023} indicate that strict focus on carbon
+%         emissions and costs disregard the potential to ``evaluate scenarios
+%         based on an additional set of parameters.'' Again, this is precisely why
+%         I developed \ac{osier}.
+%         \item Fleischhacker et al. 2019 \cite{fleischhacker_portfolio_2019} did
+%         not have a call to action. For other modelers, but identified future
+%         technical work.
+%     \end{enumerate}
+%     \item How is my work extending the work of this literature? Especially as it
+%     pertains to the interviews I conducted.
+%     \begin{enumerate}
+%         \item .
+%     \end{enumerate}
+% \end{enumerate}
 
 In summary, climate change is a multi-dimensional existential threat to society.
 Transitioning to a zero-carbon economy by decarbonizing our energy systems may
