@@ -6,36 +6,36 @@ generating insight for policy development, or energy system planning for
 scheduling and acquisition \cite{decarolis_using_2011, yue_review_2018}.
 However, analyses using currently available \acp{esom} seldom consider the role
 of energy systems in creating and maintaining inequitable distributions of
-burdens. \acp{esom} vary significantly by the energy sectors they
-choose to model, the degree of physical detail, uncertainty quanitification, 
-and forecasting capabilities. Table \ref{tab:esoms} summarizes the capabilities 
-for a comprehensive
-list of energy system analysis tools. These tools are approximately sorted by
-mathematical formulation, e.g. explicit optimization or simulation. The
-``\ac{milp}'' column indicates whether the framework uses a linear-programming
-approach to optimize an objective function. The ``objective'' column specifies
-the nature of the objective function if one exists. ``Cost'' objectives minimize
-total or annual energy costs, while ``welfare'' maximizes social welfare. Some
-entries have more than one objective listed. This means users may choose which
-objective to optimize. None of the tools in Table \ref{tab:esoms} are designed
-to handle simultaneous optimization (i.e., \ac{moo}). For those modeling
-frameworks that have an ``objective'' in Table \ref{tab:esoms}, virtually all of
-them optimize system costs. EnergyScope is the only exception to this, which
-allows users to optimize \ac{ghg} emissions \cite{limpens_energyscope_2019}.
-\textcolor{black}{The ``uncertainty'' column indicates a feature to
-algorithmically generate model runs for testing either parametric or structural
-uncertainties. \textcolor{black}{For example, EnergyScope is \textit{suitable}
-for uncertainty analysis (i.e., many runs are computationally tractable) but
-does not have any built-in capabilities \cite{limpens_energyscope_2019}.} Some
-tools, such as NEMS \cite{nalley_national_2019}, incorporate uncertainty into
-their calculations via learning curves. However, these learning curves require
-assumptions about learning factors and technological ``optimism'' --  which are
-themselves uncertain \cite{nalley_national_2019}.} Table \ref{tab:esoms} also
-indicates whether the tool is a ``public code.'' This simply means users can
-download and inspect the source code. Other considerations for openness, such as
-licensing and development, vary among the listed frameworks.
-\textcolor{black}{The other columns simply indicate the existence of particular
-features rather than the relative maturity or sophistication of each feature.} 
+burdens. \acp{esom} vary significantly by the energy sectors they choose to
+model, the degree of physical detail, uncertainty quanitification, and
+forecasting capabilities. Table \ref{tab:esoms} summarizes the capabilities for
+a comprehensive list of energy system analysis tools. These tools are
+approximately sorted by mathematical formulation, e.g. explicit optimization or
+simulation. The ``\ac{milp}'' column indicates whether the framework uses a
+linear-programming approach to optimize an objective function. The ``objective''
+column specifies the nature of the objective function if one exists. ``Cost''
+objectives minimize total or annual energy costs, while ``welfare'' maximizes
+social welfare. Some entries have more than one objective listed. This means
+users may choose which objective to optimize. None of the tools in Table
+\ref{tab:esoms} are designed to handle simultaneous optimization (i.e.,
+\ac{moo}). For those modeling frameworks that have an ``objective'' in Table
+\ref{tab:esoms}, virtually all of them optimize system costs. EnergyScope is the
+only exception to this, which allows users to optimize \ac{ghg} emissions
+\cite{limpens_energyscope_2019}. \textcolor{black}{The ``uncertainty'' column
+indicates a feature to algorithmically generate model runs for testing either
+parametric or structural uncertainties. \textcolor{black}{For example,
+EnergyScope is \textit{suitable} for uncertainty analysis (i.e., many runs are
+computationally tractable) but does not have any built-in capabilities
+\cite{limpens_energyscope_2019}.} Some tools, such as NEMS
+\cite{nalley_national_2019}, incorporate uncertainty into their calculations via
+learning curves. However, these learning curves require assumptions about
+learning factors and technological ``optimism'' --  which are themselves
+uncertain \cite{nalley_national_2019}.} Table \ref{tab:esoms} also indicates
+whether the tool is a ``public code.'' This simply means users can download and
+inspect the source code. Other considerations for openness, such as licensing
+and development, vary among the listed frameworks. \textcolor{black}{The other
+columns simply indicate the existence of particular features rather than the
+relative maturity or sophistication of each feature.} 
 
 Frameworks, such as MEDEAS \cite{capellan-perez_medeas_2020}, and MultiMod
 \cite{huppmann_market_2014}, are general equilibrium models which embed energy
@@ -72,9 +72,10 @@ and distribution -- rather than the optimal dispatch of electricity producers
 \cite{thurner_pandapower_2018, vera_gridcal_2022, matke_structure_2017}.
 
 There is an overwhelming number of models with varying levels sophistication and
-capabilities. However, the inability to optimize any objective besides cost presents
-a significant gap in the existing space of energy modeling tools. Further, since none 
-of these tools allow for multiple objectives, true trade off analysis is rendered impossible.
+capabilities. However, the inability to optimize any objective besides cost
+presents a significant gap in the existing space of energy modeling tools.
+Further, since none of these tools allow for multiple objectives, true trade off
+analysis is rendered impossible.
 
 
 
@@ -207,9 +208,10 @@ Therefore, an ``optimal solution'' may lie in the model's inferior space
 \cite{decarolis_using_2011}. Section \ref{section:mga} details the
 implementation of \ac{mga}. \textcolor{black}{However, this approach still
 requires an objective function, and the sub-optimal space is still within some
-tolerance of the optimal value of the defined optimization space. Further, the solutions generated by \ac{mga}
-still admit bias from policy-makers and does not require users to consider the
-equity implications of these alternative solutions.} 
+tolerance of the optimal value of the defined optimization space. Further, the
+solutions generated by \ac{mga} still admit bias from policy-makers and does not
+require users to consider the equity implications of these alternative
+solutions.} 
 
 Another strategy to handle structural uncertainty is optimizing multiple
 objectives simultaneously. However, some researchers dismissed this approach for
@@ -218,14 +220,38 @@ the following reasons \cite{decarolis_using_2011}:
     \item structural uncertainty will always exist, regardless of the number of
     modeled objectives;
     \item traditional \ac{moo} enables the exploration of a set of non-dominated
-    solutions (i.e., the Pareto-front), but
-    not the near-optimal space;
+    solutions (i.e., the Pareto-front), but not the near-optimal space;
     \item analyzing tradeoffs for problems with many objectives is tedious.
 \end{enumerate}
 These critiques may explain the distinct lack of frameworks that apply \ac{moo}
-for energy system problems. However, there are important benefits to \ac{moo} (primarily 
-the opportunity to analyze tradeoffs), and the lack of an energy system \textit{framework}
-to apply this technique is one of the gaps this thesis fulfills.
+for energy system problems. However, there are important benefits to \ac{moo}
+(primarily the opportunity to analyze tradeoffs), and the lack of an energy
+system \textit{framework} to apply this technique is one of the gaps this thesis
+fulfills. Section \ref{section:moo-in-energy} details \acl{moo}.
 
+Although parametric and structural uncertainties correspond to different aspects
+of energy system modeling (and models writ large), they share the important
+quality of being descriptive rather than prescriptive. Even though they are
+primarily used to describe modeled systems, the results of modeling efforts
+considering these types of uncertainties are, often implicitly, prescriptive
+\cite{yue_least_2020,decarolis_nc_2018,cochran_la100_2021,bussar_optimal_2014}.
+For example, although structural uncertainty acknowledges the existence of
+unmodeled (or unmodelable) objectives the nature of mathematical optimization
+requires modelers to choose at least one objective --- one success criterion ---
+to optimize. This choice is always normative because it reflects the priorities
+of the modeler. Further, articles identifying a pathway to ``100\% renewable
+energy'' make an implicit normative assertion without justification or
+recognition of the plurality of morally valid alternatives. This suggests the
+existence of another uncertainty: Normative uncertainty. ``Situations where
+there are different partially morally defensible --- but incompatible ---
+options or courses of action, or ones where there is no fully morally defensible
+option'' \cite{taebi_bridging_2017,van_uffelen_revisiting_2024}. Choosing one or
+several objectives to optimize implies a normative premise --- even if the
+results are presented without a corresponding normative conclusion. The same
+could be said for any choice in the development of an \ac{esom}: Spatial scale,
+time scale, which technologies are included in the model, and more. Chapter
+\ref{chapter:modeling-theory} expands on all three forms of uncertainty and
+introduces a conceptual framework for understanding the modeling process
+through the lens of these these uncertainties. 
 
 
