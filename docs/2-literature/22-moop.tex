@@ -187,38 +187,35 @@ renewable penetration leads to greater costs and less reliable energy with a
 costs \cite{riou_multi-objective_2021}. 
 
 Although previous work demonstrated the applicability of \ac{moo} to energy
-systems optimization, there are significant limitations. 
-\begin{itemize}
-    \item{There are at most three modeled objectives
-    \cite{riou_multi-objective_2021,de-leon_almaraz_deployment_2015,
-    de-leon_almaraz_assessment_2013}.}
-    \item{While traditional \acp{esom} have many mature frameworks (as shown in
-    Table \ref{tab:esoms}), there are no frameworks that use \ac{moo}.
-    Simultaneously, none of the studies in Table \ref{tab:moop-literature}
-    developed a framework. Prina et al. 2020 \cite{prina_multi-objective_2020}
-    developed a bespoke and unlicensed model called ``Oemof-moea,'' and Prina et
-    al. 2018 \cite{prina_multi-objective_2018} and Johannsen et al. 2023
-    \cite{johannsen_municipal_2023} developed a \ac{moo} wrapper for the
-    \texttt{EnergyPLAN} model called \texttt{EPLANopt}, but none of these
-    examples constitute a framework.}
-    \item{None of the studies in Table \ref{tab:moop-literature} allow arbitrary
-    user-defined objectives.}
-    \item{None of the studies incorporate social metrics into the modeled objectives.}
-    \item{While some studies investigated energy systems at city-scale or
-    smaller \cite{riou_multi-objective_2021,
-    mayer_environmental_2020,fleischhacker_portfolio_2019,johannsen_municipal_2023},
-    none of them engaged with local stakeholders to discover their energy
-    priorities.}
-\end{itemize}
+systems optimization, there are significant limitations. While traditional
+\acp{esom} have many mature frameworks (as shown in Table \ref{tab:esoms}),
+there are no frameworks that use \ac{moo}. Simultaneously, none of the studies
+in Table \ref{tab:moop-literature} developed a framework. Prina et al. 2020
+\cite{prina_multi-objective_2020} developed a bespoke and unlicensed model
+called ``Oemof-moea,'' and Prina et al. 2018 \cite{prina_multi-objective_2018}
+and Johannsen et al. 2023 \cite{johannsen_municipal_2023} developed a \ac{moo}
+wrapper for the \texttt{EnergyPLAN} model called \texttt{EPLANopt}, but none of
+these examples constitute a framework. The studies in \ref{tab:moop-literature}
+used at most three modeled
+objectives\cite{riou_multi-objective_2021,de-leon_almaraz_deployment_2015,
+de-leon_almaraz_assessment_2013}. None of the studies in Table
+\ref{tab:moop-literature} allow arbitrary user-defined objectives. None of the
+studies incorporate social metrics into the modeled objectives. While some
+studies investigated energy systems at city-scale or smaller
+\cite{riou_multi-objective_2021,
+mayer_environmental_2020,fleischhacker_portfolio_2019,johannsen_municipal_2023},
+none of them engaged with local stakeholders to discover their energy
+priorities.
 
-This thesis develops the \acf{osier}, a novel energy systems framework using
-\ac{moo} that fills these gaps by using \acp{ga} that allows for efficient
-modeling of many objectives, enabling user-defined objectives, providing the
-option to make metrics of interest either objectives or constraints, and
-incorporating ideas from \ac{mga} to provide insight from the sub-optimal
-objective space. As for community engagement, Chapter \ref{chapter:communities}
-details a series of interviews with energy planning practitioners I conducted,
-in part, to evaluate the modeling needs of local municipalities.
+Chapter \ref{chapter:osier} introduces the \acf{osier}, a novel energy systems
+framework using \ac{moo} that fills these gaps by using \acp{ga} that allows for
+efficient modeling of many objectives, enabling user-defined objectives,
+providing the option to make metrics of interest either objectives or
+constraints, and incorporating ideas from \ac{mga} to provide insight from the
+sub-optimal objective space. As for community engagement, Chapter
+\ref{chapter:communities} details a series of interviews with energy planning
+practitioners I conducted, in part, to evaluate the modeling needs of local
+municipalities.
 
 
 % \textcolor{red}{If carbon emissions should not be considered an objective, but
