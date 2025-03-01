@@ -1,0 +1,38 @@
+\section{Exercise 1: Deciding Among Evolutionary Algorithms}
+
+\ac{osier} allows users to choose among a variety of \ac{moo} methods. This is
+motivated by the desire for flexibility. However, Exercises 1 and 2 use just one
+algorithm, \ac{unsga3} as implemented by \ac{pymoo}, which should be justified
+by comparing the results against different algorithms. As an important aside,
+although I used the \ac{deap} implementations of \ac{nsga2} and \ac{nsga3},
+these algorithms are not exclusive to \ac{deap}. \ac{pymoo} also implements
+them, I simply wanted to show the breadth of support for different tools in
+\ac{osier}. Figure \ref{fig:algorithm-comparison} provides the justification for
+choosing \ac{unsga3} by comparing the results of three \ac{moo} algorithms by
+showing the respective scatter plots and a density plot of the points on each
+axis. Since it took \ac{unsga3} 128 generations to reach its convergence
+criterion, the other two algorithms were also stopped after 128 generations,
+before converging. The density plot above the scatter plot shows the density of
+points along the ``total cost'' objective. Similarly, the density plot to the
+right shows the distribution of points for the ``emissions'' objective.
+
+There are a few notable features of Figure \ref{fig:algorithm-comparison}.
+First, all three algorithms identified very similar Pareto fronts, the main
+differences involve the distribution of points and the extent of their
+respective solution sets. Second, the two \ac{deap} algorithms have a greater
+number of points along the bottom part of the Pareto front, indicating a greater
+sampling over the cost objective. This is further supported by the higher
+concentration of points along the lower half of the emission objective's range.
+Third, the algorithms implemented by \ac{deap} both have more extreme values
+along both axes. All of these features can be attributed to the fact that
+neither \ac{nsga2} nor \ac{nsga3} fully converged. Thus, choosing \ac{unsga3}
+will be used for the remaining exercises for its faster convergence.
+
+\begin{figure}[ht]
+  \centering
+  \resizebox{0.75\columnwidth}{!}{\input{figures/results/algorithm_comparison_kde.pgf}}
+  \caption{Compares the \ac{moo} algorithms.}
+  \label{fig:algorithm-comparison}
+\end{figure}
+
+
