@@ -21,6 +21,9 @@ rule targets:
         thesis = f"{docs_path}{output_name}.pdf",
         dag = "dag.png",
 
+rule literature_review:
+    input:
+
 rule collect_figures:
     input:
         social_max_plot = f"{docs_path}figures/social_max.pgf",
