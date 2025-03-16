@@ -2,8 +2,9 @@
 \label{section:moo-in-energy}
 A multi-objective problem may be formulated as
 \begin{align}
+\intertext{Minimize:}
 \label{eqn:generic-moop}
-&\text{min}\{F_1(x), F_2(x), ... , F_i(x)\},
+&\{F_1(x), F_2(x), ... , F_i(x)\},
 \intertext{subject to:}
 &g(x, p) \leq 0.\nonumber\\
 &x \in \vec{X}\nonumber
@@ -43,8 +44,9 @@ map the multi-objective problem onto a set of single-objective problems using
 variation of parameters. In the \ac{ws} algorithm, the objectives are assigned
 weights, $w_i$, and the aggregated objective becomes
 \begin{align}
+    \intertext{Minimize:}
     \label{eqn:weighted-sum}
-    \text{min}\quad J(x) &= \sum_i w_i F_i(x)
+    J(x) &= \sum_i w_i F_i(x)
     \intertext{subject to:}
 &g(x, p) \leq 0\nonumber\\
 &x \in \vec{X}\nonumber
@@ -64,8 +66,9 @@ are denoted by $\epsilon$. These bounds are varied until the desired number of
 points on the Pareto-front is reached \cite{gunantara_review_2018,
 emmerich_tutorial_2018}. This problem can be written as
 \begin{align}
-\label{eqn:epsilon-constraint}
-    &\text{min}\quad F_j(x),
+  \intertext{{Minimize:}}
+  \label{eqn:epsilon-constraint}
+    &F_j(x),
     \intertext{subject to:}
     &F_2(x) - \epsilon_j \leq 0\nonumber\\
     &\vdots\nonumber\\
@@ -145,7 +148,7 @@ thesis.
 
 
 \subsection{Energy System Applications}
-It is well understood that engineering and policy problems, which include energy
+Engineering and policy problems, which include energy
 systems optimization, often require satisfying multiple antagonistic objectives
 \cite{loughlin_genetic_2001,zechman_evolutionary_2004,
 zechman_evolutionary_2013, chattopadhyay_need_2021}. However, the application of
