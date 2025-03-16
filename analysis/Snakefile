@@ -8,6 +8,8 @@ latexopt = """
             """
 
 docs_path = "../docs/"
+data_path = "../data/"
+osier_data = f"{data_path}2023-osier-simulation-results/"
 figure_log = "figures.log"
 
 with open(f"{docs_path}Makefile", "r") as file:
@@ -21,8 +23,30 @@ rule targets:
         thesis = f"{docs_path}{output_name}.pdf",
         dag = "dag.png",
 
-rule literature_review:
+# rule literature_review:
+#     input:
+
+rule retrieve_prelim_results:
+    output:
+        four_obj_results = f"{osier_data}2023-05-30-NOBJ4-USNGA3-results.pkl",
+        unsga3_results = f"{osier_data}2022-12-31-USNGA3-results.pkl",
+        pf_nsga3 = f"{osier_data}algorithm_comparison/2023-05-06_nsga3_PF_Fitness_95.pkl_95",
+        pf_nsga2 = f"{osier_data}algorithm_comparison/2023-05-12-nsga2_PF_Fitness_95.pkl_95",
+    script: "scripts/04-benchmark-scripts/retrieve_databundle.py"
+
+rule plot_algorithm_comparison:
     input:
+        unsga3_results = f"{osier_data}2022-12-31-USNGA3-results.pkl",
+        pf_nsga3 = f"{osier_data}algorithm_comparison/2023-05-06_nsga3_PF_Fitness_95.pkl_95",
+        pf_nsga2 = f"{osier_data}algorithm_comparison/2023-05-12-nsga2_PF_Fitness_95.pkl_95"
+    output:
+        alg_comp_plot = f"{docs_path}figures/results/algorithm_comparison_kde.pgf"
+    script: "scripts/04-benchmark-scripts/plot_algorithm_comparison.py"
+
+# rule benchmark_chapter:
+#     input:
+
+
 
 rule collect_figures:
     input:

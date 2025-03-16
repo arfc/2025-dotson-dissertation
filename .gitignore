@@ -36,3 +36,5 @@ docs/_minted-thesis
 pres/_minted-arfc-pres
 _minted-*
 figure-log.txt
+__MACOSX
+data/**/2023-osier*
