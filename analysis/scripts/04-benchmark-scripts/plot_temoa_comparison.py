@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 
 import matplotlib as mpl
 mpl.use("pgf")
@@ -12,11 +11,13 @@ plt.rcParams['figure.facecolor'] = 'w'
 plt.rcParams['savefig.dpi'] = 400
 plt.rcParams['savefig.bbox'] = 'tight'
 plt.rcParams['font.family'] = "serif"
+plt.rcParams['figure.figsize'] = (8, 6)
+plt.rcParams['xtick.labelsize'] = 14
+plt.rcParams['ytick.labelsize'] = 14
+plt.rcParams['legend.fontsize'] = 16
 import seaborn as sb
 import pandas as pd
 import dill
-from unyt import GW, MW, kW, kg
-from osier import *
 
 if __name__ == "__main__":
 
@@ -46,9 +47,7 @@ if __name__ == "__main__":
     color_3 = 'tab:red'
     alpha = 0.5
 
-    fig, ax = plt.subplots(figsize=(7,5), facecolor='w')
-
-    # df3 = pd.DataFrame({"Cost":s1, "Carbon":s2})
+    fig, ax = plt.subplots(facecolor='w')
 
     df.sort_values(by="Cost").plot.line(ax=ax,
                                         x='Cost', 
@@ -133,8 +132,8 @@ if __name__ == "__main__":
 
     ax.indicate_inset_zoom(axins, edgecolor="k", label='')
 
-    plt.xlabel("Total Cost (M\$)")
-    plt.ylabel("CO2 emissions (MT CO2)")
+    plt.xlabel("Total Cost (M\$)", fontsize=18)
+    plt.ylabel("CO2 emissions (MT CO2)", fontsize=18)
     plt.legend(loc='lower right')
 
     plt.savefig(snakemake.output.temoa_comparison_01)

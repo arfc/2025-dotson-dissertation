@@ -52,10 +52,10 @@ rule plot_temoa_comparison:
     input:
         unsga3_results = f"{osier_data}2022-12-31-USNGA3-results.pkl",
         temoa_F2 = f"{osier_data}model_comparison/2022-11-18-temoa_mga_objective_remap.pkl",
-        temoa_mga_design = f"{osier_data}/model_comparison/2022-11-18-temoa-mga-design.pkl",
-        unsga3_design = f"{osier_data}/model_comparison/2022-12-31-optimal_design_X.pkl",
-        unsga3_objective = f"{osier_data}/model_comparison/2022-12-31-optimal_objective_F.pkl",
-        techs =f"{osier_data}/model_comparison/2022-12-31-techset.pkl"
+        temoa_mga_design = f"{osier_data}model_comparison/2022-11-18-temoa-mga-design.pkl",
+        unsga3_design = f"{osier_data}model_comparison/2022-12-31-optimal_design_X.pkl",
+        unsga3_objective = f"{osier_data}model_comparison/2022-12-31-optimal_objective_F.pkl",
+        techs =f"{osier_data}model_comparison/2022-12-31-techset.pkl"
     output:
         temoa_comparison_01 = f"{docs_path}figures/temoa_osier_benchmark_01.pgf",
     script: "scripts/04-benchmark-scripts/plot_temoa_comparison.py"
@@ -83,6 +83,7 @@ rule collect_figures:
         interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
         pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf",
         example_mga_plot = f"{docs_path}figures/mga-fft-example.pgf",
+        dag = "dag.png"
     output:
         log = figure_log
     shell:
