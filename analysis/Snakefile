@@ -55,8 +55,9 @@ rule plot_temoa_comparison:
         temoa_mga_design = f"{osier_data}/model_comparison/2022-11-18-temoa-mga-design.pkl",
         unsga3_design = f"{osier_data}/model_comparison/2022-12-31-optimal_design_X.pkl",
         unsga3_objective = f"{osier_data}/model_comparison/2022-12-31-optimal_objective_F.pkl",
+        techs =f"{osier_data}/model_comparison/2022-12-31-techset.pkl"
     output:
-        temoa_benchmark_01 = f"{docs_path}figures/temoa_osier_benchmark_01.pgf",
+        temoa_comparison_01 = f"{docs_path}figures/temoa_osier_benchmark_01.pgf",
 
 rule benchmark_chapter:
     input:
