@@ -1,7 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid.inset_locator import (inset_axes, InsetPosition,
-                                                  mark_inset)
 import matplotlib.patches as mpatches
 
 import matplotlib as mpl
@@ -82,6 +80,7 @@ if __name__ == "__main__":
 
     ax.set_xlim(min(temoa_F2[:,0]),max(osier_F[:,0])*slack)
     ax.set_ylim(min(osier_F[:,1]),max(temoa_F2[:,1])*slack)
+    ax.grid()
 
     temoa_min = temoa_F2[:,0].min()
 
@@ -130,7 +129,6 @@ if __name__ == "__main__":
     axins.set_xlim(min(temoa_F2[:,0])-20,5350)
     axins.set_ylim(9,min(temoa_F2[:,1])+3)
     axins.grid()
-    # axins.set_xticklabels([]) axins.set_yticklabels([])
     axins.set_xlabel('')
 
     ax.indicate_inset_zoom(axins, edgecolor="k", label='')

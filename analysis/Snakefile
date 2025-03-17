@@ -34,9 +34,9 @@ rule retrieve_prelim_results:
         pf_nsga3 = f"{osier_data}algorithm_comparison/2023-05-06_nsga3_PF_Fitness_95.pkl_95",
         pf_nsga2 = f"{osier_data}algorithm_comparison/2023-05-12-nsga2_PF_Fitness_95.pkl_95",
         temoa_F2 = f"{osier_data}model_comparison/2022-11-18-temoa_mga_objective_remap.pkl",
-        temoa_mga_design = f"{osier_data}/model_comparison/2022-11-18-temoa-mga-design.pkl",
-        unsga3_design = f"{osier_data}/model_comparison/2022-12-31-optimal_design_X.pkl",
-        unsga3_objective = f"{osier_data}/model_comparison/2022-12-31-optimal_objective_F.pkl",
+        temoa_mga_design = f"{osier_data}model_comparison/2022-11-18-temoa-mga-design.pkl",
+        unsga3_design = f"{osier_data}model_comparison/2022-12-31-optimal_design_X.pkl",
+        unsga3_objective = f"{osier_data}model_comparison/2022-12-31-optimal_objective_F.pkl",
     script: "scripts/04-benchmark-scripts/retrieve_databundle.py"
 
 rule plot_algorithm_comparison:
@@ -58,9 +58,11 @@ rule plot_temoa_comparison:
         techs =f"{osier_data}/model_comparison/2022-12-31-techset.pkl"
     output:
         temoa_comparison_01 = f"{docs_path}figures/temoa_osier_benchmark_01.pgf",
+    script: "scripts/04-benchmark-scripts/plot_temoa_comparison.py"
 
 rule benchmark_chapter:
     input:
+        temoa_comparison_01 = f"{docs_path}figures/temoa_osier_benchmark_01.pgf",
         alg_comp_plot = f"{docs_path}figures/results/algorithm_comparison_kde.pgf",
     output:
         ch4_log
