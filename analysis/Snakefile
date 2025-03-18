@@ -57,12 +57,14 @@ rule plot_temoa_comparison:
         unsga3_objective = f"{osier_data}model_comparison/2022-12-31-optimal_objective_F.pkl",
         techs =f"{osier_data}model_comparison/2022-12-31-techset.pkl"
     output:
-        temoa_comparison_01 = f"{docs_path}figures/temoa_osier_benchmark_01.pgf",
+        temoa_comparison_01 = f"{docs_path}figures/results/temoa_osier_benchmark_01.pgf",
+        temoa_comparison_02 = f"{docs_path}figures/results/osier_mga_subset_01.pgf",
     script: "scripts/04-benchmark-scripts/plot_temoa_comparison.py"
 
 rule benchmark_chapter:
     input:
-        temoa_comparison_01 = f"{docs_path}figures/temoa_osier_benchmark_01.pgf",
+        temoa_comparison_01 = f"{docs_path}figures/results/temoa_osier_benchmark_01.pgf",
+        temoa_comparison_02 = f"{docs_path}figures/results/osier_mga_subset_01.pgf",
         alg_comp_plot = f"{docs_path}figures/results/algorithm_comparison_kde.pgf",
     output:
         ch4_log
