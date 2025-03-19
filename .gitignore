@@ -38,3 +38,4 @@ _minted-*
 figure-log.txt
 __MACOSX
 data/**/2023-osier*
+data/uiuc_demand_data.csv

@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+import matplotlib.patches as mpatches
 import matplotlib as mpl
 mpl.use("pgf")
 plt.rcParams['pgf.texsystem'] = 'pdflatex'
@@ -26,10 +26,9 @@ def is_pareto_efficient(costs, return_mask = True):
     Code borrowed from this Stackoverflow post:
     https://stackoverflow.com/questions/32791911/fast-calculation-of-pareto-front-in-python
 
-    Find the pareto-efficient points
-    :param costs: An (n_points, n_costs) array
-    :param return_mask: True to return a mask
-    :return: An array of indices of pareto-efficient points.
+    Find the pareto-efficient points :param costs: An (n_points, n_costs) array
+    :param return_mask: True to return a mask :return: An array of indices of
+    pareto-efficient points.
         If return_mask is True, this will be an (n_points, ) boolean array
         Otherwise it will be a (n_efficient_points, ) integer array of indices.
     """
@@ -37,9 +36,11 @@ def is_pareto_efficient(costs, return_mask = True):
     n_points = costs.shape[0]
     next_point_index = 0  # Next index in the is_efficient array to search for
     while next_point_index<len(costs):
-        nondominated_point_mask = np.any(costs<costs[next_point_index], axis=1)
+        nondominated_point_mask = np.any(costs<costs[next_point_index],
+                                         axis=1)
         nondominated_point_mask[next_point_index] = True
-        is_efficient = is_efficient[nondominated_point_mask]  # Remove dominated points
+        # Remove dominated points
+        is_efficient = is_efficient[nondominated_point_mask]  
         costs = costs[nondominated_point_mask]
         next_point_index = np.sum(nondominated_point_mask[:next_point_index])+1
     if return_mask:
@@ -103,20 +104,25 @@ if __name__ == "__main__":
     interior_df = pd.concat([F_df, X_df], axis=1)
     interior_df = interior_df.loc[interior_df['Carbon'] < threshold]
 
-    F_outside = np.array([row for row in F_hist if row not in interior_df[['Cost','Carbon']].values])
+    F_outside = np.array([row for row 
+                          in F_hist 
+                          if row not in interior_df[['Cost','Carbon']].values])
     F_hist_masked = F_outside[(F_outside[:,0] < 8300) & (F_outside[:,1]<1e40)]
 
 
-    mga_df = n_mga(results_obj=data, slack=0.1, n_points=32, wide_form=False, seed=90)
+    mga_df = n_mga(results_obj=data, 
+                   slack=0.1, 
+                   n_points=32, 
+                   wide_form=False, 
+                   seed=90)
     mga_df = mga_df.loc[mga_df['co2'] < threshold]
 
 
     ### Plot first comparison ###
     print(f"Plotting {snakemake.output.temoa_comparison_01}")
     color_1 = 'k'
-    color_2 = 'lightgrey'
-    # color_1 = 'blue'
-    # color_2 = 'tab:blue'
+    color_2 = 'grey'
+    # color_1 = 'blue' color_2 = 'tab:blue'
     color_3 = 'tab:red'
     alpha = 0.5
     size=35
@@ -298,8 +304,10 @@ if __name__ == "__main__":
 
 
     ### Plot design comparison ###
+    print(f"Plotting {snakemake.output.temoa_comparison_03}")
 
     labels = [t.technology_name for t in techs]
+    labels = [l.replace('_', '\_') for l in labels]
     peak_demand = 29.251353638620195
 
     hex_colors = []
@@ -312,15 +320,14 @@ if __name__ == "__main__":
     sb.boxenplot(ax=axes[0], data=(osier_X)*peak_demand, k_depth='trustworthy')
     sb.boxenplot(ax=axes[1], data=(X_select)*peak_demand, k_depth='trustworthy')
     sb.boxenplot(ax=axes[2], data=(temoa_X), k_depth='trustworthy')
-    # axes[0].scatter(labels, osier_cost_opt, color='k')
-    # axes[1].scatter(labels, temoa_cost_opt, color='k')
+
     axes[0].minorticks_on()
     axes[1].minorticks_on()
     axes[2].minorticks_on()
     axes[0].set_ylabel('Osier Capacity (GW)', size=18)
     axes[1].set_ylabel('Osier MGA Capacity (GW)', size=18)
     axes[2].set_ylabel('Temoa MGA Capacity (GW)', size=18)
-    # axes[1].set_ylim(0, 30)
+
     axes[0].grid(alpha=0.2, which='major',zorder=5)
     axes[0].grid(alpha=0.05, which='minor',zorder=5)
     axes[1].grid(alpha=0.2, which='major',zorder=5)
@@ -331,13 +338,8 @@ if __name__ == "__main__":
     axes[1].set_ylim(0,27)
     axes[2].set_ylim(0,27)
 
-
-    # sb.barplot(ax=axes[2], data=opt_df, x='Techs', y='Capacity', hue='Objective', palette='Paired')
-    # sb.barplot(ax=ax, x=labels, y=temoa_cost_opt)
-    # sb.barplot(ax=ax, x=labels, y=osier_cost_opt)
     axes[2].set_xticklabels(labels, rotation=12.5, size=12)
     axes[2].set_xticks(range(len(labels)))
-    # axes[2].set_ylabel("Capacity (GW)", size=14)
     axes[2].set_xlabel("", size=14)
 
     x_loc, y_loc = -.31, 24.95
@@ -345,22 +347,15 @@ if __name__ == "__main__":
     axes[1].text(x_loc,y_loc, "b)", fontsize=14, bbox=dict({'facecolor':'w'}))
     axes[2].text(x_loc,y_loc, "c)", fontsize=14, bbox=dict({'facecolor':'w'}))
 
-    # patch = mpatches.Patch(color='grey', label='manual patch')
-    # patches = []
-    # for color, label in zip(hex_colors, labels):
-    #     patches.append(mpatches.Patch(color=color, label=label))
+    patch = mpatches.Patch(color='grey', label='manual patch')
+    patches = []
+    for color, label in zip(hex_colors, labels):
+        patches.append(mpatches.Patch(color=color, label=label))
 
     handles, llabels = axes[0].get_legend_handles_labels()
     handles.extend(patches)
-    # print(handles, llabels)
 
     axes[2].legend(handles=handles, ncol=3, title='Technologies', fontsize=14, title_fontsize=14)
-    # axes[1].legend(handles=handles, ncol=4)
-    # axes[2].legend(ncol=3, title='Objectives')
 
     plt.tight_layout()
-
-
-    # plt.savefig("../2023-dotson-prelim/docs/figures/temoa_osier_mga_comparison1x3.pgf")
-
-    plt.show()
+    plt.savefig(snakemake.output.temoa_comparison_03)

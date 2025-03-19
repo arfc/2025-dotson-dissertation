@@ -39,13 +39,21 @@ rule retrieve_prelim_results:
         unsga3_objective = f"{osier_data}model_comparison/2022-12-31-optimal_objective_F.pkl",
     script: "scripts/04-benchmark-scripts/retrieve_databundle.py"
 
+rule retrieve_load_data:
+    output:
+        load_data = f"{data_path}uiuc_demand_data.csv"
+    shell: f"""
+            (cd {data_path} && \
+            curl -O "https://raw.githubusercontent.com/samgdotson/2021-dotson-ms/refs/heads/master/data/uiuc_demand_data.csv")
+            """
+
 rule plot_algorithm_comparison:
     input:
         unsga3_results = f"{osier_data}2022-12-31-USNGA3-results.pkl",
         pf_nsga3 = f"{osier_data}algorithm_comparison/2023-05-06_nsga3_PF_Fitness_95.pkl_95",
         pf_nsga2 = f"{osier_data}algorithm_comparison/2023-05-12-nsga2_PF_Fitness_95.pkl_95"
     output:
-        alg_comp_plot = f"{docs_path}figures/results/algorithm_comparison_kde.pgf"
+        alg_comp_plot = f"{docs_path}figures/04_benchmark_chapter/algorithm_comparison_kde.pgf"
     script: "scripts/04-benchmark-scripts/plot_algorithm_comparison.py"
 
 rule plot_temoa_comparison:
@@ -57,15 +65,17 @@ rule plot_temoa_comparison:
         unsga3_objective = f"{osier_data}model_comparison/2022-12-31-optimal_objective_F.pkl",
         techs =f"{osier_data}model_comparison/2022-12-31-techset.pkl"
     output:
-        temoa_comparison_01 = f"{docs_path}figures/results/temoa_osier_benchmark_01.pgf",
-        temoa_comparison_02 = f"{docs_path}figures/results/osier_mga_subset_01.pgf",
+        temoa_comparison_01 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_benchmark_01.pgf",
+        temoa_comparison_02 = f"{docs_path}figures/04_benchmark_chapter/osier_mga_subset_01.pgf",
+        temoa_comparison_03 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_mga_comparison1x3.pgf",
     script: "scripts/04-benchmark-scripts/plot_temoa_comparison.py"
 
 rule benchmark_chapter:
     input:
-        temoa_comparison_01 = f"{docs_path}figures/results/temoa_osier_benchmark_01.pgf",
-        temoa_comparison_02 = f"{docs_path}figures/results/osier_mga_subset_01.pgf",
-        alg_comp_plot = f"{docs_path}figures/results/algorithm_comparison_kde.pgf",
+        temoa_comparison_01 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_benchmark_01.pgf",
+        temoa_comparison_02 = f"{docs_path}figures/04_benchmark_chapter/osier_mga_subset_01.pgf",
+        temoa_comparison_03 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_mga_comparison1x3.pgf",
+        alg_comp_plot = f"{docs_path}figures/04_benchmark_chapter/algorithm_comparison_kde.pgf",
     output:
         ch4_log
     shell:
