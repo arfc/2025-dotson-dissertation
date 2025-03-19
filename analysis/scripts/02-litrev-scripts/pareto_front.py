@@ -49,7 +49,7 @@ if __name__ == "__main__":
     ax.scatter(0.95 * max(F[:, 0]), 0.95 * max(F[:, 1]),
                label='Nadir', marker="s", s=200, color='tab:orange')
     ax.legend(fontsize=14)
-    plt.savefig("../docs/figures/truss2d_pareto.pgf")
+    plt.savefig(snakemake.output.example_pareto_plot)
 
     """
     Pareto Near-Optimal Space
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     ax.set_xlim(min(F1), max(F1))
     ax.set_ylim(min(F2), max(F2))
     ax.legend(fontsize=14)
-    plt.savefig("../docs/figures/near-optimal-pareto.pgf")
+    plt.savefig(snakemake.output.near_optimal_plot)
 
     """
     Visualize interior points
@@ -109,4 +109,4 @@ if __name__ == "__main__":
     ax.set_ylabel('f2', fontsize=14)
     ax.legend(fontsize=14, shadow=True, loc='upper right')
     ax.tick_params(axis='both', which='major', labelsize=14)
-    plt.savefig("../docs/figures/nd-mga-paretofront.pgf")
+    plt.savefig(snakemake.output.interior_points_plot)

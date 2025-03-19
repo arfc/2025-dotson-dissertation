@@ -135,4 +135,4 @@ for a in arrows:
     ax[1].add_patch(a)
 
 plt.tight_layout()
-plt.savefig("../docs/figures/mga-fft-example.pgf")
+plt.savefig(snakemake.output.example_mga_plot)

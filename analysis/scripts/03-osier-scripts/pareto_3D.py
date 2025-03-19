@@ -79,4 +79,4 @@ if __name__ == "__main__":
     ax3.axes.zaxis.set_ticklabels([])
 
     plt.tight_layout()
-    plt.savefig("../docs/figures/3d-mga-paretofront.pgf")
+    plt.savefig(snakemake.output.pareto_3d)

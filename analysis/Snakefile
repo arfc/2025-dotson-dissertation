@@ -10,7 +10,6 @@ latexopt = """
 docs_path = "../docs/"
 data_path = "../data/"
 osier_data = f"{data_path}2023-osier-simulation-results/"
-figure_log = "figures.log"
 ch4_log = "ch4.log"
 ch3_log = "ch3.log"
 ch2_log = "ch2.log"
@@ -26,27 +25,28 @@ rule targets:
         thesis = f"{docs_path}{output_name}.pdf",
 
 rule plot_example_fronts:
-    input: "scripts/pareto_front.py"
+    input: "scripts/02-litrev-scripts/pareto_front.py"
     output:
-        example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
-        interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
-        near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf"
+        example_pareto_plot = f"{docs_path}figures/02_literature_review/truss2d_pareto.pgf",
+        near_optimal_plot = f"{docs_path}figures/02_literature_review/near-optimal-pareto.pgf",
+        interior_points_plot = f"{docs_path}figures/03_osier_chapter/nd-mga-paretofront.pgf",
     script: f"{input}"
 #============================LITERATURE CHAPTER================================
 
 rule plot_social_welfare_max:
-    input: "scripts/social_welfare_maximization.py"
+    input: "scripts/02-litrev-scripts/social_welfare_maximization.py"
     output: 
-        social_max_plot = f"{docs_path}figures/social_max.pgf",
-        elasticity_plot = f"{docs_path}figures/elasticity.pgf"
+        social_max_plot = f"{docs_path}figures/02_literature_review/social_max.pgf",
+        elasticity_plot = f"{docs_path}figures/02_literature_review/elasticity.pgf"
     script: f"{input}"
 
 
 rule literature_review:
     input:
-        example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
-        near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf",
-        elasticity_plot = f"{docs_path}figures/elasticity.pgf"
+        example_pareto_plot = f"{docs_path}figures/02_literature_review/truss2d_pareto.pgf",
+        near_optimal_plot = f"{docs_path}figures/02_literature_review/near-optimal-pareto.pgf",
+        social_max_plot = f"{docs_path}figures/02_literature_review/social_max.pgf",
+        elasticity_plot = f"{docs_path}figures/02_literature_review/elasticity.pgf"
     output:
         ch2_log
     shell:
@@ -58,9 +58,9 @@ rule literature_review:
 #============================OSIER CHAPTER================================
 
 rule plot_3d_fronts:
-    input: "scripts/pareto_3D.py"
+    input: "scripts/03-osier-scripts/pareto_3D.py"
     output:
-        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf"
+        pareto_3d = f"{docs_path}figures/03_osier_chapter/3d-mga-paretofront.pgf"
     script: f"{input}"
 
 rule plot_reference_directions:
@@ -68,12 +68,18 @@ rule plot_reference_directions:
         reference_directions = f"{docs_path}figures/03_osier_chapter/reference_directions.pgf",
     script: f"scripts/03-osier-scripts/plot_reference_directions.py"
 
+rule plot_mga_example:
+    input: "scripts/mga_fft_example.py"
+    output:
+        example_mga_plot = f"{docs_path}figures/03_osier_chapter/mga-fft-example.pgf",
+    script: f"{input}"
 
 rule osier_chapter:
     input:
         reference_directions = f"{docs_path}figures/03_osier_chapter/reference_directions.pgf",
-        interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
-        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf",
+        interior_points_plot = f"{docs_path}figures/03_osier_chapter/nd-mga-paretofront.pgf",
+        pareto_3d = f"{docs_path}figures/03_osier_chapter/3d-mga-paretofront.pgf",
+        example_mga_plot = f"{docs_path}figures/03_osier_chapter/mga-fft-example.pgf",
     output:
         ch3_log
     shell:
@@ -150,28 +156,16 @@ rule benchmark_chapter:
             echo $file >> {output}
         done
         """
-
-rule collect_figures:
-    input:
-        example_mga_plot = f"{docs_path}figures/mga-fft-example.pgf",
-        dag = "dag.png"
-    output:
-        log = figure_log
-    shell:
-        """
-        for file in {input}; do
-            echo $file >> {output.log}
-        done
-        """
+#============================BUILD RULE================================
 
 if sys.platform == 'Windows':
     rule build_thesis:
         input: 
             main_tex = f"{docs_path}{output_name}.tex",
-            log = figure_log,
             ch4_log=ch4_log,
             ch3_log=ch3_log,
             ch2_log=ch2_log,
+            dag = "dag.png"
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -185,10 +179,10 @@ elif sys.platform in ['darwin', 'linux']:
     rule build_thesis:
         input: 
             main_tex = f"{docs_path}{output_name}.tex",
-            log = figure_log,
             ch4_log = ch4_log,
             ch3_log=ch3_log,
             ch2_log=ch2_log,
+            dag = "dag.png"
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -201,9 +195,3 @@ rule build_dag:
         "dag.png"
     shell:
         "snakemake --dag | dot -Tpng > {output}"
-
-rule plot_mga_example:
-    input: "scripts/mga_fft_example.py"
-    output:
-        example_mga_plot = f"{docs_path}figures/mga-fft-example.pgf",
-    script: f"{input}"

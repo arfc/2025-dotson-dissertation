@@ -102,7 +102,7 @@ if __name__ == "__main__":
     axes[1].text(0.01, 0.95, "b)", fontsize=14, bbox=dict({'facecolor': 'w'}))
     fig.suptitle('Social Welfare Maximization', fontsize=16)
     plt.tight_layout()
-    plt.savefig('../docs/figures/social_max.pgf')
+    plt.savefig(snakemake.output.social_max_plot)
 
     """
     Social Welfare Maximization Plot 2: Elasticity
@@ -198,4 +198,4 @@ if __name__ == "__main__":
     axes[1].text(0.01, 0.95, "b)", fontsize=14, bbox=dict({'facecolor': 'w'}))
     fig.suptitle("Price Elasticity", fontsize=16)
     plt.tight_layout()
-    plt.savefig('../docs/figures/elasticity.pgf')
+    plt.savefig(snakemake.output.elasticity_plot)
