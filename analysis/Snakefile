@@ -13,6 +13,7 @@ osier_data = f"{data_path}2023-osier-simulation-results/"
 figure_log = "figures.log"
 ch4_log = "ch4.log"
 ch3_log = "ch3.log"
+ch2_log = "ch2.log"
 
 with open(f"{docs_path}Makefile", "r") as file:
     lines = file.readlines()
@@ -24,10 +25,44 @@ rule targets:
     input:
         thesis = f"{docs_path}{output_name}.pdf",
 
-# rule literature_review:
-#     input:
+rule plot_example_fronts:
+    input: "scripts/pareto_front.py"
+    output:
+        example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
+        interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
+        near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf"
+    script: f"{input}"
+#============================LITERATURE CHAPTER================================
 
+rule plot_social_welfare_max:
+    input: "scripts/social_welfare_maximization.py"
+    output: 
+        social_max_plot = f"{docs_path}figures/social_max.pgf",
+        elasticity_plot = f"{docs_path}figures/elasticity.pgf"
+    script: f"{input}"
+
+
+rule literature_review:
+    input:
+        example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
+        near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf",
+        elasticity_plot = f"{docs_path}figures/elasticity.pgf"
+    output:
+        ch2_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
 #============================OSIER CHAPTER================================
+
+rule plot_3d_fronts:
+    input: "scripts/pareto_3D.py"
+    output:
+        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf"
+    script: f"{input}"
+
 rule plot_reference_directions:
     output:
         reference_directions = f"{docs_path}figures/03_osier_chapter/reference_directions.pgf",
@@ -37,6 +72,8 @@ rule plot_reference_directions:
 rule osier_chapter:
     input:
         reference_directions = f"{docs_path}figures/03_osier_chapter/reference_directions.pgf",
+        interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
+        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf",
     output:
         ch3_log
     shell:
@@ -114,15 +151,8 @@ rule benchmark_chapter:
         done
         """
 
-
 rule collect_figures:
     input:
-        social_max_plot = f"{docs_path}figures/social_max.pgf",
-        elasticity_plot = f"{docs_path}figures/elasticity.pgf",
-        example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
-        near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf",
-        interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
-        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf",
         example_mga_plot = f"{docs_path}figures/mga-fft-example.pgf",
         dag = "dag.png"
     output:
@@ -141,6 +171,7 @@ if sys.platform == 'Windows':
             log = figure_log,
             ch4_log=ch4_log,
             ch3_log=ch3_log,
+            ch2_log=ch2_log,
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -156,6 +187,8 @@ elif sys.platform in ['darwin', 'linux']:
             main_tex = f"{docs_path}{output_name}.tex",
             log = figure_log,
             ch4_log = ch4_log,
+            ch3_log=ch3_log,
+            ch2_log=ch2_log,
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -169,33 +202,8 @@ rule build_dag:
     shell:
         "snakemake --dag | dot -Tpng > {output}"
 
-
-rule plot_social_welfare_max:
-    input: "scripts/social_welfare_maximization.py"
-    output: 
-        social_max_plot = f"{docs_path}figures/social_max.pgf",
-        elasticity_plot = f"{docs_path}figures/elasticity.pgf"
-    script: f"{input}"
-
-
-rule plot_example_fronts:
-    input: "scripts/pareto_front.py"
-    output:
-        example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
-        interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
-        near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf"
-    script: f"{input}"
-
-
 rule plot_mga_example:
     input: "scripts/mga_fft_example.py"
     output:
         example_mga_plot = f"{docs_path}figures/mga-fft-example.pgf",
-    script: f"{input}"
-
-
-rule plot_3d_fronts:
-    input: "scripts/pareto_3D.py"
-    output:
-        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf"
     script: f"{input}"
