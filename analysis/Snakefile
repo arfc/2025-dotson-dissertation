@@ -12,6 +12,7 @@ data_path = "../data/"
 osier_data = f"{data_path}2023-osier-simulation-results/"
 figure_log = "figures.log"
 ch4_log = "ch4.log"
+ch3_log = "ch3.log"
 
 with open(f"{docs_path}Makefile", "r") as file:
     lines = file.readlines()
@@ -22,11 +23,30 @@ output_name = lines[0].strip('\n').replace(' ', '').split('=')[-1]
 rule targets:
     input:
         thesis = f"{docs_path}{output_name}.pdf",
-        dag = "dag.png",
 
 # rule literature_review:
 #     input:
 
+#============================OSIER CHAPTER================================
+rule plot_reference_directions:
+    output:
+        reference_directions = f"{docs_path}figures/03_osier_chapter/reference_directions.pgf",
+    script: f"scripts/03-osier-scripts/plot_reference_directions.py"
+
+
+rule osier_chapter:
+    input:
+        reference_directions = f"{docs_path}figures/03_osier_chapter/reference_directions.pgf",
+    output:
+        ch3_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
+
+#============================BENCHMARK CHAPTER================================
 rule retrieve_prelim_results:
     output:
         four_obj_results = f"{osier_data}2023-05-30-NOBJ4-USNGA3-results.pkl",
@@ -44,8 +64,16 @@ rule retrieve_load_data:
         load_data = f"{data_path}uiuc_demand_data.csv"
     shell: f"""
             (cd {data_path} && \
-            curl -O "https://raw.githubusercontent.com/samgdotson/2021-dotson-ms/refs/heads/master/data/uiuc_demand_data.csv")
+            curl -O \
+            "https://raw.githubusercontent.com/samgdotson/2021-dotson-ms/refs/heads/master/data/uiuc_demand_data.csv")
             """
+
+rule plot_load_data:
+    input:
+        load_data = f"{data_path}uiuc_demand_data.csv",
+    output:
+        load_curve = f"{docs_path}figures/04_benchmark_chapter/normalized_load_curves.pgf"
+    script: "scripts/04-benchmark-scripts/plot_load_duration.py"
 
 rule plot_algorithm_comparison:
     input:
@@ -76,6 +104,7 @@ rule benchmark_chapter:
         temoa_comparison_02 = f"{docs_path}figures/04_benchmark_chapter/osier_mga_subset_01.pgf",
         temoa_comparison_03 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_mga_comparison1x3.pgf",
         alg_comp_plot = f"{docs_path}figures/04_benchmark_chapter/algorithm_comparison_kde.pgf",
+        load_curve = f"{docs_path}figures/04_benchmark_chapter/normalized_load_curves.pgf"
     output:
         ch4_log
     shell:
@@ -111,6 +140,7 @@ if sys.platform == 'Windows':
             main_tex = f"{docs_path}{output_name}.tex",
             log = figure_log,
             ch4_log=ch4_log,
+            ch3_log=ch3_log,
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
