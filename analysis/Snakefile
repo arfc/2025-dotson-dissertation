@@ -141,12 +141,28 @@ rule plot_temoa_comparison:
         temoa_comparison_03 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_mga_comparison1x3.pgf",
     script: "scripts/04-benchmark-scripts/plot_temoa_comparison.py"
 
+rule plot_many_objective:
+    input:
+        four_obj_results = f"{osier_data}2023-05-30-NOBJ4-USNGA3-results.pkl",
+    output:
+        four_obj_objective_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space.pgf",
+        four_obj_objective_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space_MGA.pgf",
+        four_obj_design_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space.pgf",
+        four_obj_design_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA.pgf",
+        four_obj_design_mga_boxplot = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA_boxplot.pgf",
+    script: "scripts/04-benchmark-scripts/plot_many_objective.py"
+
 rule benchmark_chapter:
     input:
         temoa_comparison_01 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_benchmark_01.pgf",
         temoa_comparison_02 = f"{docs_path}figures/04_benchmark_chapter/osier_mga_subset_01.pgf",
         temoa_comparison_03 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_mga_comparison1x3.pgf",
         alg_comp_plot = f"{docs_path}figures/04_benchmark_chapter/algorithm_comparison_kde.pgf",
+        four_obj_objective_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space.pgf",
+        four_obj_objective_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space_MGA.pgf",
+        four_obj_design_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space.pgf",
+        four_obj_design_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA.pgf",
+        four_obj_design_mga_boxplot = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA_boxplot.pgf",
         load_curve = f"{docs_path}figures/04_benchmark_chapter/normalized_load_curves.pgf"
     output:
         ch4_log
