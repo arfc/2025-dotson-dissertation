@@ -27,35 +27,19 @@ from osier import n_mga, get_objective_names, get_tech_names
 
 
 if __name__ == "__main__":
-    print(f"Opening {snakemake.input.four_obj_results}")
-
-    start = time.perf_counter()
-    with open(snakemake.input.four_obj_results, 'rb') as file:
-        results = dill.load(file)
-
-    end = time.perf_counter()
-
-    print(f"Dataset took {(end-start):.2f} seconds to open")
-
-    techs = get_tech_names(results.problem.technology_list)
-
-    F = results.F
-    slack = 0.1
-    F_slack = F*(1+slack)
-
-    mdf = n_mga(results, how='all')
-    mdf['designs'] = mdf.loc[list(mdf.index), 'designs'].values
-    mdf['optimal'] = 'Sub-opt'
-
-    obj_cols = get_objective_names(results)
-    pf_obj = pd.DataFrame(dict(zip(obj_cols, F.T)))
-    pf_obj['designs'] = list(results.X)
-    pf_obj['optimal'] = 'Optimal'
-
-    combined = pd.concat([pf_obj, mdf], axis=0).reset_index(drop=True)
+    print(f"Opening {snakemake.input.combined_data}")
+    combined = pd.read_csv(snakemake.input.combined_data)
 
     obj_labels=['Total Cost', 'CO2eq', 'Land Use', 'Percent \nNonrenewable']
-
+    obj_nice_labels = {'lifecycle_co2_rate':r'Least CO$_2$',
+                   'total_cost':'Least Cost',
+                   'land_use':'Least Land Use',
+                   'percent_nonrenewable':'Highest Renewable'}
+    obj_tab_colors = {'lifecycle_co2_rate':'tab:green',
+                'total_cost':'tab:red',
+                'land_use':'tab:orange',
+                'percent_nonrenewable':'tab:blue'}
+    opt_df = combined.loc[combined.optimal == "Optimal"]
 
     ### Objective Space Plot ###
     print("Plotting objective space")
@@ -72,24 +56,16 @@ if __name__ == "__main__":
     plot.add(combined[combined.optimal=='Optimal'].iloc[:,:4].values, 
              color="grey", 
              alpha=0.3)
-
-    plot.add(results.F[0], 
-             linewidth=5, 
-             color="tab:green", 
-             label=r"Least CO$_2$")
-    plot.add(results.F[3], 
-             linewidth=5, 
-             color="tab:red", 
-             label="Least Cost")
-    plot.add(results.F[5], 
-             linewidth=5, 
-             color="tab:orange", 
-             label=r"Least Land Use")
-    plot.add(results.F[7], 
-             linewidth=5, 
-             color="tab:blue", 
-             label="Highest Renewable")
-    plt.savefig(snakemake.output.four_obj_objective_space)
+    
+    for obj, label in obj_nice_labels.items():
+        plot.add(
+            opt_df.loc[opt_df[obj] == opt_df[obj].min(), 
+                    :'percent_nonrenewable'].values,
+            linewidth=5,
+            color=obj_tab_colors[obj],
+            label=label
+        )
+    plot.save(snakemake.output.four_obj_objective_space)
 
 
     ### Objective Space MGA Plot ###
@@ -107,23 +83,15 @@ if __name__ == "__main__":
 
     plot.add(combined.iloc[:,:4].values, color="grey", alpha=0.3)
 
-    plot.add(results.F[0], 
-             linewidth=5, 
-             color="tab:green", 
-             label=r"Least CO$_2$")
-    plot.add(results.F[3], 
-             linewidth=5, 
-             color="tab:red", 
-             label="Least Cost")
-    plot.add(results.F[5], 
-             linewidth=5, 
-             color="tab:orange", 
-             label=r"Least Land Use")
-    plot.add(results.F[7], 
-             linewidth=5, 
-             color="tab:blue", 
-             label="Highest Renewable")
-    plt.savefig(snakemake.output.four_obj_objective_mga)
+    for obj, label in obj_nice_labels.items():
+        plot.add(
+            opt_df.loc[opt_df[obj] == opt_df[obj].min(), 
+                    :'percent_nonrenewable'].values,
+            linewidth=5,
+            color=obj_tab_colors[obj],
+            label=label
+        )
+    plot.save(snakemake.output.four_obj_objective_mga)
 
 
     ### Objective Space Top 5 for Each Objective ###
@@ -137,7 +105,7 @@ if __name__ == "__main__":
                 'total_cost':'Total Cost',
                 'land_use':'Land Use',
                 'percent_nonrenewable':'Percent Nonrenewable'}
-    for objective in tqdm(obj_cols):
+    for objective in tqdm(list(obj_name.keys())):
         plot = PCP(title=(f"Objective Space \n Highlighted: {obj_name[objective]}", 
                           {'pad': 30, 'fontsize':20}),
                 n_ticks=10,
@@ -159,7 +127,7 @@ if __name__ == "__main__":
 
         for i in range(n):
             plot.add(subset_df.iloc[i,:4].values, linewidth=3, color=color[i])
-        plt.savefig(f"../docs/figures/04_benchmark_chapter/4_obj_objective_space_{objective}.pgf")
+        plot.save(f"../docs/figures/04_benchmark_chapter/4_obj_objective_space_{objective}.pgf")
 
 
     ### Design Space Plot ###
@@ -176,26 +144,27 @@ if __name__ == "__main__":
     'WindTurbine']
 
     plot = PCP(title=("Design Space", {'pad': 30, 'fontsize':20}),
-           n_ticks=10,
-           legend=(True, {'loc': "upper left"}),
-           labels=tech_labels,
-           figsize=(13,6),
-           )
+            n_ticks=10,
+            legend=(True, {'loc': "upper left"}),
+            labels=tech_labels,
+            figsize=(13,6),
+            )
     plot.set_axis_style(color="grey", alpha=0.5)
     plot.tight_layout = True
 
-    plot.add(np.hstack(combined[combined.optimal=='Optimal'].designs.values).reshape(8,10), 
-             color="grey", 
-             alpha=0.3)
+    plot.add(opt_df.iloc[:,4:-1].values, 
+                color="grey", 
+                alpha=0.3)
 
+    for obj, label in obj_nice_labels.items():
+            plot.add(
+                opt_df.loc[opt_df[obj] == opt_df[obj].min()].iloc[:,4:-1].values,
+                linewidth=5,
+                color=obj_tab_colors[obj],
+                label=label
+            )
 
-
-    plot.add(results.X[0], linewidth=5, color="tab:green", label=r"Least CO$_2$")
-    plot.add(results.X[3], linewidth=5, color="tab:red", label="Least Cost")
-    plot.add(results.X[5], linewidth=5, color="tab:orange", label=r"Least Land Use")
-    plot.add(results.X[7], linewidth=5, color="tab:blue", label="Highest Renewable")
-
-    plt.savefig(snakemake.output.four_obj_design_space)
+    plot.save(snakemake.output.four_obj_design_space)
 
     ### Design Space MGA ###
     print('Plotting design space with MGA')
@@ -207,21 +176,25 @@ if __name__ == "__main__":
             )
     plot.set_axis_style(color="grey", alpha=0.5)
     plot.tight_layout = True
-    
-    plot.add(np.hstack(combined.designs.values).reshape(26,10), color="grey", alpha=0.3)
 
+    plot.add(combined.iloc[:,4:-1].values, 
+                color="grey", 
+                alpha=0.3)
 
-    plot.add(results.X[0], linewidth=5, color="tab:green", label=r"Least CO$_2$")
-    plot.add(results.X[3], linewidth=5, color="tab:red", label="Least Cost")
-    plot.add(results.X[5], linewidth=5, color="tab:orange", label=r"Least Land Use")
-    plot.add(results.X[7], linewidth=5, color="tab:blue", label="Highest Renewable")
+    for obj, label in obj_nice_labels.items():
+            plot.add(
+                opt_df.loc[opt_df[obj] == opt_df[obj].min()].iloc[:,4:-1].values,
+                linewidth=5,
+                color=obj_tab_colors[obj],
+                label=label
+            )
 
-    plt.savefig(snakemake.output.four_obj_design_mga)
+    plot.save(snakemake.output.four_obj_design_mga)
 
 
     ### Design Space Top 5 per Objective ###
     print(f"Plotting top {n} designs for each objective... ")
-    for objective in tqdm(obj_cols):
+    for objective in tqdm(list(obj_name.keys())):
         plot = PCP(title=(f"Objective Space \n Highlighted: {obj_name[objective]}", 
                           {'pad': 30, 'fontsize':20}),
                 n_ticks=10,
@@ -233,30 +206,24 @@ if __name__ == "__main__":
         plot.set_axis_style(color="grey", alpha=0.5)
         plot.tight_layout = True
 
-        plot.add(np.hstack(combined.designs.values).reshape(26,10), color="grey", alpha=0.3)
+        plot.add(np.hstack(combined.iloc[:,4:-1].values).reshape(26,10), color="grey", alpha=0.3)
         cmap = obj_colors[objective]
         color=mcp.gen_color(cmap=cmap,n=n+1)
 
         subset_df = combined.nsmallest(n=n,columns=[objective]).reset_index(drop=True)
 
-        for i, d in enumerate(subset_df.designs):
+        for i, d in enumerate(subset_df.iloc[4:-1].values):
             plot.add(d, linewidth=3, color=color[i])
-        plt.savefig(f"../docs/figures/04_benchmark_chapter/4_obj_design_space_{objective}.pgf")
+        plot.save(f"../docs/figures/04_benchmark_chapter/4_obj_design_space_{objective}.pgf")
     
 
     ### Design Space Box Plot ###
-    ddf = pd.DataFrame(dict(zip(techs,results.X.T)))
-    mdf_expanded = n_mga(results, wide_form=True, how='all')
-
     fig, axes = plt.subplots(1,1,figsize=(13,6), facecolor='w', sharex=True, sharey=True)
-    peak_demand = results.problem.max_demand
-    sb.boxenplot(ax=axes, 
-                data=(pd.concat([mdf_expanded.iloc[:,4:],
-                                ddf], 
-                                axis=0).reset_index(drop=True))*peak_demand.value)
+    
+    sb.boxenplot(ax=axes, data=combined.iloc[:,4:-1])
 
     axes.set_xticklabels(tech_labels, rotation=12.5, size=14)
-    axes.set_xticks(range(len(techs)))
+    axes.set_xticks(range(len(tech_labels)))
     axes.set_xlabel("", size=14)
     # peak wind is at nearly 71 GW
     axes.set_ylim(0,30)

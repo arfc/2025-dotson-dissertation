@@ -111,6 +111,20 @@ rule retrieve_load_data:
             "https://raw.githubusercontent.com/samgdotson/2021-dotson-ms/refs/heads/master/data/uiuc_demand_data.csv")
             """
 
+rule process_prelim_results:
+    input:
+        four_obj_results = f"{osier_data}2023-05-30-NOBJ4-USNGA3-results.pkl",
+        unsga3_results = f"{osier_data}2022-12-31-USNGA3-results.pkl",
+        pf_nsga3 = f"{osier_data}algorithm_comparison/2023-05-06_nsga3_PF_Fitness_95.pkl_95",
+        pf_nsga2 = f"{osier_data}algorithm_comparison/2023-05-12-nsga2_PF_Fitness_95.pkl_95",
+        temoa_F2 = f"{osier_data}model_comparison/2022-11-18-temoa_mga_objective_remap.pkl",
+        temoa_mga_design = f"{osier_data}model_comparison/2022-11-18-temoa-mga-design.pkl",
+        unsga3_design = f"{osier_data}model_comparison/2022-12-31-optimal_design_X.pkl",
+        unsga3_objective = f"{osier_data}model_comparison/2022-12-31-optimal_objective_F.pkl",
+    output:
+        combined_data = f"{data_path}4_obj_results_processed.csv"
+    script: "scripts/04-benchmark-scripts/process_prelim_data.py"
+
 rule plot_load_data:
     input:
         load_data = f"{data_path}uiuc_demand_data.csv",
@@ -143,7 +157,8 @@ rule plot_temoa_comparison:
 
 rule plot_many_objective:
     input:
-        four_obj_results = f"{osier_data}2023-05-30-NOBJ4-USNGA3-results.pkl",
+        combined_data = f"{data_path}4_obj_results_processed.csv"
+        # four_obj_results = f"{osier_data}2023-05-30-NOBJ4-USNGA3-results.pkl",
     output:
         four_obj_objective_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space.pgf",
         four_obj_objective_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space_MGA.pgf",
@@ -151,6 +166,8 @@ rule plot_many_objective:
         four_obj_design_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA.pgf",
         four_obj_design_mga_boxplot = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA_boxplot.pgf",
     script: "scripts/04-benchmark-scripts/plot_many_objective.py"
+
+# rule 
 
 rule benchmark_chapter:
     input:
