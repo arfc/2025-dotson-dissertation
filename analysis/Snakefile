@@ -68,7 +68,7 @@ rule plot_reference_directions:
         reference_directions = f"{docs_path}figures/03_osier_chapter/reference_directions.pgf",
     script: f"scripts/03-osier-scripts/plot_reference_directions.py"
 
-rule plot_mga_example:
+rule plot_n_mga_example:
     input: "scripts/mga_fft_example.py"
     output:
         example_mga_plot = f"{docs_path}figures/03_osier_chapter/mga-fft-example.pgf",
@@ -158,7 +158,6 @@ rule plot_temoa_comparison:
 rule plot_many_objective:
     input:
         combined_data = f"{data_path}4_obj_results_processed.csv"
-        # four_obj_results = f"{osier_data}2023-05-30-NOBJ4-USNGA3-results.pkl",
     output:
         four_obj_objective_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space.pgf",
         four_obj_objective_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space_MGA.pgf",
@@ -167,7 +166,9 @@ rule plot_many_objective:
         four_obj_design_mga_boxplot = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA_boxplot.pgf",
     script: "scripts/04-benchmark-scripts/plot_many_objective.py"
 
-# rule 
+rule plot_mga_example:
+    output:
+        
 
 rule benchmark_chapter:
     input:
