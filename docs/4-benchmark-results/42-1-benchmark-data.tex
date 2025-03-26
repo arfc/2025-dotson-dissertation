@@ -8,14 +8,12 @@ capacity-expansion scenarios \cite{decarolis_temoa_2010}. The key benefits of
 \ac{temoa} are its open-source code, open data, and built-in uncertainty
 analysis capabilities. These features address the need for greater transparency
 in \ac{esom} modeling and robust assessment of future uncertainties
-\cite{hunter_modeling_2013, fattahi_systemic_2020}. 
-\ac{pygen} is another
-open-source code, developed by this thesis' author, that facilitates rapid 
-development of \ac{temoa} models and
-enables sensitivity analyses using a templated approach
-\cite{dotson_influence_2022, dotson_python_2021}. These features of \ac{pygen}
-reduce the learning curve and the cost of producing unique models in \ac{temoa}
-\cite{dotson_influence_2022}.
+\cite{hunter_modeling_2013, fattahi_systemic_2020}. \ac{pygen} is another
+open-source code, developed by this thesis' author, that facilitates rapid
+development of \ac{temoa} models and enables sensitivity analyses using a
+templated approach \cite{dotson_influence_2022, dotson_python_2021}. These
+features of \ac{pygen} reduce the learning curve and the cost of producing
+unique models in \ac{temoa} \cite{dotson_influence_2022}.
 
 A single \ac{temoa} run minimizes total system cost \cite{decarolis_temoa_2010},
 
@@ -71,30 +69,56 @@ The mathematical formulation of this algorithm is to
 
 \textcolor{red}{ADD FIGURE ILLUSTRATING STANDARD MGA -- THIS FIGURE ALREADY EXISTS}
 
+Figure \ref{fig:standard_mga} illustrates this algorithm for a simple \ac{lp}
+with two decision variables and a slack value of 10\%.
+
+\begin{align}
+  \intertext{Minimize:}
+  f(x_1, x_2) &= c_1x_1 + c_2x_2,
+  \intertext{subject to:}
+  x_1 &+ x_2 = 1,
+  \intertext{where}
+  x_{k} &= \text{the $k^{th}$ decision variable,} \nonumber \\
+  c_{k} &= \text{the $k^{th}$ cost.}\nonumber
+\end{align}
+
+The optimal solution occurs where the objective and constraint functions
+intersect at $\left(1,0\right)$. Relaxing the objective function by 10\% gives a
+new constraint shown by the dashed line. Since the constraint is written as an
+equality, the feasible space is given by all points on the constraint curve. The
+new \ac{mga} solution is now at the intersection between the \ac{mga} constraint and the
+original constraint, $\left(0.6, 0.4\right)$.
+
+\begin{figure}[h]
+  \centering
+  \resizebox{0.75\columnwidth}{!}{\input{figures/04_benchmark_chapter/naive_mga_lp.pgf}}
+  \caption{Simple demonstration of the standard \ac{mga} algorithm.}
+  \label{fig:standard_mga}
+\end{figure}
+
 This procedure results in a small set of maximally different solutions for
 modelers to interpret. In this way, \ac{mga} efficiently proposes alternatives
 that may capture unmodeled objectives, such as political expediency or social
 acceptance. However, this method depends on a single objective function which
-does not guarantee that these alternative solutions will be optimal or 
+does not guarantee that these alternative solutions will be optimal or
 near-optimal for any other measurable objective.
 
 
-I created \ac{pygen} as an initial exploration on repeatable analysis and
-extending the functionality of an existing \ac{esom}. While successful in
-that regard, \ac{pygen} could not overcome \ac{temoa}'s inherent limitations
-on optimizing multiple objectives and the inability to modify its objective 
-function. Addressing these limits led to the development of \ac{osier}.
+\ac{pygen} was an initial exploration on repeatable analysis and functionality
+extension for an existing \ac{esom}. While successful in that regard, \ac{pygen}
+could not overcome \ac{temoa}'s inherent limitations on optimizing multiple
+objectives and the inability to modify its objective function. Addressing these
+limits led to the development of \ac{osier}.
 
 
 \subsection{Data for benchmark problems}
- In order
-to verify \ac{osier}'s accuracy, I analyze an energy system and compare the
-results against a representative \ac{esom}, \ac{temoa}. For this problem, I
-chose to model the state of Illinois broadly and using weather data from the
-Champaign-Urbana region due to its geographic centrality. Chapter
-\ref{chapter:benchmark-results} presents the results from this problem, with a
-variety of optimization criteria. This section describes the data used in both
-models. The basic inputs for \ac{osier} and \ac{temoa} are
+ In order to verify \ac{osier}'s accuracy, this section analyzes an energy
+system and compare the results against a representative \ac{esom}, \ac{temoa}.
+For this problem, I chose to model the state of Illinois broadly and using
+weather data from the Champaign-Urbana region due to its geographic centrality.
+Chapter \ref{chapter:benchmark-results} presents the results from this problem,
+with a variety of optimization criteria. This section describes the data used in
+both models. The basic inputs for \ac{osier} and \ac{temoa} are
 \begin{enumerate}
     \item Time series data for
     \begin{itemize}

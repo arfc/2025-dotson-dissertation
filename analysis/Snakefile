@@ -166,8 +166,12 @@ rule plot_many_objective:
         four_obj_design_mga_boxplot = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA_boxplot.pgf",
     script: "scripts/04-benchmark-scripts/plot_many_objective.py"
 
-rule plot_mga_example:
+
+# ~~~~~~~~ Should this plot be moved to the literature review chapter? ~~~~~~~~~~~~
+rule plot_standard_mga:
     output:
+        standard_mga = f'{docs_path}figures/04_benchmark_chapter/naive_mga_lp.pgf',
+    script: "scripts/04-benchmark-scripts/plot_standard_mga.py"
         
 
 rule benchmark_chapter:
@@ -181,6 +185,7 @@ rule benchmark_chapter:
         four_obj_design_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space.pgf",
         four_obj_design_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA.pgf",
         four_obj_design_mga_boxplot = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA_boxplot.pgf",
+        standard_mga = f'{docs_path}figures/04_benchmark_chapter/naive_mga_lp.pgf',
         load_curve = f"{docs_path}figures/04_benchmark_chapter/normalized_load_curves.pgf"
     output:
         ch4_log
