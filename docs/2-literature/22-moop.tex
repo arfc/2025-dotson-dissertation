@@ -2,8 +2,9 @@
 \label{section:moo-in-energy}
 A multi-objective problem may be formulated as
 \begin{align}
+\intertext{Minimize:}
 \label{eqn:generic-moop}
-&\text{min}\{F_1(x), F_2(x), ... , F_i(x)\},
+&\{F_1(x), F_2(x), ... , F_i(x)\},
 \intertext{subject to:}
 &g(x, p) \leq 0.\nonumber\\
 &x \in \vec{X}\nonumber
@@ -11,21 +12,22 @@ A multi-objective problem may be formulated as
 &F_i \text{ is an arbitrary objective function,}\nonumber\\
 &g \text{ is a constraint,}\nonumber\\
 &p \text{ is an arbitrary parameter of $g$,}\nonumber\\
-&\vec{X} \text{ is the set of decision variables.}
+&\vec{X} \text{ is the set of decision variables.}\nonumber
 \end{align}
 \noindent
 Where Equation \ref{eqn:generic_objective} had a single objective $F(x)$ to
 minimize, Equation \ref{eqn:generic-moop} has a \textit{set} of objectives,
 $\{F_i(x)\}$. Rather than identifying a global minimum point, the solution to
-Equation \ref{eqn:generic-moop} is a \textit{set} of non-dominated points called a Pareto-front. Each point on this frontier cannot
-improve one objective without making another objective worse, hence
-``non-dominated.'' Generally, for competing objectives, there will be an
-infeasible space that is not attainable by the given combination of objectives.
-For a minimization problem, the space above the Pareto-front is the sub-optimal
-feasible space. This is the space that \ac{mga} promises to search for a
-corresponding single-objective problem. Figure \ref{fig:truss-pareto}
-illustrates a set of solutions along a Pareto-front for an example problem from
-\ac{pymoo} \cite{blank_pymoo_2020,deb_omni-optimizer_2008}.
+Equation \ref{eqn:generic-moop} is a \textit{set} of non-dominated points called
+a Pareto-front. Each point on this frontier cannot improve one objective without
+making another objective worse, hence ``non-dominated.'' Generally, for
+competing objectives, there will be an infeasible space that is not attainable
+by the given combination of objectives. For a minimization problem, the space
+above the Pareto-front is the sub-optimal feasible space. This is the space that
+\ac{mga} promises to search for a corresponding single-objective problem. Figure
+\ref{fig:truss-pareto} illustrates a set of solutions along a Pareto-front for
+an example problem from \ac{pymoo}
+\cite{blank_pymoo_2020,deb_omni-optimizer_2008}.
 
 \begin{figure}[H]
   \centering
@@ -42,8 +44,9 @@ map the multi-objective problem onto a set of single-objective problems using
 variation of parameters. In the \ac{ws} algorithm, the objectives are assigned
 weights, $w_i$, and the aggregated objective becomes
 \begin{align}
+    \intertext{Minimize:}
     \label{eqn:weighted-sum}
-    \text{min}\quad J(x) &= \sum_i w_i F_i(x)
+    J(x) &= \sum_i w_i F_i(x)
     \intertext{subject to:}
 &g(x, p) \leq 0\nonumber\\
 &x \in \vec{X}\nonumber
@@ -56,17 +59,16 @@ weights, $w_i$, and the aggregated objective becomes
 &\vec{X} \text{ is the set of decision variables.}
 \end{align}
 \noindent
-These weights are varied in order to sample points along the Pareto-front. 
-
-Alternatively, the \ac{ec}
-algorithm for scalarization chooses one objective from $\{F_n\}$ to solve and converts the others
-into constraints, whose bounds are denoted by $\epsilon$. These bounds are
-varied until the desired number of points on the Pareto-front is reached
-\cite{gunantara_review_2018, emmerich_tutorial_2018}. This problem can be
-written as
+These weights are varied in order to sample points along the Pareto-front.
+Alternatively, the \ac{ec} algorithm for scalarization chooses one objective
+from $\{F_n\}$ to solve and converts the others into constraints, whose bounds
+are denoted by $\epsilon$. These bounds are varied until the desired number of
+points on the Pareto-front is reached \cite{gunantara_review_2018,
+emmerich_tutorial_2018}. This problem can be written as
 \begin{align}
-\label{eqn:epsilon-constraint}
-    &\text{min}\quad F_j(x),
+  \intertext{{Minimize:}}
+  \label{eqn:epsilon-constraint}
+    &F_j(x),
     \intertext{subject to:}
     &F_2(x) - \epsilon_j \leq 0\nonumber\\
     &\vdots\nonumber\\
@@ -108,7 +110,7 @@ to reduce structural uncertainty by obtaining points in the inferior region
 \cite{loughlin_genetic_2001,zechman_evolutionary_2004,
 zechman_evolutionary_2013}. An additional advantage of \acp{ga} is the ability
 to incorporate more physics and simulations into the optimization procedure than
-\ac{lp}, \ac{milp}, or scalarization allow \cite{loughlin_genetic_2001} because 
+\ac{lp}, \ac{milp}, or scalarization allow \cite{loughlin_genetic_2001} because
 \acp{moo} can incorporate data from external models. 
 
 Previous work handled structural uncertainty using \ac{mga} which samples unique
@@ -146,7 +148,7 @@ thesis.
 
 
 \subsection{Energy System Applications}
-It is well understood that engineering and policy problems, which include energy
+Engineering and policy problems, which include energy
 systems optimization, often require satisfying multiple antagonistic objectives
 \cite{loughlin_genetic_2001,zechman_evolutionary_2004,
 zechman_evolutionary_2013, chattopadhyay_need_2021}. However, the application of
@@ -188,27 +190,35 @@ renewable penetration leads to greater costs and less reliable energy with a
 costs \cite{riou_multi-objective_2021}. 
 
 Although previous work demonstrated the applicability of \ac{moo} to energy
-systems optimization, there are significant limitations. 
-\begin{itemize}
-    \item{There are at most three modeled objectives
-    \cite{riou_multi-objective_2021,de-leon_almaraz_deployment_2015,
-    de-leon_almaraz_assessment_2013}.}
-    \item{While traditional \acp{esom} have many mature frameworks (as shown in
-    Table \ref{tab:esoms}), there are no frameworks that use \ac{moo}.
-    Simultaneously, none of the studies in Table \ref{tab:moop-literature}
-    developed a framework. Prina et al. developed a bespoke and unlicensed model
-    called ``Oemof-moea,'' however this does not constitute a framework.}
-    \item{None of the studies in Table \ref{tab:moop-literature} allow
-    arbitrary user-defined objectives.}
-    \item{None of the studies incorporate social metrics into the modeled objectives.}
-\end{itemize}
+systems optimization, there are significant limitations. While traditional
+\acp{esom} have many mature frameworks (as shown in Table \ref{tab:esoms}),
+there are no frameworks that use \ac{moo}. Simultaneously, none of the studies
+in Table \ref{tab:moop-literature} developed a framework. Prina et al. 2020
+\cite{prina_multi-objective_2020} developed a bespoke and unlicensed model
+called ``Oemof-moea,'' and Prina et al. 2018 \cite{prina_multi-objective_2018}
+and Johannsen et al. 2023 \cite{johannsen_municipal_2023} developed a \ac{moo}
+wrapper for the \texttt{EnergyPLAN} model called \texttt{EPLANopt}, but neither of
+these examples constitute a framework. The studies in \ref{tab:moop-literature}
+used at most three modeled
+objectives\cite{riou_multi-objective_2021,de-leon_almaraz_deployment_2015,
+de-leon_almaraz_assessment_2013}. None of the studies in Table
+\ref{tab:moop-literature} allow arbitrary user-defined objectives nor did they 
+incorporate social metrics into the modeled objectives. While some
+studies investigated energy systems at city-scale or smaller
+\cite{riou_multi-objective_2021,
+mayer_environmental_2020,fleischhacker_portfolio_2019,johannsen_municipal_2023},
+none of them engaged with local stakeholders to discover their energy
+priorities.
 
-This thesis develops, \ac{osier}, a novel energy systems framework using
-\ac{moo} that fills these gaps by using \acp{ga} that allows for efficient
-modeling of many objectives, enabling user-defined objectives, providing the
-option to make metrics of interest either objectives or constraints, and
-incorporating ideas from \ac{mga} to provide insight from the sub-optimal
-objective space.
+Chapter \ref{chapter:osier} introduces the \acf{osier}, a novel energy systems
+framework using \ac{moo} that fills these gaps by using \acp{ga} that allows for
+efficient modeling of many objectives, enabling user-defined objectives,
+providing the option to make metrics of interest either objectives or
+constraints, and incorporating ideas from \ac{mga} to provide insight from the
+sub-optimal objective space. As for community engagement, Chapter
+\ref{chapter:communities} details a series of interviews with energy planning
+practitioners I conducted, in part, to evaluate the modeling needs of local
+municipalities.
 
 
 % \textcolor{red}{If carbon emissions should not be considered an objective, but
@@ -220,30 +230,25 @@ The next section outlines attempts to incorporate social justice concerns with
 energy system models.
 
 
-% \subsection{\textcolor{red}{More context for decision making with \ac{moo} in energy systems.}}
+% \subsection{\textcolor{red}{More context for decision making with \ac{moo} in
+% energy systems.}}
 
-% Answer the following questions for each paper listed below (this will help demonstrate the 
-% novelty of my work):
+% Answer the following questions for each paper listed below (this will help
+% demonstrate the novelty of my work):
 
-% \begin{enumerate}
-%     \item Does the study develop a framework?
-%     \item Is the framework open source (if applicable)? Is the input data transparent?
-%     \item Does the study use genetic algorithms? If so, which one?
-%     \item What methods does the study use?
-%     \item What objectives does the study optimize?
-%     \item Are there ``users'' that can arbitrarily add new objectives?
-%     \item How many objectives can be optimized at once?
-%     \item Does the study discuss energy justice? How do they define justice? What aspects are discussed?
-%     \item Does the study describe how their analysis can inform decision making processes and improve
-%     justice outcomes?
-% \end{enumerate}
+% \begin{enumerate} \item Does the study develop a framework? \item Is the
+%     framework open source (if applicable)? Is the input data transparent?
+%     \item Does the study use genetic algorithms? If so, which one? \item What
+%     methods does the study use? \item What objectives does the study optimize?
+%     \item Are there ``users'' that can arbitrarily add new objectives? \item
+%     How many objectives can be optimized at once? \item Does the study discuss
+%     energy justice? How do they define justice? What aspects are discussed?
+%     \item Does the study describe how their analysis can inform decision
+%     making processes and improve justice outcomes? \end{enumerate}
 
 
 % The papers of interest
 
-% \begin{enumerate}
-%     \item \cite{kamenopoulos_assessment_2019}
-%     \item \cite{kasprzyk_many_2013}
-%     \item \cite{jafino_enabling_2021}
-%     \item \cite{granacher_overcoming_2022}
-% \end{enumerate}
+% \begin{enumerate} \item \cite{kamenopoulos_assessment_2019} \item
+%     \cite{kasprzyk_many_2013} \item \cite{jafino_enabling_2021} \item
+%     \cite{granacher_overcoming_2022} \end{enumerate}
