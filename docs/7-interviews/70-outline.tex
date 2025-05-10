@@ -1,32 +1,34 @@
 \section{Introduction}
 
 Earlier chapters introduced a novel modeling tool, \ac{osier}, which sought to
-fill a gap in the literature and available modeling tools by developing a flexible
-multi-objective optimization framework that allows users to incorporate concepts
-of justice, the ``human dimension'' \cite{pfenninger_energy_2014}. This is
-possible because \ac{osier} enables users to optimize any quantifiable objective
-which encourages modelers to seek input from the communities they model for
-their energy system priorities, as suggested by McGookin et al. 2024
+fill a gap in the literature and available modeling tools by developing a
+flexible multi-objective optimization framework that allows users to incorporate
+concepts of justice, the ``human dimension'' \cite{pfenninger_energy_2014}. This
+is possible because \ac{osier} enables users to optimize any quantifiable
+objective which encourages modelers to seek input from the communities they
+model for their energy system priorities, as suggested by McGookin et al. 2024
 \cite{mcgookin_advancing_2024}, thereby elevating the recognition and procedural
 aspects of justice described in Chapter \ref{chapter:lit-review}. Additionally,
 \ac{osier} transcends scale limitations due to it's flexible design, making it
 useful for municipalities as well as larger governing units. This chapter
 attempts to validate these assertions by examining how local and state energy
-planners use \acpl{esom} and the ways in which justice does or does not play a
+planners use \acp{esom} and the ways in which justice does or does not play a
 role in decision-making. To that end, this chapter considers a range of contexts
-in the State of Illinois, including three municipalities (Champaign, Urbana, and 
-Naperville), a university with its own microgrid (\acf{uiuc}), and Illinois energy 
-organizations (\acf{ICC}, \acf{IPA}, \acf{icea}, and the Illinois \acf{cub}). This
-chapter also considers the varied perspectives of different energy planning participants
-within their respective contexts by interviewing city planners,
-a city council member, and various advisory staff. This study contributes to the existing 
-literature on participatory and distributed energy planning as well as illustrating
-a path towards a holistic integration of energy justice and energy system engineering.
+in the State of Illinois, including three municipalities (Champaign, Urbana, and
+Naperville), a university with its own microgrid (\acf{uiuc}), and Illinois
+energy organizations (\acf{icc}, \acf{ipa}, \acf{icea}, and the Illinois
+\acf{cub}). This chapter also considers the varied perspectives of different
+energy planning participants within their respective contexts by interviewing
+city planners, a city council member, and various advisory staff. This study
+contributes to the existing literature on participatory and distributed energy
+planning as well as illustrating a path towards a holistic integration of energy
+justice and energy system engineering.
 
-The next section reviews the existing literature on decentralized energy planning. 
-Section \ref{section:interview-methods} describes the method for collecting and analyzing
-interview data using thematic analysis. Section \ref{section:cases} introduces the different
-cases considered in this chapter. \textcolor{red}{Lastly, an analysis and discussion of the interviews.}
+The next section reviews the existing literature on decentralized energy
+planning. Section \ref{section:interview-methods} describes the method for
+collecting and analyzing interview data using thematic analysis. Section
+\ref{section:cases} introduces the different cases considered in this chapter.
+\textcolor{red}{Lastly, an analysis and discussion of the interviews.}
 
 
 \section{Literature Review?}
@@ -84,8 +86,8 @@ coding step was also performed locally with the \texttt{Taguette} tool
 
 \subsection{Interview Data Collection}
 
-A total of thirteen interviews were conducted through the second half of 2024 and 
-beginning of 2025 using a semi-structured approach.
+A total of thirteen interviews were conducted through the second half of 2024
+and beginning of 2025 using a semi-structured approach.
 
 \begin{enumerate}
     \item Who did I interview and what organizations were they from?
@@ -97,12 +99,13 @@ beginning of 2025 using a semi-structured approach.
 \section{Case Regions}
 \label{section:cases}
 
-Table \ref{tab:demographics} shows the sizes of each planning context by population.
+Table \ref{tab:demographics} shows the sizes of each planning context by
+population.
 
 
 
 \subsection{State of Illinois}
-Illinois is split between two \acpl{rto}, MISO and PJM.
+Illinois is split between two \acp{rto}, MISO and PJM.
 
 \begin{enumerate}
     \item \ac{icc}
@@ -115,25 +118,52 @@ Illinois is split between two \acpl{rto}, MISO and PJM.
 
 \begin{table}
     \centering
+    \caption{Summary demographics for the study regions.}
     \label{tab:demographics}
-    \begin{tabular}{cc}
-        Region & Population & Operating Budget (millions of \$) & Median Household Income (\$/year) \\
-        Illinois & 12,710,158  & 53,419 & 81,702\\
-        Naperville & 150,249  & 641 & 150,937 \\
-        Champaign & 89,189 & 210 & 57,544 \\
-        Urbana & 38,201 & 85 & 45,854 \\
-        \ac{uiuc} & 59,916 & 3,078 & N/A \\
+    \begin{tabular}{llll}
+        \toprule
+        Region & Population & Operating Budget & Median Household Income \\
+        & & (millions of \$) &(\$/year) \\
+        \midrule
+        Illinois
+        \cite{united_states_census_bureau_quickfacts_2024-3,sturm_illinois_2024}&
+        12,710,158  & 53,419 & 81,702\\
+        Naperville
+        \cite{united_states_census_bureau_quickfacts_2024-2,munch_annual_2024} &
+        150,249  & 641 & 150,937 \\
+        Champaign
+        \cite{united_states_census_bureau_quickfacts_2024,nees_adopted_2024} &
+        89,189 & 210 & 57,544 \\
+        Urbana \cite{united_states_census_bureau_quickfacts_2024-1,
+        ho_city_2024}& 38,201 & 85 & 45,854 \\
+        \ac{uiuc} \cite{data_usa_university_2022,
+        university_of_illinois_system_fy_2024} & 59,916 & 3,078 & N/A \\
+        \bottomrule
     \end{tabular}
 \end{table}
 
 \subsection{Champaign and Urbana, Illinois}
-These two contexts are considered together due to their proximity and close relationship. 
+These two contexts are considered together due to their proximity and close
+relationship. 
 
 Here are their climate action plans...
 
-\subsection{\acf{uiuc}}
-\ac{uiuc}, Illinois' largest university, straddles the two municipalities of Champaign
-and Urbana and its student enrollment rivals the populations of its neighbors. 
+\subsection{\acf{uiuc}} 
+
+The \acl{uiuc} (\acs{uiuc} or ``The University''), Illinois' largest
+university, straddles the two municipalities of Champaign and Urbana and its
+student enrollment rivals the populations of its neighbors. \ac{uiuc} has
+uniquely diverse energy system including a wholly owned subsidiary company,
+\ac{pei}, that owns and operates energy supply and distribution for the campus
+\cite{affiliated_engineers_inc_utilities_2015}. \ac{pei} also enables \ac{uiuc}
+to participate in the open electricity market, buying and selling wholesale electricity.
+On the supply side, \ac{pei} owns a coal and natural gas cogeneration plant, Abbott Power Plant, which
+produces steam and electricity for the campus, as well as a chilled water
+storage system. \ac{uiuc} also has \acp{ppa} for wind
+\cite{breitweiser_wind_2016} and solar energy \cite{white_solar_2017,
+white_solar_2020} along with solar panels on several campus buildings. 
+On the distribution side, \ac{pei} operates steam, electric, and
+gas distribution for the campus. 
 
 Here is its climate action plan...
 
