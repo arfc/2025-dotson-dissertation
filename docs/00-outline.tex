@@ -1,7 +1,19 @@
 \chapter{Introduction}
+
+% \section{Motivation}
+
+% \textcolor{red}{CO2 emissions}
+
+% \textcolor{red}{Emissions by energy source}
+
+% \section{Research Objectives}
+
+% \section{Reproducing this work}
+% Talk about \texttt{snakemake}, show the DAG... 
+
 \chapter{Literature Review}
 \label{chapter:lit-review}
-\input{2-literature/20-literature}
+% \input{2-literature/20-literature}
 
 \chapter{\acf{osier}}
 \label{chapter:osier}
@@ -10,34 +22,7 @@
 
 \chapter{Benchmark Results}
 \label{chapter:benchmark-results}
-
-% \textcolor{red}{This chapter will remain largely unchanged except for maybe one
-% additional example, demonstrating a different dispatch model that is much faster
-% but less robust. This new dispatch model will be used in the following chapter
-% where I investigate further examples including a hypothetical ``data center''
-% and an improvement on the \acf{set} \cite{wigeland_nuclear_2014}.}
-
-% \section{Exercise 0: Demonstrating \ac{osier}}
-% \textcolor{red}{This section is new in the dissertation!}
-
-% This section demonstrates some of the basic features of Osier. This section should be based 
-% on the examples in \ac{osier}'s documentation.
-
-% \section{Exercise 1: Deciding Among Evolutionary Algorithms}
-
-% \textit{Already written in prelim document.}
-
-% \section{Exercise 2: Exploring objective space}
-
-% \textit{Already written in prelim document.}
-
-% \section{Exercise 3: Four Simultaneous Objectives}
-
-% \textit{Already written in prelim document.}
-
-% \section{Exercise 4: Validating a Simplified Approach}
-
-% \textcolor{red}{This section is new in the dissertation.}
+\input{4-benchmark-results/40-benchmark.tex}
 
 \chapter{Examples with \acs{osier}}
 \label{chapter:examples}
@@ -99,70 +84,70 @@
 
 \chapter{Using modeling to enhance just outcomes}
 \label{chapter:communities}
-\iffalse
+% \iffalse
 
 
-This chapter addresses my proposal to ``validate'' \ac{osier} by conducting a
-case study of energy planning processes in Champaign-Urbana through interviews
-with decision makers and planners about energy justice, energy modeling, and
-energy planning. As well as introduce interviewees to \ac{osier} itself and
-solicit feedback from them about its potential usefulness and what obstacles may
-interfere with its adoption. 
+% This chapter addresses my proposal to ``validate'' \ac{osier} by conducting a
+% case study of energy planning processes in Champaign-Urbana through interviews
+% with decision makers and planners about energy justice, energy modeling, and
+% energy planning. As well as introduce interviewees to \ac{osier} itself and
+% solicit feedback from them about its potential usefulness and what obstacles may
+% interfere with its adoption. 
 
-Although I originally set out to conduct a limited case study of Chambana, I
-discovered that municipalities in Illinois do not, in general, have the decision
-making authority to make specific choices about their energy supply.
-Thus, I expanded my study to the state level; interviewing people from the
-\ac{ipa} and \ac{icc}. This expanded scope provided evidence for structural
-challenges blocking municipal influence from energy planning processes. Further,
-this evinces a tension among distributive, procedural, and recognition justice.
+% Although I originally set out to conduct a limited case study of Chambana, I
+% discovered that municipalities in Illinois do not, in general, have the decision
+% making authority to make specific choices about their energy supply.
+% Thus, I expanded my study to the state level; interviewing people from the
+% \ac{ipa} and \ac{icc}. This expanded scope provided evidence for structural
+% challenges blocking municipal influence from energy planning processes. Further,
+% this evinces a tension among distributive, procedural, and recognition justice.
 
-\section{Progress on developing tools for local use}
+% \section{Progress on developing tools for local use}
 
-\begin{itemize}
-    \item The literature review chapter indicated that most energy modeling tools
-    and much of the related literature focus on state- or national-scale energy
-    systems.
-    \item The the hyper-local section highlighted some studies that integrated
-    local perspectives with energy modeling. Those papers include 
-    \cite{mckenna_combining_2018, johannsen_municipal_2023, fleischhacker_portfolio_2019}
-    \item There have also been studies investigating the development of models for, and
-    use by, city and urban planners.
-\end{itemize}
+% \begin{itemize}
+%     \item The literature review chapter indicated that most energy modeling tools
+%     and much of the related literature focus on state- or national-scale energy
+%     systems.
+%     \item The the hyper-local section highlighted some studies that integrated
+%     local perspectives with energy modeling. Those papers include 
+%     \cite{mckenna_combining_2018, johannsen_municipal_2023, fleischhacker_portfolio_2019}
+%     \item There have also been studies investigating the development of models for, and
+%     use by, city and urban planners.
+% \end{itemize}
 
-\section{Municipal Levers: How municipalities make choices about their energy supply}
-There are generally four ways municipalities can make choices about their energy supply.
+% \section{Municipal Levers: How municipalities make choices about their energy supply}
+% There are generally four ways municipalities can make choices about their energy supply.
 
-\subsection{\ac{mca}}
-This is where municipalities participate in electricity markets on behalf of
-their residents. Although this allows municipalities to choose an energy supply
-besides the standard portfolio provided by an electric utility, municipalities
-do not have full control over their energy supply. Instead, municipalities
-negotiate for a few portfolios through a bidding process. While they can specify
-some criteria, such as a percentage of renewable energy, the specific generation
-mix depends on the company that developed the portfolio bid. Further, residents
-are still allowed to opt-out of \ac{mca} and elect the standard portfolio
-provided by their electric utility.
+% \subsection{\ac{mca}}
+% This is where municipalities participate in electricity markets on behalf of
+% their residents. Although this allows municipalities to choose an energy supply
+% besides the standard portfolio provided by an electric utility, municipalities
+% do not have full control over their energy supply. Instead, municipalities
+% negotiate for a few portfolios through a bidding process. While they can specify
+% some criteria, such as a percentage of renewable energy, the specific generation
+% mix depends on the company that developed the portfolio bid. Further, residents
+% are still allowed to opt-out of \ac{mca} and elect the standard portfolio
+% provided by their electric utility.
 
-\subsection{Utility ownership}
-Some municipalities in Illinois, such as Naperville, own their own distribution
-system. This gives a municipality greater control over the design of their
-utility system and allows a municipality to make decisions about the tradeoff
-between cost and resiliency. For example, Naperville undergounded most of the
-electric distribution system and new distribution is automatically undergounded.
-However, this model does not award control of electric supply to the
-municipality, which must procure electricity through another entity such as the
-\acf{imea}.
+% \subsection{Utility ownership}
+% Some municipalities in Illinois, such as Naperville, own their own distribution
+% system. This gives a municipality greater control over the design of their
+% utility system and allows a municipality to make decisions about the tradeoff
+% between cost and resiliency. For example, Naperville undergounded most of the
+% electric distribution system and new distribution is automatically undergounded.
+% However, this model does not award control of electric supply to the
+% municipality, which must procure electricity through another entity such as the
+% \acf{imea}.
 
-\subsection{Municipal-owned generation}
-In very few cases, a municipality may own some of its own generation. \ac{uiuc}
-owns a coal and natural gas plant, a solar array, chilled water storage, and
-participates in a \ac{ppa} to purchase wind power. More commonly, municipalities
-will lease land cheaply to a solar company, for example, and purchase some or all
-of the rights to that electricity through a \ac{ppa}. 
+% \subsection{Municipal-owned generation}
+% In very few cases, a municipality may own some of its own generation. \ac{uiuc}
+% owns a coal and natural gas plant, a solar array, chilled water storage, and
+% participates in a \ac{ppa} to purchase wind power. More commonly, municipalities
+% will lease land cheaply to a solar company, for example, and purchase some or all
+% of the rights to that electricity through a \ac{ppa}. 
 
-\subsection{Municipal-owned buildings}
+% \subsection{Municipal-owned buildings}
 
-\fi
+% \fi
 
 \chapter{Conclusions}
