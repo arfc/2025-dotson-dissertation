@@ -1,0 +1,63 @@
+EG,Calculated Mass (Ci/GWe-yr),Analysis Example Bin Data,Metric Data,Reasons for Changing  Analysis Example Bin Data
+EG01,1650.0,C,C,"EG01 could have been moved to D, but left 
+unchanged since activity bin boundaries were 
+determined based on this group, and it is considered 
+as high value range for bin C (in radiotoxicity 
+ordering)."
+EG02,2050.0,C,C,"Could have been moved to D, but left unchanged 
+accounting for the potential reduction of activity 
+value by 50% by use of LWR system instead of"
+EG03,2460.0,D,D,"Could have been moved to E, but left unchanged as 
+it is considered as the high value range for D."
+EG04,1640.0,C,D,"EG04 moved to bin D by consideration of its 
+position in inhalation and ingestion radiotoxicity 
+ordering."
+EG05,7380.0,E,E,
+EG06,13000.0,F,C,"EG06 would have given similar metric data result as 
+EG08 if similar modeling assumptions had been used 
+in its Analysis Example."
+EG07,9480.0,E,C,"EG07 would have given similar metric data result as 
+EG08 if an FFH instead of ADS and similar 
+modeling assumptions have been used in its Analysis 
+Example."
+EG08,1690.0,C,C,
+EG09,942.0,B,C,"EG09 moved to bin C by consideration of its 
+position in inhalation and ingestion radiotoxicity 
+ordering."
+EG10,10800.0,F,E,"EG10 moved to bin E by consideration of its position 
+in inhalation and ingestion radiotoxicity ordering."
+EG11,9140.0,E,E,
+EG12,1420.0,C,C,
+EG13,1320.0,C,C,
+EG14,1240.0,C,C,
+EG15,1140.0,C,C,
+EG16,1030.0,C,C,
+EG17,3090.0,D,D,
+EG18,6950.0,E,E,
+EG19,765.0,B,B,
+EG20,557.0,B,B,
+EG21,800.0,B,B,
+EG22,581.0,B,B,
+EG23,728.0,B,B,
+EG24,606.0,B,B,
+EG25,864.0,B,B,
+EG26,1370.0,C,B,"EG26 moved to bin B by consideration of its 
+position in inhalation and ingestion radiotoxicity 
+ordering."
+EG27,3620.0,D,E,"EG27 moved to bin E by consideration of its position 
+in inhalation and ingestion radiotoxicity ordering."
+EG28,3010.0,D,D,
+EG29,917.0,B,B,
+EG30,571.0,B,B,
+EG31,697.0,B,B,
+EG32,519.0,B,B,
+EG33,879.0,B,B,
+EG34,669.0,B,B,
+EG35,741.0,B,B,
+EG36,535.0,B,B,
+EG37,762.0,B,B,
+EG38,3170.0,D,D,
+EG39,763.0,B,B,
+EG40,1280.0,C,B,"EG40 moved to bin B by consideration of its 
+position in inhalation and ingestion radiotoxicity 
+ordering."

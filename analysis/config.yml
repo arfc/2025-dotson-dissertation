@@ -1,0 +1,13 @@
+table_pages: 
+  mass_snf_hlw_disposal: 18,19
+  activity_at_100_yrs: 26,27
+  activity_at_100k_years: 35,36,37
+  mass_du_ru_rth_disposal: 42,43
+  volume_llw_disposal: 46,47
+  land_use: 59,60
+  water_use: 63,64
+  carbon_dioxide_emissions: 66,67
+  total_worker_dose: 70,71
+  natural_uranium_required: 74,75
+  natural_thorium_utilization: 80,81
+               

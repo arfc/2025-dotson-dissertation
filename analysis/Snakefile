@@ -1,3 +1,5 @@
+configfile: "config.yml"
+
 import sys
 
 latexopt = """
@@ -195,6 +197,24 @@ rule benchmark_chapter:
             echo $file >> {output}
         done
         """
+#============================EXAMPLES CHAPTER================================
+pdf_url = "https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20D.pdf"
+
+rule retrieve_fuel_cycles_report:
+    output: 
+        "../data/metric_data.pdf"
+    shell: f"(cd ../data/ && curl \"{pdf_url}\" --output metric_data.pdf)"
+
+
+rule extract_quantitative_data:
+    input: 
+        "../data/metric_data.pdf"
+    output:
+        expand("../data/{metric}.csv", metric=list(config['table_pages'].keys()))
+    script:
+        "scripts/05-examples-scripts/extract_metrics.py"
+
+
 #============================BUILD RULE================================
 
 if sys.platform == 'Windows':
