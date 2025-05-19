@@ -1,0 +1,87 @@
+
+\textcolor{red}{This chapter is entirely new to this thesis!}
+
+\section{Example 1: Updating the \ac{set}}
+
+\textcolor{red}{Points to hit:}
+\begin{enumerate}
+    \item Addressing the climate crisis requires new infrastructure and new energy sources.
+    \item Progress has been stifled on many fronts, not the least of which has been public opposition to energy projects. Including wind, solar, and nuclear.
+    \item Some of this opposition results from dissatisfaction with process.
+    \item Opposition can be pre-empted with sincere and proactive community engagement.
+    \item In the case of nuclear energy, some of these efforts are already underway with concepts such as consent-based siting entering the nuclear zeitgeist.
+    \item ???
+    \item Introduce the \ac{set} tool
+    \item  Introduce \ac{osier} as a tool for multi-objective optimization.
+\end{enumerate}
+
+\textcolor{red}{Benefits of using \ac{osier}}:
+\begin{enumerate}
+    \item Python interface allows direct coupling with external models and data sources for greater flexibility.
+    \item Enables, but does not require, a weighting scheme for decision making.
+    \item Allows users to analyze tradeoffs among competing objectives.
+    \item Allows users to compare lifecycle impacts with non-nuclear technologies.
+    \item Can flexibly add additional assessment criteria (e.g., Energy return on investment). 
+\end{enumerate}
+
+\textcolor{red}{Results}
+\begin{enumerate}
+    \item Does using \ac{osier} support the previous conclusions about the most promising evaluation groups?
+\end{enumerate}
+
+\subsection{Overview of the Nuclear Fuel Cycle}
+
+\subsection{What is the \ac{set}?}
+
+The \ac{set} is an Excel-based application containing metric data from the Nuclear Fuel Cycle Evaluation and Screening Study
+\cite{wigeland_nuclear_2014}. The website for the \ac{set} suggests the following use cases \cite{pincock_screening_2014}:
+\begin{enumerate}
+    \item A user can repeat the evaluation and screening process used in the Study that identified the promising options for R\&D, with either the entire set of options (\acp{eg}) or a subset of the options.
+    \item A user can explore the effects of varying the relative importance of the criteria on the identification of fuel cycles that might be considered promising for R\&D.
+    \item A user can perform an evaluation and screening of fuel cycles specified by the user by developing the metric data according to the information in the final report and adding the data to the SET tool.
+\end{enumerate}
+
+\subsection{What metrics are available?}
+
+The \ac{set} evaluates fuel cycles on a set of nine aggregated criteria \cite{wigeland_nuclear_2014}:
+\begin{enumerate}
+    \item Nuclear waste management
+    \item Proliferation risk
+    \item Nuclear Material security risk
+    \item Safety
+    \item Environmental impacts
+    \item Resource Utilization
+    \item Development and deployment risk
+    \item Institutional issues
+    \item Economics
+\end{enumerate}
+
+Most of these criteria include several sub-criteria. For example, the environmental impacts criteria 
+includes water use and land use as two sub-criteria \cite{wigeland_nuclear_2014-1}.
+
+\subsection{Data for the simulation}
+
+Table \ref{tab:metric-data} describes the data for the simulation.
+
+\begin{sidewaystable}[ht!]
+    \centering
+    \caption{Data for the simulation \cite{wigeland_nuclear_2014-1}.}
+    \label{tab:metric-data}
+    \resizebox*{\textwidth}{!}{\input{tables/metric_data_manual.tex}}
+\end{sidewaystable}
+
+\subsection{Results}
+
+\subsection{Discussion}
+
+% \section{Example 2: Powering a Data Center}
+
+% \subsection{Why data centers?}
+
+% \subsection{What technology options exist?}
+
+% \subsection{Data for the simulation}
+
+% \subsection{Results}
+
+% \subsection{Discussion}

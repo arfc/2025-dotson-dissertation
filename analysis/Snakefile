@@ -12,6 +12,7 @@ latexopt = """
 docs_path = "../docs/"
 data_path = "../data/"
 osier_data = f"{data_path}2023-osier-simulation-results/"
+ch5_log = "ch5.log"
 ch4_log = "ch4.log"
 ch3_log = "ch3.log"
 ch2_log = "ch2.log"
@@ -214,6 +215,35 @@ rule extract_quantitative_data:
     script:
         "scripts/05-examples-scripts/extract_metrics.py"
 
+rule create_metric_data_table:
+    input:
+        expand("../data/{metric}.csv", metric=list(config['table_pages'].keys()))
+    output:
+        metric_data = f"{data_path}metric_data.csv",
+        metric_table = f"{docs_path}tables/metric_data.tex"
+    script:
+        "scripts/05-examples-scripts/create_metric_table.py"
+
+# rule create_osier_technologies:
+#     input:
+#     output:
+#         f"{data_path}nuclear_fc_techs.pkl"
+#     script:
+#         ""
+    
+
+rule examples_chapter:
+    input:
+        metric_data = f"{data_path}metric_data.csv",
+        metric_table = f"{docs_path}tables/metric_data.tex",
+    output:
+        ch5_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
 
 #============================BUILD RULE================================
 
@@ -221,6 +251,7 @@ if sys.platform == 'Windows':
     rule build_thesis:
         input: 
             main_tex = f"{docs_path}{output_name}.tex",
+            ch5_log=ch5_log,
             ch4_log=ch4_log,
             ch3_log=ch3_log,
             ch2_log=ch2_log,
@@ -238,6 +269,7 @@ elif sys.platform in ['darwin', 'linux']:
     rule build_thesis:
         input: 
             main_tex = f"{docs_path}{output_name}.tex",
+            ch5_log = ch5_log,
             ch4_log = ch4_log,
             ch3_log=ch3_log,
             ch2_log=ch2_log,
