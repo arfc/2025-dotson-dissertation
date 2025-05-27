@@ -4,10 +4,15 @@ table_pages:
   activity_at_100k_years: 35,36,37
   mass_du_ru_rth_disposal: 42,43
   volume_llw_disposal: 46,47
+  safety_challenges: "54"
   land_use: 59,60
   water_use: 63,64
   carbon_dioxide_emissions: 66,67
   total_worker_dose: 70,71
   natural_uranium_required: 74,75
   natural_thorium_utilization: 80,81
-               
+  development_cost: "84"
+  development_time: 86,87
+  foak_cost: 89,90
+  compatibility: 92,93
+  familiarity: 95,96

@@ -23,7 +23,7 @@ if __name__ == "__main__":
             # get units from column name
             units = df.columns[0].split(" ")[-1].strip('()')
             print(units)
-            df.columns = [f"{metric_name.replace("_", " ")} \n[{units}]"]
+            df.columns = [f"{metric_name.replace("_", " ")} [{units}]"]
             frames.append(df)
 
 

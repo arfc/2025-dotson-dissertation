@@ -1,8 +1,7 @@
 import pandas as pd
 import camelot
 import numpy as np
-
-
+pd.set_option('future.no_silent_downcasting', True)
 
 if __name__ == "__main__":
     table_pages = snakemake.config['table_pages']
@@ -37,6 +36,18 @@ if __name__ == "__main__":
                 # drop first row
                 frame = frame.iloc[1:,]
                 frames.append(frame)
+            elif frame.shape[1] == 2:
+                if frame.iloc[0,:].values[1] in ['Metric Data', 'Bin Data']:
+                    col_names = frame.iloc[0,:].values
+                    frame.columns = col_names
+                    # drop first row
+                    frame = frame.iloc[1:,]
+                    frames.append(frame)
+                elif sum('EG' in v for v in frame.iloc[:,0].values) > 0:
+                    frame.columns = col_names
+                    frames.append(frame)
+                else:
+                    continue
             else:
                 continue
         full_df = pd.concat(frames)
@@ -47,6 +58,9 @@ if __name__ == "__main__":
                                                     subset='EG').reset_index(drop=True)
         except KeyError:
             full_df = full_df.replace("", np.nan).dropna(axis=0,how='all').reset_index(drop=True)   
-            
+        
+        if name in ['safety_challenges','development_cost','foak_cost','familiarity','development_time','compatibility']:
+            values = full_df.iloc[:,1].unique()
+            full_df = full_df.replace(dict(zip(values, range(len(values)))))
         full_df.iloc[:,1] = full_df.iloc[:,1].astype(float)
         full_df.to_csv(f"../data/{name}.csv", index=False)
