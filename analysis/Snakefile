@@ -199,12 +199,18 @@ rule benchmark_chapter:
         done
         """
 #============================EXAMPLES CHAPTER================================
-pdf_url = "https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20D.pdf"
+app_d_url = "https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20D.pdf"
+app_c_url = "https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20C.pdf"
 
-rule retrieve_fuel_cycles_report:
+rule retrieve_fuel_cycles_report_D:
     output: 
         "../data/metric_data.pdf"
-    shell: f"(cd ../data/ && curl \"{pdf_url}\" --output metric_data.pdf)"
+    shell: f"(cd ../data/ && curl \"{app_d_url}\" --output metric_data.pdf)"
+
+rule retrieve_fuel_cycles_report_C:
+    output: 
+        "../data/summary_data.pdf"
+    shell: f"(cd ../data/ && curl \"{app_c_url}\" --output summary_data.pdf)"
 
 
 rule extract_quantitative_data:
@@ -214,6 +220,17 @@ rule extract_quantitative_data:
         expand("../data/{metric}.csv", metric=list(config['table_pages'].keys()))
     script:
         "scripts/05-examples-scripts/extract_metrics.py"
+
+rule extract_summary_data:
+    input:
+        "../data/summary_data.pdf"
+    output:
+
+
+# rule extract_reactor_mapping:
+#     input:
+#         "../data/metric_d"
+
 
 rule create_metric_data_table:
     input:

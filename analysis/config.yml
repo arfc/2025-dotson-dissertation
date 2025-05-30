@@ -1,3 +1,4 @@
+# main data tables from Fuel Cycle Options Study, Appendix D
 table_pages: 
   mass_snf_hlw_disposal: 18,19
   activity_at_100_yrs: 26,27
@@ -16,3 +17,7 @@ table_pages:
   foak_cost: 89,90
   compatibility: 92,93
   familiarity: 95,96
+
+# summary tables from Fuel Cycle Options Study, Appendix C
+summary_tables:
+  - 
