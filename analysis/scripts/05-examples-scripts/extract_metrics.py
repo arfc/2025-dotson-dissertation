@@ -59,7 +59,7 @@ if __name__ == "__main__":
         except KeyError:
             full_df = full_df.replace("", np.nan).dropna(axis=0,how='all').reset_index(drop=True)   
         
-        if name in ['safety_challenges','development_cost','foak_cost','familiarity','development_time','compatibility']:
+        if name in ['safety_challenges','development_cost','foak_cost','unfamiliarity','development_time','incompatibility']:
             values = full_df.iloc[:,1].unique()
             full_df = full_df.replace(dict(zip(values, range(len(values)))))
         full_df.iloc[:,1] = full_df.iloc[:,1].astype(float)

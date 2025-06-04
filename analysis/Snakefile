@@ -223,14 +223,17 @@ rule extract_quantitative_data:
 
 rule extract_summary_data:
     input:
-        "../data/summary_data.pdf"
+        summary_data_pdf = f"{data_path}summary_data.pdf",
+        metric_data = f"{data_path}metric_data.csv"
     output:
-
+        summary_data = f"{data_path}summary_data.csv",
+        summary_table = f"{docs_path}tables/summary_data.tex",
+    script:
+        "scripts/05-examples-scripts/create_summary_table.py"
 
 # rule extract_reactor_mapping:
 #     input:
 #         "../data/metric_d"
-
 
 rule create_metric_data_table:
     input:
@@ -249,10 +252,27 @@ rule create_metric_data_table:
 #         ""
     
 
+rule plot_set_tool:
+    input:
+        metric_data = f"{data_path}metric_data.csv",
+    output:
+        full_set_plot = f"{docs_path}figures/05_examples_chapter/full_set_plot.pgf",
+        once_through_set_plot = f"{docs_path}figures/05_examples_chapter/once-through_set_plot.pgf",
+        single_eg_set_plot = f"{docs_path}figures/05_examples_chapter/single-eg_set_plot.pgf",
+        non_optimal_set_plot = f"{docs_path}figures/05_examples_chapter/non_optimal_set_plot.pgf",
+    script:
+        "scripts/05-examples-scripts/plot_set_tool.py"
+
 rule examples_chapter:
     input:
         metric_data = f"{data_path}metric_data.csv",
         metric_table = f"{docs_path}tables/metric_data.tex",
+        full_set_plot = f"{docs_path}figures/05_examples_chapter/full_set_plot.pgf",
+        once_through_set_plot = f"{docs_path}figures/05_examples_chapter/once-through_set_plot.pgf",
+        single_eg_set_plot = f"{docs_path}figures/05_examples_chapter/single-eg_set_plot.pgf",
+        non_optimal_set_plot = f"{docs_path}figures/05_examples_chapter/non_optimal_set_plot.pgf",
+        summary_data = f"{data_path}summary_data.csv",
+        summary_table = f"{docs_path}tables/summary_data.tex",
     output:
         ch5_log
     shell:
