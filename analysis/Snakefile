@@ -263,6 +263,15 @@ rule plot_set_tool:
     script:
         "scripts/05-examples-scripts/plot_set_tool.py"
 
+
+rule plot_set_tool_bin:
+    input:
+        metric_data = f"{data_path}metric_data.csv",
+    output:
+        set_bin_plot = f"{docs_path}figures/05_examples_chapter/set_bin_plot.pgf"
+    script:
+        "scripts/05-examples-scripts/plot_set_bin.py"
+
 rule examples_chapter:
     input:
         metric_data = f"{data_path}metric_data.csv",
@@ -273,6 +282,7 @@ rule examples_chapter:
         non_optimal_set_plot = f"{docs_path}figures/05_examples_chapter/non_optimal_set_plot.pgf",
         summary_data = f"{data_path}summary_data.csv",
         summary_table = f"{docs_path}tables/summary_data.tex",
+        set_bin_plot = f"{docs_path}figures/05_examples_chapter/set_bin_plot.pgf",
     output:
         ch5_log
     shell:
