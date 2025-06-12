@@ -5,6 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib import patches
+from pymoo.mcdm.high_tradeoff import HighTradeoffPoints
+
 
 mpl.use("pgf")
 plt.rcParams['pgf.texsystem'] = 'pdflatex'
@@ -50,6 +52,38 @@ if __name__ == "__main__":
                label='Nadir', marker="s", s=200, color='tab:orange')
     ax.legend(fontsize=14)
     plt.savefig(snakemake.output.example_pareto_plot)
+
+    """
+    "Knee solution" Example
+    """
+
+    dm = HighTradeoffPoints()
+    I = dm(F)
+
+    fig, ax = plt.subplots(figsize=(8, 6), facecolor='w', edgecolor='k')
+    ax.scatter(F[:, 0], F[:, 1], label="Solutions",
+               facecolor='none', edgecolor='r')
+    ax.plot(F[:, 0], F[:, 1], label="Pareto-front", color='k', lw=2.5)
+    ax.set_xlabel('f1', fontsize=14)
+    ax.set_ylabel('f2', fontsize=14)
+    ax.fill_between(f1, f2, alpha=0.2, label='Infeasible Space', color='gray')
+    ax.fill_between(f1, f2, max(F[:, 1]), alpha=0.2,
+                    label='Feasible Space', color='tab:blue')
+
+    ax.set_xlim(a, b)
+    ax.set_ylim(min(F[:, 1]), max(F[:, 1]))
+    ax.scatter(F[I, 0], F[I, 1], label="``Knee\" solutions",
+            facecolor='gold', edgecolor='green', s=100, zorder=50)
+    ax.scatter((2 -
+                shift) *
+               min(F[:, 0]), (2 -
+                              shift) *
+               min(F[:, 1]), label='Ideal', marker="*", s=300, color='tab:blue')
+    ax.scatter(0.95 * max(F[:, 0]), 0.95 * max(F[:, 1]),
+               label='Nadir', marker="s", s=200, color='tab:orange')
+    ax.legend(fontsize=14)
+    plt.savefig(snakemake.output.example_knee_solutions)
+
 
     """
     Pareto Near-Optimal Space

@@ -31,6 +31,7 @@ rule plot_example_fronts:
     input: "scripts/02-litrev-scripts/pareto_front.py"
     output:
         example_pareto_plot = f"{docs_path}figures/02_literature_review/truss2d_pareto.pgf",
+        example_knee_solutions = f"{docs_path}figures/02_literature_review/example_knee_solutions.pgf",
         near_optimal_plot = f"{docs_path}figures/02_literature_review/near-optimal-pareto.pgf",
         interior_points_plot = f"{docs_path}figures/03_osier_chapter/nd-mga-paretofront.pgf",
     script: f"{input}"
@@ -49,7 +50,8 @@ rule literature_review:
         example_pareto_plot = f"{docs_path}figures/02_literature_review/truss2d_pareto.pgf",
         near_optimal_plot = f"{docs_path}figures/02_literature_review/near-optimal-pareto.pgf",
         social_max_plot = f"{docs_path}figures/02_literature_review/social_max.pgf",
-        elasticity_plot = f"{docs_path}figures/02_literature_review/elasticity.pgf"
+        elasticity_plot = f"{docs_path}figures/02_literature_review/elasticity.pgf",
+        example_knee_solutions = f"{docs_path}figures/02_literature_review/example_knee_solutions.pgf",
     output:
         ch2_log
     shell:
