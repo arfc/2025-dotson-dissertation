@@ -1,0 +1,195 @@
+
+\section{Example 1: Reanalyzing the \acs{set}}
+
+Existing and advanced nuclear reactors will be important resources for addressing the multi-dimensional challenge of climate change. Further,
+new nuclear fuel cycle infrastructure will be necessary to support the next generation of reactors and handling existing \ac{hlw} waste. Given
+the myriad possible fuel cycle options, how should decision makers choose a fuel cycle to pursue? The best currently available tool is the \acf{set},
+which was developed as part of the \ac{fco} in 2011 after the United States \ac{doe} commissioned a report called ``Nuclear Fuel Cycle Evaluation and
+Screening Study'' (``the Study'')\cite{wigeland_nuclear_2014-2}. The \ac{set} and corresponding report presented recommendations based on a metric weighting
+analysis facilitated by the \ac{set} where fuel cycles were ranked from ``most promising'' to ``less promising'' and the least promising options were
+given no designation. This example extends the work done by the Study by using \ac{osier} to identify Pareto optimal solutions and use \ac{mcda} tools
+to further select interesting fuel cycle(s). The next section gives a high-level overview of the nuclear fuel cycle. Followed by sections describing the \ac{set}
+and its methodology. Lastly, new results from \ac{osier} are shared and discussed.
+
+% \textcolor{red}{Benefits of using \ac{osier}}:
+% \begin{enumerate}
+%     \item Python interface allows direct coupling with external models and data sources for greater flexibility.
+%     \item Enables, but does not require, a weighting scheme for decision making.
+%     \item Allows users to analyze tradeoffs among competing objectives.
+%     \item Allows users to compare lifecycle impacts with non-nuclear technologies.
+%     \item Can flexibly add additional assessment criteria (e.g., Energy return on investment). 
+% \end{enumerate}
+
+% \textcolor{red}{Results}
+% \begin{enumerate}
+%     \item Does using \ac{osier} support the previous conclusions about the most promising evaluation groups?
+% \end{enumerate}
+
+\subsection{Overview of the Nuclear Fuel Cycle}
+
+The nuclear fuel cycle describes the cradle-to-grave lifecycle of nuclear materials. The nuclear fuel cycle begins with extraction via 
+mining or in-situ leaching, followed by processing into usable fuel forms, irradiated, then disposed of or recycled \cite{tsoulfanidis_review_2013}. 
+Figure \ref{fig:nuclear-fuel-cycle} presents a stylized illustration the fuel cycle. The light green boxes correspond to stages in the front of the fuel cycle, 
+while the beige boxes represent the back of the fuel cycle. Nuclear material generally flows in the direction of the solid lines, except in ``closed'' fuel cycles 
+where irradiated material takes a detour through some reprocessing stage or stages denoted by the dashed arrows. Several stages could be expanded into further 
+sub-steps --- these were omitted for simplicity. The Study and the \ac{set} represent holistic analyses that include every stage of the fuel cycle.
+
+\begin{figure}[htbp!]
+  \centering
+  \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/fuel_cycle}}
+  \caption{Overview of the nuclear fuel cycle. Arrows indicate the flow of materials through the fuel cycle. 
+  Dashed lines correspond to a closed fuel cycle.}
+  \label{fig:nuclear-fuel-cycle}
+\end{figure}
+
+\subsection{\ac{set} Metrics and Methodology}
+
+The \ac{set} is an Excel-based application containing metric data from the Nuclear Fuel Cycle Evaluation and Screening Study
+\cite{wigeland_nuclear_2014} and an objective weighting calculator to help decision makers identify fuel cycles of interest based on their priorities and preferences. 
+The \ac{set} evaluates representative fuel cycle options, \acp{eg}, based on a set of nine aggregated metrics \cite{wigeland_nuclear_2014}. Table \ref{tab:evaluation-metrics} lists these metrics
+and their sub-criteria. Some criteria do not influence the \ac{set} results because all \acp{eg} performed equally well. Such as ``material attractiveness,'' where all \acp{eg}
+could be implemented with unattractive materials \cite{wigeland_nuclear_2014-1}.
+% The website for the \ac{set} suggests the following use cases \cite{pincock_screening_2014}:
+% \begin{enumerate}
+%     \item A user can repeat the evaluation and screening process used in the Study that identified the promising options for R\&D, with either the entire set of options (\acp{eg}) or a subset of the options.
+%     \item A user can explore the effects of varying the relative importance of the criteria on the identification of fuel cycles that might be considered promising for R\&D.
+%     \item A user can perform an evaluation and screening of fuel cycles specified by the user by developing the metric data according to the information in the final report and adding the data to the SET tool.
+% \end{enumerate}
+
+% \subsection{\ac{set} metrics and methodology}
+
+
+\begin{table}[htbp!]
+    \centering
+    \caption{Evaluation metrics and evaluation criteria \cite{wigeland_nuclear_2014-2}.}
+    \label{tab:evaluation-metrics}
+    \resizebox{0.75\columnwidth}{!}{\input{tables/metric_categories}}
+\end{table}
+% \begin{enumerate}
+%     \item Nuclear waste management (per unit energy)
+%     \begin{enumerate}
+%         \item Mass of \ac{snf}+\ac{hlw}
+%         \item Activity of \ac{snf}+\ac{hlw} (at 100 years)
+%         \item Activity of \ac{snf}+\ac{hlw} (at 100,000 years)
+%         \item Mass of \ac{du}+\ac{ru}+\ac{rth}
+%         \item Volume \ac{llw}
+%     \end{enumerate}
+%     \item Proliferation risk
+%     \begin{enumerate}
+%         \item Material attractiveness -- normal operating conditions
+%     \end{enumerate}
+%     \item Nuclear Material security risk
+%     \begin{enumerate}
+%         \item Material attractiveness - normal operating conditions
+%         \item Activity of \ac{snf}+\ac{hlw} (at 10 years) per unit energy
+%     \end{enumerate}
+%     \item Safety
+%     \begin{enumerate}
+%         \item Challenges of addressing safety hazards
+%         \item Safety of deployed system
+%     \end{enumerate}
+%     \item Environmental impacts (per unit energy)
+%     \begin{enumerate}
+%         \item Land use
+%         \item Water use
+%         \item Radiological exposure -- total esimated worker dose
+%     \end{enumerate}
+%     \item Resource Utilization (per unit energy)
+%     \begin{enumerate}
+%         \item Natural uranium required
+%         \item Natural thorium required
+%     \end{enumerate}
+%     \item Development and deployment risk
+%     \begin{enumerate}
+%         \item Development time
+%         \item Development cost
+%         \item Deployment cost from prototype to \ac{foak}
+%     \end{enumerate}
+%     \item Institutional issues
+%     \begin{enumerate}
+%         \item Compatibility with existing infrastructure
+%         \item Familiarity with licensing regulations
+%         \item Existence of market incentives and/or barriers
+%     \end{enumerate}
+%     \item Economics
+%     \begin{enumerate}
+%         \item Levelized cost of electricity at equilibrium
+%     \end{enumerate}
+% \end{enumerate}
+
+Each of the criteria in Table \ref{tab:evaluation-metrics} were further simplified through a binning process that grouped similarly performing \acp{eg}.
+
+\subsection{Limitations of the \ac{set}}
+\begin{enumerate}
+    \item Does not consider Pareto optimality
+    \item Binning of data leads to information loss
+    \item Reliance on expert input
+\end{enumerate}
+
+\subsection{\ac{osier} Methodology and Data}
+
+Table \ref{tab:metric-data} describes the data for the simulation.
+
+\begin{sidewaystable}[htbp!]
+    \centering
+    \caption{Data for the simulation \cite{wigeland_nuclear_2014-1}.}
+    \label{tab:metric-data}
+    \resizebox*{\textwidth}{!}{\input{tables/metric_data_manual.tex}}
+\end{sidewaystable}
+
+\subsection{Results}
+
+Table \ref{tab:summary-data} summarizes the results from the \ac{set} and \ac{osier} simulation.
+
+\begin{table}[htbp!]
+    \centering
+    \caption{Summary of \ac{set} and \ac{osier} data. 
+    Highlighted rows indicate disagreement between \ac{osier} and \ac{set} results.}
+    \label{tab:summary-data}
+    \resizebox*{0.75\textwidth}{!}{\input{tables/summary_data.tex}}
+\end{table}
+
+
+Figure \ref{fig:full-set-space} compares the performance of all \acp{eg}.
+
+\begin{figure}[htbp!]
+  \centering
+  \resizebox{0.8\columnwidth}{!}{\input{figures/05_examples_chapter/full_set_plot.pgf}}
+  \caption{The Pareto front for the \ac{set}.}
+  \label{fig:full-set-space}
+\end{figure}
+
+% Figure \ref{fig:once-through-set-space} highlights the evaluation groups representing once-through
+% fuel cycles.
+
+% \begin{figure}[htbp!]
+%   \centering
+%   \resizebox{0.8\columnwidth}{!}{\input{figures/05_examples_chapter/once-through_set_plot.pgf}}
+%   \caption{The \ac{set} Pareto front with once-through fuel cycles highlighted.}
+%   \label{fig:once-through-set-space}
+% \end{figure}
+
+Decision makers are frequently interested in ``compromise'' solutions or points where objective 
+tradeoffs are highest. The \ac{mcda} literature refers sometimes refers to these solutions as ``knee''
+solutions \cite{rachmawati_multiobjective_2009}. \ac{pymoo} (and thereby \ac{osier}) offers a method
+to calculate these solutions by identifying the solutions which minimize the ``tradeoff'' among all
+other solutions. Figure \ref{fig:single-eg-set-space} identifies the a ``knee'' solution with this method.
+
+\begin{figure}[htbp!]
+  \centering
+  \resizebox{0.8\columnwidth}{!}{\input{figures/05_examples_chapter/single-eg_set_plot.pgf}}
+  \caption{A high tradeoff ``knee'' solution from the \acp{eg} in the \ac{set}.}
+  \label{fig:single-eg-set-space}
+\end{figure}
+
+Due to the implicit assumption that all fuel cycles and evaluation groups are mutually exclusive,
+the complete set of solutions in design space is given by the identity matrix of size $40 \times 40$.
+
+\begin{figure}[htbp!]
+  \centering
+  \resizebox{0.8\columnwidth}{!}{\input{figures/05_examples_chapter/non_optimal_set_plot.pgf}}
+  \caption{The set of non-Pareto optimal solutions given by the \ac{set}.}
+  \label{fig:non-optimal-eg-set-space}
+\end{figure}
+
+\subsection{Discussion}
