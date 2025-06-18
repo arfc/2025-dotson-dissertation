@@ -203,6 +203,7 @@ rule benchmark_chapter:
 #============================EXAMPLES CHAPTER================================
 app_d_url = "https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20D.pdf"
 app_c_url = "https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20C.pdf"
+atbe_url = "https://oedi-data-lake.s3.amazonaws.com/ATB/electricity/csv/2024/v3.0.0/ATBe.csv"
 
 rule retrieve_fuel_cycles_report_D:
     output: 
@@ -273,6 +274,32 @@ rule plot_set_tool_bin:
         set_bin_plot = f"{docs_path}figures/05_examples_chapter/set_bin_plot.pgf"
     script:
         "scripts/05-examples-scripts/plot_set_bin.py"
+
+
+#~~~~~~~~~~~~~~~~ Data Center Example ~~~~~~~~~~~~~~~~~~
+rule retrieve_atb_costs:
+    output:
+        atbe = f"{data_path}ATBe.csv"
+    shell: f"(cd ../data/ && curl \"{atbe_url}\" --output ATBe.csv)"
+
+
+rule process_atb_costs:
+    input:
+        atbe = f"{data_path}ATBe.csv"
+    output:
+        tech_costs = f"{data_path}technology_costs.csv"
+    script:
+        "scripts/05-examples-scripts/process_atb.py"
+
+rule create_dc_model:
+    input:
+        tech_costs = f"{data_path}technology_costs.csv",
+        eroi_data = f"{data_path}eroi_data.csv"
+    output:
+        dc_problem = f"{data_path}datacenter_problem.pkl"
+    script:
+        "scripts/05-examples-scripts/datacenter_example.py"
+
 
 rule examples_chapter:
     input:
