@@ -317,8 +317,6 @@ rule plot_datacenter:
         dc_design_space = f"{docs_path}figures/05_examples_chapter/dc_design_space.pgf",
         convergence = f"{docs_path}figures/05_examples_chapter/dc_convergence_plot.pgf",
 
-
-
 rule examples_chapter:
     input:
         metric_data = f"{data_path}metric_data.csv",
@@ -329,6 +327,7 @@ rule examples_chapter:
         non_optimal_set_plot = f"{docs_path}figures/05_examples_chapter/non_optimal_set_plot.pgf",
         summary_data = f"{data_path}summary_data.csv",
         summary_table = f"{docs_path}tables/summary_data.tex",
+        solar_plot = f"{docs_path}figures/05_examples_chapter/synthetic_solar_plot.pgf"
         set_bin_plot = f"{docs_path}figures/05_examples_chapter/set_bin_plot.pgf",
     output:
         ch5_log

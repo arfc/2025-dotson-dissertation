@@ -52,6 +52,7 @@ if __name__ == "__main__":
         # save checkpoint on early termination
         timestr = time.strftime("%Y%m%d-%H%M%S")
         checkpoint_name = f"checkpoint_{timestr}.pkl"
+        print(f"Simulation stopped. Saving checkpoint to {checkpoint_name}")
         with open(checkpoint_name, "wb") as f:
             pickle.dump(algorithm, f)
 
