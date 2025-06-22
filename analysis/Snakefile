@@ -282,7 +282,6 @@ rule retrieve_atb_costs:
         atbe = f"{data_path}ATBe.csv"
     shell: f"(cd ../data/ && curl \"{atbe_url}\" --output ATBe.csv)"
 
-
 rule process_atb_costs:
     input:
         atbe = f"{data_path}ATBe.csv"
@@ -296,9 +295,28 @@ rule create_dc_model:
         tech_costs = f"{data_path}technology_costs.csv",
         eroi_data = f"{data_path}eroi_data.csv"
     output:
-        dc_problem = f"{data_path}datacenter_problem.pkl"
+        dc_problem = f"{data_path}datacenter_problem.pkl",
+        dc_tech_table = f"{docs_path}tables/datacenter_tech_options.tex",
+        solar_plot = f"{docs_path}figures/05_examples_chapter/synthetic_solar_plot.pgf"
     script:
         "scripts/05-examples-scripts/datacenter_example.py"
+
+rule solve_datacenter:
+    input:
+        dc_problem = f"{data_path}datacenter_problem.pkl"
+    output:
+        dc_results = f"{data_path}datacenter_results.pkl"
+    script:
+        "scripts/05-examples-scripts/solve_datacenter.py"
+
+rule plot_datacenter:
+    input:
+        dc_results = f"{data_path}datacenter_results.pkl"
+    output:
+        dc_objective_space = f"{docs_path}figures/05_examples_chapter/dc_objective_space.pgf",
+        dc_design_space = f"{docs_path}figures/05_examples_chapter/dc_design_space.pgf",
+        convergence = f"{docs_path}figures/05_examples_chapter/dc_convergence_plot.pgf",
+
 
 
 rule examples_chapter:

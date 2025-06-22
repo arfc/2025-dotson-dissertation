@@ -1,38 +1,41 @@
 # basic imports
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
 from unyt import kW, minute, hour, day, MW, kg, lb, kWh, MWh
-import sys
 import dill as pickle
 
 # osier imports
 from osier import CapacityExpansion
 import osier.tech_library as lib
-from osier.equations import total_cost, annual_emission, annual_co2
-from osier import get_tech_names
+from osier.equations import total_cost, annual_emission
+from osier import technology_dataframe
 
 # import megatonnes from unyt -- must be done after importing osier
 from unyt import megatonnes
 
 # pymoo imports
-from pymoo.algorithms.moo.nsga2 import NSGA2
-from pymoo.optimize import minimize
-from pymoo.visualization.pcp import PCP
 from functools import partial
 
+# plotting imports
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib as mpl
 
-# set the solver based on operating system -- assumes glpk or cbc is installed.
-# if "win32" in sys.platform:
-#     solver = 'glpk'
-# elif "linux" in sys.platform:
-#     solver = "appsi_highs"
-# else:
-    # solver = "appsi_highs"
+mpl.use("pgf") 
+plt.rcParams['pgf.texsystem'] = 'pdflatex'
+plt.rcParams['text.usetex'] = True 
+plt.rcParams['pgf.rcfonts'] = False
+plt.rcParams['figure.edgecolor'] = 'k'
+plt.rcParams['figure.facecolor'] = 'w'
+plt.rcParams['savefig.dpi'] = 400
+plt.rcParams['savefig.bbox'] = 'tight'
+plt.rcParams['font.family'] = "serif"
+plt.rcParams['xtick.labelsize'] = 14
+plt.rcParams['ytick.labelsize'] = 16
+plt.rcParams['legend.fontsize'] = 16
+plt.rcParams['legend.shadow'] = False
 
 solver = "appsi_highs"
-
-print(f"Solver set: {solver}")
 
 def eroi_objective(technology_list, solved_dispatch_model):
     """
@@ -52,8 +55,6 @@ if __name__ == "__main__":
     hours = np.linspace(0,N,N)
 
     solar_cp = (-np.sin((hours*np.pi/n_hours*2+phase_shift)))
-    # solar[solar<0] = 0
-
     rng = np.random.default_rng(1234)
 
     solar_cp += rng.normal(size=N)*15e-2
@@ -61,22 +62,12 @@ if __name__ == "__main__":
 
     solar_cp = solar_cp/solar_cp.max()  # rescale
 
-    # print(demand)
-
-
-    # with plt.style.context("dark_background"):
-    #     plt.plot(hours, solar_cp, color='gold')
-    #     plt.ylabel('Solar Availability [-]')
-    #     plt.xlabel('Time [hr]')
-    #     plt.grid(alpha=0.2)
-    #     plt.show()
-
-
-    # plt.plot(hours, solar_cp, color='gold')
-    # plt.ylabel('Solar Availability [-]')
-    # plt.xlabel('Time [hr]')
-    # plt.grid(alpha=0.2)
-    # plt.show()
+    # plot solar output
+    plt.plot(hours, solar_cp, color='gold')
+    plt.ylabel('Solar Availability [-]')
+    plt.xlabel('Time [hr]')
+    plt.grid(alpha=0.2)
+    plt.savefig(snakemake.output.solar_plot)
 
     peak_demand = 1e3*MW 
     demand = np.ones(N)*peak_demand
@@ -105,38 +96,50 @@ if __name__ == "__main__":
 
 
     # for a NG 1-on-1 H Frame design
-    natural_gas.co2_rate = (float(emission_df.at['Natural gas', 'lbs per kWh'])*lb/kWh).to(megatonnes/MWh)
-    natural_gas.capital_cost = cost_df.at[('CAPEX','Natural Gas'), 'value'] / kW
-    natural_gas.om_cost_variable = cost_df.at[('Variable O&M','Natural Gas'), 'value'] / MWh
-    natural_gas.om_cost_fixed = cost_df.at[('Fixed O&M','Natural Gas'), 'value'] / kW
+    natural_gas.co2_rate = (float(emission_df.at['Natural gas', 'lbs per kWh'])*lb/(kW*hour)).to(megatonnes/(MW*hour))
+    natural_gas.capital_cost = cost_df.at[('CAPEX','Natural Gas'), 'value'] / kW  / 1e6
+    natural_gas.om_cost_variable = cost_df.at[('Variable O&M','Natural Gas'), 'value'] / MWh / 1e6
+    natural_gas.om_cost_fixed = cost_df.at[('Fixed O&M','Natural Gas'), 'value'] / kW / 1e6
     natural_gas.eroi = eroi_df.at['Natural Gas (CCGT)', 'EROIstd'] # from Walmsley et al.
     # same design, with 95% CCS
     natural_gas_adv.co2_rate = natural_gas.co2_rate * 0.05
-    natural_gas_adv.capital_cost = cost_df.at[('CAPEX','Natural Gas CCS'), 'value'] / kW
-    natural_gas_adv.om_cost_variable = cost_df.at[('Variable O&M','Natural Gas CCS'), 'value'] / MWh
-    natural_gas_adv.om_cost_fixed = cost_df.at[('Fixed O&M','Natural Gas CCS'), 'value'] / kW
+    natural_gas_adv.capital_cost = cost_df.at[('CAPEX','Natural Gas CCS'), 'value'] / kW / 1e6
+    natural_gas_adv.om_cost_variable = cost_df.at[('Variable O&M','Natural Gas CCS'), 'value'] / MWh / 1e6
+    natural_gas_adv.om_cost_fixed = cost_df.at[('Fixed O&M','Natural Gas CCS'), 'value'] / kW / 1e6
     natural_gas_adv.eroi = eroi_df.at['Natural Gas (CCGT & CCS)', 'EROIstd'] # from Walmsley et al.
 
     # utility scale solar, with good insolation, middling estimate
-    solar.capital_cost = cost_df.at[('CAPEX','UtilityPV'), 'value']/kW
+    solar.capital_cost = cost_df.at[('CAPEX','UtilityPV'), 'value']/kW / 1e6
     solar.eroi = eroi_df.at['Solar PV (Mono-Si, SE-med)', 'EROIstd'] # from Walmsley et al. 2018
-    solar.om_cost_fixed = cost_df.at[('Fixed O&M','UtilityPV'), 'value']/kW
+    solar.om_cost_fixed = cost_df.at[('Fixed O&M','UtilityPV'), 'value']/kW / 1e6
+    solar.co2_rate = 0*(megatonnes/(MW*hour))
+    solar.fuel_cost = 0/(MW*hour)
 
-    battery.capital_cost = cost_df.at[('CAPEX','Battery'), 'value'] / kW
-    battery.om_cost_fixed = cost_df.at[('Fixed O&M','Natural Gas'), 'value']/ kW
+    battery.capital_cost = cost_df.at[('CAPEX','Battery'), 'value'] / kW / 1e6
+    battery.om_cost_fixed = cost_df.at[('Fixed O&M','Natural Gas'), 'value']/ kW / 1e6
     battery.eroi = 10  # actually an 'ESOI,' from Barnhart and Benson 2013
+    battery.co2_rate = 0*(megatonnes/(MW*hour))
+    battery.fuel_cost = 0/(MW*hour)
 
-    nuclear_ap1000.capital_cost = cost_df.at[('CAPEX','Nuclear'), 'value'] / kW
-    nuclear_ap1000.om_cost_fixed = cost_df.at[('Fixed O&M','Nuclear'), 'value'] / kW
-    nuclear_ap1000.om_cost_variable = cost_df.at[('Variable O&M','Nuclear'), 'value'] 
+
+    nuclear_ap1000.capital_cost = cost_df.at[('CAPEX','Nuclear'), 'value'] / kW / 1e6
+    nuclear_ap1000.om_cost_fixed = cost_df.at[('Fixed O&M','Nuclear'), 'value'] / kW / 1e6
+    nuclear_ap1000.om_cost_variable = cost_df.at[('Variable O&M','Nuclear'), 'value']/ MWh / 1e6
     nuclear_ap1000.eroi = eroi_df.at['Nuclear (100% centrifuge)', 'EROIstd']
+    nuclear_ap1000.co2_rate = 0*(megatonnes/(MW*hour))
 
-    nuclear_smr.capital_cost = cost_df.at[('CAPEX','Advanced Nuclear'), 'value']
-    nuclear_smr.om_cost_fixed = cost_df.at[('Fixed O&M','Advanced Nuclear'), 'value']/ kW
-    nuclear_smr.om_cost_variable = cost_df.at[('Variable O&M','Advanced Nuclear'), 'value']/ MWh
+    nuclear_smr.capital_cost = cost_df.at[('CAPEX','Advanced Nuclear'), 'value'] / kW / 1e6
+    nuclear_smr.om_cost_fixed = cost_df.at[('Fixed O&M','Advanced Nuclear'), 'value']/ kW / 1e6
+    nuclear_smr.om_cost_variable = cost_df.at[('Variable O&M','Advanced Nuclear'), 'value']/ MWh / 1e6
     nuclear_smr.eroi = eroi_df.at['Nuclear (100% centrifuge)', 'EROIstd']
+    nuclear_smr.co2_rate = 0*(megatonnes/(MW*hour))
 
     tech_list = [natural_gas, natural_gas_adv, solar, battery, nuclear_ap1000, nuclear_smr]
+
+    tech_data_df = technology_dataframe(tech_list, cast_to_string=True).T.iloc[[13,14,15,16, 17, 21, ],:]
+    tech_data_df.index = tech_data_df.index.str.replace("_", " ")
+    tech_data_df.columns = [col.replace("_", " ") for col in tech_data_df.columns]
+    tech_data_df.style.format(precision=2).to_latex(snakemake.output.dc_tech_table, hrules=True)
 
     problem = CapacityExpansion(technology_list=tech_list,
                                 demand=demand,
