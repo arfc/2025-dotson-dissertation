@@ -24,10 +24,11 @@ if __name__ == "__main__":
     
 
     checkpoint_list = glob("checkpoint_*.pkl")
+    checkpoint_list.sort()
     if len(checkpoint_list) > 0:
         with open(checkpoint_list[-1], 'rb') as f:
             algorithm = pickle.load(f)
-            print("Loaded Checkpoint:", algorithm)
+            print(f"Loaded {checkpoint_list[-1]}:", algorithm)
     else:
         print("No checkpoints found. Starting new run.")
         algorithm = NSGA2(pop_size=100)
@@ -41,11 +42,13 @@ if __name__ == "__main__":
                         save_history=True,
                         verbose=True)
         # save results
+        print('Saving simulation results')
         with open(snakemake.output.dc_results, "wb") as file:
             pickle.dump(res, file)
         # save final checkpoint
         timestr = time.strftime("%Y%m%d-%H%M%S")
         checkpoint_name = f"checkpoint_{timestr}.pkl"
+        print(f"Saving final simulation checkpoint to {checkpoint_name}")
         with open(checkpoint_name, "wb") as f:
             pickle.dump(algorithm, f)
     except KeyboardInterrupt:

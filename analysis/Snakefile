@@ -327,7 +327,7 @@ rule examples_chapter:
         non_optimal_set_plot = f"{docs_path}figures/05_examples_chapter/non_optimal_set_plot.pgf",
         summary_data = f"{data_path}summary_data.csv",
         summary_table = f"{docs_path}tables/summary_data.tex",
-        solar_plot = f"{docs_path}figures/05_examples_chapter/synthetic_solar_plot.pgf"
+        solar_plot = f"{docs_path}figures/05_examples_chapter/synthetic_solar_plot.pgf",
         set_bin_plot = f"{docs_path}figures/05_examples_chapter/set_bin_plot.pgf",
     output:
         ch5_log

@@ -64,8 +64,8 @@ if __name__ == "__main__":
 
     # plot solar output
     plt.plot(hours, solar_cp, color='gold')
-    plt.ylabel('Solar Availability [-]')
-    plt.xlabel('Time [hr]')
+    plt.ylabel('Solar Availability [-]', fontsize=18)
+    plt.xlabel('Time [hr]', fontsize=18)
     plt.grid(alpha=0.2)
     plt.savefig(snakemake.output.solar_plot)
 
