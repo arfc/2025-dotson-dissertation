@@ -44,3 +44,6 @@ data/technology_costs.csv
 data/datacenter_techlist.pkl
 data/datacenter_problem.pkl
 data/datacenter_results.pkl
+ATBe.csv
+*gen.pkl
+*EROI*.pkl
