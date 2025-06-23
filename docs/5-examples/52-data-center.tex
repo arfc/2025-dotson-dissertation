@@ -10,18 +10,19 @@ simplicity, these choices were restricted to
     \item ``advanced'' natural gas with \ac{ccs},
     \item ``large'' nuclear (e.g., an AP1000),
     \item advanced nuclear (e.g., an \ac{sfr}),
-    \item solar panels (monocrystalline-silicone for consistency with \ac{nrel}'s \ac{atb}),
+    \item solar panels (monocrystalline-silicone for consistency with
+    \ac{nrel}'s \ac{atb}),
     \item 4-hour battery storage (lithium-ion).
 \end{itemize}
 
 \noindent
-These technologies were chosen for their potential to be co-located with a datacenter. There is
-a miniscule potential for new hydropower in the United States \cite{lopez_us_2012}, geothermal
-requires geological activity that is similarly hard to find \cite{lopez_us_2012}, and wind energy
-requires a vast amount of land.
-Table \ref{tab:dc-tech-options} summarizes the data for the different technology
-options. The table was generated automatically using \ac{osier}'s built-in
-\texttt{technology\_dataframe} method. 
+These technologies were chosen for their potential to be co-located with a
+datacenter. There is a miniscule potential for new hydropower in the United
+States \cite{lopez_us_2012}, geothermal requires geological activity that is
+similarly hard to find \cite{lopez_us_2012}, and wind energy requires a vast
+amount of land. Table \ref{tab:dc-tech-options} summarizes the data for the
+different technology options. The table was generated automatically using
+\ac{osier}'s built-in \texttt{technology\_dataframe} method. 
 \begin{table}[htpb!]
     \centering
     \caption{Summary of technology data used in the datacenter example.}
@@ -58,18 +59,24 @@ objectives, so this example minimizes the inverse capacity-weighted \ac{eroi} as
 shown by Equation \ref{eqn:eroi-obj}.
 
 \begin{align}
-    \textbf{Minimize}\left(\frac{1}{\sum^{G}\textbf{CAP}_gEROI_{std}^g}\right)
+    \textbf{Minimize}\left(\sum^{G}\frac{\textbf{CAP}_g}{EROI_{std}^g}\right)
     \label{eqn:eroi-obj}
 \end{align}
+Capacity must be in the numerator otherwise the objective creates a perverse
+incentive where the objective can be minimized by simply increasing the capacity of certain technologies. 
+This way, the model will prefer less capacity, \textit{ceteris paribus}, 
+and prefer technologies with higher \ac{eroi}. Additionally, including capacity in
+the objective allows the model to distinguish among different portfolios. 
 
 \subsection{Demand Data}
 The electricity demand for this example was modeled after a stylized
-``high-availability'' gigawatt-scale data center. For simplicity, this example 
-considers ``high-availability'' equivalent to a constant power draw. Further, 
-gigawatt-scale data center is reasonable given recent announcements for a 
-two gigawatt data center in Louisiana \cite{swinhoe_meta_2024} and multiple
+``high-availability'' gigawatt-scale data center. For simplicity, this example
+considers ``high-availability'' equivalent to a constant power draw. Further,
+gigawatt-scale data center is reasonable given recent announcements for a two
+gigawatt data center in Louisiana \cite{swinhoe_meta_2024} and multiple
 \acp{ppa} with existing and previously retired nuclear reactors, each capable of
-producing around a gigawatt of electric power \cite{shaw_microsoft_2024,constellation_energy_constellation_2025}.
+producing around a gigawatt of electric power
+\cite{shaw_microsoft_2024,constellation_energy_constellation_2025}.
 
 \subsection{Synthetic Solar Data}
 
@@ -97,8 +104,63 @@ Figure \ref{fig:synthetic-solar} illustrates the synthetic solar data.
 \end{figure}
 
 
+\subsection{Convergence}
+This example used a ``maximum generation'' termination criterion. To verify that
+the problem is reasonably converged after 200 generations, I plotted the
+performance of each generation with the hypervolume indicator
+\cite{deb_multi-objective_2001}. The hypervolume indicator is useful when the Pareto
+front is unknown and cannot be approximated. Instead of minimizing the difference between
+the simulation results and a known Pareto front to establish convergence, hypervolume maximizes
+the distance between the results and some reference point. A nadir point (i.e., the worst performing
+solution) is a common choice for reference point and was the point chosen, here.
+Figure \ref{fig:convergence} shows that the simulation converges. 
+
+\begin{figure}[htbp!]
+    \centering
+    \resizebox{0.75\columnwidth}{!}{\input{figures/05_examples_chapter/dc_convergence_plot.pgf}}
+    \caption{Convergence of the data center simulation with a hypervolume indicator.}
+    \label{fig:convergence}
+\end{figure}
+
 
 
 \subsection{Results}
 
+\begin{figure}[htbp!]
+    \centering
+    \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_objective_space.pgf}}
+    \caption{Objective space for the datacenter example.}
+    \label{fig:dc_objective_space}
+\end{figure}
+
+\begin{figure}[htbp!]
+    \centering
+    \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_objective_space_10.pgf}}
+    \caption{Objective space for the datacenter example.}
+    \label{fig:dc_objective_space_10}
+\end{figure}
+
+\begin{figure}[htbp!]
+    \centering
+    \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_design_space.pgf}}
+    \caption{Design space for the datacenter example.}
+    \label{fig:dc_design_space}
+\end{figure}
+
+
+
+\begin{figure}[htbp!]
+    \centering
+    \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_design_space_10.pgf}}
+    \caption{Design space for the datacenter example.}
+    \label{fig:dc_design_space_10}
+\end{figure}
+
+
 \subsection{Discussion}
+
+These results should evince a few things. First, energy modeling is necessary to
+evaluate technology options. Surprisingly, solar panels and battery storage were
+hardly present in the results and did not seem to play a role in the lower cost
+solutions despite their uniformly lower costs reported in Table
+\ref{tab:dc-tech-options}.

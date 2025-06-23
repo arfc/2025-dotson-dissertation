@@ -296,6 +296,7 @@ rule create_dc_model:
         eroi_data = f"{data_path}eroi_data.csv"
     output:
         dc_problem = f"{data_path}datacenter_problem.pkl",
+        tech_list = f"{data_path}datacenter_techlist.pkl",
         dc_tech_table = f"{docs_path}tables/datacenter_tech_options.tex",
         solar_plot = f"{docs_path}figures/05_examples_chapter/synthetic_solar_plot.pgf"
     script:
@@ -311,11 +312,16 @@ rule solve_datacenter:
 
 rule plot_datacenter:
     input:
+        tech_list = f"{data_path}datacenter_techlist.pkl",
         dc_results = f"{data_path}datacenter_results.pkl"
     output:
         dc_objective_space = f"{docs_path}figures/05_examples_chapter/dc_objective_space.pgf",
+        dc_objective_space_10 = f"{docs_path}figures/05_examples_chapter/dc_objective_space_10.pgf",
         dc_design_space = f"{docs_path}figures/05_examples_chapter/dc_design_space.pgf",
+        dc_design_space_10 = f"{docs_path}figures/05_examples_chapter/dc_design_space_10.pgf",
         convergence = f"{docs_path}figures/05_examples_chapter/dc_convergence_plot.pgf",
+    script:
+        "scripts/05-examples-scripts/plot_datacenter.py"
 
 rule examples_chapter:
     input:
@@ -327,8 +333,13 @@ rule examples_chapter:
         non_optimal_set_plot = f"{docs_path}figures/05_examples_chapter/non_optimal_set_plot.pgf",
         summary_data = f"{data_path}summary_data.csv",
         summary_table = f"{docs_path}tables/summary_data.tex",
-        solar_plot = f"{docs_path}figures/05_examples_chapter/synthetic_solar_plot.pgf",
         set_bin_plot = f"{docs_path}figures/05_examples_chapter/set_bin_plot.pgf",
+        solar_plot = f"{docs_path}figures/05_examples_chapter/synthetic_solar_plot.pgf",
+        dc_objective_space = f"{docs_path}figures/05_examples_chapter/dc_objective_space.pgf",
+        dc_design_space = f"{docs_path}figures/05_examples_chapter/dc_design_space.pgf",
+        convergence = f"{docs_path}figures/05_examples_chapter/dc_convergence_plot.pgf",
+        dc_objective_space_10 = f"{docs_path}figures/05_examples_chapter/dc_objective_space_10.pgf",
+        dc_design_space_10 = f"{docs_path}figures/05_examples_chapter/dc_design_space_10.pgf",
     output:
         ch5_log
     shell:

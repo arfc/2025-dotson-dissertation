@@ -42,8 +42,7 @@ def eroi_objective(technology_list, solved_dispatch_model):
     Calculate the objective to ``maximize'' the Energy Return on Investment (EROI)
     by minimizing its inverse.
     """
-    weighted_eroi = np.array([t.capacity.to_value() * t.eroi for t in technology_list]).sum()
-    obj_value = 1/weighted_eroi
+    obj_value = np.array([t.capacity.to_value() / t.eroi for t in technology_list]).sum()
     return obj_value
 
 if __name__ == "__main__":
@@ -135,6 +134,9 @@ if __name__ == "__main__":
     nuclear_smr.co2_rate = 0*(megatonnes/(MW*hour))
 
     tech_list = [natural_gas, natural_gas_adv, solar, battery, nuclear_ap1000, nuclear_smr]
+
+    with open(snakemake.output.tech_list, "wb") as f:
+        pickle.dump(tech_list, f)
 
     tech_data_df = technology_dataframe(tech_list, cast_to_string=True).T.iloc[[13,14,15,16, 17, 21, ],:]
     tech_data_df.index = tech_data_df.index.str.replace("_", " ")

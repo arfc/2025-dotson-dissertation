@@ -39,3 +39,8 @@ figure-log.txt
 __MACOSX
 data/**/2023-osier*
 data/uiuc_demand_data.csv
+checkpoint*
+data/technology_costs.csv
+data/datacenter_techlist.pkl
+data/datacenter_problem.pkl
+data/datacenter_results.pkl

@@ -28,6 +28,7 @@ if __name__ == "__main__":
     if len(checkpoint_list) > 0:
         with open(checkpoint_list[-1], 'rb') as f:
             algorithm = pickle.load(f)
+            algorithm.termination = MaximumGenerationTermination(200)
             print(f"Loaded {checkpoint_list[-1]}:", algorithm)
     else:
         print("No checkpoints found. Starting new run.")
@@ -55,6 +56,7 @@ if __name__ == "__main__":
         # save checkpoint on early termination
         timestr = time.strftime("%Y%m%d-%H%M%S")
         checkpoint_name = f"checkpoint_{timestr}.pkl"
+        current_results_name = f"results_{timestr}.pkl"
         print(f"Simulation stopped. Saving checkpoint to {checkpoint_name}")
         with open(checkpoint_name, "wb") as f:
             pickle.dump(algorithm, f)
