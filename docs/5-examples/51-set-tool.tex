@@ -35,8 +35,8 @@ new results from \ac{osier} are shared and discussed.
 
 The nuclear fuel cycle describes the cradle-to-grave lifecycle of nuclear
 materials. The nuclear fuel cycle begins with extraction via mining or in-situ
-leaching, followed by processing into usable fuel forms, irradiated, then
-disposed of or recycled \cite{tsoulfanidis_review_2013}. Figure
+leaching, followed by processing into usable fuel forms, then irradiation in a reactor,
+and finally either disposed of or recycled \cite{tsoulfanidis_review_2013}. Figure
 \ref{fig:nuclear-fuel-cycle} presents a stylized illustration the fuel cycle.
 The light green boxes correspond to stages in the front of the fuel cycle, while
 the beige boxes represent the back of the fuel cycle. Nuclear material generally
@@ -65,14 +65,13 @@ evaluates representative fuel cycle options, \acp{eg}, based on a set of nine
 aggregated metrics \cite{wigeland_nuclear_2014}. Table
 \ref{tab:evaluation-metrics} lists these metrics and their sub-criteria. Some
 criteria do not influence the \ac{set} results because all \acp{eg} performed
-equally well. Such as ``material attractiveness,'' where all \acp{eg} could be
+equally well. One such metric is ``material attractiveness,'' because all \acp{eg} could be
 implemented with unattractive materials \cite{wigeland_nuclear_2014-1}. Fuel
-cycles were assigned to \acp{eg} based on shared physics principles such that
-differences in implementation, such as specifics of a reactor's design, could be
-adequately captured \cite{wigeland_nuclear_2014}.  Each of the criteria in Table
-\ref{tab:evaluation-metrics} were further simplified through a binning process
-that grouped similarly performing \acp{eg}. Figure \ref{fig:bin-plot} provides
-an example for how the Study's authors binned the data.
+cycles were assigned to \acp{eg} based on shared physical principles such that
+differences in implementation could be adequately captured \cite{wigeland_nuclear_2014}.  
+Each of the criteria in Table \ref{tab:evaluation-metrics} were further simplified 
+through a binning process that grouped similarly performing \acp{eg}. Figure 
+\ref{fig:bin-plot} provides an example for how the Study's authors binned the data.
 
 \begin{table}[htbp!]
     \centering
@@ -94,11 +93,22 @@ an example for how the Study's authors binned the data.
 \FloatBarrier
 
 \subsection{Limitations of the \ac{set}}
-\begin{enumerate}
-    \item Does not consider Pareto optimality
-    \item Binning of data leads to information loss
-    \item Reliance on expert input
-\end{enumerate}
+Despite being its status as the best avaiable tool for evaluating fuel cycles in the Study, the
+\ac{set} has some limitations primarily with the methods the Study used for drawing conclusions.
+First, the \ac{set} does not consider Pareto optimality. Users are able to adjust the weights
+for different objectives to obtain different results, but the full space of options is obfuscated
+from users. Second, the Study's authors binned data on two occasions, first to generate the 
+evaluation groups and a second time to make the analysis more tractable. The \ac{set} calculates
+\ac{eg} performance based on these secondary bins, as shown in Figure \ref{fig:bin-plot}. This
+exacerbates differences among \acp{eg} in different bins and eliminates differences among \acp{eg}
+in the same bin. Further challenging the comparison of the \acp{eg}. Lastly, the \ac{set} relies 
+totally on expert input. This is appropriate for generating data for each \ac{eg} or even each fuel
+cycle option. It is unreasonable to expect non-technical stakeholders to opine on which isotopes
+should be separated, or whether a reactor should have a fast or thermal spectrum. But stakeholders
+can certainly weigh-in on the tradeoffs and prioritization of different metrics in the Study. This
+example with \ac{osier} addresses these gaps by using raw data from the Study to identify Pareto
+optimal solutions and present them in a manner that could be used for deliberation with various
+stakeholders. 
 
 \subsection{\ac{osier} Methodology and Data}
 
@@ -145,7 +155,7 @@ design space is given by the identity matrix of size $40 \times 40$.
 \subsection{Results}
 The primary result for this example is the identification of a Pareto front for
 the different \acp{eg} considered in the \ac{set}. Figure
-\ref{fig:full-set-space} the output Pareto front.
+\ref{fig:full-set-space} shows the output Pareto front.
 
 \begin{figure}[htbp!]
   \centering
@@ -163,7 +173,11 @@ mass of \ac{hlw} requiring disposal, activity of \ac{snf} and \ac{hlw} at
 The \acp{eg} with recycling have a larger spread over the activity at 100 years,
 land use, and disposed mass of \ac{du}. This is because these fuel cycles vary
 by degree of recycling and isotope separation. The once-through fuel cycles vary
-widely in performance across all objectives.
+widely in performance across all objectives. There is an apparent ``lower'' density
+of results in the latter five objectives: development cost, development time, \ac{foak}
+cost, incompatibility, and unfamiliarity. This is because these objectives were based on
+categorical variables rather than continuous ones. The low density of solutions is the
+result of overlapping solutions.
 
 % Figure \ref{fig:once-through-set-space} highlights the evaluation groups
 % representing once-through fuel cycles.
@@ -217,7 +231,7 @@ only ``knee'' solution which suggests a higher qualitative ranking (e.g., ``most
 
 \subsection{Discussion}
 
-\ac{osier} and the Study disagree on precisely half of the \acp{eg} categorization. Although the
+\ac{osier} and the Study disagree on precisely half of the \acp{eg}' categorization. Although the
 Study rankings are more granular than whether a solution is Pareto optimal (a binary), its recommendations
 elevated several \acp{eg} that \ac{osier} found to be sub-optimal, while dismissing several Pareto optimal
 ones. Solutions on the Pareto front are all considered co-optimal, by definition. Differences emerge when 

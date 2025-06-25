@@ -1,6 +1,30 @@
 \section{Example 2: Powering a Data Center}
 
-\subsection{Why data centers?}
+Electricity demand from data centers, driven by advances in \ac{ai}, has grown
+tremendously in the last two years. Utilities and grid operators predict even
+more demand growth into the future
+\cite{pjm_resource_adequacy_planning_department_2024_2024,miso_long-term_2024,davenport_generational_2024}.
+This sudden and unexpected growth in demand adds pressure to the electricity
+system, leading operators to build additional fossil fuel resources to ensure a
+reliable supply of electricity \cite{howland_ethan_pjm_2025}. In turn, this
+could lead to greater pressure on the climate and further exacerbate inequities
+as described in Section \ref{section:climate-change-risk}. This example models a
+stylized data center with several technology options and three objectives which
+stakeholders, including data center owners, community members, and policy
+makers, may find themselves weighing when deciding which technology options to
+pursue to power these new loads.
+
+\subsection{Demand Data}
+The electricity demand for this example was modeled after a stylized
+``high-availability'' gigawatt-scale data center. For simplicity, this example
+considers ``high-availability'' equivalent to a constant power draw. In
+practice, data centers can experience large, rapid, fluctuations in power
+consumption \cite{quint_practical_2025}. A gigawatt-scale data center is
+reasonable given recent announcements for a two gigawatt data center in
+Louisiana \cite{swinhoe_meta_2024} and multiple \acp{ppa} with existing and
+previously retired nuclear reactors, each capable of producing around a gigawatt
+of electric power
+\cite{shaw_microsoft_2024,constellation_energy_constellation_2025}.
 
 \subsection{Technology Options}
 There are myriad technology options available to power a data center. For
@@ -16,16 +40,16 @@ simplicity, these choices were restricted to
 \end{itemize}
 
 \noindent
-These technologies were chosen for their potential to be co-located with a
-datacenter. There is a miniscule potential for new hydropower in the United
-States \cite{lopez_us_2012}, geothermal requires geological activity that is
-similarly hard to find \cite{lopez_us_2012}, and wind energy requires a vast
-amount of land. Table \ref{tab:dc-tech-options} summarizes the data for the
-different technology options. The table was generated automatically using
-\ac{osier}'s built-in \texttt{technology\_dataframe} method. 
+These technologies were chosen for their potential to be co-located with a data
+center. There is a miniscule potential for new hydropower in the United States
+\cite{lopez_us_2012}, geothermal requires geological activity that is similarly
+hard to find \cite{lopez_us_2012}, and wind energy requires a vast amount of
+land. Table \ref{tab:dc-tech-options} summarizes the data for the different
+technology options. The table was generated automatically using \ac{osier}'s
+built-in \texttt{technology\_dataframe} method. 
 \begin{table}[htpb!]
     \centering
-    \caption{Summary of technology data used in the datacenter example.}
+    \caption{Summary of technology data used in the data center example.}
     \label{tab:dc-tech-options}
     \resizebox{\columnwidth}{!}{\input{tables/datacenter_tech_options_annotated.tex}}
 \end{table}
@@ -63,20 +87,11 @@ shown by Equation \ref{eqn:eroi-obj}.
     \label{eqn:eroi-obj}
 \end{align}
 Capacity must be in the numerator otherwise the objective creates a perverse
-incentive where the objective can be minimized by simply increasing the capacity of certain technologies. 
-This way, the model will prefer less capacity, \textit{ceteris paribus}, 
-and prefer technologies with higher \ac{eroi}. Additionally, including capacity in
-the objective allows the model to distinguish among different portfolios. 
-
-\subsection{Demand Data}
-The electricity demand for this example was modeled after a stylized
-``high-availability'' gigawatt-scale data center. For simplicity, this example
-considers ``high-availability'' equivalent to a constant power draw. Further,
-gigawatt-scale data center is reasonable given recent announcements for a two
-gigawatt data center in Louisiana \cite{swinhoe_meta_2024} and multiple
-\acp{ppa} with existing and previously retired nuclear reactors, each capable of
-producing around a gigawatt of electric power
-\cite{shaw_microsoft_2024,constellation_energy_constellation_2025}.
+incentive where the objective can be minimized by simply increasing the capacity
+of certain technologies. This way, the model will prefer less capacity,
+\textit{ceteris paribus}, and prefer technologies with higher \ac{eroi}.
+Additionally, including capacity in the objective allows the model to
+distinguish among different portfolios. 
 
 \subsection{Synthetic Solar Data}
 
@@ -108,12 +123,14 @@ Figure \ref{fig:synthetic-solar} illustrates the synthetic solar data.
 This example used a ``maximum generation'' termination criterion. To verify that
 the problem is reasonably converged after 200 generations, I plotted the
 performance of each generation with the hypervolume indicator
-\cite{deb_multi-objective_2001}. The hypervolume indicator is useful when the Pareto
-front is unknown and cannot be approximated. Instead of minimizing the difference between
-the simulation results and a known Pareto front to establish convergence, hypervolume maximizes
-the distance between the results and some reference point. A nadir point (i.e., the worst performing
-solution) is a common choice for reference point and was the point chosen, here.
-Figure \ref{fig:convergence} shows that the simulation converges. 
+\cite{deb_multi-objective_2001}. The hypervolume indicator is useful when the
+Pareto front is unknown and cannot be approximated. Instead of minimizing the
+difference between the simulation results and a known Pareto front to establish
+convergence, hypervolume maximizes the distance between the results and some
+reference point. A nadir point (i.e., the worst performing solution) is a common
+choice for reference point and was the point chosen, here. Figure
+\ref{fig:convergence} shows that the simulation converged quite quickly and likely ran
+longer than necessary. 
 
 \begin{figure}[htbp!]
     \centering
@@ -126,41 +143,90 @@ Figure \ref{fig:convergence} shows that the simulation converges.
 
 \subsection{Results}
 
-\begin{figure}[htbp!]
-    \centering
-    \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_objective_space.pgf}}
-    \caption{Objective space for the datacenter example.}
-    \label{fig:dc_objective_space}
-\end{figure}
+Figure \ref{fig:dc_objective_space} shows the Pareto front for this example. The
+extreme solutions for each objective are highlighted. There appears to be a
+tradeoff between cost and carbon emissions that is consistent with the earlier
+demonstration problem in Section \ref{section:four-obj-results}.
+\textcolor{black}{This tradeoff is evinced by intersecting diagonals between the
+cost and emissions axes. Some of the middling solutions have a tradeoff that is
+less pronounced but every solution that performs well on total cost performs
+less well on carbon emissions and vice versa.} Carbon emissions and \ac{eroi} do
+not demonstrate a persistent tradeoff. The least cost solution (in red) performs
+the worst on carbon emissions but among the best on \ac{eroi}. Whereas the
+solution with the least emissions (green) is also the solution with the best
+\ac{eroi} (purple) and the most expensive. Despite this, Figure
+\ref{fig:dc_objective_space} shows tight groups of similarly performing
+solutions on carbon emisisons that fan out on the \ac{eroi} axis. This pattern
+is also true of the \ac{eroi} objective. These patterns suggest that there are
+solutions which perform well on \ac{eroi} and cost, or \ac{eroi} and emissions,
+but no solutions which perform well on all three objectives.
 
 \begin{figure}[htbp!]
     \centering
-    \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_objective_space_10.pgf}}
-    \caption{Objective space for the datacenter example.}
-    \label{fig:dc_objective_space_10}
+    \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_objective_space.pgf}}
+    \caption{Objective space for the data center example.}
+    \label{fig:dc_objective_space}
 \end{figure}
+
+% \begin{figure}[htbp!] \centering
+%     \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_objective_space_10.pgf}}
+%     \caption{Objective space for the datacenter example.}
+%     \label{fig:dc_objective_space_10} \end{figure}
+
+Figure \ref{fig:dc_design_space} shows the design space for the data center
+problem with the corresponding extreme solutions highlighted. Since the energy
+demand for this example was conveniently chosen to be 1 GW, the axis values for
+all technologies are in units of gigawatts. The least cost solution went all-in
+on conventional natural gas with no emissions abatement. While the least
+emissions and best \ac{eroi} solution went all-in on conventional and advanced
+nuclear. The only technology that almost totally excluded by the model was
+battery storage. This is likely because battery storage is intended to shift
+load throughout the day and is typically most useful in solutions with high
+penetrations of \ac{vre}. However, the model was allowed to build natural gas.
+So, rather than shifting the load with batteries, the solutions with large
+amounts of solar panels prefer some form of natural gas capacity when cost is
+prioritized and will prefer some form of nuclear energy when emissions are
+prioritized.
 
 \begin{figure}[htbp!]
     \centering
     \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_design_space.pgf}}
-    \caption{Design space for the datacenter example.}
+    \caption{Design space for the data center example.}
     \label{fig:dc_design_space}
 \end{figure}
 
 
 
-\begin{figure}[htbp!]
-    \centering
-    \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_design_space_10.pgf}}
-    \caption{Design space for the datacenter example.}
-    \label{fig:dc_design_space_10}
-\end{figure}
+% \begin{figure}[htbp!] \centering
+%     \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/dc_design_space_10.pgf}}
+%     \caption{Design space for the datacenter example.}
+%     \label{fig:dc_design_space_10} \end{figure}
 
-
+\FloatBarrier
 \subsection{Discussion}
 
-These results should evince a few things. First, energy modeling is necessary to
-evaluate technology options. Surprisingly, solar panels and battery storage were
-hardly present in the results and did not seem to play a role in the lower cost
-solutions despite their uniformly lower costs reported in Table
-\ref{tab:dc-tech-options}.
+% First, this model is stylized and the results should not be used to inform
+% business decisions.
+Despite their uniformly lower costs reported in Table \ref{tab:dc-tech-options},
+solar panels and battery storage played a diminiutive role in the results and
+did not seem to play a role in the least cost solutions. Of course, solar panels
+are at a serious disadvantage because they are not dispatchable and have
+relatively low capacity factors. The solar data used in this model, shown in
+Figure \ref{fig:synthetic-solar}, has a capacity factor a little less than 0.25
+for modeled period. This means that in order to produce the enough total energy,
+solar panels require 400\% of the data center's rated power draw. Indeed the
+design space results in Figure \ref{fig:dc_design_space} show that solar
+capacity barely exceeds 150\% indicating that solar panels are not a preferred
+primary energy source.
+
+
+The results indicate that data center owners and operators would prefer to power
+data centers with natural gas. Especially since the free market does not price
+in externalities such as carbon emissions and there are no national prices on
+carbon. The results also show that, when emissions are weighed more heavily than
+costs, nuclear energy is an appealing alternative to natural gas. These
+conclusions are consistent with the current pattern of companies installing more
+natural gas plants and entering \acp{ppa} with nuclear generating factilities
+\cite{wittenberg_how_2025,swinhoe_meta_2024,constellation_energy_constellation_2025,
+shaw_microsoft_2024}.
+
