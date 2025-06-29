@@ -177,7 +177,54 @@ rule plot_standard_mga:
     output:
         standard_mga = f'{docs_path}figures/04_benchmark_chapter/naive_mga_lp.pgf',
     script: "scripts/04-benchmark-scripts/plot_standard_mga.py"
-        
+
+optimizers = ['logical','optimal']
+scenarios = ['gas', 'wind', 'all']
+rule run_dispatch_comparison:
+    output:
+        demand_plot = f"{docs_path}figures/04_benchmark_chapter/demand_plot.pgf",
+        demand_data = f"{data_path}synthetic_demand_data.pkl",
+        wind_plot = f"{docs_path}/figures/04_benchmark_chapter/wind_plot.pgf",
+        objective_results = f"{data_path}algorithm_comparison_objective_results.csv",
+        dispatch_data = expand("../data/{scenario}_dispatch_results_{opt}.csv", 
+                                scenario=scenarios,
+                                opt=optimizers)
+    script:
+        "scripts/04-benchmark-scripts/compare_dispatch.py"
+
+rule plot_dispatch_comparison:
+    input:
+        demand_data = f"{data_path}synthetic_demand_data.pkl",
+        dispatch_data = expand("../data/{scenario}_dispatch_results_{opt}.csv", 
+                                scenario=scenarios,
+                                opt=optimizers)
+    output:
+        dispatch_plots = expand("../docs/figures/04_benchmark_chapter/{scenario}_{opt}_dispatch_plot.pgf", 
+                                scenario=scenarios,
+                                opt=optimizers
+                                )
+
+rule run_algorithm_scaling:
+    output:
+        algorithm_times = f"{data_path}algorithm_out.csv"
+    script:
+        "scripts/04-benchmark-scripts/scaling_study_opt_dispatch.py"
+
+rule run_thread_scaling:
+    output:
+        thread_times = f"{data_path}thread_data_out.csv"
+    script:
+        "scripts/04-benchmark-scripts/thread_scaling_study.py"
+
+rule plot_scaling:
+    input:
+        algorithm_times = f"{data_path}algorithm_out.csv",
+        thread_times = f"{data_path}thread_data_out.csv"
+    output:
+        algorithm_scaling_plot = f"{docs_path}figures/04_benchmark_chapter/algorithm_scaling_plot.pgf",
+        thread_scaling_plot = f"{docs_path}figures/04_benchmark_chapter/thread_scaling_plot.pgf"
+    script:
+        "scripts/04-benchmark-scripts/plot_scaling_study.py"
 
 rule benchmark_chapter:
     input:
@@ -191,7 +238,13 @@ rule benchmark_chapter:
         four_obj_design_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA.pgf",
         four_obj_design_mga_boxplot = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA_boxplot.pgf",
         standard_mga = f'{docs_path}figures/04_benchmark_chapter/naive_mga_lp.pgf',
-        load_curve = f"{docs_path}figures/04_benchmark_chapter/normalized_load_curves.pgf"
+        load_curve = f"{docs_path}figures/04_benchmark_chapter/normalized_load_curves.pgf",
+        algorithm_scaling_plot = f"{docs_path}figures/04_benchmark_chapter/algorithm_scaling_plot.pgf",
+        thread_scaling_plot = f"{docs_path}figures/04_benchmark_chapter/thread_scaling_plot.pgf",
+        dispatch_plots = expand("../docs/figures/04_benchmark_chapter/{scenario}_{opt}_dispatch_plot.pgf", 
+                                scenario=scenarios,
+                                opt=optimizers
+                                ),
     output:
         ch4_log
     shell:
