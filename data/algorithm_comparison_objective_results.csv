@@ -1,0 +1,7 @@
+,scenario,optimizer,value
+0,gas,logical,1.8495356644090408
+1,gas,optimal,1.8495356644090408
+2,wind,logical,0.7732443492572996
+3,wind,optimal,0.7732443492572995
+4,all,logical,0.7717355655709778
+5,all,optimal,0.5542938905376419

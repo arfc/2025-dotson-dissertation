@@ -93,7 +93,7 @@ if __name__ == "__main__":
                 time_data[f'solve_time_{optimizer}'].append(res.exec_time)
 
         df = pd.DataFrame(time_data)
-        df.to_csv(snakemake.out.algorithm_times)
+        df.to_csv(snakemake.output.algorithm_times)
         with open("time_data_dict.pkl", "wb") as f:
                 pickle.dump(time_data, f)
     except KeyboardInterrupt:

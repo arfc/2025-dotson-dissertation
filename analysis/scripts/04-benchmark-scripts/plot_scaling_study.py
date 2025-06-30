@@ -61,3 +61,4 @@ if __name__ == "__main__":
     ax.set_xlim(25,200)
     ax.set_ylabel("Time [seconds]", fontsize=18)
     ax.set_xlabel("Population per Generation", fontsize=18)
+    plt.savefig(snakemake.output.thread_scaling_plot)

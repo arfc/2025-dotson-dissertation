@@ -203,6 +203,8 @@ rule plot_dispatch_comparison:
                                 scenario=scenarios,
                                 opt=optimizers
                                 )
+    script:
+        "scripts/04-benchmark-scripts/plot_dispatch_comparison.py"
 
 rule run_algorithm_scaling:
     output:
@@ -287,10 +289,6 @@ rule extract_summary_data:
     script:
         "scripts/05-examples-scripts/create_summary_table.py"
 
-# rule extract_reactor_mapping:
-#     input:
-#         "../data/metric_d"
-
 rule create_metric_data_table:
     input:
         expand("../data/{metric}.csv", metric=list(config['table_pages'].keys()))
@@ -299,14 +297,6 @@ rule create_metric_data_table:
         metric_table = f"{docs_path}tables/metric_data.tex"
     script:
         "scripts/05-examples-scripts/create_metric_table.py"
-
-# rule create_osier_technologies:
-#     input:
-#     output:
-#         f"{data_path}nuclear_fc_techs.pkl"
-#     script:
-#         ""
-    
 
 rule plot_set_tool:
     input:
@@ -366,7 +356,7 @@ rule create_dc_model:
 rule plot_datacenter:
     input:
         tech_list = f"{data_path}datacenter_techlist.pkl",
-        # dc_results = f"{data_path}datacenter_results.pkl"
+        dc_results = f"{data_path}datacenter_results.pkl"
     output:
         dc_objective_space = f"{docs_path}figures/05_examples_chapter/dc_objective_space.pgf",
         dc_objective_space_10 = f"{docs_path}figures/05_examples_chapter/dc_objective_space_10.pgf",
