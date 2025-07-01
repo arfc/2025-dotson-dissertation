@@ -1,3 +1,60 @@
-\subsection{Exercise 4: Validating a Simplified Approach}
+\subsection{Exercise 0: Validating a Simplified Approach}
 
-\textcolor{red}{This section is new in the dissertation.}
+This exercise considers three different cases with different technology mixes. The first case
+includes natural gas and nuclear resources, the second case adds a wind resource, and the last 
+case adds battery storage. Each case had seven days with an hourly resolution (168 timesteps). Both
+algorithms were allowed to curtail excess energy and both were required to meet demand at all time
+steps. Table \ref{tab:dispatch-results} summarizes the technologies available, the optimizer used, 
+and the value of the objective function. 
+
+\begin{table}[htbp!]
+    \centering
+    \caption{Summary results for the three dispatch test cases.}
+    \label{tab:dispatch-results}
+    \input{tables/algorithm_comparison_results_edited.tex}
+\end{table}
+
+\noindent
+The first two cases in Table \ref{tab:dispatch-results} show that the two algorithms had perfect
+agreement. The two optimizers disagree on the final case with a battery storage technology. Figure
+\ref{fig:dispatch-comparison} compares the dispatch results for the two optimizers.
+
+
+\begin{figure}
+    \centering
+    \resizebox{\columnwidth}{!}{\input{figures/04_benchmark_chapter/dispatch_comparison_plot_x2.pgf}}
+    \caption{Comparison between dispatch results for two algorithms. Plot a) was calculated with a logical
+    dispatch algorithm and plot b) was calculated with optimal dispatch.}
+    \label{fig:dispatch-comparison}
+\end{figure}
+
+The optimal dispatch algorithm uses a linear programming formulation
+to arrive at an optimal solution with perfect foresight. The logical dispatch algorithm
+uses a rules-based approach to dispatch energy according to merit order. However, this
+algorithm is myopic since dispatch is calculated serially.
+
+
+\FloatBarrier
+
+\subsection{Time Scaling}
+
+
+\begin{figure}[htbp!]
+    \centering
+    \resizebox{0.75\columnwidth}{!}{\input{figures/04_benchmark_chapter/algorithm_scaling_plot.pgf}}
+    \caption{Time scaling of a capacity expansion problem using either an optimal or logical dispatch algorithm.}
+    \label{fig:alg-scaling}
+\end{figure}
+
+
+\subsection{Parallelization}
+
+
+\begin{figure}[htbp!]
+    \centering
+    \resizebox{0.75\columnwidth}{!}{\input{figures/04_benchmark_chapter/thread_scaling_plot.pgf}}
+    \caption{Time scaling of a capacity expansion problem using a range of threads for parallelization.}
+    \label{fig:thread-scaling}
+\end{figure}
+
+\FloatBarrier

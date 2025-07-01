@@ -2,6 +2,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from unyt import MW, GW, km, hour
+from unyt import m, s, MW, W, kg
+from unyt import unyt_array
 import time
 import pandas as pd
 import matplotlib as mpl
@@ -14,6 +16,11 @@ plt.rcParams['savefig.dpi'] = 400
 plt.rcParams['savefig.bbox'] = 'tight'
 plt.rcParams['text.usetex'] = True
 plt.rcParams['font.family'] = "serif"
+plt.rcParams['xtick.labelsize'] = 14
+plt.rcParams['ytick.labelsize'] = 14
+plt.rcParams['legend.fontsize'] = 16
+plt.rcParams['legend.shadow'] = False
+
 
 
 # osier imports
@@ -21,6 +28,41 @@ from osier import DispatchModel, LogicDispatchModel
 import osier.tech_library as lib #wind, battery, natural_gas
 from osier.utils import synchronize_units
 import dill as pickle
+
+
+cut_in = 3.0*m/s
+cut_out = 25.0*m/s
+rated = 13.0*m/s
+diameter = 103*m
+rated_power = 2.75*MW
+air_density = 1.225*kg/m**3
+
+power = lambda v: np.min((((0.5*np.pi/4)*(air_density*diameter**2)*v**3).to(MW), rated_power))*MW
+
+def turbine_power(v):
+    """
+    Calculates the power output of a wind turbine.
+    
+    Parameters
+    ----------
+    v : float
+        Wind speed in meters per second (m/s).
+    Returns
+    -------
+    power : float
+        Power in megawatts (MW).
+    """
+    
+    wind_speed = v*m/s
+    
+    if wind_speed < cut_in:
+        return 0*MW
+    elif (wind_speed > rated) and (wind_speed < cut_out):
+        return rated_power
+    elif wind_speed >= cut_out:
+        return 0*MW
+    elif wind_speed >= cut_in:
+        return power(wind_speed)
 
 
 if __name__ == "__main__":
@@ -58,8 +100,11 @@ if __name__ == "__main__":
     # plot demand
     print("Plotting the demand profile")
     fig, ax = plt.subplots()
-    ax.plot(hours, demand, color='k')
+    ax.plot(hours, demand, color='k', linestyle='--')
     ax.grid()
+    ax.set_ylabel("Normalized Demand [-]", fontsize=18)
+    ax.set_xlabel("Time [hours]", fontsize=18)
+    ax.set_xlim(0,168)
     plt.savefig(snakemake.output.demand_plot)
 
     demand *= 1e3 * MW
@@ -67,19 +112,31 @@ if __name__ == "__main__":
     with open(snakemake.output.demand_data, "wb") as f:
         pickle.dump(demand, f)
 
-    wind_speed = rng.weibull(a=2, size=N)
+
+    rng = np.random.default_rng(seed=1234)
+    wind_speed = rng.weibull(a=2, size=N)*9
+    wind_power = np.array([turbine_power(u) for u in wind_speed]).astype(float)
+
     wind_speed /= wind_speed.max()
+    wind_power /= wind_power.max()
+
+    # breakpoint()
 
     # plot wind
     print("Plotting the wind profile")
     fig, ax = plt.subplots()
-    ax.plot(hours, wind_speed, color='tab:cyan')
+    ax.plot(hours, wind_power, color='tab:blue', label="Turbine Power")
+    ax.plot(hours, wind_speed, color='green', linestyle='-', label="Wind Speed")
     ax.grid()
+    ax.set_ylabel("Normalized Wind Speed [-]", fontsize=18)
+    ax.set_xlabel("Time [hours]", fontsize=18)
+    ax.set_xlim(0,47)
+    ax.legend(fontsize=12)
     plt.savefig(snakemake.output.wind_plot)
 
-    wind_speed *= wind.capacity
+    wind_power *= wind.capacity
 
-    net_demand = demand - wind_speed
+    net_demand = demand - wind_power
 
 
     file_dict = snakemake.output.dispatch_data
@@ -132,13 +189,16 @@ if __name__ == "__main__":
         if i in [0,1]:
             dispatch_df = model.results
         else:
-            dispatch_df = pd.concat([model.results, pd.DataFrame({'WindTurbine':wind_speed})], axis=1)
+            dispatch_df = pd.concat([model.results, pd.DataFrame({'WindTurbine':wind_power})], axis=1)
         print(f"saving dispatch results to {outfile}")
         dispatch_df.to_csv(outfile)
 
 
     objective_df = pd.DataFrame(objective_values_dict)
     objective_df.to_csv(snakemake.output.objective_results)
+
+    objective_df.style.format(precision=5).to_latex(snakemake.output.objective_table, 
+                                                    hrules=True)
 
 
 

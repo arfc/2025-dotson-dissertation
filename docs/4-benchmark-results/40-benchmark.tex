@@ -1,25 +1,28 @@
-\textcolor{red}{This chapter will remain largely unchanged except for maybe one
-additional example, demonstrating a different dispatch model that is much faster
-but less robust. This new dispatch model will be used in the following chapter
-where I investigate further examples including a hypothetical ``data center''
-and an improvement on the \acf{set} \cite{wigeland_nuclear_2014}.}
-
 \ac{osier} is a key tool that will be leveraged in the analysis of subsequent
 work. Accordingly, it must be shown that \ac{osier} generates reproducible and
 reliable, results consistent with the results from an established framework.
 This chapter has three objectives, the first is to illustrate some of the
-differences among three evolutionary algorithms: \ac{nsga2}, \ac{nsga3}, and
-\ac{unsga3}. Second, it shows that solutions calculated by \ac{osier} agree with
-a more established \ac{esom}, \ac{temoa}. Lastly, it demonstrates some of
-\ac{osier}'s advanced features, such as many-objective objective problems and
-combining \ac{moo} with \ac{mga}.
+differences between the two dispatch algorithms introduced in Section
+\ref{section:dispatch_model}. The logical and optimal dispatch algorithms will
+be tested on some simple cases. Then the time scaling of the two algorithms will
+be compared. The second goal of this chapter, is to show that solutions
+calculated by \ac{osier} agree with a more established \ac{esom}, \ac{temoa}.
+Finally, this chapter demonstrates some of \ac{osier}'s advanced features, such
+as many-objective objective problems and combining \ac{moo} with \ac{mga}.
+The next section introduce some of the data and methods used to prepare the 
+example problems that follow.
 
-\section{Technology Data}
+\section{Data for the dispatch algorithm comparison}
+\subsection{Technology Data}
 \input{4-benchmark-results/40-1-technology-data}
-\section{Demonstrate \ac{osier}}
-\subsection{Data for demonstration problems}
 \input{4-benchmark-results/41-1-example-data}
-\input{4-benchmark-results/41-demonstrate}
+\section{Comparing dispatch algorithms}
+The first exercise in this section directly compares the results of two dispatch algorithms
+introduced in Section \ref{section:dispatch_model} to confirm that the two algorithms
+give similar answers. The next exercise shows how the two algorithms scale. The final exercise
+focuses on the logical dispatch algorithm and investigates how that algorithm scales with the
+number of threads used for parallelization.
+% \input{4-benchmark-results/41-demonstrate}
 \input{4-benchmark-results/45-new-dispatch}
 \section{Benchmark \ac{osier}}
 \input{4-benchmark-results/42-1-benchmark-data}
