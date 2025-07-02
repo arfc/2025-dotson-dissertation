@@ -12,6 +12,7 @@ latexopt = """
 docs_path = "../docs/"
 data_path = "../data/"
 osier_data = f"{data_path}2023-osier-simulation-results/"
+ch7_log = "ch7.log"
 ch5_log = "ch5.log"
 ch4_log = "ch4.log"
 ch3_log = "ch3.log"
@@ -406,12 +407,33 @@ rule examples_chapter:
         done
         """
 
+#============================INTERVIEW CHAPTER================================
+rule plot_uiuc_emissions:
+    output:
+        uiuc_emissions_plot = f"{docs_path}figures/07_interview_chapter/uiuc_emissions_plot.pgf"
+    script:
+        "scripts/07-interview-scripts/plot_uiuc_emissions.py"
+
+rule interview_chapter:
+    input:
+        uiuc_emissions_plot = f"{docs_path}figures/07_interview_chapter/uiuc_emissions_plot.pgf"
+    output:
+        ch7_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
+
+
 #============================BUILD RULE================================
 
 if sys.platform == 'Windows':
     rule build_thesis:
         input: 
             main_tex = f"{docs_path}{output_name}.tex",
+            ch7_log=ch7_log,
             ch5_log=ch5_log,
             ch4_log=ch4_log,
             ch3_log=ch3_log,
@@ -430,8 +452,9 @@ elif sys.platform in ['darwin', 'linux']:
     rule build_thesis:
         input: 
             main_tex = f"{docs_path}{output_name}.tex",
-            ch5_log = ch5_log,
-            ch4_log = ch4_log,
+            ch7_log=ch7_log,
+            ch5_log=ch5_log,
+            ch4_log=ch4_log,
             ch3_log=ch3_log,
             ch2_log=ch2_log,
             dag = "dag.png"
