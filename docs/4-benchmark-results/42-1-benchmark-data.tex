@@ -14,6 +14,11 @@ development of \ac{temoa} models and enables sensitivity analyses using a
 templated approach \cite{dotson_influence_2022, dotson_python_2021}. These
 features of \ac{pygen} reduce the learning curve and the cost of producing
 unique models in \ac{temoa} \cite{dotson_influence_2022}.
+\ac{pygen} was an initial exploration on repeatable analysis and functionality
+extension for an existing \ac{esom}. While successful in that regard, \ac{pygen}
+could not overcome \ac{temoa}'s inherent limitations on optimizing multiple
+objectives and the inability to modify its objective function. Addressing these
+limits led to the development of \ac{osier}.
 
 A single \ac{temoa} run minimizes total system cost \cite{decarolis_temoa_2010},
 
@@ -24,7 +29,7 @@ A single \ac{temoa} run minimizes total system cost \cite{decarolis_temoa_2010},
   C_{fixed} &= \text{the sum of all fixed operating costs},\nonumber\\
   C_{variable} &= \text{the sum of all variable operating costs}.\nonumber
 \end{align}
-
+\noindent
 Each of these terms is amortized over the model time horizon. The decision
 variables include the generation from each technology at time, $t$, and the
 capacity of each technology in year, $y$. The dispatch model deviates slightly
@@ -52,7 +57,7 @@ dotson_influence_2022}:
   \item iterate the procedure,
   \item stop the \ac{mga} when no significant changes are observed.
 \end{enumerate}
-The mathematical formulation of this algorithm is to
+The mathematical formulation of this algorithm is
 \begin{align}
   \intertext{minimize:}
   p &= \sum_{k\in K} x_k,
@@ -68,10 +73,11 @@ The mathematical formulation of this algorithm is to
 \end{align}
 
 Figure \ref{fig:standard_mga} illustrates this algorithm for a simple \ac{lp}
-with two decision variables and a slack value of 10\%.
+with two decision variables and a slack value of 10\%. The problem shown in Figure \ref{fig:standard-mga}
+is
 
 \begin{align}
-  \intertext{Minimize:}
+  \intertext{minimize:}
   f(x_1, x_2) &= c_1x_1 + c_2x_2,
   \intertext{subject to:}
   x_1 &+ x_2 = 1,
@@ -101,22 +107,13 @@ acceptance. However, this method depends on a single objective function which
 does not guarantee that these alternative solutions will be optimal or
 near-optimal for any other measurable objective.
 
-
-\ac{pygen} was an initial exploration on repeatable analysis and functionality
-extension for an existing \ac{esom}. While successful in that regard, \ac{pygen}
-could not overcome \ac{temoa}'s inherent limitations on optimizing multiple
-objectives and the inability to modify its objective function. Addressing these
-limits led to the development of \ac{osier}.
-
-
 \subsection{Data for benchmark problems}
- In order to verify \ac{osier}'s accuracy, this section analyzes an energy
+ In order to validate \ac{osier}'s accuracy, this section analyzes an energy
 system and compare the results against a representative \ac{esom}, \ac{temoa}.
-For this problem, I chose to model the state of Illinois broadly and using
+For this problem, I modeled the state of Illinois broadly and used
 weather data from the Champaign-Urbana region due to its geographic centrality.
-Chapter \ref{chapter:benchmark-results} presents the results from this problem,
-with a variety of optimization criteria. This section describes the data used in
-both models. The basic inputs for \ac{osier} and \ac{temoa} are
+This section describes the data used in the benchmarking exercises for both models. 
+The basic inputs for \ac{osier} and \ac{temoa} are
 \begin{enumerate}
     \item Time series data for
     \begin{itemize}
