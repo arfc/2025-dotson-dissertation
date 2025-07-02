@@ -1,0 +1,29 @@
+\begin{tikzpicture}[node distance=2cm]
+    \definecolor{front-color}{HTML}{d1e0cc}
+    \definecolor{reactor-color}{HTML}{ccd7e0}
+    \definecolor{back-color}{HTML}{eddac5}
+    \tikzstyle{every node}=[font=\small]
+    \tikzstyle{front} = [rectangle, draw, fill=front-color, text width=6em, text centered, rounded corners, minimum height=3em]
+    \tikzstyle{reactor} = [rectangle, draw, fill=reactor-color, text width=6em, text centered, rounded corners, minimum height=3em]
+    \tikzstyle{back} = [rectangle, draw, fill=back-color, text width=6em, text centered, rounded corners, minimum height=3em]
+        \node (front1) [front] {\textbf{Mining}}; 
+        \node (front2) [front, right of=front1, xshift=1cm] {\textbf{Milling}}; 
+        \node (front3) [front, right of=front2, xshift=1cm]{\textbf{Conversion}}; 
+        \node (front4) [front, right of=front3, xshift=1cm]{\textbf{Enrichment}}; 
+        \node (front5) [front, right of=front4, xshift=1cm]{\textbf{Fabrication}}; 
+        \node (reactor1) [reactor, below of=front5]{\textbf{Reactor}}; 
+        \node (back1) [back, below of=reactor1, yshift=-2cm]{\textbf{Interim Storage}}; 
+        \node (back2) [back, left of=reactor1, xshift=-1cm, yshift=-2cm]{\textbf{Reprocessing}}; 
+        \node (back3) [back, left of=back2, xshift=-1cm, yshift=-2cm]{\textbf{Final\\Disposal}}; 
+        \draw [arrow] (front1) -- (front2); 
+        \draw [arrow] (front2) -- (front3); 
+        \draw [arrow] (front3) -- (front4); 
+        \draw [arrow] (front4) -- (front5); 
+        \draw [arrow] (front5) -- (reactor1); 
+        \draw [arrow] (reactor1) -- (back1);
+        \draw [arrow, dashed] (back1) -- (back2); 
+        \draw [arrow, dashed] (back2) -- (back3); 
+        \draw [arrow] (back1) -- (back3); 
+        \draw [arrow, dashed] (back2) to[out=45, in=210] node[anchor=east] {Plutonium} (front5);
+        \draw [arrow, dashed] (back2) to[out=100, in=210] node[anchor=east] {Uranium} (front4);
+\end{tikzpicture}

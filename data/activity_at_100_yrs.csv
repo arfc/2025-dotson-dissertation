@@ -1,0 +1,46 @@
+EG,Calculated Mass (Ci/GWe-yr),Analysis Example Bin Data,Metric Data,Reasons for Changing  Analysis Example Bin Data
+EG01,1340000.0,C,C,
+EG02,1430000.0,C,C,
+EG03,1340000.0,C,C,
+EG04,805000.0,B,B,
+EG05,1390000.0,C,C,
+EG06,1770000.0,D,B,"EG06 would have given similar metric data result as 
+EG08 if similar modeling assumptions had been used 
+in its Analysis Example."
+EG07,1780000.0,D,B,"EG07 would have given similar metric data result as 
+EG08 if an FFH instead of ADS and similar 
+modeling assumptions had been used in its Analysis 
+Example."
+EG08,909000.0,B,B,
+EG09,882000.0,B,B,
+EG10,1420000.0,C,C,
+EG11,1020000.0,B,B,
+EG12,1400000.0,C,C,
+EG13,1330000.0,C,C,
+EG14,1140000.0,C,C,
+EG15,1240000.0,C,C,
+EG16,1260000.0,C,C,
+EG17,1330000.0,C,C,
+EG18,1450000.0,C,C,
+EG19,1140000.0,C,C,
+EG20,1050000.0,C,C,
+EG21,1140000.0,C,C,
+EG22,994000.0,B,B,
+EG23,1030000.0,B,B,
+EG24,1040000.0,B,B,
+EG25,1300000.0,C,C,
+EG26,1300000.0,C,C,
+EG27,1300000.0,C,C,
+EG28,1180000.0,C,C,
+EG29,1130000.0,C,C,
+EG30,954000.0,B,B,
+EG31,1180000.0,C,C,
+EG32,1080000.0,C,C,
+EG33,1220000.0,C,C,
+EG34,1070000.0,C,C,
+EG35,1200000.0,C,C,
+EG36,1020000.0,B,B,
+EG37,1120000.0,C,C,
+EG38,1270000.0,C,C,
+EG39,1300000.0,C,C,
+EG40,1490000.0,C,C,

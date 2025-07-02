@@ -1,0 +1,248 @@
+
+\section{Example 1: Reanalyzing the \acs{set}}
+
+Existing and advanced nuclear reactors will be important resources for
+addressing the multi-dimensional challenge of climate change. Further, new
+nuclear fuel cycle infrastructure will be necessary to support the next
+generation of reactors and handling existing \ac{hlw} waste. Given the myriad
+possible fuel cycle options, how should decision makers choose a fuel cycle to
+pursue? The best currently available tool is the \acf{set}, which was developed
+as part of the \ac{fco} in 2011 after the United States \ac{doe} commissioned a
+report called ``Nuclear Fuel Cycle Evaluation and Screening Study'' (``the
+Study'')\cite{wigeland_nuclear_2014-2}. The \ac{set} and corresponding report
+presented recommendations based on a metric weighting analysis facilitated by
+the \ac{set} where fuel cycles were ranked from ``most promising'' to ``less
+promising'' and the least promising options were given no designation. This
+example extends the work done by the Study by using \ac{osier} to identify
+Pareto optimal solutions and use \ac{mcda} tools to further select interesting
+fuel cycle(s). The next section gives a high-level overview of the nuclear fuel
+cycle. Followed by sections describing the \ac{set} and its methodology. Lastly,
+new results from \ac{osier} are shared and discussed.
+
+% \textcolor{red}{Benefits of using \ac{osier}}: \begin{enumerate} \item Python
+% interface allows direct coupling with external models and data sources for
+% greater flexibility. \item Enables, but does not require, a weighting scheme
+% for decision making. \item Allows users to analyze tradeoffs among competing
+% objectives. \item Allows users to compare lifecycle impacts with non-nuclear
+% technologies. \item Can flexibly add additional assessment criteria (e.g.,
+% Energy return on investment). \end{enumerate}
+
+% \textcolor{red}{Results} \begin{enumerate} \item Does using \ac{osier} support
+% the previous conclusions about the most promising evaluation groups?
+% \end{enumerate}
+
+\subsection{Overview of the Nuclear Fuel Cycle}
+
+The nuclear fuel cycle describes the cradle-to-grave lifecycle of nuclear
+materials. The nuclear fuel cycle begins with extraction via mining or in-situ
+leaching, followed by processing into usable fuel forms, then irradiation in a reactor,
+and finally either disposed of or recycled \cite{tsoulfanidis_review_2013}. Figure
+\ref{fig:nuclear-fuel-cycle} presents a stylized illustration the fuel cycle.
+The light green boxes correspond to stages in the front of the fuel cycle, while
+the beige boxes represent the back of the fuel cycle. Nuclear material generally
+flows in the direction of the solid lines, except in ``closed'' fuel cycles
+where irradiated material takes a detour through some reprocessing stage or
+stages denoted by the dashed arrows. Several stages could be expanded into
+further sub-steps --- these were omitted for simplicity. The Study and the
+\ac{set} represent holistic analyses that include every stage of the fuel cycle.
+
+\begin{figure}[htbp!]
+  \centering
+  \resizebox{\columnwidth}{!}{\input{figures/05_examples_chapter/fuel_cycle}}
+  \caption{Overview of the nuclear fuel cycle. Arrows indicate the flow of
+  materials through the fuel cycle. Dashed lines correspond to a closed fuel
+  cycle.}
+  \label{fig:nuclear-fuel-cycle}
+\end{figure}
+
+\subsection{\ac{set} Metrics and Methodology}
+
+The \ac{set} is an Excel-based application containing metric data from the
+Nuclear Fuel Cycle Evaluation and Screening Study \cite{wigeland_nuclear_2014}
+and an objective weighting calculator to help decision makers identify fuel
+cycles of interest based on their priorities and preferences. The \ac{set}
+evaluates representative fuel cycle options, \acp{eg}, based on a set of nine
+aggregated metrics \cite{wigeland_nuclear_2014}. Table
+\ref{tab:evaluation-metrics} lists these metrics and their sub-criteria. Some
+criteria do not influence the \ac{set} results because all \acp{eg} performed
+equally well. One such metric is ``material attractiveness,'' because all \acp{eg} could be
+implemented with unattractive materials \cite{wigeland_nuclear_2014-1}. Fuel
+cycles were assigned to \acp{eg} based on shared physical principles such that
+differences in implementation could be adequately captured \cite{wigeland_nuclear_2014}.  
+Each of the criteria in Table \ref{tab:evaluation-metrics} were further simplified 
+through a binning process that grouped similarly performing \acp{eg}. Figure 
+\ref{fig:bin-plot} provides an example for how the Study's authors binned the data.
+
+\begin{table}[htbp!]
+    \centering
+    \caption{Evaluation metrics and evaluation criteria
+    \cite{wigeland_nuclear_2014-2}.}
+    \label{tab:evaluation-metrics}
+    \resizebox{0.75\columnwidth}{!}{\input{tables/metric_categories}}
+\end{table}
+
+
+\begin{figure}[htbp!]
+    \centering
+    \resizebox{0.65\columnwidth}{!}{\input{figures/05_examples_chapter/set_bin_plot.pgf}}    
+    \caption{Example of the binning procedure used in the Study for \ac{snf} +
+    \ac{hlw} \cite{wigeland_nuclear_2014-1}.}
+    \label{fig:bin-plot}
+\end{figure}
+
+\FloatBarrier
+
+\subsection{Limitations of the \ac{set}}
+Despite being its status as the best avaiable tool for evaluating fuel cycles in the Study, the
+\ac{set} has some limitations primarily with the methods the Study used for drawing conclusions.
+First, the \ac{set} does not consider Pareto optimality. Users are able to adjust the weights
+for different objectives to obtain different results, but the full space of options is obfuscated
+from users. Second, the Study's authors binned data on two occasions, first to generate the 
+evaluation groups and a second time to make the analysis more tractable. The \ac{set} calculates
+\ac{eg} performance based on these secondary bins, as shown in Figure \ref{fig:bin-plot}. This
+exacerbates differences among \acp{eg} in different bins and eliminates differences among \acp{eg}
+in the same bin. Further challenging the comparison of the \acp{eg}. Lastly, the \ac{set} relies 
+totally on expert input. This is appropriate for generating data for each \ac{eg} or even each fuel
+cycle option. It is unreasonable to expect non-technical stakeholders to opine on which isotopes
+should be separated, or whether a reactor should have a fast or thermal spectrum. But stakeholders
+can certainly weigh-in on the tradeoffs and prioritization of different metrics in the Study. This
+example with \ac{osier} addresses these gaps by using raw data from the Study to identify Pareto
+optimal solutions and present them in a manner that could be used for deliberation with various
+stakeholders. 
+
+\subsection{\ac{osier} Methodology and Data}
+
+The data for this simulation were pulled directly from the Study and its
+appendices
+\cite{wigeland_nuclear_2014,wigeland_nuclear_2014-2,wigeland_nuclear_2014-1}.
+Table \ref{tab:metric-data} describes the data for the simulation. These data
+were used to identify Pareto optimal solutions.  Importantly, \ac{osier} only
+minimizes objectives, so a few metrics were adjusted from the \ac{set}. For
+example, the ``compatibility'' with existing infrastructure was changed to
+minimize \textit{incompatibility} with existing infrastructure. Lastly, since
+decision makers are frequently interested in ``compromise'' solutions a ``high
+tradeoff point'' was identified from the resulting Pareto front by calculating
+the \ac{eg} that minimizes a tradeoff metric given by Equation
+\ref{eqn:tradeoff} \cite{rachmawati_multiobjective_2009}. The \ac{mcda}
+literature refers sometimes refers to these solutions as ``knee'' solutions
+\cite{rachmawati_multiobjective_2009}.
+
+\begin{align}
+    \label{eqn:tradeoff}
+    T\left(X_i, X_j\right) &= \frac{\sum_{1}^{M}\text{max}\left[0, \left(f_m\left(X_j\right) - f_m\left(X_i\right)\right]\right)}
+    {\sum_{1}^{M}\text{max}\left[0, -\left(f_m\left(X_j\right) - f_m\left(X_i\right)\right)\right]},
+    \intertext{where}
+    X_i &= \text{the i-th solution vector}, \nonumber\\
+    f_m &= \text{the m-th objective function}, \nonumber\\
+    M &= \text{the total number of objectives}. \nonumber
+\end{align}
+\noindent
+To prevent any metric from dominating the solutions, all data are normalized
+with the $L_\infty$-norm. Due to the implicit assumption that all fuel cycles
+and evaluation groups are mutually exclusive, the complete set of solutions in
+design space is given by the identity matrix of size $40 \times 40$.
+
+
+\begin{sidewaystable}[htbp!]
+    \centering
+    \caption{Data for the simulation \cite{wigeland_nuclear_2014-1}.}
+    \label{tab:metric-data}
+    \resizebox*{\textwidth}{!}{\input{tables/metric_data_manual.tex}}
+\end{sidewaystable}
+
+\FloatBarrier
+
+\subsection{Results}
+The primary result for this example is the identification of a Pareto front for
+the different \acp{eg} considered in the \ac{set}. Figure
+\ref{fig:full-set-space} shows the output Pareto front.
+
+\begin{figure}[htbp!]
+  \centering
+  \resizebox{0.85\columnwidth}{!}{\input{figures/05_examples_chapter/full_set_plot.pgf}}
+  \caption{The Pareto front for the \ac{set}.}
+  \label{fig:full-set-space}
+\end{figure}
+
+The solutions are colored based on the type of recycling present in the
+representative fuel cycle. Red, green, and blue solutions correspond to
+once-through, limited-recycle, and continuous-recycle fuel cycles, respectively.
+By inspection, the limited- and continuous-recycle \acp{eg} perform similarly on
+mass of \ac{hlw} requiring disposal, activity of \ac{snf} and \ac{hlw} at
+100,000 years, water use, safety challenges, and natural thorium requirements.
+The \acp{eg} with recycling have a larger spread over the activity at 100 years,
+land use, and disposed mass of \ac{du}. This is because these fuel cycles vary
+by degree of recycling and isotope separation. The once-through fuel cycles vary
+widely in performance across all objectives. There is an apparent ``lower'' density
+of results in the latter five objectives: development cost, development time, \ac{foak}
+cost, incompatibility, and unfamiliarity. This is because these objectives were based on
+categorical variables rather than continuous ones. The low density of solutions is the
+result of overlapping solutions.
+
+% Figure \ref{fig:once-through-set-space} highlights the evaluation groups
+% representing once-through fuel cycles.
+
+% \begin{figure}[htbp!] \centering
+%   \resizebox{0.8\columnwidth}{!}{\input{figures/05_examples_chapter/once-through_set_plot.pgf}}
+%   \caption{The \ac{set} Pareto front with once-through fuel cycles
+%   highlighted.} \label{fig:once-through-set-space} \end{figure}
+
+Next, Figure \ref{fig:single-eg-set-space} identifies a tradeoff minimizing
+``knee'' solution. This solution represents a once-through fuel cycle using
+natural uranium fuel in fast critical reactors to very high burnup
+\cite{wigeland_nuclear_2014-2}.
+
+\begin{figure}[htbp!]
+  \centering
+  \resizebox{0.85\columnwidth}{!}{\input{figures/05_examples_chapter/single-eg_set_plot.pgf}}
+  \caption{A high tradeoff ``knee'' solution from the \acp{eg} in the \ac{set}.}
+  \label{fig:single-eg-set-space}
+\end{figure}
+
+\noindent
+EG04 performs well on several quantitative metrics and middlingly on the metrics associated 
+with institutional challenges and development costs.
+
+\FloatBarrier
+% \begin{figure}[htbp!] \centering
+%   \resizebox{0.8\columnwidth}{!}{\input{figures/05_examples_chapter/non_optimal_set_plot.pgf}}
+%   \caption{The set of non-Pareto optimal solutions given by the \ac{set}.}
+%   \label{fig:non-optimal-eg-set-space} \end{figure}
+
+\noindent
+Finally, Table \ref{tab:summary-data} summarizes the results from the \ac{set} and
+\ac{osier} simulation. Highlighted rows indicate places where the \ac{set} and \ac{osier}
+disagree while the color corresponds to the nature of the disagreement. Orange rows are
+Pareto optimal solutions, as identified by \ac{osier}, that the Study did not designate as promising ---
+reinterpreted here as ``not promising.'' Yellow rows are those \acp{eg} designated as ``most promising''
+or ``potentially promising'' by the Study that \ac{osier} found to be sub-optimal. The solitary green row
+highlights that the Study categorized EG04 as ``less promising'' while \ac{osier} identified it as the 
+only ``knee'' solution which suggests a higher qualitative ranking (e.g., ``most'' or ``potentially'' promising). 
+
+\begin{table}[htbp!]
+    \centering
+    \caption{Summary of \ac{set} and \ac{osier} data. Highlighted rows indicate
+    disagreement between \ac{osier} and \ac{set} results.}
+    \label{tab:summary-data}
+    \resizebox*{0.75\textwidth}{!}{\input{tables/summary_data.tex}}
+\end{table}
+
+\FloatBarrier
+
+\subsection{Discussion}
+
+\ac{osier} and the Study disagree on precisely half of the \acp{eg}' categorization. Although the
+Study rankings are more granular than whether a solution is Pareto optimal (a binary), its recommendations
+elevated several \acp{eg} that \ac{osier} found to be sub-optimal, while dismissing several Pareto optimal
+ones. Solutions on the Pareto front are all considered co-optimal, by definition. Differences emerge when 
+\ac{mcda} tools are applied based on inputs and preferences from decision makers and/or stakeholders.
+The most likely culprit for the disagreement between \ac{osier} and the \ac{set} is the binning process
+described earlier. While the \acp{eg} are ``bins'' of fuel cycles sharing similar physical characteristics,
+further binning the data into smaller sub-groups results in a loss of information. The second source of disagreement
+is possibly from the dependence on expert judgement. Table \ref{tab:summary-data} evinces a bias in favor of closed
+fuel cycles.
+
+Finally, the data from the Study and the \ac{set} are static. If future studies wish to evaluate different metrics
+associated with these fuel cycles or update the data based on new information, new fuel cycle simulations must be run.
+The future work section, Section \ref{section:future-work}, describes how \ac{osier} could be used on conjunction
+with other codes to address this issue. 
