@@ -182,9 +182,9 @@ optimizers = ['logical','optimal']
 scenarios = ['gas', 'wind', 'all']
 rule run_dispatch_comparison:
     output:
-        demand_plot = f"{docs_path}figures/04_benchmark_chapter/demand_plot.pgf",
         demand_data = f"{data_path}synthetic_demand_data.pkl",
-        wind_plot = f"{docs_path}figures/04_benchmark_chapter/wind_plot.pgf",
+        windpower_data = f"{data_path}synthetic_windpower_data",
+        windspeed_data = f"{data_path}synthetic_windspeed_data",
         objective_results = f"{data_path}algorithm_comparison_objective_results.csv",
         objective_table = f"{docs_path}tables/algorithm_comparison_results.tex",
         dispatch_data = expand("../data/{scenario}_dispatch_results_{opt}.csv", 
@@ -192,6 +192,17 @@ rule run_dispatch_comparison:
                                 opt=optimizers)
     script:
         "scripts/04-benchmark-scripts/compare_dispatch.py"
+
+rule plot_wind_demand_data:
+    input:
+        demand_data = f"{data_path}synthetic_demand_data.pkl",
+        windpower_data = f"{data_path}synthetic_windpower_data",
+        windspeed_data = f"{data_path}synthetic_windspeed_data"
+    output:
+        demand_plot = f"{docs_path}figures/04_benchmark_chapter/demand_plot.pgf",
+        wind_plot = f"{docs_path}figures/04_benchmark_chapter/wind_plot.pgf",
+    script:
+        "scripts/04-benchmark-scripts/plot_wind_demand_data.py"
 
 rule plot_dispatch_comparison:
     input:

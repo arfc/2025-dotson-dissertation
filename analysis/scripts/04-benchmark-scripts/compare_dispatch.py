@@ -96,17 +96,6 @@ if __name__ == "__main__":
     demand += noise
 
     demand = demand / demand.max()
-
-    # plot demand
-    print("Plotting the demand profile")
-    fig, ax = plt.subplots()
-    ax.plot(hours, demand, color='k', linestyle='--')
-    ax.grid()
-    ax.set_ylabel("Normalized Demand [-]", fontsize=18)
-    ax.set_xlabel("Time [hours]", fontsize=18)
-    ax.set_xlim(0,168)
-    plt.savefig(snakemake.output.demand_plot)
-
     demand *= 1e3 * MW
 
     with open(snakemake.output.demand_data, "wb") as f:
@@ -120,19 +109,11 @@ if __name__ == "__main__":
     wind_speed /= wind_speed.max()
     wind_power /= wind_power.max()
 
-    # breakpoint()
+    with open(snakemake.output.windspeed_data, "wb") as f:
+        pickle.dump(wind_speed, f)
 
-    # plot wind
-    print("Plotting the wind profile")
-    fig, ax = plt.subplots()
-    ax.plot(hours, wind_power, color='tab:blue', label="Turbine Power")
-    ax.plot(hours, wind_speed, color='green', linestyle='-', label="Wind Speed")
-    ax.grid()
-    ax.set_ylabel("Normalized Wind Speed [-]", fontsize=18)
-    ax.set_xlabel("Time [hours]", fontsize=18)
-    ax.set_xlim(0,47)
-    ax.legend(fontsize=12)
-    plt.savefig(snakemake.output.wind_plot)
+    with open(snakemake.output.windpower_data, "wb") as f:
+        pickle.dump(wind_power, f)
 
     wind_power *= wind.capacity
 

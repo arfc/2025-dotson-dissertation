@@ -8,8 +8,8 @@ described in Section \ref{section:mga} with a 10\% slack variable added to
 points from \ac{temoa} in red and \ac{osier}'s Pareto-front for the same problem
 in black. The red- and gray-shaded regions are the sub-optimal spaces (i.e.,
 within 10\% of any objective) for \ac{temoa} and \ac{osier}, respectively. The
-solid black points indicates points along the Pareto-front, while the open black
-points are points tested in early generations of the \ac{osier}
+solid black points indicate solutions along the Pareto-front, while the open black
+points are solutions tested in early generations of the \ac{osier}
 simulation.\footnote{There are many more tested points than shown in Figure
 \ref{fig:temoa-benchmark-01}. For simplicity and clarity, Figure
 \ref{fig:temoa-benchmark-01} shows a random subset of points.}
@@ -81,12 +81,13 @@ selected points from \ac{osier}'s near-optimal space. Lastly, Figure
 indicate which technologies are always or usually present. Technologies that are
 absent in all cases, including the near-optimal solutions, may be safely
 ignored. For \ac{osier}, these technologies include both types of coal, biomass,
-and largely ignores wind energy. In \ac{temoa}'s results, there are no
+and, largely, wind energy. In \ac{temoa}'s results, there are no
 technologies that are totally absent. This result is due to the imperative built
 into standard \ac{mga} to identify solutions that are maximally different in
 design space and its basis on a single objective. \ac{osier}'s \ac{mga} formulation
 increased the spread of several technologies and includes ``advanced'' natural gas
-(with \ac{ccs}). This supports the assertion that \ac{osier} samples near-optimal
+(with \ac{ccs}). Wind energy also shows up more frequently in the \ac{mga} plot.
+This supports the assertion that \ac{osier} samples near-optimal
 solutions based on maximally different solutions, with additional restrictions 
 from the dual objective problem. Thus, Figure \ref{fig:temoa-benchmark-03}b shows
 no solutions with a biomass or advanced coal. There is one solution with a small amount

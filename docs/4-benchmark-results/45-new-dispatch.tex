@@ -16,12 +16,13 @@ optimizer used, and the value of the objective function.
 \end{table}
 
 \noindent
-The first two cases in Table \ref{tab:dispatch-results} show that the two
-algorithms had perfect agreement. The two optimizers disagree on the final case
+The first two cases in Table \ref{tab:dispatch-results} show perfect agreement between 
+the two algorithms. However, they disagree on the final case
 with a battery storage technology. Figure \ref{fig:dispatch-comparison} compares
-the dispatch results for the two optimizers. The first plot was calculated with
-the logical dispatch algorithm and the bottom plot was calculated with the
-optimal dispatch algorithm. Figure \ref{fig:dispatch-results} shows that the two
+the dispatch results for the two methods. Figure
+\ref{fig:dispatch-comparison}a was calculated with the logical dispatch
+algorithm and Figure \ref{fig:dispatch-comparison}b was calculated with the
+optimal dispatch algorithm. These plots show that the two
 algorithms dispatch the same amounts of wind and nuclear energy. However, the
 two algorithms differ in their usage of battery storage which causes further
 differences in the dispatch of natural gas and total curtailment.
@@ -37,14 +38,14 @@ differences in the dispatch of natural gas and total curtailment.
 
 The optimal dispatch algorithm uses a linear programming formulation to arrive
 at an optimal solution with perfect foresight. The logical dispatch algorithm
-uses a rules-based approach to dispatch energy according to merit order.
+uses a rule-based approach to dispatch energy according to merit order.
 However, this algorithm is myopic since dispatch is calculated serially. These
-differences totally account for the differences their dispatch results. The
+differences totally account for the differences in their dispatch results. The
 optimal dispatch algorithm uses battery storage more effectively than its
 rule-based counterpart because it optimizes the entire time series at once.
 Since the logical algorithm uses battery storage imperfectly, it fills the
 energy gaps with natural gas and more energy is curtailed rather than used.
-Although, the ``optimal'' solution performs better on a pure cost basis, the
+Although, the optimal dispatch solution performs better on a pure cost basis, the
 myopia of the logical dispatch algorithm is possibly more ``realistic.''
 Further, since the logical dispatch algorithm does not have an energy balance
 constraint for all time steps, users can more easily estimate reliability and
@@ -98,18 +99,19 @@ by 24 gives the total number of timesteps.
 dispatch algorithm by nearly two orders of magnitude. This is because the linear
 program has some overhead when writing and copying equations that the rule-based
 calculation does not. The logical algorithm initially grows more quickly until
-the models reach 10$^2$ modeled days after which the two algorithms scale
+the models reach 100 modeled days after which the two algorithms scale
 similarly and the logical dispatch algorithm remains approximately 2.5 times
 faster than its optimal counterpart.
 
 \subsection{Exercise 3: Parallelization}
 
-\acp{ga} are considered ``embarrassingly parallelizable'' since the performance
-of each individual in a population is independent from the others. However there
+\Acp{ga} are considered ``embarrassingly parallelizable'' since the performance
+of each individual in a population is independent from the others. However, there
 a some difficulties with solving multiple parallel instances of \ac{lp} solvers
 since these solvers frequently have some parallel optimizations built-in. For
-now, this means that capacity expansion problems are restricted to serial
-calculations. This is not so for the logical dispatch algorithm since it does
+now, this restricts capacity expansion problems within \ac{osier} that use linear 
+programming to serial calculations. This is not so for the logical dispatch algorithm 
+since it does
 not use an \ac{lp} solver. Therefore, this exercise looks exclusively at how the
 logical dispatch algorithm scales with number of threads available. Once again,
 the dispatch algorithm is driven by \ac{osier}'s \texttt{CapacityExpansion}
@@ -131,25 +133,27 @@ class whose parameters are described in Table \ref{tab:thread-scaling-params}.
 \end{table}
 
 \noindent In this exercise, the problem is scaled by the population size of each
-generation. The study was performed on a 2024 MacBook Pro with an M4 Pro CPU and 48 GB of
-RAM with the macOS Sequoia 15.5 operating system.
-Figure \ref{fig:thread-scaling} shows the results for this exercise.
+generation. The study was performed on a 2024 MacBook Pro with an M4 Pro CPU, 
+48 GB of RAM, and the macOS Sequoia 15.5 operating system. Figure
+\ref{fig:thread-scaling} shows the results for this exercise.
 
 \begin{figure}[htbp!]
     \centering
     \resizebox{0.75\columnwidth}{!}{\input{figures/04_benchmark_chapter/thread_scaling_plot.pgf}}
-    \caption{Time scaling of a capacity expansion problem 
-    using a range of threads for parallelization.}
+    \caption{Time scaling of a capacity expansion problem using a range of
+    threads for parallelization.}
     \label{fig:thread-scaling}
 \end{figure}
 
-\noindent All simulations perform similarly when the problem size is small because multithreading
-has some overhead. Multiple threads outperformed the single threaded simulation in every case. 
-Eight threads outperformed twelve threads in the middle of the population range, but otherwise 
-performed similarly. Simulations with two and four threads performed similarly until the higher
-end of the population range where four threads proved faster. The overall speed improvement from multithreading
-was modest with a roughly four second improvement at best. This suggests that further code optimization
-could improve performance and that better computer architecture might be needed to fully realize
-the parallelization enhancement.
+All simulations perform similarly when the problem size is small
+because multithreading has some overhead. Multiple threads outperformed the
+single threaded simulation in every case. Eight threads outperformed twelve
+threads in the middle of the population range, but otherwise performed
+similarly. Simulations with two and four threads performed similarly until the
+higher end of the population range where four threads proved faster. The overall
+speed improvement from multithreading was modest with a roughly four second
+improvement at best. This suggests that further code optimization could improve
+performance and that better computer architecture might be needed to fully
+realize the parallelization enhancement.
 
 \FloatBarrier
