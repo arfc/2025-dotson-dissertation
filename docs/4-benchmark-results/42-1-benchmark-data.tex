@@ -20,7 +20,7 @@ could not overcome \ac{temoa}'s inherent limitations on optimizing multiple
 objectives and the inability to modify its objective function. Addressing these
 limits led to the development of \ac{osier}.
 
-A single \ac{temoa} run minimizes total system cost \cite{decarolis_temoa_2010},
+A single \ac{temoa} run minimizes total system cost as\cite{decarolis_temoa_2010},
 
 \begin{align}
   C_{total} &= C_{loans} + C_{fixed} + C_{variable}
@@ -37,7 +37,7 @@ from the model described in Section \ref{section:dispatch} by making the initial
 storage level for energy storage technologies a decision variable, whereas the
 dispatch model used in this thesis does not optimize initial storage and assumes
 energy storage starts at zero. The detailed formulation of \ac{temoa}'s
-constraints and equations are available online \cite{decarolis_temoa_2010}.
+constraints and equations are available through online documentation \cite{decarolis_temoa_2010}.
 % (\textcolor{red}{maybe in an appendix?}). 
 
 \subsection{\acl{mga}}
@@ -54,7 +54,7 @@ dotson_influence_2022}:
   \item use the adjusted objective function value as an upper bound constraint,
   \item generate a new objective function that minimizes the sum of all decision
   variables,
-  \item iterate the procedure,
+  \item iterate the procedure and,
   \item stop the \ac{mga} when no significant changes are observed.
 \end{enumerate}
 The mathematical formulation of this algorithm is
