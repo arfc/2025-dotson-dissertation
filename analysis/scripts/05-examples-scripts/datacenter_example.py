@@ -150,7 +150,8 @@ if __name__ == "__main__":
                                 objectives = [total_cost, 
                                             partial(annual_emission, emission='co2_rate'),
                                             eroi_objective],
-                                solver=solver
+                                solver=solver,
+                                model_engine='logical'
                                 )
     
 

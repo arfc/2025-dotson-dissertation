@@ -346,24 +346,26 @@ rule create_dc_model:
     script:
         "scripts/05-examples-scripts/datacenter_example.py"
 
-# rule solve_datacenter:
-#     input:
-#         dc_problem = f"{data_path}datacenter_problem.pkl"
-#     output:
-#         dc_results = f"{data_path}datacenter_results.pkl"
-#     script:
-#         "scripts/05-examples-scripts/solve_datacenter.py"
+rule solve_datacenter:
+    input:
+        dc_problem = f"{data_path}datacenter_problem.pkl"
+    output:
+        dc_results_F = f"{data_path}dc_results_F.pkl",
+        dc_results_X = f"{data_path}dc_results_X.pkl",
+        convergence = f"{docs_path}figures/05_examples_chapter/dc_convergence_plot.pgf",
+    script:
+        "scripts/05-examples-scripts/solve_datacenter.py"
 
 rule plot_datacenter:
     input:
         tech_list = f"{data_path}datacenter_techlist.pkl",
-        dc_results = f"{data_path}datacenter_results.pkl"
+        dc_results_F = f"{data_path}dc_results_F.pkl",
+        dc_results_X = f"{data_path}dc_results_X.pkl",
     output:
         dc_objective_space = f"{docs_path}figures/05_examples_chapter/dc_objective_space.pgf",
         dc_objective_space_10 = f"{docs_path}figures/05_examples_chapter/dc_objective_space_10.pgf",
         dc_design_space = f"{docs_path}figures/05_examples_chapter/dc_design_space.pgf",
         dc_design_space_10 = f"{docs_path}figures/05_examples_chapter/dc_design_space_10.pgf",
-        convergence = f"{docs_path}figures/05_examples_chapter/dc_convergence_plot.pgf",
     script:
         "scripts/05-examples-scripts/plot_datacenter.py"
 
