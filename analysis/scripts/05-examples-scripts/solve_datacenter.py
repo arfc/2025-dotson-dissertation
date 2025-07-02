@@ -10,6 +10,7 @@ import time
 # pymoo imports
 from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.optimize import minimize
+from pymoo.indicators.hv import HV
 from pymoo.termination.max_gen import MaximumGenerationTermination
 
 
@@ -44,14 +45,12 @@ if __name__ == "__main__":
                         verbose=True)
         # save results
         print('Saving simulation results')
-        with open(snakemake.output.dc_results, "wb") as file:
-            pickle.dump(res, file)
-        # save final checkpoint
-        timestr = time.strftime("%Y%m%d-%H%M%S")
-        checkpoint_name = f"checkpoint_{timestr}.pkl"
-        print(f"Saving final simulation checkpoint to {checkpoint_name}")
-        with open(checkpoint_name, "wb") as f:
-            pickle.dump(algorithm, f)
+        with open(snakemake.output.dc_results_F, "wb") as file:
+            pickle.dump(res.F, file)
+
+        with open(snakemake.output.dc_results_X, "wb") as file:
+            pickle.dump(res.X, file)
+
     except KeyboardInterrupt:
         # save checkpoint on early termination
         timestr = time.strftime("%Y%m%d-%H%M%S")
@@ -61,5 +60,25 @@ if __name__ == "__main__":
         with open(checkpoint_name, "wb") as f:
             pickle.dump(algorithm, f)
 
+    ref_point = np.max(np.array([opt.F for opt in res.history[0].opt]), axis=0)
+
+    ind = HV(ref_point=ref_point)
+
+    performance_list = []
+    for pop in res.history:
+        pop_pf = np.array([e.F for e in pop.opt])
+        performance_list.append(ind(pop_pf))
+
+    n_evals = np.array([e.evaluator.n_eval for e in res.history])
+
+    plt.title("Convergence", fontsize=18)
+    plt.plot(n_evals, performance_list, "--")
+    plt.ylabel("Hypervolume", fontsize=18)
+    plt.xlabel("Evaluations", fontsize=18)
+    plt.ylim(min(performance_list), max(performance_list)*1.005)
+    plt.xlim(0, max(n_evals))
+    plt.grid()
+    plt.tight_layout()
+    plt.savefig(snakemake.output.convergence)
         
     

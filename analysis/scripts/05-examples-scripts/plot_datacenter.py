@@ -27,35 +27,14 @@ plt.rcParams['legend.shadow'] = False
 
 if __name__ == "__main__":
     
-    with open(snakemake.input.dc_results, "rb") as f:
-        res = pickle.load(f)
+    with open(snakemake.input.dc_results_X, "rb") as f:
+        res_X = pickle.load(f)
+
+    with open(snakemake.input.dc_results_F, "rb") as f:
+        res_F = pickle.load(f)
     
     with open(snakemake.input.tech_list, "rb") as f:
         tech_list = pickle.load(f)
-
-    # convergence plot 
-
-    ref_point = np.max(np.array([opt.F for opt in res.history[0].opt]), axis=0)
-
-    ind = HV(ref_point=ref_point)
-
-    performance_list = []
-    for pop in res.history:
-        pop_pf = np.array([e.F for e in pop.opt])
-        performance_list.append(ind(pop_pf))
-
-    n_evals = np.array([e.evaluator.n_eval for e in res.history])
-
-    plt.title("Convergence", fontsize=18)
-    plt.plot(n_evals, performance_list, "--")
-    plt.ylabel("Hypervolume", fontsize=18)
-    plt.xlabel("Evaluations", fontsize=18)
-    plt.ylim(min(performance_list), max(performance_list)*1.005)
-    plt.xlim(0, max(n_evals))
-    plt.grid()
-    plt.tight_layout()
-    plt.savefig(snakemake.output.convergence)
-    
 
     # objective space
 
@@ -71,11 +50,11 @@ if __name__ == "__main__":
 
     plot.set_axis_style(color="grey", alpha=0.5)
     plot.tight_layout = True
-    plot.add(res.F, color="grey", alpha=0.3)
+    plot.add(res_F, color="grey", alpha=0.3)
 
     for i, label in enumerate(obj_labels):
-        min_idx = np.where(res.F[:,i]==min(res.F[:,i]))[0][0]
-        plot.add(res.F[min_idx], 
+        min_idx = np.where(res_F[:,i]==min(res_F[:,i]))[0][0]
+        plot.add(res_F[min_idx], 
                  linewidth=2, 
                  label=f"min({label})", 
                  marker=obj_markers[i], 
@@ -98,15 +77,15 @@ if __name__ == "__main__":
 
     plot.set_axis_style(color="grey", alpha=0.5)
     plot.tight_layout = True
-    plot.add(res.X, color="grey", alpha=0.3)
+    plot.add(res_X, color="grey", alpha=0.3)
 
     for i, label in enumerate(obj_labels):
-        min_idx = np.where(res.F[:,i]==min(res.F[:,i]))[0][0]
+        min_idx = np.where(res_F[:,i]==min(res_F[:,i]))[0][0]
         # if i == 2:
         #     continue
-        plot.add(res.X[min_idx], linewidth=2, label=f"min({label})", marker=obj_markers[i], markersize=10, color=obj_colors[i])
-        # plot.add(res.F[3], linewidth=5, color="tab:green", label=r"Least CO$_2$")
-        # plot.add(res.F[6], linewidth=5, color="tab:blue", label="Least Cost")
+        plot.add(res_X[min_idx], linewidth=2, label=f"min({label})", marker=obj_markers[i], markersize=10, color=obj_colors[i])
+        # plot.add(res_F[3], linewidth=5, color="tab:green", label=r"Least CO$_2$")
+        # plot.add(res_F[6], linewidth=5, color="tab:blue", label="Least Cost")
     plot.save(snakemake.output.dc_design_space)
 
 
@@ -130,17 +109,17 @@ if __name__ == "__main__":
 
     plot.set_axis_style(color="grey", alpha=0.5)
     plot.tight_layout = True
-    plot.add(res.F, color="grey", alpha=0.3)
+    plot.add(res_F, color="grey", alpha=0.3)
     for i, (obj, colors) in enumerate(obj_colors.items()):
         # get the n_smallest values
-        F_i = res.F[:,i]
+        F_i = res_F[:,i]
         idx_smallest = np.argpartition(F_i, n)[:n]
 
         # generate color map
         cmap = colors
         color=mcp.gen_color(cmap=cmap,n=n+1)
 
-        F_smallest = res.F[idx_smallest]
+        F_smallest = res_F[idx_smallest]
         for j, f in enumerate(F_smallest):
             plot.add(f, linewidth=2, color=color[j], marker=markers[i])
 
@@ -158,17 +137,17 @@ if __name__ == "__main__":
 
     plot.set_axis_style(color="grey", alpha=0.5)
     plot.tight_layout = True
-    plot.add(res.X, color="grey", alpha=0.3)
+    plot.add(res_X, color="grey", alpha=0.3)
     for i, (obj, colors) in enumerate(obj_colors.items()):
         # get the n_smallest values
-        F_i = res.F[:,i]
+        F_i = res_F[:,i]
         idx_smallest = np.argpartition(F_i, n)[:n]
 
         # generate color map
         cmap = colors
         color=mcp.gen_color(cmap=cmap,n=n+1)
 
-        X_i = res.X[idx_smallest]
+        X_i = res_X[idx_smallest]
         for j, x in enumerate(X_i):
             plot.add(x, linewidth=2, color=color[j], marker=markers[i])
 
