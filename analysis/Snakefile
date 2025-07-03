@@ -414,9 +414,16 @@ rule plot_uiuc_emissions:
     script:
         "scripts/07-interview-scripts/plot_uiuc_emissions.py"
 
+rule plot_illinois_regions:
+    output:
+        illinois_plot = f"{docs_path}figures/07_interview_chapter/illinois_plot.pgf"
+    script:
+        "scripts/07-interview-scripts/plot_illinois_regions.py"
+
 rule interview_chapter:
     input:
-        uiuc_emissions_plot = f"{docs_path}figures/07_interview_chapter/uiuc_emissions_plot.pgf"
+        uiuc_emissions_plot = f"{docs_path}figures/07_interview_chapter/uiuc_emissions_plot.pgf",
+        illinois_plot = f"{docs_path}figures/07_interview_chapter/illinois_plot.pgf",
     output:
         ch7_log
     shell:
