@@ -43,6 +43,7 @@ if __name__ == "__main__":
     # ax.set_ylim(0,600e3)
     ax.set_yscale('log')
     ax.grid()
+    ax.grid(which='minor', alpha=0.4, linestyle='--')
     ax.legend()
     ax.set_xlabel("")
     ax.set_ylabel("Emissions [MTCO2$_{eq}$]", fontsize=18)
