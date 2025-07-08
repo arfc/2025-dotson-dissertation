@@ -26,7 +26,7 @@ plt.rcParams['legend.shadow'] = False
 if __name__ == "__main__":
     # gdf = gpd.read_file("https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_state_20m.zip")
 
-    counties = gpd.read_file("https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_county_500k.zip")
+    counties = gpd.read_file(snakemake.input.illinois_data)
 
 
     ax = counties.loc[counties['STATE_NAME'] == 'Illinois'].plot(ec='k',alpha=0.2)
