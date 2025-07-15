@@ -64,8 +64,111 @@ hypothesis comes from the implicit suppositions in a few papers. }
     \item Evaluates a specific energy modeling tool and features of that tool.
 \end{enumerate}
 
+\section{Energy Procurement in Illinois}
+
+This section describes the ways consumers and municipalities procure electricity
+in Illinois. This context is essential for understanding the structural barriers
+preventing municipalities from taking advantage of energy modeling tools to aid
+planning and elucidates the frequently limited scope of municipal energy plans.
+Figure \ref{fig:illinois-flow-chart} provides a visual guide for electricity
+procurement from the perspective of an individual consumer with arrows
+indicating directional relationships.
+
+First, Illinois belongs to two \acp{rto}, \ac{pjm} and \ac{miso}, which conduct
+wholesale energy auctions through which market participants purchase
+electricity. Residential customers do not participate directly in open energy
+market. Instead they interface with a utility or municipality which procures
+electricity on their behalf. Some municipalities, such as Naperville, own their
+own utilities. Second, Illinois restructured its electricity market in 1997,
+prohibiting \aclp{iou} from owning both transmission infrastructure and
+generating infrastructure. \cite{illinois_90th_general_assembly_electric_1997}.
+This means that \acp{iou} must purchase electricity on the open market rather
+than having in-house generation. Municipally-owned utilities are exempt from
+this rule. Finally, the deregulation of Illinois' electricity market limits the
+state legislature's ability to force the construction of new generation or the
+retirement of old generation. The legislature can direct the \ac{ipa} to procure
+a certain amount of generation from specific generators and the legislature may
+enact policies which incentivize desirable generators to come to Illinois.
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.75\columnwidth]{figures/07_interview_chapter/illinois-electric-choice.drawio.png}
+    % \resizebox{0.75\columnwidth}{!}{\input{figures/07_interview_chapter/illinois-electric-choice.drawio.svg}}
+    \caption{A flow chart describing how consumers may procure electricity in
+    Illinois. \textcolor{red}{!! NOT FINAL !!}}
+    \label{fig:illinois-flow-chart}
+\end{figure}
+
+Figure \ref{fig:illinois-flow-chart} shows consumers residing within
+municipalities. Municipalities that own and operate a utility may obtain
+electric supply by owning electric generation, participating in the energy
+market, or contracting with another organization, such as the \ac{imea}, to
+handle the supply procurement. In turn, \ac{imea} can procure energy by owning
+generating capacity, or through the energy market. Most municipalities in
+Illinois are served by one of the two major \acp{iou}, Ameren or ComEd. Due to
+the Public Utilities Act of 1997, these utilities cannot profit on the supply of
+electricity \cite{illinois_90th_general_assembly_electric_1997}. Rather, their
+customers (consumers or municipalities) direct the utility to supply electricity
+from a chosen supplier. If customers do not choose a supplier, they will receive
+the default supply, procured by the \ac{ipa}. In Illinois, consumers can opt for
+their municipality (where allowed) to negotiate electricity prices on their
+behalf through \ac{mca}. Municipalities may either select from an \ac{ares} or
+choose the default supply. Consumers that reside in a municipality without
+\ac{mca} may still choose to purchase electricity supply from an \ac{ares} as an
+individual. Of course, consumers and municipalities may, where permitted, obtain
+energy by investing in \ac{btm} resources, commonly rooftop solar panels or
+batteries. Municipalities that currently outsource their electricity procurement
+to \ac{imea} are contractually prohibited from building certain \ac{btm}
+resources.
+ 
+% This section answers the following questions \begin{enumerate} \item Where do
+% consumers get their energy from? For example, the open energy market, their
+% municipality, municipal electric aggregation, or some default supply decided
+% by the state of Illinois. \item How do suppliers of electricity, decide what
+% types of generators in which to invest? For example, the \ac{imea} procures
+% electricity on behalf of their member communities from the open market, and
+% also owns part of the Prairie coal plant. \end{enumerate}
+
 \section{Methodology}
 \label{section:interview-methods}
+
+\subsection{Interview Data Collection}
+
+A total of thirteen interviews were conducted through the second half of 2024
+and beginning of 2025 using a semi-structured approach.
+
+\begin{enumerate}
+    \item Who did I interview and what organizations were they from?
+    \item Why did I choose these interviews?
+    \item What do the different columns mean in Table \ref{tab:interviewees}?
+    \item When were the interviews conducted?
+    \item How were the interviews conducted? (i.e., over Zoom)
+    
+\begin{table}[ht!]
+    \centering
+    \caption{Interview participant codes and summary}
+    \label{tab:interviewees}
+    \begin{tabular}{llll}
+        \toprule
+        Number & Participant Code & Organization & Type \\
+        \midrule
+        1& UP1 &Urbana& Practitioner\\ % 
+        2& UP2 &\ac{uiuc}/Urbana& Practitioner\\ % 
+        3& UM1 &Urbana & Policy maker\\ % 
+        4& UI1 & \ac{uiuc} & Practitioner\\ % 
+        5& CP1 & Champaign & Practitioner\\ % 
+        6& IP1 & \ac{icc} & Practitioner\\ % 
+        7& IP2 & \ac{ipa} & Practitioner\\ % 
+        8& IA1 && Advocate\\ % 
+        9& IA2 &\ac{icea}& Practitioner\\ % 
+        10& IA3 &Illinois \ac{cub} & Advocate\\ % 
+        11& NP1 & Naperville & Practitioner\\ % 
+        12& NA1 &\acs{nest}&Advocate\\ % 
+        13& NA2 &\acs{nest}&Advocate\\ % 
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 \subsection{Thematic Analysis}
 This section describes a multiple-case study using interviews with energy
@@ -104,23 +207,15 @@ of the \texttt{Taguette} software.
     \label{fig:taguette}
 \end{figure}
 
-\subsection{Interview Data Collection}
-
-A total of thirteen interviews were conducted through the second half of 2024
-and beginning of 2025 using a semi-structured approach.
-
-\begin{enumerate}
-    \item Who did I interview and what organizations were they from?
-    \item Why did I choose these interviews?
-    \item When were the interviews conducted?
-    \item How were the interviews conducted? (i.e., over Zoom)
 \end{enumerate}
 
 \section{Case Regions}
 \label{section:cases}
 
-Table \ref{tab:demographics} shows the sizes of each planning context by
-population.
+The case regions for this study were chosen to cover a breadth of energy
+planning circumstances. Collectively, the regions cover the entire spectrum of
+possibilities illustrated in Figure \ref{fig:illinois-flow-chart}. Table
+\ref{tab:demographics} shows the sizes of each planning context by population.
 
 Figure \ref{fig:illinois-plot} highlights the case study regions within a map of
 Illinois. Due to their proximity, \ac{uiuc}, Champaign, and Urbana are
@@ -137,43 +232,51 @@ identified together.
 Illinois is split between two \acp{rto}, MISO and PJM.
 
 \begin{enumerate}
-    \item \ac{icc}
-    \item \ac{ipa}
-    \item \ac{icea}
-    \item \ac{imea}
-    \item Illinois \ac{cub} --- the Illinois \ac{cub} formed in 1983 after
+    \item \acf{icc}
+    \item \acf{ipa} --- 
+    \item \acf{icea} --- The \ac{icea} is a lobbying organization that
+    represents the interests of various \acp{ares} and ``advance retail
+    competition, customer choice, and competitive retail energy issues in the
+    electricity and gas markets before the \ac{icc}, and the Illinois
+    Legislature and among stakeholders, policymakers, and the media."
+    \item \acf{imea}
+    \item Illinois \acf{cub} --- the Illinois \ac{cub} formed in 1983 after
     Illinois passed the Citizen's Utility Board Act
-    \cite{illinois_83rd_general_assembly_citizens_1983}. The \ac{cub} is a nonpartisan organization that
-    educates consumers and advocates for public health and affordable utilities at the \ac{icc}. Indeed,
-    the \ac{cub} Act afforded the orgnanization regulatory standing which allows them to introduce bills
-    at the regulatory level. \ac{cub} also intervenes at the municipal level in front of city councils.
-    Particularly those with municipally-owned utilities, such as Naperville, Illinois.
+    \cite{illinois_83rd_general_assembly_citizens_1983}. The \ac{cub} is a
+    nonpartisan organization that educates consumers and advocates for public
+    health and affordable utilities at the \ac{icc}. Indeed, the \ac{cub} Act
+    afforded the orgnanization regulatory standing which allows them to
+    introduce bills at the regulatory level. \ac{cub} also intervenes at the
+    municipal level in front of city councils. Particularly those with
+    municipally-owned utilities, such as Naperville, Illinois.
 \end{enumerate}
 
 
 
-\begin{table}[ht!]
+\begin{table}[htbp!]
     \centering
     \caption{Summary demographics for the study regions.}
     \label{tab:demographics}
-    \begin{tabular}{llll}
+    \begin{tabular}{lllll}
         \toprule
-        Region & Population & Operating Budget & Median Household Income \\
-        & & (millions of \$) &(\$/year) \\
+        Region & Population & Operating Budget & Budget Per-Capita & Median
+        Household Income \\
+        & & (millions of \$) & (\$/person) &(\$/year) \\
         \midrule
         Illinois
         \cite{united_states_census_bureau_quickfacts_2024-3,sturm_illinois_2024}&
-        12,710,158  & 53,419 & 81,702\\
+        12,710,158  & 53,419 & 4,203 & 81,702\\
         Naperville
         \cite{united_states_census_bureau_quickfacts_2024-2,munch_annual_2024} &
-        150,249  & 641 & 150,937 \\
+        150,249  & 641 & 4,266 & 150,937 \\
         Champaign
         \cite{united_states_census_bureau_quickfacts_2024,nees_adopted_2024} &
-        89,189 & 210 & 57,544 \\
+        89,189 & 210 & 2,354 & 57,544 \\
         Urbana \cite{united_states_census_bureau_quickfacts_2024-1,
-        ho_city_2024}& 38,201 & 85 & 45,854 \\
+        ho_city_2024}& 38,201 & 85 & 2,225 & 45,854 \\
         \ac{uiuc} \cite{data_usa_university_2022,
-        university_of_illinois_system_fy_2024} & 59,916 & 3,078 & N/A \\
+        university_of_illinois_system_fy_2024} & 59,916 & 3,078 & 51,371 & N/A
+        \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -201,7 +304,17 @@ the campus, as well as a chilled water storage system. \ac{uiuc} also has
 campus buildings. On the distribution side, \ac{pei} operates steam, electric,
 and gas distribution for the campus. 
 
-Here is its climate action plan...
+\ac{uiuc} published three climate action plans called \ac{icap}. The most recent
+\ac{icap} was published in 2020
+\cite{institute_for_sustainability_energy_and_environment_illinois_2020}. This climate
+action plan commits \ac{uiuc} to achieving net-zero campus emissions from all energy 
+sectors by 2050 through a mix of new clean energy resources and energy efficiency 
+measures. Figure \ref{fig:uiuc-emissions} shows the current progress,
+as of 2023, and the ultimate trajectory of this net-zero goal. The \ac{icap} also covers
+broader sustainability targets related to water use, recycling, and clean transportation.
+
+\textcolor{red}{What does \ac{icap} say about justice, equity, or sustainability?}
+
 
 \begin{figure}
     \centering
@@ -214,49 +327,40 @@ Here is its climate action plan...
 Naperville is interesting because it owns the distribution utility that serves
 electricity but does not own any generation.
 \begin{enumerate}
-    \item \ac{nest}
     \item City of Naperville (Sustainability Department)
+    \item \ac{nest}
 \end{enumerate}
 
-\section{Energy Planning in Illinois}
 
-This section answers the following questions
-\begin{enumerate}
-    \item Where do consumers get their energy from? For example, the open energy
-    market, their municipality, municipal electric aggregation, or some default
-    supply decided by the state of Illinois.
-    \item How do suppliers of electricity, decide what types of generators in
-    which to invest? For example, the \ac{imea} procures electricity on behalf
-    of their member communities from the open market, and also owns part of the
-    Prairie coal plant.
-\end{enumerate}
 
 \section{Aim 1: Energy planning and the use of models}
 
 
 \section{Aim 2: Considerations of justice in energy planning}
 
-At both the state and municipal levels, energy justice considerations are 
-driven primarily by advocacy groups, such as \ac{cub} and \ac{nest}, lobbying 
-for its inclusion in policy. 
+At both the state and municipal levels, energy justice considerations are driven
+primarily by advocacy groups, such as \ac{cub} and \ac{nest}, lobbying for its
+inclusion in policy. 
 
 [... include quotes here ]
 
 Although several practitioners expressed interest in energy justice and related
-concepts, institutions such as the \ac{ipa} and municipal governments have specific
-staff dedicated to equity and justice. \textcolor{red}{[... share examples and quotes
-here ...]}. 
+concepts, institutions such as the \ac{ipa} and municipal governments have
+specific staff dedicated to equity and justice. \textcolor{red}{[... share
+examples and quotes here ...]}. 
 
-[... How do the interviewees feel about this separation and /or energy justice in general? ]
+[... How do the interviewees feel about this separation and /or energy justice
+in general? ]
 
-Despite tension, advocacy groups in Illinois gained some significant ground with \ac{ceja}'s
-passage in 2021. 
+Despite tension, advocacy groups in Illinois gained some significant ground with
+\ac{ceja}'s passage in 2021. 
 
 \begin{quotation}
-    We have to incorporate into law, not just affordability, but environmental justice, utility justice,
-    utility democracy, all of these other concepts. And you know, did we get a law that properly focused
-    all those things? Definitely not. But it did introduce these concepts into Illinois in, I think, a
-    pretty significant way.
+    We have to incorporate into law, not just affordability, but environmental
+    justice, utility justice, utility democracy, all of these other concepts.
+    And you know, did we get a law that properly focused all those things?
+    Definitely not. But it did introduce these concepts into Illinois in, I
+    think, a pretty significant way.
 \end{quotation}
 
 \section{Aim 3: \ac{osier}'s planning potential}
