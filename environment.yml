@@ -1,4 +1,4 @@
-name: 2025-dotson-thesis-2
+name: 2025-dotson-thesis
 channels:
   - conda-forge
   - bioconda
