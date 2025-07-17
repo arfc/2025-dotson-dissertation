@@ -1,31 +1,39 @@
-Due to its novelty, it is necessary to demonstrate that \ac{osier} 
-generates reproducible and reliable answers consistent with the results 
-from an established framework and that \ac{osier} is internally consistent
-across when applying different methods.
-To that end, this chapter illustrates some of the
-differences between the two dispatch algorithms introduced in Section
-\ref{section:dispatch_model} by testing the logical and optimal dispatch algorithms  
-on some simple cases, as well as comparing the time scaling of these two methods. 
-Second, this chapter verifies that solutions
-calculated by \ac{osier} agree with a more established \ac{esom}, \ac{temoa}.
-Finally, this chapter shows some of \ac{osier}'s advanced features, such
-as many-objective objective problems and combining \ac{moo} with \ac{mga}.
-The next section introduces some of the data and methods used to prepare the 
-later example problems.
+Due to its novelty, it is necessary to demonstrate that \ac{osier} generates
+reproducible and reliable answers consistent with the results from an
+established framework and that \ac{osier} is internally consistent when applying
+different methods. To that end, this chapter illustrates some of the differences
+between the logical and optimal dispatch algorithms introduced in Section
+\ref{section:dispatch_model} by testing the two dispatch algorithms  
+on some simple cases, as well as comparing the time scaling of these two
+methods. Second, this chapter verifies that solutions calculated by \ac{osier}
+agree with a more established \ac{esom}, \ac{temoa} \cite{hunter_modeling_2013}.
+Finally, this chapter shows some of \ac{osier}'s advanced features, such as
+many-objective objective problems and combining \ac{moo} with \ac{mga}. The next
+section introduces some of the data and methods used to prepare the later
+example problems.
 
-\section{Data for the dispatch algorithm comparison}
-\subsection{Technology Data}
+
+\section{Technology Data}
 \input{4-benchmark-results/40-1-technology-data}
+\section{Data for the dispatch algorithm comparison}
+The following sections describe the synthetic data generated to run the experiments.
+
 \input{4-benchmark-results/41-1-example-data}
 \section{Comparing dispatch algorithms}
-The first exercise in this section directly compares the results of two dispatch algorithms
-introduced in Section \ref{section:dispatch_model} to confirm that the two algorithms
-give similar answers. The next exercise shows how the two algorithms scale. The final exercise
-focuses on the logical dispatch algorithm and investigates how that algorithm scales with the
-number of threads used for parallelization.
+The first exercise in this section directly compares the results of two dispatch
+algorithms introduced in Section \ref{section:dispatch_model} to confirm that
+the two algorithms give similar answers. The next exercise shows how the two
+algorithms scale. The final exercise focuses on the logical dispatch algorithm
+and investigates how that algorithm scales with the number of threads used for
+parallelization.
 % \input{4-benchmark-results/41-demonstrate}
 \input{4-benchmark-results/45-new-dispatch}
 \section{Benchmarking \ac{osier}}
+The previous sections demonstrated internal consistency between two dispatch algorithms
+within \ac{osier} and showed how these algorithms scale with problem size and the number
+of available threads. This section explores the performance different \acp{ga}, compares 
+\ac{osier} to the established \ac{esom}, \ac{temoa}, and shows how \ac{osier} exceeds
+current state-of-the-art.
 \input{4-benchmark-results/42-1-benchmark-data}
 \input{4-benchmark-results/42-decide-ea}
 \input{4-benchmark-results/43-explore}
