@@ -1,40 +1,45 @@
 
 \subsection{Energy Demand}
-The dispatch comparison studies were modeled with synthetic demand data. 
-The data for these exercises were generated with
+The dispatch comparison studies were modeled with synthetic demand data. The
+data for these exercises were generated with
 
 \begin{align}
     E(t) &= -\sin\left(\frac{2\pi t}{N_{\text{day}}}\right) + \sigma\sin\left(\frac{\pi t}{N_{\text{year}}}\right) + \delta + \chi,
     \intertext{where}
     t &= \text{the indendent variable, time} \quad \left[\text{hours}\right],\nonumber\\
     N_{i} &= \text{the total number of hours in a given period (day/year)},\nonumber\\
-    \sigma &= \text{a scaling factor},\nonumber\\
-    \delta &= \text{a vertical shift},\nonumber\\
-    \chi &= \text{a normally distributed random variable}\nonumber.
+    \sigma &= \text{a scaling factor} \quad \left[-\right],\nonumber\\
+    \delta &= \text{a vertical shift, representing base load power} \quad \left[-\right],\nonumber\\
+    \chi &= \text{a normally distributed random variable}\in \left[0,0.05\right]\nonumber.
 \end{align}
 
-\noindent The first term represents the diurnal fluctuation in energy demand and the second term corresponds to an annual change
-in demand. The vertical shift, $\delta$, represents the base load throughout the year and the random variable,
-$\chi$, adds some ``realism'' to the data. The data were subsequently normalized with the L$_{\infty}$-norm,
-and then multiplied by some peak demand value. Figure \ref{fig:demand-plot} shows the normalized demand
-data for a seven day period.
+\noindent The first term represents the diurnal fluctuation in energy demand and
+the second term corresponds to an annual change in demand. The vertical shift,
+$\delta$, represents the base load throughout the year. The random variable,
+$\chi$, simulates fluctuations in demand caused by unpredictable human behavior,
+thereby adding some ``realism'' to the data. The data were subsequently
+normalized with the L$_{\infty}$-norm, and then multiplied by some peak demand
+value. Figure \ref{fig:demand-plot} shows the normalized demand data for a seven
+day period.
  
-\begin{figure}[htbp!]
+\begin{figure}[ht!]
     \centering
     \resizebox{0.75\columnwidth}{!}{\input{figures/04_benchmark_chapter/demand_plot.pgf}}
     \caption{A plot of the synthetic demand data for this example over a seven day period.}
     \label{fig:demand-plot}
 \end{figure}
+\FloatBarrier
 
 \subsection{Wind Speed}
 
-Similar to demand data, the dispatch examples use synthetically generated wind power data. 
-First, wind speeds are drawn from a Weibull distribution \cite{manwell_wind_2009}, given by 
+Similar to demand data, the dispatch examples use synthetically generated wind
+power data. First, wind speeds are drawn from a Weibull distribution
+\cite{manwell_wind_2009}, given by 
 \begin{align}
     U &= \left(-\ln\left(X\right)\right)^{\frac{1}{\alpha}},
     \intertext{where}
     X &= \text{A uniformly distributed random variable} \in \text{(0,1]},\nonumber\\
-    \alpha &= \text{a scale factor}.\nonumber
+    \alpha &= \text{a scale factor}\quad \left[-\right].\nonumber
 \end{align}
 \noindent Then the wind speed data are transformed into a turbine power with 
 
@@ -57,13 +62,14 @@ First, wind speeds are drawn from a Weibull distribution \cite{manwell_wind_2009
   \rho &= \text{air density $\left[\frac{kg}{m^3}\right]$}. \nonumber
   \label{eqn:airdensity}
 \end{align}
-\noindent Wind turbines have three operating regimes as shown in Equation \ref{eqn:windpower}.
-Turbines capture no energy at wind speeds below the cut-in speed, and, for safety
-reasons, brakes are applied at wind speeds above the cut-out wind speed and
-capture no energy. A wind turbine generates its rated power between the rated
-and cut-out speed. Table \ref{tab:turbine} summarizes the wind turbine data and assumptions
-used for this analysis. Figure \ref{fig:wind-plot} shows the normalized wind speed and turbine
-power over 48 hours. 
+\noindent Wind turbines have three operating regimes as shown in Equation
+\ref{eqn:windpower}. Turbines capture no energy at wind speeds below the cut-in
+speed, and, for safety reasons, brakes are applied at wind speeds above the
+cut-out wind speed and capture no energy. A wind turbine generates its rated
+power between the rated and cut-out speed. Table \ref{tab:turbine} summarizes
+the wind turbine data and assumptions used for this analysis. Figure
+\ref{fig:wind-plot} shows the normalized wind speed and turbine power over 48
+hours. 
 
 \begin{table}[H]
   \centering
@@ -72,7 +78,8 @@ power over 48 hours.
 
   \resizebox{\textwidth}{!}{  \begin{tabular}{lrrrrrr|r}
     \toprule
-    Turbine Model & Rated Power & Cut-in Speed & Rated Speed & Cut-out Speed & Rotor Height & Diameter & Air Density\\
+    Turbine Model & Rated Power & Cut-in Speed & Rated Speed & Cut-out Speed &
+    Rotor Height & Diameter & Air Density\\
      & [MW] & [m/s] & [m/s] & [m/s] & [m] & [m] & [kg/m$^3$]\\
     \midrule
     GE 2.75 MW Series & 2.75 & 3.0 & 13 & 25 & 98.5 & 103 & 1.225\\
@@ -81,11 +88,11 @@ power over 48 hours.
 \end{table}
 
 
-\begin{figure}[htbp!]
+\begin{figure}[ht!]
     \centering
     \resizebox{0.75\columnwidth}{!}{\input{figures/04_benchmark_chapter/wind_plot.pgf}}
-    \caption{A plot of the synthetic wind speed data used for this example over a 
-    two day period. $\alpha = 2$}
+    \caption{A plot of the synthetic wind speed data used for this example over
+    a two day period. $\alpha = 2$}
     \label{fig:wind-plot}
 \end{figure}
 

@@ -30,7 +30,8 @@ if __name__ == "__main__":
                       x='n_days', 
                       zorder=5, 
                       style={"logical dispatch":"b-",
-                             "optimal dispatch":"r--"}
+                             "optimal dispatch":"r--"},
+                      marker='o'
                     )
     ax.set_yscale('log')
     ax.set_xscale('log')
@@ -39,7 +40,7 @@ if __name__ == "__main__":
     ax.grid(which='major')
     ax.grid(which='minor', linestyle='--', alpha=0.2)
     ax.set_xlim(1,365)
-    ax.set_ylabel("Time [seconds]", fontsize=18)
+    ax.set_ylabel("Wall Clock Time [seconds]", fontsize=18)
     ax.set_xlabel("Number of Modeled Days", fontsize=18)
     plt.savefig(snakemake.output.algorithm_scaling_plot)
 
@@ -52,13 +53,14 @@ if __name__ == "__main__":
                 hue='n_threads', 
                 ax=ax,
                 palette="bright",
-                style='n_threads')
+                style='n_threads',
+                marker='o')
     # ax.set_yscale('log')
     ax.legend(title="Number of Threads", fontsize=14, title_fontsize=14)
     ax.minorticks_on()
     ax.grid(which='major')
     ax.grid(which='minor', linestyle='--', alpha=0.2)
     ax.set_xlim(25,200)
-    ax.set_ylabel("Time [seconds]", fontsize=18)
+    ax.set_ylabel("Wall Clock Time [seconds]", fontsize=18)
     ax.set_xlabel("Population per Generation", fontsize=18)
     plt.savefig(snakemake.output.thread_scaling_plot)
