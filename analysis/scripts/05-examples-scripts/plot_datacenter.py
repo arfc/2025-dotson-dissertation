@@ -1,14 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sb
 import dill as pickle
-import time
 from pymoo.visualization.pcp import PCP
-from pymoo.indicators.hv import HV
 import matplotlib as mpl
 from mycolorpy import colorlist as mcp
-from tqdm import tqdm
 from osier import get_tech_names    
 
 mpl.use("pgf") 

@@ -1,9 +1,8 @@
 # basic imports
-import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import numpy as np
 import dill as pickle
-import os
 from glob import glob
 import time
 
@@ -13,6 +12,21 @@ from pymoo.optimize import minimize
 from pymoo.indicators.hv import HV
 from pymoo.termination.max_gen import MaximumGenerationTermination
 
+
+
+mpl.use("pgf") 
+plt.rcParams['pgf.texsystem'] = 'pdflatex'
+plt.rcParams['text.usetex'] = True 
+plt.rcParams['pgf.rcfonts'] = False
+plt.rcParams['figure.edgecolor'] = 'k'
+plt.rcParams['figure.facecolor'] = 'w'
+plt.rcParams['savefig.dpi'] = 400
+plt.rcParams['savefig.bbox'] = 'tight'
+plt.rcParams['font.family'] = "serif"
+plt.rcParams['xtick.labelsize'] = 14
+plt.rcParams['ytick.labelsize'] = 16
+plt.rcParams['legend.fontsize'] = 16
+plt.rcParams['legend.shadow'] = False
 
 solver = "appsi_highs"
 
