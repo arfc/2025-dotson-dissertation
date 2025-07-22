@@ -193,17 +193,15 @@ text width=22em, text centered, rounded corners, minimum height=3em]
 
 % the below lines are only needed if bibliography precedes appendices
 % uses https://tex.stackexchange.com/a/440212 to continue page numbering
-% \clearpage
-% \setcounter{counterforappendices}{\value{page}}
-% \mainmatter
-% \setcounter{page}{\value{counterforappendices}}
+\clearpage
+\setcounter{counterforappendices}{\value{page}}
+\mainmatter
+\setcounter{page}{\value{counterforappendices}}
 
-% \appendix
+\appendix
 
-% \chapter{An appendix}
-
-% \lipsum[1-5]
-
-% \input{Appendix.tex}
+\chapter{Interview Guide}
+\label{chapter:interview-guide}
+\input{A-appendix/interview_guide.tex}
 
 \end{document}
