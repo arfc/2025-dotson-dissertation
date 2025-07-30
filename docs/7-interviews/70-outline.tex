@@ -182,7 +182,7 @@ Whisper interface.
 
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=0.6\columnwidth]{figures/07_interview_chapter/whisper-screenshot.png}
+    \includegraphics[width=0.75\columnwidth]{figures/07_interview_chapter/whisper-screenshot.png}
     \caption{A screenshot of an interview transcribed with Whisper. To protect
     the privacy of the interviewees, only ``Speaker 1'' is shown. ``Speaker 1''
     is the author of this thesis.}
@@ -196,7 +196,7 @@ of the \texttt{Taguette} software.
 
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=0.6\columnwidth]{figures/07_interview_chapter/taguette-screenshot}
+    \includegraphics[width=0.75\columnwidth]{figures/07_interview_chapter/taguette-screenshot}
     \caption{A screenshot of the interview transcribed in Figure \ref{fig:whisper}
     loaded into \texttt{Taguette} for initial coding.}
     \label{fig:taguette}
@@ -227,7 +227,7 @@ interviewee a broad category including
     \item practicioner --- someone involved in the process of energy planning
     and carries out policy directives from policy makers,
     \item advocate --- a person or organization that lobbies for policy outcomes
-    on behalf of a group of stakeholder,
+    on behalf of a group of stakeholders,
     \item policy maker --- someone that participates in the ultimate decision
     making related to energy policy.
 \end{enumerate}
@@ -246,10 +246,10 @@ interviewee a broad category including
         4& UI1 & \ac{uiuc} & Practitioner\\ % 
         5& CP1 & Champaign & Practitioner\\ % 
         6& IP1 & \ac{icc} & Practitioner\\ % 
-        7& IP2 & \ac{ipa} & Practitioner\\ % 
-        8& IA1 && Advocate\\ % 
-        9& IA2 &\ac{icea}& Practitioner\\ % 
-        10& IA3 &Illinois \ac{cub} & Advocate\\ % 
+        8& IP2 & \ac{icc} & Practitioner\\ % JA
+        7& IP3 & \ac{ipa} & Practitioner\\ % 
+        9& IA1 &\ac{icea}& Advocate\\ % 
+        10& IA2 &Illinois \ac{cub} & Advocate\\ % 
         11& NP1 & Naperville & Practitioner\\ % 
         12& NA1 &\acs{nest}&Advocate\\ % 
         13& NA2 &\acs{nest}&Advocate\\ % 
@@ -266,46 +266,9 @@ planning circumstances. Collectively, the regions cover the entire spectrum of
 possibilities illustrated in Figure \ref{fig:illinois-flow-chart}. Table
 \ref{tab:demographics} shows the sizes of each planning context by population.
 
-Figure \ref{fig:illinois-plot} highlights the case study regions within a map of
-Illinois. Due to their proximity, \ac{uiuc}, Champaign, and Urbana are
-identified together.
-
-\begin{figure}[ht!]
-    \centering
-    \resizebox{0.4\columnwidth}{!}{\input{figures/07_interview_chapter/illinois_plot.pgf}}
-    \caption{A map of Illinois with the case study regions highlighted.}
-    \label{fig:illinois-plot}
-\end{figure}
-
-\subsection{State of Illinois}
-Illinois is split between two \acp{rto}, MISO and PJM.
-
-\begin{enumerate}
-    \item \acf{icc}
-    \item \acf{ipa} --- 
-    \item \acf{icea} --- The \ac{icea} is a lobbying organization that
-    represents the interests of various \acp{ares} and ``advance retail
-    competition, customer choice, and competitive retail energy issues in the
-    electricity and gas markets before the \ac{icc}, and the Illinois
-    Legislature and among stakeholders, policymakers, and the media."
-    \item \acf{imea}
-    \item Illinois \acf{cub} --- the Illinois \ac{cub} formed in 1983 after
-    Illinois passed the Citizen's Utility Board Act
-    \cite{illinois_83rd_general_assembly_citizens_1983}. The \ac{cub} is a
-    nonpartisan organization that educates consumers and advocates for public
-    health and affordable utilities at the \ac{icc}. Indeed, the \ac{cub} Act
-    afforded the orgnanization regulatory standing which allows them to
-    introduce bills at the regulatory level. \ac{cub} also intervenes at the
-    municipal level in front of city councils. Particularly those with
-    municipally-owned utilities, such as Naperville, Illinois.
-\end{enumerate}
-
-\textcolor{red}{Talk about the \ac{ceja} bill --- its emissions targets,
-scheduled plant retirements, how it incorporates justice and equity, etc.}
-
 \begin{table}[htbp!]
     \centering
-    \caption{Summary demographics for the study regions.}
+    \caption{Summary demographics for the study regions from 2024.}
     \label{tab:demographics}
     \begin{tabular}{lllll}
         \toprule
@@ -331,11 +294,81 @@ scheduled plant retirements, how it incorporates justice and equity, etc.}
     \end{tabular}
 \end{table}
 
-\subsection{Champaign and Urbana, Illinois}
-These two contexts are considered together due to their proximity and close
-relationship. 
+Figure \ref{fig:illinois-plot} highlights the case study regions within a map of
+Illinois. Due to their proximity, \ac{uiuc}, Champaign, and Urbana are
+identified together.
 
-Here are their climate action plans...
+\begin{figure}[ht!]
+    \centering
+    \resizebox{0.4\columnwidth}{!}{\input{figures/07_interview_chapter/illinois_plot.pgf}}
+    \caption{A map of Illinois with the case study regions highlighted.}
+    \label{fig:illinois-plot}
+\end{figure}
+
+\subsection{State of Illinois}
+Illinois is the largest region considered in this study and the state in which
+all other case municipalities are located. Given the downward pressure Illinois
+exerts onto municipalities within its territory, understanding how energy
+decisions are made at the state level is essential context for understanding
+energy choices elsewhere within the state. There are several important
+energy-related entities that operate in Illinois.
+
+\begin{enumerate}
+    \item \acf{icc} --- The \ac{icc} regulates \acp{iou} including electricity,
+    gas, and water utilities. The \ac{icc} presides over rate cases, proceedings
+    that set utility delivery rates which go towards cost recovery for
+    \acp{iou}. The Commission is charged with balancing ``the interests of
+    consumers and public utilities to ensure adequate, efficient, reliable,
+    safe, and least-cost utility services, while promoting the development of an
+    effectively competitive energy supplier market''
+    \cite{illinois_commerce_commision_icc_citizens_2022}.
+    \item \acf{ipa} --- The \ac{ipa} is responsible for developing annual
+    procurement plans and manages power purchases for residential and small
+    commercial customers that have not switched to an \ac{ares} (i.e., customers
+    that receive ``default supply'').
+    \item Illinois \acf{cub} --- the Illinois \ac{cub} formed in 1983 after
+    Illinois passed the Citizen's Utility Board Act
+    \cite{illinois_83rd_general_assembly_citizens_1983}. The \ac{cub} is a
+    nonpartisan organization that educates consumers and advocates for public
+    health and affordable utilities at the \ac{icc}. Indeed, the \ac{cub} Act
+    afforded the orgnanization regulatory standing which allows them to
+    introduce bills at the regulatory level. \ac{cub} also intervenes at the
+    municipal level in front of city councils. Particularly those with
+    municipally-owned utilities, such as Naperville, Illinois.
+    \item \acf{imea} --- The \ac{imea} is a non-profit business known as a joint
+    action agency that procures electricity on behalf its 32 member
+    municipalities through energy purchases on the open electricity market and
+    full or partial ownership of generating resources. All of \ac{imea}'s member
+    municipalities operate their own utilties independent from Ameren or ComeEd.
+    \item \acf{icea} --- The \ac{icea} is a lobbying organization that
+    represents the interests of various \acp{ares} and ``advance retail
+    competition, customer choice, and competitive retail energy issues in the
+    electricity and gas markets before the \ac{icc}, and the Illinois
+    Legislature and among stakeholders, policymakers, and the media."
+\end{enumerate}
+
+\noindent
+Illinois legislators passed the \ac{ceja} bill \cite{harmon_climate_2021} which
+did several things for Illinois such as
+\begin{enumerate}
+    \item setting a target of 100\% clean energy by 2050,
+    \item establishing a ``Zero Emissions Credit'' to support financially
+    struggling nuclear plants in \ac{pjm} and,
+    \item equity-focused workforce development programs, including a \acf{mes}
+    for \ac{ipa} administered programs.
+\end{enumerate}
+In essence, \ac{ceja} constitutes the electricity sector portion of Illinois'
+climate action plan.
+
+\subsection{Champaign and Urbana, Illinois}
+Champaign and Urbana are neighboring cities surrounding \ac{uiuc}, which drives
+most of the economic activity in the area. Although they share some resources
+they have not coordinated on a shared climate action plan. Additionally, neither
+city has a current climate action plan. Urbana's most recent climate action plan
+spanned 2015 through 2020 \cite{ryan_climate_2014} and Champaign's ``Growing
+Greener'' plan has not been updated since 2013 \cite{knight_champaign_2013}. Both plans
+suggest purchasing \acp{rec} to cover 100\% of electricity-use through \ac{mca} with an
+\ac{ares}. However, as of writing neither municipality maintained these contracts.
 
 \subsection{\acf{uiuc}} 
 
