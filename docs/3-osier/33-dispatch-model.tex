@@ -1,4 +1,5 @@
 \section{Dispatch Model}
+\label{section:dispatch_model}
 \ac{osier} offers two models for dispatching energy. The first is a merit order
 dispatch model that optimally dispatches electricity according to the marginal
 cost of generation with perfect foresight. This model is formulated as a
@@ -116,7 +117,7 @@ extends Equation \ref{eq:std_tech_output} by checking that the storage unit has 
         -\frac{E_{in}}{\Delta \tau} & D_t < 0\\
         \frac{E_{out}}{\Delta \tau} & D_t \geq 0\\
     \end{cases}
-    \intertext{where}~~
+    \intertext{where}
     E_{in} &= \text{min}\left(\left(\textbf{CAP}^S_g-\textbf{SOC}_{g,t}\right), P_{in}\Delta \tau\right),\nonumber \\
     E_{out} &= \text{min}\left(P_{out}\Delta \tau, \textbf{SOC}_{g,t}\right),\nonumber \\
     P_{out} &= \text{max}\left(0, \text{min}\left(D_t, \textbf{CAP}_{g}\right)\right),\nonumber\\

@@ -1,3 +1,162 @@
-\subsection{Exercise 4: Validating a Simplified Approach}
+\subsection{Exercise 1: Validating a Simplified Approach}
 
-\textcolor{red}{This section is new in the dissertation.}
+This exercise considers three different cases with different technology mixes.
+The first case includes natural gas and nuclear resources, the second case adds
+a wind resource, and the last case adds battery storage. Each case had seven
+days with an hourly resolution (168 timesteps). Both algorithms were allowed to
+curtail excess energy and both were required to meet demand at all time steps.
+Table \ref{tab:dispatch-results} summarizes the technologies available, the
+optimizer used, and the value of the objective function. 
+
+\begin{table}[ht!]
+    \centering
+    \caption{Summary results for the three dispatch test cases.}
+    \label{tab:dispatch-results}
+    \input{tables/algorithm_comparison_results_edited.tex}
+\end{table}
+
+% \noindent
+The first two cases in Table \ref{tab:dispatch-results} show perfect agreement between 
+the two algorithms. However, they disagree on the final case
+with a battery storage technology. Figure \ref{fig:dispatch-comparison} compares
+the dispatch results for the two methods. Figure
+\ref{fig:dispatch-comparison}a was calculated with the logical dispatch
+algorithm and Figure \ref{fig:dispatch-comparison}b was calculated with the
+optimal dispatch algorithm. These plots show that the two
+algorithms dispatch the same amounts of wind and nuclear energy. However, the
+two algorithms differ in their usage of battery storage which causes further
+differences in the dispatch of natural gas and total curtailment.
+
+\begin{figure}[ht!]
+    \centering
+    \resizebox{0.95\columnwidth}{!}{\input{figures/04_benchmark_chapter/dispatch_comparison_plot_x2.pgf}}
+    \caption{Comparison between dispatch results for two algorithms. Plot a) was
+    calculated with a logical dispatch algorithm and plot b) was calculated with
+    optimal dispatch.}
+    \label{fig:dispatch-comparison}
+\end{figure}
+
+The optimal dispatch algorithm uses a linear programming formulation to arrive
+at an optimal solution with perfect foresight. The logical dispatch algorithm
+uses a rule-based approach to dispatch energy according to merit order.
+However, this algorithm is myopic since dispatch is calculated serially. These
+differences totally account for the differences in their dispatch results. The
+optimal dispatch algorithm uses battery storage more effectively than its
+rule-based counterpart because it optimizes the entire time series at once.
+Since the logical algorithm uses battery storage imperfectly, it fills the
+energy gaps with natural gas and more energy is curtailed rather than used.
+Although, the optimal dispatch solution performs better on a pure cost basis, the
+myopia of the logical dispatch algorithm is possibly more realistic.
+Further, since the logical dispatch algorithm does not have an energy balance
+constraint for all time steps, users can more easily estimate reliability and
+calculate costs from energy shortfalls.
+
+
+\FloatBarrier
+
+\subsection{Exercise 2: Time Scaling}
+
+This exercise considers how the two dispatch algorithms scale with simulation duration.
+For this exercise, the two algorithms were placed within a
+\texttt{CapacityExpansion} problem with the parameters described in Table
+\ref{tab:scaling-ga-params}.
+
+\begin{table}[htbp!]
+    \centering
+    \caption{Capacity expansion parameters for the algorithm comparison exercise.}
+    \label{tab:scaling-ga-params}
+    \begin{tabular}{ll}
+        \toprule
+        Parameter & Value \\
+        \midrule
+        Algorithm & \acs{nsga2}\\
+        Termination Criterion & Maximum generations\\
+        Generations & 10 \\
+        Population Size & 20 \\
+        Objectives & 2 (cost, emissions)\\
+        Threads & 1 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\noindent The available technologies were the same four as in the previous
+exercise. Rather than scaling the problem by number of objectives, technologies,
+or population size, this exercise scales the problem by the length of the time
+series. This is preferred because time series data typically increases the
+problem size more dramatically than the number of objectives or number of
+technologies. Further, scaling by population size would obfuscate the
+differences between the two algorithms since neither are affected by population
+size. Figure \ref{fig:alg-scaling} shows results of this scaling study. The
+x-axis measures the number of modeled days at an hourly resolution.
+
+\begin{figure}[htbp!]
+    \centering
+    \resizebox{0.75\columnwidth}{!}{\input{figures/04_benchmark_chapter/algorithm_scaling_plot.pgf}}
+    \caption{Time scaling of a capacity expansion problem using either an optimal or logical dispatch algorithm.}
+    \label{fig:alg-scaling}
+\end{figure}
+
+\noindent Initially, the logical dispatch algorithm outperforms the optimal
+dispatch algorithm by nearly two orders of magnitude. This is because the linear
+program has some overhead when writing and copying equations that the rule-based
+calculation does not. The logical algorithm initially grows more quickly until
+the models reach 100 modeled days after which the two algorithms scale
+similarly and the logical dispatch algorithm remains approximately 2.5 times
+faster than its optimal counterpart.
+
+\subsection{Exercise 3: Parallelization}
+
+\Acp{ga} are considered ``embarrassingly parallelizable'' since the performance
+of each individual in a population is independent from the others. However, there
+a some difficulties with solving multiple parallel instances of \ac{lp} solvers
+since these solvers frequently have some parallel optimizations built-in. For
+now, this restricts capacity expansion problems within \ac{osier} that use linear 
+programming to serial calculations. This is not so for the logical dispatch algorithm 
+since it does
+not use an \ac{lp} solver. Therefore, this exercise looks exclusively at how the
+logical dispatch algorithm scales with number of threads available. Once again,
+the dispatch algorithm is driven by \ac{osier}'s \texttt{CapacityExpansion}
+class whose parameters are described in Table \ref{tab:thread-scaling-params}. 
+
+\begin{table}[htbp!]
+    \centering
+    \caption{Capacity expansion parameters for the parallelization exercise.}
+    \label{tab:thread-scaling-params}
+    \begin{tabular}{ll}
+        \toprule
+        Parameter & Value \\
+        \midrule
+        Algorithm & \acs{nsga2}\\
+        Termination Criterion & Maximum Generations\\
+        Generations & 10 \\
+        Objectives & 2 (cost, emissions)\\
+        Timesteps & 120 (5 days x 24 hours)\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\noindent In this exercise, the problem is scaled by the population size of each
+generation. The study was performed on a 2024 MacBook Pro with an M4 Pro CPU, 
+48 GB of RAM, and the macOS Sequoia 15.5 operating system. Figure
+\ref{fig:thread-scaling} shows the results for this exercise.
+
+\begin{figure}[htbp!]
+    \centering
+    \resizebox{0.75\columnwidth}{!}{\input{figures/04_benchmark_chapter/thread_scaling_plot.pgf}}
+    \caption{Time scaling of a capacity expansion problem using a range of
+    threads for parallelization.}
+    \label{fig:thread-scaling}
+\end{figure}
+
+All simulations perform similarly when the problem size is small
+because multithreading has some overhead. Multiple threads outperformed the
+single threaded simulation in every case. Eight threads outperformed twelve
+threads in the middle of the population range, but otherwise performed
+similarly. Simulations with two and four threads performed similarly until the
+higher end of the population range where four threads proved faster. The overall
+speed improvement from multithreading was modest with a roughly four second
+improvement at best. This suggests that further code optimization could improve
+performance and that better computer architecture might be needed to fully
+realize the parallelization enhancement.
+
+\FloatBarrier

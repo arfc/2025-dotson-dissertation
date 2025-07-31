@@ -5,17 +5,22 @@ This thesis uses the tools \ac{temoa} and \ac{pygen} to establish benchmark
 results for a typical \ac{esom}. \ac{temoa} is an open-source \ac{esom}
 developed at North Carolina State University that uses \ac{milp} to develop
 capacity-expansion scenarios \cite{decarolis_temoa_2010}. The key benefits of
-\ac{temoa} are its open-source code, open data, and built-in uncertainty
+\ac{temoa} are its open-source license, open data approach, and built-in uncertainty
 analysis capabilities. These features address the need for greater transparency
 in \ac{esom} modeling and robust assessment of future uncertainties
 \cite{hunter_modeling_2013, fattahi_systemic_2020}. \ac{pygen} is another
-open-source code, developed by this thesis' author, that facilitates rapid
+open-source package, developed by this thesis' author, that facilitates rapid
 development of \ac{temoa} models and enables sensitivity analyses using a
 templated approach \cite{dotson_influence_2022, dotson_python_2021}. These
 features of \ac{pygen} reduce the learning curve and the cost of producing
 unique models in \ac{temoa} \cite{dotson_influence_2022}.
+\ac{pygen} was an initial exploration on repeatable analysis and functionality
+extension for an existing \ac{esom}. While successful in that regard, \ac{pygen}
+could not overcome \ac{temoa}'s inherent limitations in optimizing multiple
+objectives or the inability to modify its objective function. Addressing these
+limits led to the development of \ac{osier}.
 
-A single \ac{temoa} run minimizes total system cost \cite{decarolis_temoa_2010},
+A single \ac{temoa} run minimizes total system cost as \cite{decarolis_temoa_2010},
 
 \begin{align}
   C_{total} &= C_{loans} + C_{fixed} + C_{variable}
@@ -24,7 +29,7 @@ A single \ac{temoa} run minimizes total system cost \cite{decarolis_temoa_2010},
   C_{fixed} &= \text{the sum of all fixed operating costs},\nonumber\\
   C_{variable} &= \text{the sum of all variable operating costs}.\nonumber
 \end{align}
-
+\noindent
 Each of these terms is amortized over the model time horizon. The decision
 variables include the generation from each technology at time, $t$, and the
 capacity of each technology in year, $y$. The dispatch model deviates slightly
@@ -32,16 +37,16 @@ from the model described in Section \ref{section:dispatch} by making the initial
 storage level for energy storage technologies a decision variable, whereas the
 dispatch model used in this thesis does not optimize initial storage and assumes
 energy storage starts at zero. The detailed formulation of \ac{temoa}'s
-constraints and equations are available online \cite{decarolis_temoa_2010}.
+constraints and equations are available through online documentation \cite{decarolis_temoa_2010}.
 % (\textcolor{red}{maybe in an appendix?}). 
 
 \subsection{\acl{mga}}
 \label{section:mga}
 \ac{temoa}'s built-in method for uncertainty analysis is the \ac{hsj}
-formulation of \ac{mga}. This algorithm is designed to handle
+formulation \cite{decarolis_using_2011,
+dotson_influence_2022} of \ac{mga}. This algorithm is designed to handle
 \textit{structural} uncertainty, which presumes to account for unmodeled
-objectives. The steps for \ac{hsj} are \cite{decarolis_using_2011,
-dotson_influence_2022}:
+objectives. The steps for \ac{hsj} are:
 \begin{enumerate}
   \item obtain an optimal solution by any method,
   \item add a user-specified amount of slack to the objective function value
@@ -49,10 +54,10 @@ dotson_influence_2022}:
   \item use the adjusted objective function value as an upper bound constraint,
   \item generate a new objective function that minimizes the sum of all decision
   variables,
-  \item iterate the procedure,
+  \item iterate the procedure and,
   \item stop the \ac{mga} when no significant changes are observed.
 \end{enumerate}
-The mathematical formulation of this algorithm is to
+The mathematical formulation of this algorithm is
 \begin{align}
   \intertext{minimize:}
   p &= \sum_{k\in K} x_k,
@@ -68,10 +73,11 @@ The mathematical formulation of this algorithm is to
 \end{align}
 
 Figure \ref{fig:standard_mga} illustrates this algorithm for a simple \ac{lp}
-with two decision variables and a slack value of 10\%.
+with two decision variables and a slack value of 10\%. The problem shown in Figure \ref{fig:standard_mga}
+is
 
 \begin{align}
-  \intertext{Minimize:}
+  \intertext{minimize:}
   f(x_1, x_2) &= c_1x_1 + c_2x_2,
   \intertext{subject to:}
   x_1 &+ x_2 = 1,
@@ -93,6 +99,7 @@ original constraint, $\left(0.6, 0.4\right)$.
   \caption{Simple demonstration of the standard \ac{mga} algorithm.}
   \label{fig:standard_mga}
 \end{figure}
+\FloatBarrier
 
 This procedure results in a small set of maximally different solutions for
 modelers to interpret. In this way, \ac{mga} efficiently proposes alternatives
@@ -101,22 +108,13 @@ acceptance. However, this method depends on a single objective function which
 does not guarantee that these alternative solutions will be optimal or
 near-optimal for any other measurable objective.
 
-
-\ac{pygen} was an initial exploration on repeatable analysis and functionality
-extension for an existing \ac{esom}. While successful in that regard, \ac{pygen}
-could not overcome \ac{temoa}'s inherent limitations on optimizing multiple
-objectives and the inability to modify its objective function. Addressing these
-limits led to the development of \ac{osier}.
-
-
 \subsection{Data for benchmark problems}
- In order to verify \ac{osier}'s accuracy, this section analyzes an energy
-system and compare the results against a representative \ac{esom}, \ac{temoa}.
-For this problem, I chose to model the state of Illinois broadly and using
+ In order to validate \ac{osier}'s accuracy, this section analyzes an energy
+system and compares the results against a representative \ac{esom}, \ac{temoa}.
+For this problem, I modeled the state of Illinois broadly and used
 weather data from the Champaign-Urbana region due to its geographic centrality.
-Chapter \ref{chapter:benchmark-results} presents the results from this problem,
-with a variety of optimization criteria. This section describes the data used in
-both models. The basic inputs for \ac{osier} and \ac{temoa} are
+This section describes the data used in the benchmarking exercises for both models. 
+The basic inputs for \ac{osier} and \ac{temoa} are
 \begin{enumerate}
     \item Time series data for
     \begin{itemize}
