@@ -39,7 +39,7 @@ collecting and analyzing interview data using thematic analysis. Section
 
 
 \section{Literature Review}
-Chapter \ref{chapter:lit-review} provided a thorough review of the existing
+Chapter \ref{chapter:lit-review} provided a broad review of the existing
 literature that contextualizes this thesis. This section offers a focused review
 of the literature on municipal energy planning and modeling practices.
 
@@ -66,13 +66,23 @@ identify consulting and personnel costs as potential barriers to incorporating
 modeling results into decision making processes.
 
 \subsection{Energy justice and planning}
-There is only one paper I could find related to justice and planning documents
---- ``Frontlining energy justice'' \cite{elmallah_frontlining_2022}.
+There is, to date, limited empirical work that investigates the inclusion of
+justice into formal planning proceses at either state or municipal levels. One
+study by Diezmart\'inez et al. looked at 58 climate action plans sampled from
+the 100 largets U.S. cities \cite{diezmartinez_us_2022}. This study found that,
+of the 58 climate action plans, roughly two-thirds of them attend to either
+justice or equity, while the final third do not discuss either concept. The
+researchers also found that recency, high levels of inequality within a city,
+and public engagement were determining factors in whether a climate action plan
+addressed justice. Further, climate action plans developed by cities prefer
+``equity'' over ``justice'' because discourses tend to focus on the superficial
+distributions of benefits and burdens rather than accounting for structural
+sources of injustice \cite{diezmartinez_us_2022}.
 
-Actually, there is another by Sovacool \cite{sovacool_imagining_2020}.
-
-I found two more potential articles by the same first author
-\cite{diezmartinez_us_2022,diezmartinez_municipal_2024}
+Another study reviewed 60 energy transition ``visioning documents'' prepared by
+non-profits and advocacy organizations in the United States, rather than formal
+planning documents developed by city officials \cite{elmallah_frontlining_2022}.
+This study found 6 principles of energy justice in planning... they are... 
 
 
 \textcolor{red}{Is the hypothesis I am testing with this study that
@@ -80,7 +90,7 @@ I found two more potential articles by the same first author
 systems if the available modeling tools were accessible and relevant.'' This
 hypothesis comes from the implicit suppositions in a few papers. }
 
-\textcolor{red}{What are some of the novelties of this study}
+\textcolor{red}{What are some of the novelties of the present study}
 \begin{enumerate}
     \item Considers structural barriers to energy modeling.
     \item Investigates the role concepts of energy justice do (or do not) play
@@ -105,7 +115,7 @@ market. Instead they interface with a utility or municipality which procures
 electricity on their behalf. Some municipalities, such as Naperville, own their
 own utilities. Second, Illinois restructured its electricity market in 1997,
 prohibiting \aclp{iou} from owning both transmission infrastructure and
-generating infrastructure. \cite{illinois_90th_general_assembly_electric_1997}.
+generating infrastructure \cite{illinois_90th_general_assembly_electric_1997}.
 This means that \acp{iou} must purchase electricity on the open market rather
 than having in-house generation. Municipally-owned utilities are exempt from
 this rule. Finally, the deregulation of Illinois' electricity market limits the
@@ -170,15 +180,15 @@ planning within Illinois. A multiple-case study also enhances validity by
 enabling replication and comparison \cite{johannsen_designing_2021,
 yin_case_2018}. Further, since one purpose of this study is to evaluate the
 design and applicability of the tool, \ac{osier}, a multiple-case study design
-will help extrapolate results to other places and contexts. The raw data include
-interview transcriptions and the relevant municipal climate and energy plans, if
-available. The interviews were transcribed with the ``listen and revise method''
-using the Whisper transcription tool \cite{battaglia_listen_2024}. Whisper uses
-\ac{ai} to automate the transcription process. Both the data and the \ac{ai}
-model used to transcribe the interview audio were hosted locally (i.e., without
-an internet connection), eliminating privacy concerns
-\cite{battaglia_listen_2024}. Figure \ref{fig:whisper} shows a screenshot of the
-Whisper interface. 
+will strengthen software changes and feature additions and support \ac{osier}'s
+use in other places and contexts. The raw data include interview transcriptions
+and the relevant municipal climate and energy plans, if available. The
+interviews were transcribed with the ``listen and revise method'' using the
+Whisper transcription tool \cite{battaglia_listen_2024}. Whisper uses \ac{ai} to
+automate the transcription process. Both the data and the \ac{ai} model used to
+transcribe the interview audio were hosted locally (i.e., without an internet
+connection), eliminating privacy concerns \cite{battaglia_listen_2024}. Figure
+\ref{fig:whisper} shows a screenshot of the Whisper interface. 
 
 \begin{figure}[htbp!]
     \centering
@@ -189,7 +199,15 @@ Whisper interface.
     \label{fig:whisper}
 \end{figure}
 
-
+The transcribed interviews were initially coded using a deductive approach to
+illuminate three aims of this study:
+\begin{enumerate}
+    \item identify how (if) energy models are used to support energy planning at
+    local and state levels,
+    \item determine the ways energy justice or equity are incorporated into
+    planning decisions
+    \item assess the usefulness of a new modeling tool, \ac{osier}.
+\end{enumerate} 
 The interview coding step was also performed locally with the \texttt{Taguette}
 tool \cite{rampin_taguette_2021}. Figure \ref{fig:taguette} shows a screenshot
 of the \texttt{Taguette} software.
@@ -207,17 +225,23 @@ of the \texttt{Taguette} software.
 A total of thirteen interviews were conducted virtually using the Zoom
 teleconferencing software through the second half of 2024 and beginning of 2025
 using a semi-structured approach based on an interview guide designed according
-to \textcolor{red}{X} main topics (for details, see Appendix
-\ref{chapter:interview-guide}).
+to five main topics (for details, see Appendix \ref{chapter:interview-guide}).
 \begin{enumerate}
-    \item Background
-    \item Existing planning processes
-    \item Conceptions of justice or equity
-    \item Use of models in planning processes
-    \item Assessment of the \ac{osier} tool.
+    \item Background --- learn about the interviewees experience and background
+    with energy planning in their context.
+    \item Existing planning processes --- clarify the processes used to develop
+    climate action plans and energy policies.
+    \item Conceptions of justice or equity --- elucidate the extent to which
+    justice informs energy policies and plans.
+    \item Use of models in planning processes --- identify if energy models are
+    used and overall perceptions of modeling.
+    \item Assessment of the \ac{osier} tool --- introduce \ac{osier} through a
+    short presentation and invite reactions and feedback from the interviewee.
 \end{enumerate}
-The interviewees were chosen through purposive sampling in order to ... 
-\textcolor{red}{why did I choose these interviews?}
+The interviewees were chosen through a combination of purposive and snowball
+sampling to identify staff with sufficient and relevant energy planning
+experience. Each interviewee is involved in decision making, planning, or
+advocacy in their respective context. 
 
 Table \ref{tab:interviewees} summarizes the interviewees for this study. The
 organization column refers to the organization that either employs, or is
@@ -362,13 +386,23 @@ climate action plan.
 
 \subsection{Champaign and Urbana, Illinois}
 Champaign and Urbana are neighboring cities surrounding \ac{uiuc}, which drives
-most of the economic activity in the area. Although they share some resources
-they have not coordinated on a shared climate action plan. Additionally, neither
-city has a current climate action plan. Urbana's most recent climate action plan
-spanned 2015 through 2020 \cite{ryan_climate_2014} and Champaign's ``Growing
-Greener'' plan has not been updated since 2013 \cite{knight_champaign_2013}. Both plans
-suggest purchasing \acp{rec} to cover 100\% of electricity-use through \ac{mca} with an
-\ac{ares}. However, as of writing neither municipality maintained these contracts.
+most of the economic activity in the area. Both cities lie in the \ac{miso}
+region of Illinois and receive electricity through the regulated utility,
+Ameren. Although they share some resources they have not coordinated on a shared
+climate action plan. Additionally, neither city has a current climate action
+plan. Urbana's most recent climate action plan spanned 2015 through 2020
+\cite{ryan_climate_2014} and Champaign's ``Growing Greener'' plan has not been
+updated since 2013 \cite{knight_champaign_2013}. Both plans suggest purchasing
+\acp{rec} to cover 100\% of electricity-use through \ac{mca} with an \ac{ares}.
+However, Urbana's plan goes somewhat further by identifying strategies to
+purchase bundled \acp{rec}\footnote{A \ac{rec} can either be \textit{bundled} or
+\textit{unbundled}. The former are \acp{rec} that are packaged with the specific
+megawatthour that generated the \ac{rec}. The latter refers to \acp{rec} that
+are traded separately from energy and are generally less expensive.} and install
+\ac{btm} on city facilities. Both climate plans mention ``social equity'' and
+although equity is never defined, mentions of equity are concomitant with access
+to services and opportunities. This suggests a focus on the distributive aspect
+of justice described in Section \ref{section:energy-justice}.
 
 \subsection{\acf{uiuc}} 
 
@@ -422,7 +456,7 @@ Workplan, which is a brief document outlining the city's commitments
 \cite{mjolness_city_2025}. The Workplan has no quantified objectives nor
 timelines and its energy goals are restricted to efficiency improvements such as
 installing LED lights. Second, is a report authored by volunteers with the
-\acl{nest} entitled ``Sustainable Naperville 2036''
+\acf{nest} entitled ``Sustainable Naperville 2036''
 \cite{trendler_sustainable_2021}. Although \ac{nest} is an advisory organization
 formed by the Naperville City Council, the targets outlined in this plan are not
 commitments set forth by the city council. The \ac{nest} report proposed
@@ -443,11 +477,6 @@ that
     by Naperville's energy purchases and  consumption --- beyond our immediate
     community boundaries as well as those created within.}
 \end{quote}
-\begin{enumerate}
-    \item City of Naperville (Sustainability Department)
-    \item \ac{nest}
-\end{enumerate}
-
 
 
 \section{Aim 1: Energy planning and the use of models}
@@ -485,6 +514,15 @@ Despite tension, advocacy groups in Illinois gained some significant ground with
     think, a pretty significant way.
 \end{quote}
 
+Other items to discuss
+\begin{enumerate}
+    \item What does community engagement look like?
+    \item Who is recognized as a stakeholder?
+    \item Is there an apparent tension between justice and effective outcomes?
+    (two examples: local food vs equity requirement and the idea that someone
+    will be unhappy with the outcome and thus blame the process...)
+\end{enumerate}
+
 % \block
 
 \section{Aim 3: \ac{osier}'s planning potential}
@@ -515,36 +553,3 @@ Despite tension, advocacy groups in Illinois gained some significant ground with
 %     johannsen_municipal_2023, fleischhacker_portfolio_2019} \item There have
 %     also been studies investigating the development of models for, and use by,
 %     city and urban planners. \end{itemize}
-
-% \section{Municipal Levers: How municipalities make choices about their energy
-% supply} There are generally four ways municipalities can make choices about
-% their energy supply.
-
-% \subsection{\ac{mca}} This is where municipalities participate in electricity
-% markets on behalf of their residents. Although this allows municipalities to
-% choose an energy supply besides the standard portfolio provided by an electric
-% utility, municipalities do not have full control over their energy supply.
-% Instead, municipalities negotiate for a few portfolios through a bidding
-% process. While they can specify some criteria, such as a percentage of
-% renewable energy, the specific generation mix depends on the company that
-% developed the portfolio bid. Further, residents are still allowed to opt-out
-% of \ac{mca} and elect the standard portfolio provided by their electric
-% utility.
-
-% \subsection{Utility ownership} Some municipalities in Illinois, such as
-% Naperville, own their own distribution system. This gives a municipality
-% greater control over the design of their utility system and allows a
-% municipality to make decisions about the tradeoff between cost and resiliency.
-% For example, Naperville undergounded most of the electric distribution system
-% and new distribution is automatically undergounded. However, this model does
-% not award control of electric supply to the municipality, which must procure
-% electricity through another entity such as the \acf{imea}.
-
-% \subsection{Municipal-owned generation} In very few cases, a municipality may
-% own some of its own generation. \ac{uiuc} owns a coal and natural gas plant, a
-% solar array, chilled water storage, and participates in a \ac{ppa} to purchase
-% wind power. More commonly, municipalities will lease land cheaply to a solar
-% company, for example, and purchase some or all of the rights to that
-% electricity through a \ac{ppa}. 
-
-% \subsection{Municipal-owned buildings}
