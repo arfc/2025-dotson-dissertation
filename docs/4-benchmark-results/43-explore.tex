@@ -24,12 +24,12 @@ simulation.\footnote{There are many more tested points than shown in Figure
   \label{fig:temoa-benchmark-01}
 \end{figure}
 
-First, \ac{temoa}'s least-cost solution is slightly better (within 0.5\%) than
+First, \ac{temoa}'s solution has a slightly lower cost (within 0.5\%) than
 \ac{osier}'s in terms of both cost and emissions. This happens because
 \ac{temoa} optimizes energy dispatch slightly differently than \ac{osier}. In
 particular, the initial storage value for energy storage technologies is a
 decision variable in \ac{temoa} and not in \ac{osier}. A second reason for this
-discrepancy has to do with convergence. \ac{osier}'s Pareto-front could likely
+discrepancy has to do with convergence. \ac{osier}'s Pareto front could likely
 be improved with a lower convergence tolerance, but this would use additional
 computational resources. Although, \ac{temoa} calculated an optimal solution
 with slightly lower cost than \ac{osier}, modelers should not place too much
@@ -40,7 +40,7 @@ rather than answers, due to the nature of the systems being modeled
 Next, the sub-optimal spaces mostly overlap, indicating that \ac{temoa} could
 find a solution with lower carbon emissions after sufficient iterations.
 However, none of \ac{temoa}'s \ac{mga} solutions fall within \ac{osier}'s
-sub-optimal space. This point highlights the necessity for \acl{moo}. The
+sub-optimal space. This point highlights the necessity of \acl{moo}. The
 purpose of \ac{mga} is to produce a \textit{diverse subset} of points in the
 sub-optimal region. \ac{mga} may capture appealing alternatives for some
 unmodeled objective in the original problem, but it cannot guarantee that those
@@ -70,7 +70,7 @@ novel \ac{mga} procedure described in Section \ref{section:mga-moo}.
 Both Figure \ref{fig:temoa-benchmark-01} and Figure \ref{fig:temoa-benchmark-02}
 present solutions in the objective space. However, in order to be prescriptive,
 the policy solutions must be formulated according to the decision space. In
-other words, described according to the mix of technologies that produced a
+other words, the solutions must be described according to the mix of technologies that produced a
 solution. Figure \ref{fig:temoa-benchmark-03} presents the spread of results in
 the decision space for each model. Figure \ref{fig:temoa-benchmark-03}a shows
 the spread of each technology present in \ac{osier}'s Pareto front. Figure
@@ -81,16 +81,16 @@ selected points from \ac{osier}'s near-optimal space. Lastly, Figure
 indicate which technologies are always or usually present. Technologies that are
 absent in all cases, including the near-optimal solutions, may be safely
 ignored. For \ac{osier}, these technologies include both types of coal, biomass,
-and, largely, wind energy. In \ac{temoa}'s results, there are no
-technologies that are totally absent. This result is due to the imperative built
+and, largely, wind energy. In \ac{temoa}'s results, no
+technologies are totally absent. This result is due to the imperative built
 into standard \ac{mga} to identify solutions that are maximally different in
-design space and its basis on a single objective. \ac{osier}'s \ac{mga} formulation
+design space and \ac{mga}'s basis on a single objective. \ac{osier}'s \ac{mga} formulation
 increased the spread of several technologies and includes ``advanced'' natural gas
 (with \ac{ccs}). Wind energy also shows up more frequently in the \ac{mga} plot.
 This supports the assertion that \ac{osier} samples near-optimal
 solutions based on maximally different solutions, with additional restrictions 
 from the dual objective problem. Thus, Figure \ref{fig:temoa-benchmark-03}b shows
-no solutions with a biomass or advanced coal. There is one solution with a small amount
+no solutions with a biomass or advanced coal and only one solution with a small amount
 of conventional coal.
 
 \newpage
