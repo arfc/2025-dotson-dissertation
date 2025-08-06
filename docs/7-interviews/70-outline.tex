@@ -65,10 +65,10 @@ modelers and planners would yield superior results. Only Ben Amer et al.
 identify consulting and personnel costs as potential barriers to incorporating
 modeling results into decision making processes.
 
-\textcolor{red}{Is the hypothesis I am testing with this study that
-``municipalities would be better equipped to plan and design their energy
-systems if the available modeling tools were accessible and relevant.'' This
-hypothesis comes from the implicit suppositions in a few papers. }
+% \textcolor{red}{Is the hypothesis I am testing with this study that
+% ``municipalities would be better equipped to plan and design their energy
+% systems if the available modeling tools were accessible and relevant.'' This
+% hypothesis comes from the implicit suppositions in a few papers. }
 
 \subsection{Energy justice and planning}
 
@@ -99,6 +99,9 @@ This study found 6 principles of planning for energy justice.
     \item Rejecting false solutions
 \end{enumerate}
 
+\subsection{Modeling for justice}
+
+Discuss the paper \cite{lonergan_energy_2023}
 
 \subsection{Novelty of this work}
 
@@ -132,7 +135,7 @@ enabling replication and comparison \cite{johannsen_designing_2021,
 yin_case_2018}. Further, since one purpose of this study is to evaluate the
 design and applicability of the tool, \ac{osier}, a multiple-case study design
 will strengthen software changes and feature additions and support \ac{osier}'s
-use in other places and contexts. The raw data include interview transcriptions
+use in other locations and contexts. The raw data include interview transcriptions
 and the relevant municipal climate and energy plans, if available. The
 interviews were transcribed with the ``listen and revise method'' using the
 Whisper transcription tool \cite{battaglia_listen_2024}. Whisper uses \ac{ai} to
@@ -150,8 +153,7 @@ connection), eliminating privacy concerns \cite{battaglia_listen_2024}. Figure
     \label{fig:whisper}
 \end{figure}
 
-The transcribed interviews were initially coded using a deductive approach to
-illuminate three aims of this study:
+The transcribed interviews were initially coded using a deductive approach aligned with three aims of this study:
 \begin{enumerate}
     \item identify how (if) energy models are used to support energy planning at
     local and state levels,
@@ -159,6 +161,9 @@ illuminate three aims of this study:
     planning decisions
     \item assess the usefulness of a new modeling tool, \ac{osier}.
 \end{enumerate} 
+However, I combined this with an inductive process to develop additional codes. The benefits
+of this hybrid strategy are that it allows comparing and contrasting the results of the present study with existing
+literature while producing insights novel to this study.
 The interview coding step was also performed locally with the \texttt{Taguette}
 tool \cite{rampin_taguette_2021}. Figure \ref{fig:taguette} shows a screenshot
 of the \texttt{Taguette} software.
@@ -193,14 +198,13 @@ The interviewees were chosen through a combination of purposive and snowball
 sampling to identify staff with sufficient and relevant energy planning
 experience. Each interviewee is involved in decision making, planning, or
 advocacy in their respective context. 
-
 Table \ref{tab:interviewees} summarizes the interviewees for this study. The
-organization column refers to the organization that either employs, or is
+\textit{organization} column refers to the organization that either employs, or is
 represented by, the interviewee. The \textit{type} column assigns the
 interviewee a broad category including
 \begin{enumerate}
     \item practicioner --- someone involved in the process of energy planning
-    and carries out policy directives from policy makers,
+    and/or carries out policy directives from policy makers,
     \item advocate --- a person or organization that lobbies for policy outcomes
     on behalf of a group of stakeholders,
     \item policy maker --- someone that participates in the ultimate decision
@@ -491,16 +495,35 @@ that currently outsource their electricity procurement to \ac{imea} are
 contractually prohibited from building certain \ac{btm} resources.
 
 \section{Results}
+This section explores the results from the analysis of thirteen interviews. It is organized
+according to \textcolor{red}{X} number of themes derived from thematic analysis.
 
-\subsection{Theme 1: Energy planning and the use of models}
+\begin{table}[ht!]
+    \centering
+    \caption{Summary of themes and categories derived from thematic analysis.}
+    \label{tab:themes}
+    % \resizebox{0.6\columnwidth}{!}{\input{tables/thematic-analysis.tex}}
+    \input{tables/thematic-analysis.tex}
+\end{table}
+
+\subsection{Existing planning processes}
+\subsection{Energy model usage}
 
 None of the municipalities considered in this study, Naperville, Champaign,
 Urbana, nor \ac{uiuc}, use \acp{esom} to guide energy planning and investment
-decisions.  
+decisions. At the state level, the \ac{ipa} use modeling \textit{results} to inform
+policy recommendations but the modeling itself was outsourced to an external consultant.
+
+Practitioners also understood modeling differently from the definition of \acp{esom}.
+Two interviewees, UI1 and CP1, indicated that ``energy models'' were used but described
+\acp{bem}, which are distinct from \acp{esom} because they focus on the flow of \textit{heat}
+energy into and and throughout a building. \acp{bem} are useful for identifying efficiency measures
+but are not mathematical optimization tools.
 
 
-
-\subsection{Theme 2: Considerations of justice in energy planning}
+\subsection{Considerations of justice in energy planning}
+\textcolor{red}{I think this section should be broken into three or four sub-sections, one
+for each aspect of justice and how it is considered in planning processes...}
 
 At both the state and municipal levels, energy justice considerations are driven
 primarily by advocacy groups, such as \ac{cub} and \ac{nest}, lobbying for its
@@ -517,7 +540,7 @@ examples and quotes here ...]}.
 in general? ]
 
 Despite tension, advocacy groups in Illinois gained some significant ground with
-\ac{ceja}'s passage in 2021. In the words of interviewee IA3:
+\ac{ceja}'s passage in 2021. In the words of interviewee IA2:
 
 \begin{quote}
     We have to incorporate into law, not just affordability, but environmental
@@ -538,7 +561,9 @@ Other items to discuss
 
 % \block
 
-\subsection{Theme 3: \ac{osier}'s planning potential}
+\subsection{Structural barriers to energy modeling}
+
+\subsection{\ac{osier}'s planning potential}
 
 % This chapter addresses my proposal to ``validate'' \ac{osier} by conducting a
 % case study of energy planning processes in Champaign-Urbana through interviews
