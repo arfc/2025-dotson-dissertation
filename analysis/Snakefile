@@ -431,10 +431,20 @@ rule plot_illinois_regions:
     script:
         "scripts/07-interview-scripts/plot_illinois_regions.py"
 
+
+rule plot_ares_ptc:
+    input:
+        ptc_data = f"{data_path}icc-ares-report-data.csv"
+    output:
+        ptc_plot = f"{docs_path}figures/07_interview_chapter/ptc_plot.pgf"
+    script:
+        "scripts/07-interview-scripts/plot_ptc_comparison.py"
+
 rule interview_chapter:
     input:
         uiuc_emissions_plot = f"{docs_path}figures/07_interview_chapter/uiuc_emissions_plot.pgf",
         illinois_plot = f"{docs_path}figures/07_interview_chapter/illinois_plot.pgf",
+        ptc_plot = f"{docs_path}figures/07_interview_chapter/ptc_plot.pgf",
     output:
         ch7_log
     shell:
