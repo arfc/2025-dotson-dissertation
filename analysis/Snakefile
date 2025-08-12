@@ -17,6 +17,7 @@ ch5_log = "ch5.log"
 ch4_log = "ch4.log"
 ch3_log = "ch3.log"
 ch2_log = "ch2.log"
+ch1_log = "ch1.log"
 
 with open(f"{docs_path}Makefile", "r") as file:
     lines = file.readlines()
@@ -453,6 +454,20 @@ rule interview_chapter:
             echo $file >> {output}
         done
         """
+#============================INTRODUCTION================================
+
+
+rule introduction_chapter:
+    input:
+        dag = "dag.png"
+    output:
+        ch1_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
 
 
 #============================BUILD RULE================================
@@ -466,7 +481,7 @@ if sys.platform == 'Windows':
             ch4_log=ch4_log,
             ch3_log=ch3_log,
             ch2_log=ch2_log,
-            dag = "dag.png"
+            ch1_log=ch1_log,
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -485,7 +500,7 @@ elif sys.platform in ['darwin', 'linux']:
             ch4_log=ch4_log,
             ch3_log=ch3_log,
             ch2_log=ch2_log,
-            dag = "dag.png"
+            ch1_log=ch1_log,
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -497,4 +512,4 @@ rule build_dag:
     output:
         "dag.png"
     shell:
-        "snakemake --dag | dot -Tpng > {output}"
+        "snakemake --rulegraph | dot -Tpng > {output}"
