@@ -1,0 +1,117 @@
+
+\textcolor{red}{This chapter is new in the dissertation! This is where I will handle 
+Denia's comments about being clear on my normative stances.}
+
+\textcolor{red}{The argument advanced in this chapter is that the practice of modeling
+involves iteratively addressing three types of uncertainties. In the chapter I will
+describe these types of uncertainties and the phases they represent.}
+
+\section{Arrow's Impossibility Theorem}
+
+This section will motivate the importance of contextualizing an analysis based on 
+dialogue with communities (at any level) using participatory methods rather than
+surveys or assumptions about items.
+
+Essentially, Arrow's theorem says that a universal preference order cannot exist without
+violating one or more democratic norms.
+
+This is Arrow's original paper on social choice theory \cite{arrow_difficulty_1950}.
+
+This paper talks about \ac{mcda} and Arrow's Theorem \cite{franssen_arrows_2005}.
+
+\section{Three Types of Uncertainty}
+
+\subsection{Parametric uncertainty}
+
+\subsection{Structural uncertainty}
+
+\subsection{On normative uncertainty}
+In \acp{esom}, non-physical constraints are often introduced to direct the model
+towards a desired outcome. For example, carbon emissions are often constrained
+to identify a least cost pathway to achieving a specified emissions target by a
+certain date. If the model's results are subsequently used to support policies
+that advance society towards that emissions target, then the modeled constraint
+represents a normative position. That society \textit{should} pursue this goal.
+In the case of carbon emissions, this is frequently stated outright (cite some
+papers that do this?). There are other constraints that researchers sometimes
+apply which might be construed as a normative position but go unstated and
+unsupported. Thus, introducing a \textit{normative uncertainty}. Normative
+uncertainty, that uncertainty which arises from the existence of a plurality of
+equally good alternatives, is seldom discussed in the literature (cite?).
+\textcolor{red}{Can I say precisely how many papers discuss normative
+uncertainty? If it's a small number, perhaps I can just state it.}
+
+In modeling practice, normative uncertainty shows up when there are weakly
+justified inputs. For example, constraining a model to building only a certain
+amount of capacity for a particular technology because the results would be
+otherwise ``unbelievable.'' There are good reasons to include such build limits.
+If you're modeling a region with an explicit policy ban on a technology, or if
+there is simply not enough land area to support an unlimited capacity of
+renewable energy resources. In these cases, it makes sense to constrain a
+technology's capacity to its \textit{technical potential.} Citing believability,
+however, represents a normative uncertainty because there are infinitely many
+narrative possibilities to explain a particular capacity constraint. For
+concreteness, consider an \ac{esom} with a nuclear reactor technology and an
+accompanying capacity constraint. There are myriad reasons to limit the
+technical potential for nuclear capacity, including geography, politics (e.g., a
+nuclear moratorium), and resource availability. However, limiting the capacity
+of a nuclear technology because the results would otherwise show an
+``unbelievable'' amount of nuclear capacity introduces a confounding normative
+uncertainty. This should be avoided for at least four reasons.
+\begin{enumerate}
+    \item If limiting nuclear energy is a policy objective then artificially
+    constraining the model's investment in nuclear may inadvertently lead to
+    more nuclear capacity in the real world because the \ac{esom} modeled a
+    policy environment that was actually beneficial to nuclear energy but could
+    not demonstrate this due to the modeled constraints.
+    \item Conventional \acp{esom} minimze system cost, limiting the buildout of
+    nuclear energy is, at best, a non-binding constraint, and at worst increases
+    the value of the objective function, creating an illusion of a ``least
+    cost'' solution.
+    \item If my goal is to inform a policy or set of policies that lead to a
+    particular outcome, such as reducing carbon emissions, a constraint that
+    increases the objective value might make the desired outcome economically
+    unappealing. 
+    \item Limiting the capacity obfuscates the policy changes that might be
+    needed to achieve a desired future.
+    \item Existence of such a constraint invites dismissal of the entire
+    modeling endeavor via Hitchens' Razor: What can be asserted without evidence
+    can be dismissed without evidence.
+    \item In a multi-objective model, an unjustified build limit reduces the
+    efficacy of tradeoff analysis.
+\end{enumerate}
+
+It is best to state and defend a normative position (e.g., "Nuclear energy is
+undesirable, here is why") than to introduce normative uncertainty.
+\textcolor{red}{Using a tool like \ac{osier} reduces normative uncertainty
+because it forces modelers and decisionmakers to confront their normative
+positions in tradeoff analysis. Choosing a particular solution among a set of
+co-optimal solutions requires articulating why one solution is preferable to
+another and lays bare the question of personal values.}
+
+Some normative positions of this thesis are:
+\begin{enumerate}
+    \item Reducing carbon emissions is paramount.
+    \item Technology agnostic: Models will not artificially favor any particular technology.
+    \item Policy outcomes are better when more diverse voices are included in the process.
+\end{enumerate}
+
+\section{Modeling phases}
+
+\subsection{Pre-descriptive}
+
+Link between normative and parametric uncertainties. Normative decisions (i.e., assumptions)
+are made about different model parameters. Along with which technologies are represented.
+At this stage, the uncertainties addressed range between aleatory and epistemic. The former 
+is a ``known unknown'' that could be improved with more research. The latter corresponds to 
+``unknown unknowns'' or a ``deep uncertainty'' that cannot be improved (cite).
+
+\subsection{Descriptive}
+Link between parametric and structural. This is where the ``modeling'' happens. Constraints
+and objectives give a model its descriptive power.
+
+\subsection{Prescriptive}
+Link between structural and normative. Model results are interpreted and policy outcomes
+are prescribed. Alternatively, researchers may start the cycle anew by using the model
+results to adjust the normative assumptions. Perhaps because the model results don't show
+a desirable future?
