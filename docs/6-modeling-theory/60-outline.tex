@@ -1,25 +1,91 @@
+Energy modeling is necessary to design energy systems that serve people,
+especially because our energy systems are growing more complex due the increase
+in different types of generation and the increase in time-dependent generation,
+such as \acfp{vre}. Further, in order to capture the ``human dimension,'' energy
+models should be designed to address three equal components of justice:
+distribution, procedure, and recognition. There is already some work being done
+to incorporate distribution justice into \acp{esom}
+\cite{neumann_near-optimal_2021,jafino_enabling_2021}. Particularly because the
+distribution of benefits and burdens are easily quantified. However, to capture
+procedural and recognition justice, \acp{esom} must be part of a deliberative
+participatory process where members of the public and other relevant
+stakeholders co-create a model and model results. McGookin et al. 2024 describe
+an ideal iterative process \cite{mcgookin_advancing_2024} and offer some methods
+for engaging the public in discussions around input data and assumptions.
+However, the study does not discuss how these discussions address uncertainties
+present in modeling. It also does not elaborate methods for discussing results
+with participants. In this chapter, I argue, first, that a participatory process
+is not simply one way to encapsulate procedural and recognition justice, but the
+only way. This is because of Arrow's Theorem, which says that a ``universal
+preference order'' cannot exist without violating one or more democratic norms.
+That is, faithfully aligning several preference orders has no algorithmic
+solution and can only be resolved through deliberation. Second, I explain how
+existing \acp{esom} fail to address all three types of uncertainty and how
+\ac{osier} addresses this gap and thereby supports the inclusion of energy
+justice into modeling and planning practices. Lastly, I expand on the procedure
+described by McGookin et al. \cite{mcgookin_advancing_2024} by outlining the
+process of developing an energy model according to three types of related
+uncertainties.
 
-\textcolor{red}{This chapter is new in the dissertation! This is where I will handle 
-Denia's comments about being clear on my normative stances.}
+Section \ref{section:arrows-thm} introduces Arrow's theorem and explains its
+significance for procedural justice and energy planning. Section
+\ref{section:participation-modeling} outlines a participatory modeling process
+described by McGookin et al. \cite{mcgookin_advancing_2024}. Section
+\ref{section:triple-uncertainty} elaborates on three types of uncertainty,
+introduced in Chapter \ref{chapter:lit-review}, that modeling must address.
+Lastly, Section \ref{section:modeling-phases} describes the relationships among
+each type of uncertainty and how the correspond to different phases of a
+modeling exercise.
 
-\textcolor{red}{The argument advanced in this chapter is that the practice of modeling
-involves iteratively addressing three types of uncertainties. In the chapter I will
-describe these types of uncertainties and the phases they represent.}
 
 \section{Arrow's Impossibility Theorem}
+\label{section:arrows-thm}
 
-This section will motivate the importance of contextualizing an analysis based on 
-dialogue with communities (at any level) using participatory methods rather than
-surveys or assumptions about items.
+Modern social-choice theory was founded in 1950 with the publication of Arrow's
+\textit{A Difficulty in the Concept of Social Welfare}
+\cite{arrow_difficulty_1950}. The field of social-choice theory concerns itself
+with how society makes rational decisions given the plurality of individual
+preferences. Formally, given a set of possible choices $a_i (i: 1,..., N)$, and
+a set of individuals $x_j (j:1, ...,M)$, each with a preference order, $o_j$, over the
+options that allows for strict ranking ($a_i > a_j$) and equivalence ($a_i \sim
+a_j$), how should the group decide the best option $a_i$
+\cite{franssen_arrows_2005}? Ideally, there exists a utility function, $f$, that maps
+the collection of individual preference orders, $P$ onto a collective preference order, $O$.
+$f: P \mapsto O$. Of course, there are trivial solutions, such as a dictatorship where
+only one preference order matters. To ensure a ``faithful translation'' of $P$ onto $O$, 
+Arrow proposed a set of constraints on $f$ \cite{arrow_difficulty_1950,franssen_arrows_2005}.
+Given a set of options $A$ the following must be satisfied:
+\begin{enumerate}
+    \item \textbf{Collective Rationality:} The collection of preference orders, $P \subset A\times A$,
+    must be
+    \begin{enumerate}
+        \item complete or connected --- all options and their relationships are represented in at
+        least one preference order, i.e., $(a_i > a_j | a_i < a_j)$ $\in$ $P$, and
+        \item transitive --- if there are preference orders $a_i > a_j$ and $a_j > a_k$ in $P$, then
+        $a_i > a_k$ must also exist in $P$.
+    \end{enumerate}
+    \item \textbf{Unrestricted Domain:}
+    There are no preference orders that are \textit{a priori} excluded from the domain $P$.
+    \item \textbf{Non-dictatorship:} There is no individual $x_i$ whose preferences always prevail. That is,
+    for all possible $P \in (P_1, ... P_N) \in \Pi(P)^N$ , when $x_i$ prefers $a_i > a_j$ that the utility function $f(P_i)$ always
+    results in $a_i > a_j$.
+    \item \textbf{Pareto Efficiency:} If all individuals prefer $a_i > a_j$, then $a_i$ is strictly better
+    for any $f(P_i)$.
+    \item \textbf{\ac{iia}:}
+\end{enumerate}
 
-Essentially, Arrow's theorem says that a universal preference order cannot exist without
-violating one or more democratic norms.
+Essentially, Arrow's theorem says that a universal preference order cannot exist
+without violating one or more democratic norms. Although originally developed
+with voting systems in mind, Franssen argues
+that \blockcquote[p. 42]{franssen_arrows_2005}{Arrow’s theorem applies fully to
+multi-criteria decision problems as they occur in engineering design, making
+solution methods to such problems subject to the theorem’s negative result.}
 
-This is Arrow's original paper on social choice theory \cite{arrow_difficulty_1950}.
-
-This paper talks about \ac{mcda} and Arrow's Theorem \cite{franssen_arrows_2005}.
+\section{Participatory Energy Modeling}
+\label{section:participation-modeling}
 
 \section{Three Types of Uncertainty}
+\label{section:triple-uncertainty}
 
 \subsection{Parametric uncertainty}
 
@@ -92,26 +158,40 @@ another and lays bare the question of personal values.}
 Some normative positions of this thesis are:
 \begin{enumerate}
     \item Reducing carbon emissions is paramount.
-    \item Technology agnostic: Models will not artificially favor any particular technology.
-    \item Policy outcomes are better when more diverse voices are included in the process.
+    \item Technology agnostic: Models will not artificially favor any particular
+    technology.
+    \item Policy outcomes are better when more diverse voices are included in
+    the process.
 \end{enumerate}
 
 \section{Modeling phases}
+\label{section:modeling-phases}
 
 \subsection{Pre-descriptive}
 
-Link between normative and parametric uncertainties. Normative decisions (i.e., assumptions)
-are made about different model parameters. Along with which technologies are represented.
-At this stage, the uncertainties addressed range between aleatory and epistemic. The former 
-is a ``known unknown'' that could be improved with more research. The latter corresponds to 
-``unknown unknowns'' or a ``deep uncertainty'' that cannot be improved (cite).
+Link between normative and parametric uncertainties. Normative decisions (i.e.,
+assumptions) are made about different model parameters. Along with which
+technologies are represented. At this stage, the uncertainties addressed range
+between aleatory and epistemic. The former is a ``known unknown'' that could be
+improved with more research. The latter corresponds to ``unknown unknowns'' or a
+``deep uncertainty'' that cannot be improved (cite).
+
+Engagement with the public is still important, here, since addressing uncertain
+parameters, such as technology costs, depends on your impression of the
+underlying data distribution.
+
 
 \subsection{Descriptive}
-Link between parametric and structural. This is where the ``modeling'' happens. Constraints
-and objectives give a model its descriptive power.
+Link between parametric and structural. This is where the ``modeling'' happens.
+Constraints and objectives give a model its descriptive power.
+
+For example, in this phase it might be important to introduce specific
+retirement schedules for power plants based on community feedback. Illinois
+legislators included such a schedule in the \acf{ceja} to retire coal and gas
+plants based on input from frontline communities in Illinois.
 
 \subsection{Prescriptive}
-Link between structural and normative. Model results are interpreted and policy outcomes
-are prescribed. Alternatively, researchers may start the cycle anew by using the model
-results to adjust the normative assumptions. Perhaps because the model results don't show
-a desirable future?
+Link between structural and normative. Model results are interpreted and policy
+outcomes are prescribed. Alternatively, researchers may start the cycle anew by
+using the model results to adjust the normative assumptions. Perhaps because the
+model results don't show a desirable future?
