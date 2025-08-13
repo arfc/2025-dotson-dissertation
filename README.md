@@ -53,7 +53,7 @@ snakemake --cores=1
 > 
 > Primarily because Windows _can't execute `make`_. There are additional
 > advantages as well. `snakemake` is arguably easier to understand and produces
-> a nice DAG model of the workflow itself.
+> a nice DAG model of the workflow itself. Further, the analysis is meant to be run sequentially. 
 >  
 
 # Compiling the dissertation

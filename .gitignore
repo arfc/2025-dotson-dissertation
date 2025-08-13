@@ -36,3 +36,16 @@ docs/_minted-thesis
 pres/_minted-arfc-pres
 _minted-*
 figure-log.txt
+__MACOSX
+data/**/2023-osier*
+data/uiuc_demand_data.csv
+checkpoint*
+data/technology_costs.csv
+data/datacenter_techlist.pkl
+data/datacenter_problem.pkl
+data/datacenter_results.pkl
+thread_data_dict.pkl
+time_data_dict.pkl
+ATBe.csv
+*gen.pkl
+*EROI*.pkl

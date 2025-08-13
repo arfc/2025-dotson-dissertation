@@ -1,3 +1,5 @@
+configfile: "config.yml"
+
 import sys
 
 latexopt = """
@@ -8,7 +10,14 @@ latexopt = """
             """
 
 docs_path = "../docs/"
-figure_log = "figures.log"
+data_path = "../data/"
+osier_data = f"{data_path}2023-osier-simulation-results/"
+ch7_log = "ch7.log"
+ch5_log = "ch5.log"
+ch4_log = "ch4.log"
+ch3_log = "ch3.log"
+ch2_log = "ch2.log"
+ch1_log = "ch1.log"
 
 with open(f"{docs_path}Makefile", "r") as file:
     lines = file.readlines()
@@ -19,31 +28,510 @@ output_name = lines[0].strip('\n').replace(' ', '').split('=')[-1]
 rule targets:
     input:
         thesis = f"{docs_path}{output_name}.pdf",
-        dag = "dag.png",
 
-rule collect_figures:
-    input:
-        social_max_plot = f"{docs_path}figures/social_max.pgf",
-        elasticity_plot = f"{docs_path}figures/elasticity.pgf",
-        example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
-        near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf",
-        interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
-        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf",
-        example_mga_plot = f"{docs_path}figures/mga-fft-example.pgf",
+rule plot_example_fronts:
+    input: "scripts/02-litrev-scripts/pareto_front.py"
     output:
-        log = figure_log
+        example_pareto_plot = f"{docs_path}figures/02_literature_review/truss2d_pareto.pgf",
+        example_knee_solutions = f"{docs_path}figures/02_literature_review/example_knee_solutions.pgf",
+        near_optimal_plot = f"{docs_path}figures/02_literature_review/near-optimal-pareto.pgf",
+        interior_points_plot = f"{docs_path}figures/03_osier_chapter/nd-mga-paretofront.pgf",
+    script: f"{input}"
+#============================LITERATURE CHAPTER================================
+
+rule plot_social_welfare_max:
+    input: "scripts/02-litrev-scripts/social_welfare_maximization.py"
+    output: 
+        social_max_plot = f"{docs_path}figures/02_literature_review/social_max.pgf",
+        elasticity_plot = f"{docs_path}figures/02_literature_review/elasticity.pgf"
+    script: f"{input}"
+
+
+rule literature_review:
+    input:
+        example_pareto_plot = f"{docs_path}figures/02_literature_review/truss2d_pareto.pgf",
+        near_optimal_plot = f"{docs_path}figures/02_literature_review/near-optimal-pareto.pgf",
+        social_max_plot = f"{docs_path}figures/02_literature_review/social_max.pgf",
+        elasticity_plot = f"{docs_path}figures/02_literature_review/elasticity.pgf",
+        example_knee_solutions = f"{docs_path}figures/02_literature_review/example_knee_solutions.pgf",
+    output:
+        ch2_log
     shell:
         """
         for file in {input}; do
-            echo $file >> {output.log}
+            echo $file >> {output}
         done
         """
+#============================OSIER CHAPTER================================
+
+rule plot_3d_fronts:
+    input: "scripts/03-osier-scripts/pareto_3D.py"
+    output:
+        pareto_3d = f"{docs_path}figures/03_osier_chapter/3d-mga-paretofront.pgf"
+    script: f"{input}"
+
+rule plot_reference_directions:
+    output:
+        reference_directions = f"{docs_path}figures/03_osier_chapter/reference_directions.pgf",
+    script: f"scripts/03-osier-scripts/plot_reference_directions.py"
+
+rule plot_n_mga_example:
+    input: "scripts/mga_fft_example.py"
+    output:
+        example_mga_plot = f"{docs_path}figures/03_osier_chapter/mga-fft-example.pgf",
+    script: f"{input}"
+
+rule osier_chapter:
+    input:
+        reference_directions = f"{docs_path}figures/03_osier_chapter/reference_directions.pgf",
+        interior_points_plot = f"{docs_path}figures/03_osier_chapter/nd-mga-paretofront.pgf",
+        pareto_3d = f"{docs_path}figures/03_osier_chapter/3d-mga-paretofront.pgf",
+        example_mga_plot = f"{docs_path}figures/03_osier_chapter/mga-fft-example.pgf",
+    output:
+        ch3_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
+
+#============================BENCHMARK CHAPTER================================
+rule retrieve_prelim_results:
+    output:
+        four_obj_results = f"{osier_data}2023-05-30-NOBJ4-USNGA3-results.pkl",
+        unsga3_results = f"{osier_data}2022-12-31-USNGA3-results.pkl",
+        pf_nsga3 = f"{osier_data}algorithm_comparison/2023-05-06_nsga3_PF_Fitness_95.pkl_95",
+        pf_nsga2 = f"{osier_data}algorithm_comparison/2023-05-12-nsga2_PF_Fitness_95.pkl_95",
+        temoa_F2 = f"{osier_data}model_comparison/2022-11-18-temoa_mga_objective_remap.pkl",
+        temoa_mga_design = f"{osier_data}model_comparison/2022-11-18-temoa-mga-design.pkl",
+        unsga3_design = f"{osier_data}model_comparison/2022-12-31-optimal_design_X.pkl",
+        unsga3_objective = f"{osier_data}model_comparison/2022-12-31-optimal_objective_F.pkl",
+    script: "scripts/04-benchmark-scripts/retrieve_databundle.py"
+
+rule retrieve_load_data:
+    output:
+        load_data = f"{data_path}uiuc_demand_data.csv"
+    shell: f"""
+            (cd {data_path} && \
+            curl -O \
+            "https://raw.githubusercontent.com/samgdotson/2021-dotson-ms/refs/heads/master/data/uiuc_demand_data.csv")
+            """
+
+rule process_prelim_results:
+    input:
+        four_obj_results = f"{osier_data}2023-05-30-NOBJ4-USNGA3-results.pkl",
+        unsga3_results = f"{osier_data}2022-12-31-USNGA3-results.pkl",
+        pf_nsga3 = f"{osier_data}algorithm_comparison/2023-05-06_nsga3_PF_Fitness_95.pkl_95",
+        pf_nsga2 = f"{osier_data}algorithm_comparison/2023-05-12-nsga2_PF_Fitness_95.pkl_95",
+        temoa_F2 = f"{osier_data}model_comparison/2022-11-18-temoa_mga_objective_remap.pkl",
+        temoa_mga_design = f"{osier_data}model_comparison/2022-11-18-temoa-mga-design.pkl",
+        unsga3_design = f"{osier_data}model_comparison/2022-12-31-optimal_design_X.pkl",
+        unsga3_objective = f"{osier_data}model_comparison/2022-12-31-optimal_objective_F.pkl",
+    output:
+        combined_data = f"{data_path}4_obj_results_processed.csv"
+    script: "scripts/04-benchmark-scripts/process_prelim_data.py"
+
+rule plot_load_data:
+    input:
+        load_data = f"{data_path}uiuc_demand_data.csv",
+    output:
+        load_curve = f"{docs_path}figures/04_benchmark_chapter/normalized_load_curves.pgf"
+    script: "scripts/04-benchmark-scripts/plot_load_duration.py"
+
+rule plot_algorithm_comparison:
+    input:
+        unsga3_results = f"{osier_data}2022-12-31-USNGA3-results.pkl",
+        pf_nsga3 = f"{osier_data}algorithm_comparison/2023-05-06_nsga3_PF_Fitness_95.pkl_95",
+        pf_nsga2 = f"{osier_data}algorithm_comparison/2023-05-12-nsga2_PF_Fitness_95.pkl_95"
+    output:
+        alg_comp_plot = f"{docs_path}figures/04_benchmark_chapter/algorithm_comparison_kde.pgf"
+    script: "scripts/04-benchmark-scripts/plot_algorithm_comparison.py"
+
+rule plot_temoa_comparison:
+    input:
+        unsga3_results = f"{osier_data}2022-12-31-USNGA3-results.pkl",
+        temoa_F2 = f"{osier_data}model_comparison/2022-11-18-temoa_mga_objective_remap.pkl",
+        temoa_mga_design = f"{osier_data}model_comparison/2022-11-18-temoa-mga-design.pkl",
+        unsga3_design = f"{osier_data}model_comparison/2022-12-31-optimal_design_X.pkl",
+        unsga3_objective = f"{osier_data}model_comparison/2022-12-31-optimal_objective_F.pkl",
+        techs =f"{osier_data}model_comparison/2022-12-31-techset.pkl"
+    output:
+        temoa_comparison_01 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_benchmark_01.pgf",
+        temoa_comparison_02 = f"{docs_path}figures/04_benchmark_chapter/osier_mga_subset_01.pgf",
+        temoa_comparison_03 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_mga_comparison1x3.pgf",
+    script: "scripts/04-benchmark-scripts/plot_temoa_comparison.py"
+
+rule plot_many_objective:
+    input:
+        combined_data = f"{data_path}4_obj_results_processed.csv"
+    output:
+        four_obj_objective_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space.pgf",
+        four_obj_objective_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space_MGA.pgf",
+        four_obj_design_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space.pgf",
+        four_obj_design_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA.pgf",
+        four_obj_design_mga_boxplot = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA_boxplot.pgf",
+    script: "scripts/04-benchmark-scripts/plot_many_objective.py"
+
+
+# ~~~~~~~~ Should this plot be moved to the literature review chapter? ~~~~~~~~~~~~
+rule plot_standard_mga:
+    output:
+        standard_mga = f'{docs_path}figures/04_benchmark_chapter/naive_mga_lp.pgf',
+    script: "scripts/04-benchmark-scripts/plot_standard_mga.py"
+
+optimizers = ['logical','optimal']
+scenarios = ['gas', 'wind', 'all']
+rule run_dispatch_comparison:
+    output:
+        demand_data = f"{data_path}synthetic_demand_data.pkl",
+        windpower_data = f"{data_path}synthetic_windpower_data",
+        windspeed_data = f"{data_path}synthetic_windspeed_data",
+        objective_results = f"{data_path}algorithm_comparison_objective_results.csv",
+        objective_table = f"{docs_path}tables/algorithm_comparison_results.tex",
+        dispatch_data = expand("../data/{scenario}_dispatch_results_{opt}.csv", 
+                                scenario=scenarios,
+                                opt=optimizers)
+    script:
+        "scripts/04-benchmark-scripts/compare_dispatch.py"
+
+rule plot_wind_demand_data:
+    input:
+        demand_data = f"{data_path}synthetic_demand_data.pkl",
+        windpower_data = f"{data_path}synthetic_windpower_data",
+        windspeed_data = f"{data_path}synthetic_windspeed_data"
+    output:
+        demand_plot = f"{docs_path}figures/04_benchmark_chapter/demand_plot.pgf",
+        wind_plot = f"{docs_path}figures/04_benchmark_chapter/wind_plot.pgf",
+    script:
+        "scripts/04-benchmark-scripts/plot_wind_demand_data.py"
+
+rule plot_dispatch_comparison:
+    input:
+        demand_data = f"{data_path}synthetic_demand_data.pkl",
+        dispatch_data = expand("../data/{scenario}_dispatch_results_{opt}.csv", 
+                                scenario=scenarios,
+                                opt=optimizers)
+    output:
+        dispatch_plots = expand("../docs/figures/04_benchmark_chapter/{scenario}_{opt}_dispatch_plot.pgf", 
+                                scenario=scenarios,
+                                opt=optimizers
+                                )
+    script:
+        "scripts/04-benchmark-scripts/plot_dispatch_comparison.py"
+
+rule run_algorithm_scaling:
+    output:
+        algorithm_times = f"{data_path}algorithm_out.csv"
+    script:
+        "scripts/04-benchmark-scripts/scaling_study_opt_dispatch.py"
+
+rule run_thread_scaling:
+    output:
+        thread_times = f"{data_path}thread_data_out.csv"
+    script:
+        "scripts/04-benchmark-scripts/thread_scaling_study.py"
+
+rule plot_scaling:
+    input:
+        algorithm_times = f"{data_path}algorithm_out.csv",
+        thread_times = f"{data_path}thread_data_out.csv"
+    output:
+        algorithm_scaling_plot = f"{docs_path}figures/04_benchmark_chapter/algorithm_scaling_plot.pgf",
+        thread_scaling_plot = f"{docs_path}figures/04_benchmark_chapter/thread_scaling_plot.pgf"
+    script:
+        "scripts/04-benchmark-scripts/plot_scaling_study.py"
+
+rule benchmark_chapter:
+    input:
+        temoa_comparison_01 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_benchmark_01.pgf",
+        temoa_comparison_02 = f"{docs_path}figures/04_benchmark_chapter/osier_mga_subset_01.pgf",
+        temoa_comparison_03 = f"{docs_path}figures/04_benchmark_chapter/temoa_osier_mga_comparison1x3.pgf",
+        alg_comp_plot = f"{docs_path}figures/04_benchmark_chapter/algorithm_comparison_kde.pgf",
+        four_obj_objective_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space.pgf",
+        four_obj_objective_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_objective_space_MGA.pgf",
+        four_obj_design_space = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space.pgf",
+        four_obj_design_mga = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA.pgf",
+        four_obj_design_mga_boxplot = f"{docs_path}figures/04_benchmark_chapter/4_obj_design_space_MGA_boxplot.pgf",
+        standard_mga = f'{docs_path}figures/04_benchmark_chapter/naive_mga_lp.pgf',
+        load_curve = f"{docs_path}figures/04_benchmark_chapter/normalized_load_curves.pgf",
+        algorithm_scaling_plot = f"{docs_path}figures/04_benchmark_chapter/algorithm_scaling_plot.pgf",
+        thread_scaling_plot = f"{docs_path}figures/04_benchmark_chapter/thread_scaling_plot.pgf",
+        dispatch_plots = expand("../docs/figures/04_benchmark_chapter/{scenario}_{opt}_dispatch_plot.pgf", 
+                                scenario=scenarios,
+                                opt=optimizers
+                                ),
+    output:
+        ch4_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
+#============================EXAMPLES CHAPTER================================
+app_d_url = "https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20D.pdf"
+app_c_url = "https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20C.pdf"
+atbe_url = "https://oedi-data-lake.s3.amazonaws.com/ATB/electricity/csv/2024/v3.0.0/ATBe.csv"
+
+rule retrieve_fuel_cycles_report_D:
+    output: 
+        "../data/metric_data.pdf"
+    shell: f"(cd ../data/ && curl \"{app_d_url}\" --output metric_data.pdf)"
+
+rule retrieve_fuel_cycles_report_C:
+    output: 
+        "../data/summary_data.pdf"
+    shell: f"(cd ../data/ && curl \"{app_c_url}\" --output summary_data.pdf)"
+
+
+rule extract_quantitative_data:
+    input: 
+        "../data/metric_data.pdf"
+    output:
+        expand("../data/{metric}.csv", metric=list(config['table_pages'].keys()))
+    script:
+        "scripts/05-examples-scripts/extract_metrics.py"
+
+rule extract_summary_data:
+    input:
+        summary_data_pdf = f"{data_path}summary_data.pdf",
+        metric_data = f"{data_path}metric_data.csv"
+    output:
+        summary_data = f"{data_path}summary_data.csv",
+        summary_table = f"{docs_path}tables/summary_data.tex",
+    script:
+        "scripts/05-examples-scripts/create_summary_table.py"
+
+rule create_metric_data_table:
+    input:
+        expand("../data/{metric}.csv", metric=list(config['table_pages'].keys()))
+    output:
+        metric_data = f"{data_path}metric_data.csv",
+        metric_table = f"{docs_path}tables/metric_data.tex"
+    script:
+        "scripts/05-examples-scripts/create_metric_table.py"
+
+rule plot_set_tool:
+    input:
+        metric_data = f"{data_path}metric_data.csv",
+    output:
+        full_set_plot = f"{docs_path}figures/05_examples_chapter/full_set_plot.pgf",
+        once_through_set_plot = f"{docs_path}figures/05_examples_chapter/once-through_set_plot.pgf",
+        single_eg_set_plot = f"{docs_path}figures/05_examples_chapter/single-eg_set_plot.pgf",
+        non_optimal_set_plot = f"{docs_path}figures/05_examples_chapter/non_optimal_set_plot.pgf",
+    script:
+        "scripts/05-examples-scripts/plot_set_tool.py"
+
+
+rule plot_set_tool_bin:
+    input:
+        metric_data = f"{data_path}metric_data.csv",
+    output:
+        set_bin_plot = f"{docs_path}figures/05_examples_chapter/set_bin_plot.pgf"
+    script:
+        "scripts/05-examples-scripts/plot_set_bin.py"
+
+
+#~~~~~~~~~~~~~~~~ Data Center Example ~~~~~~~~~~~~~~~~~~
+rule retrieve_atb_costs:
+    output:
+        atbe = f"{data_path}ATBe.csv"
+    shell: f"(cd ../data/ && curl \"{atbe_url}\" --output ATBe.csv)"
+
+rule process_atb_costs:
+    input:
+        atbe = f"{data_path}ATBe.csv"
+    output:
+        tech_costs = f"{data_path}technology_costs.csv"
+    script:
+        "scripts/05-examples-scripts/process_atb.py"
+
+rule create_dc_model:
+    input:
+        tech_costs = f"{data_path}technology_costs.csv",
+        eroi_data = f"{data_path}eroi_data.csv"
+    output:
+        dc_problem = f"{data_path}datacenter_problem.pkl",
+        tech_list = f"{data_path}datacenter_techlist.pkl",
+        dc_tech_table = f"{docs_path}tables/datacenter_tech_options.tex",
+        solar_plot = f"{docs_path}figures/05_examples_chapter/synthetic_solar_plot.pgf"
+    script:
+        "scripts/05-examples-scripts/datacenter_example.py"
+
+rule solve_datacenter:
+    input:
+        dc_problem = f"{data_path}datacenter_problem.pkl"
+    output:
+        dc_results_F = f"{data_path}dc_results_F.pkl",
+        dc_results_X = f"{data_path}dc_results_X.pkl",
+        convergence = f"{docs_path}figures/05_examples_chapter/dc_convergence_plot.pgf",
+    script:
+        "scripts/05-examples-scripts/solve_datacenter.py"
+
+rule plot_datacenter:
+    input:
+        tech_list = f"{data_path}datacenter_techlist.pkl",
+        dc_results_F = f"{data_path}dc_results_F.pkl",
+        dc_results_X = f"{data_path}dc_results_X.pkl",
+    output:
+        dc_objective_space = f"{docs_path}figures/05_examples_chapter/dc_objective_space.pgf",
+        dc_objective_space_10 = f"{docs_path}figures/05_examples_chapter/dc_objective_space_10.pgf",
+        dc_design_space = f"{docs_path}figures/05_examples_chapter/dc_design_space.pgf",
+        dc_design_space_10 = f"{docs_path}figures/05_examples_chapter/dc_design_space_10.pgf",
+    script:
+        "scripts/05-examples-scripts/plot_datacenter.py"
+
+rule examples_chapter:
+    input:
+        metric_data = f"{data_path}metric_data.csv",
+        metric_table = f"{docs_path}tables/metric_data.tex",
+        full_set_plot = f"{docs_path}figures/05_examples_chapter/full_set_plot.pgf",
+        once_through_set_plot = f"{docs_path}figures/05_examples_chapter/once-through_set_plot.pgf",
+        single_eg_set_plot = f"{docs_path}figures/05_examples_chapter/single-eg_set_plot.pgf",
+        non_optimal_set_plot = f"{docs_path}figures/05_examples_chapter/non_optimal_set_plot.pgf",
+        summary_data = f"{data_path}summary_data.csv",
+        summary_table = f"{docs_path}tables/summary_data.tex",
+        set_bin_plot = f"{docs_path}figures/05_examples_chapter/set_bin_plot.pgf",
+        solar_plot = f"{docs_path}figures/05_examples_chapter/synthetic_solar_plot.pgf",
+        dc_objective_space = f"{docs_path}figures/05_examples_chapter/dc_objective_space.pgf",
+        dc_design_space = f"{docs_path}figures/05_examples_chapter/dc_design_space.pgf",
+        convergence = f"{docs_path}figures/05_examples_chapter/dc_convergence_plot.pgf",
+        dc_objective_space_10 = f"{docs_path}figures/05_examples_chapter/dc_objective_space_10.pgf",
+        dc_design_space_10 = f"{docs_path}figures/05_examples_chapter/dc_design_space_10.pgf",
+    output:
+        ch5_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
+
+#============================INTERVIEW CHAPTER================================
+rule plot_uiuc_emissions:
+    output:
+        uiuc_emissions_plot = f"{docs_path}figures/07_interview_chapter/uiuc_emissions_plot.pgf"
+    script:
+        "scripts/07-interview-scripts/plot_uiuc_emissions.py"
+
+rule retrieve_illinois_data:
+    output:
+        illinois_data = f"{data_path}cb_2024_us_county_500k.zip"
+    shell: f"""
+            (cd {data_path} && \
+            curl -O \
+            "https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_county_500k.zip")
+            """
+
+rule plot_illinois_regions:
+    input:
+        illinois_data = f"{data_path}cb_2024_us_county_500k.zip"
+    output:
+        illinois_plot = f"{docs_path}figures/07_interview_chapter/illinois_plot.pgf"
+    script:
+        "scripts/07-interview-scripts/plot_illinois_regions.py"
+
+
+rule plot_ares_ptc:
+    input:
+        ptc_data = f"{data_path}icc-ares-report-data.csv"
+    output:
+        ptc_plot = f"{docs_path}figures/07_interview_chapter/ptc_plot.pgf"
+    script:
+        "scripts/07-interview-scripts/plot_ptc_comparison.py"
+
+rule interview_chapter:
+    input:
+        uiuc_emissions_plot = f"{docs_path}figures/07_interview_chapter/uiuc_emissions_plot.pgf",
+        illinois_plot = f"{docs_path}figures/07_interview_chapter/illinois_plot.pgf",
+        ptc_plot = f"{docs_path}figures/07_interview_chapter/ptc_plot.pgf",
+    output:
+        ch7_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
+#============================INTRODUCTION================================
+
+rule retrieve_mauna_loa_data:
+    output:
+        mauna_loa_data = f"{data_path}co2_mlo_surface-insitu_1_ccgg_DailyData.txt"
+    shell: f"""
+            (cd {data_path} && curl -O https://gml.noaa.gov/aftp/data/trace_gases/co2/in-situ/surface/txt/co2_mlo_surface-insitu_1_ccgg_DailyData.txt)
+            """
+
+rule retrieve_epa_inventory:
+    output:
+        epa_inventory = f"{data_path}us-ghg-inventory-2024-chapter-executive-summary_04-16-2024.pdf"
+    shell:
+        f"""
+        (cd {data_path} && curl -O https://www.epa.gov/system/files/documents/2024-04/us-ghg-inventory-2024-chapter-executive-summary_04-16-2024.pdf)
+        """
+
+rule plot_mauna_loa:
+    input:
+        mauna_loa_data = f"{data_path}co2_mlo_surface-insitu_1_ccgg_DailyData.txt"
+    output:
+        mauna_loa_plot = f"{docs_path}figures/01_introduction/mauna-loa-co2.pgf"
+    script:
+        "scripts/01-introduction-scripts/plot_mauna_loa.py"
+
+rule plot_source_emissions:
+    output:
+        source_emissions_plot = f"{docs_path}figures/01_introduction/emissions-by-source.pgf"
+    script:
+        "scripts/01-introduction-scripts/plot_source_emissions.py"
+
+rule plot_sector_emissions:
+    input:
+        epa_inventory = f"{data_path}us-ghg-inventory-2024-chapter-executive-summary_04-16-2024.pdf"
+    output:
+        sector_emissions_plot = f"{docs_path}figures/01_introduction/emissions-by-sector.pgf"
+    script:
+        "scripts/01-introduction-scripts/plot_sector_emissions.py"
+
+
+rule build_example_dag:
+    params:
+        chapter = "introduction_chapter"
+    input: "Snakefile"
+    output: "introduction_chapter_dag.png"
+    shell: 
+        "snakemake {params.chapter} --dag | dot -Tpng > {output}"
+
+
+rule introduction_chapter:
+    input:
+        dag = "dag.png",
+        example_dag = "introduction_chapter_dag.png",
+        mauna_loa_plot = f"{docs_path}figures/01_introduction/mauna-loa-co2.pgf",
+        source_emissions_plot = f"{docs_path}figures/01_introduction/emissions-by-source.pgf",
+        sector_emissions_plot = f"{docs_path}figures/01_introduction/emissions-by-sector.pgf"
+    output:
+        ch1_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
+
+
+#============================BUILD RULE================================
 
 if sys.platform == 'Windows':
     rule build_thesis:
         input: 
             main_tex = f"{docs_path}{output_name}.tex",
-            log = figure_log
+            ch7_log=ch7_log,
+            ch5_log=ch5_log,
+            ch4_log=ch4_log,
+            ch3_log=ch3_log,
+            ch2_log=ch2_log,
+            ch1_log=ch1_log,
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -57,7 +545,12 @@ elif sys.platform in ['darwin', 'linux']:
     rule build_thesis:
         input: 
             main_tex = f"{docs_path}{output_name}.tex",
-            log = figure_log
+            ch7_log=ch7_log,
+            ch5_log=ch5_log,
+            ch4_log=ch4_log,
+            ch3_log=ch3_log,
+            ch2_log=ch2_log,
+            ch1_log=ch1_log,
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -69,35 +562,4 @@ rule build_dag:
     output:
         "dag.png"
     shell:
-        "snakemake --dag | dot -Tpng > {output}"
-
-
-rule plot_social_welfare_max:
-    input: "scripts/social_welfare_maximization.py"
-    output: 
-        social_max_plot = f"{docs_path}figures/social_max.pgf",
-        elasticity_plot = f"{docs_path}figures/elasticity.pgf"
-    script: f"{input}"
-
-
-rule plot_example_fronts:
-    input: "scripts/pareto_front.py"
-    output:
-        example_pareto_plot = f"{docs_path}figures/truss2d_pareto.pgf",
-        interior_points_plot = f"{docs_path}figures/nd-mga-paretofront.pgf",
-        near_optimal_plot = f"{docs_path}figures/near-optimal-pareto.pgf"
-    script: f"{input}"
-
-
-rule plot_mga_example:
-    input: "scripts/mga_fft_example.py"
-    output:
-        example_mga_plot = f"{docs_path}figures/mga-fft-example.pgf",
-    script: f"{input}"
-
-
-rule plot_3d_fronts:
-    input: "scripts/pareto_3D.py"
-    output:
-        pareto_3d = f"{docs_path}figures/3d-mga-paretofront.pgf"
-    script: f"{input}"
+        "snakemake --rulegraph | dot -Tpng > {output}"

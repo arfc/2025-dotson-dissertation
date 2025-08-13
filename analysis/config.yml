@@ -1,0 +1,66 @@
+# main data tables from Fuel Cycle Options Study, Appendix D
+table_pages: 
+  mass_snf_hlw_disposal: 18,19
+  activity_at_100_yrs: 26,27
+  activity_at_100k_years: 35,36,37
+  mass_du_ru_rth_disposal: 42,43
+  volume_llw_disposal: 46,47
+  safety_challenges: "54"
+  land_use: 59,60
+  water_use: 63,64
+  carbon_dioxide_emissions: 66,67
+  total_worker_dose: 70,71
+  natural_uranium_required: 74,75
+  natural_thorium_utilization: 80,81
+  development_cost: "84"
+  development_time: 86,87
+  foak_cost: 89,90
+  incompatibility: 92,93
+  unfamiliarity: 95,96
+
+# summary tables from Fuel Cycle Options Study, Appendix C
+# summary_tables:
+#   - 
+
+relative_importance:
+  mass_snf_hlw_disposal: 1
+  activity_at_100_yrs: 1
+  activity_at_100k_years: 1
+  mass_du_ru_rth_disposal: 1
+  volume_llw_disposal: 1
+  safety_challenges: 1
+  land_use: 1
+  water_use: 1
+  carbon_dioxide_emissions: 1
+  total_worker_dose: 1
+  natural_uranium_required: 1
+  natural_thorium_utilization: 1
+  development_cost: 1
+  development_time: 1
+  foak_cost: 1
+  incompatibility: 1
+  unfamiliarity: 1
+
+
+promising_fuelcycles:
+  most_promising:
+    - EG23
+    - EG24
+    - EG29
+    - EG30
+  potentially_promising:
+    - EG06
+    - EG07
+    - EG08
+    - EG09
+    - EG26
+    - EG28
+    - EG33
+    - EG34
+    - EG37
+    - EG38
+    - EG40
+  less_promising:
+    - EG04
+    - EG10
+    - EG14
