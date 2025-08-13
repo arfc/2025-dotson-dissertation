@@ -1,0 +1,106 @@
+\section{Discussion}
+\label{section:interview-discussion}
+This section synthesizes the interview results into recommendations that can be
+applied in other contexts.
+
+\subsection{Who can benefit from energy modeling?}
+Much of the literature that exists on modeling practices at the municipal scale
+find that \acp{esom} are seldom used
+\cite{ben_amer_too_2020,johannsen_municipal_2023}. The reasons cited for this
+are \cite{ben_amer_too_2020,johannsen_municipal_2023,susser_better_2022}
+\begin{enumerate}
+    \item poorly scoped models that do not capture relevant phenomena,
+    \item lack of resources or expertise to conduct modeling, 
+    \item and lack of collaboration between modelers and planners.
+\end{enumerate} 
+Specifying challenges in this way provides a list of issues that can be
+addressed. Unfortunately, the interviews in this study suggest that even if each
+of these issues were appropriately handled that municipalities would still not
+benefit from the use of energy models. Instead, there are structural barriers to
+the municipal use of energy models. The typical focus of \acp{esom} on national
+and regional energy systems evinces an implicit understanding of these barriers.
+Municipalities can still benefit from mathematical optimization tools as long as
+a municipality has sufficient autonomy over its energy choices to impact the
+decision variables in the model. For example, a municipality that does not own
+its electric utility or any generating resources would not benefit from a
+capacity expansion model that optimizes investments in generating resources. Of
+the municipalities considered in this study, \ac{uiuc} satisfies this condition
+the best and is the most likely to benefit from \acp{esom} in planning
+processes. Indeed, meeting its climate goals might necessitate modeling.
+
+Although municipal governments may not be the strongest candidates for energy
+modeling, nonprofits and grassroots organizations could benefit from energy
+modeling to aid the development of their energy visions which can then be used
+to lobby for policy changes. For example, with some support \ac{nest} could use
+a model to create an alternative energy vision than the one provided by
+\ac{imea}.
+
+\subsection{How \ac{osier} addresses the ``human dimension''} 
+
+\ac{osier} allows for any number of constraints, objectives, and even allows for
+user-defined objectives, a design philosophy consistent with the first principle
+from Elmallah et al. which called for ``place-based'' solutions
+\cite{elmallah_frontlining_2022}. However, place-based solutions require
+authentic engagement and ``quantitative metrics cannot replace on the ground
+work that includes qualitative, community-based approaches in devising policy
+solutions'' \cite{elmallah_frontlining_2022}. While \ac{osier} can stand alone
+as an \ac{esom}, it is likely most effective as part of an iterative,
+participatory, approach as outlined by McGookin et al. 2024
+\cite{mcgookin_advancing_2024}. This approach breaks down the modeling process
+into five distinct parts
+\begin{enumerate}
+    \item Research design,
+    \item Model assumptions,
+    \item Modelling results,
+    \item Outreach and communication,
+    \item and Evaluation.
+\end{enumerate}
+Each part in this process can be iterated upon based on the outcomes from a
+later step \cite{mcgookin_advancing_2024}. \ac{osier} impacts the model
+assumptions, and modeling results stages the most since model objectives become
+assumptions when using \ac{osier} and understanding the tradeoffs of different
+model solutions becomes part of the discussion. Analyzing tradeoffs is important
+for reducing the normative uncertainty present in all modeling exercises and
+policy discussions. The interviews in this study support \ac{osier}'s ability to
+facilitate dialogue and communicate with decision makers and constituents.
+Tradeoff analysis was identified as a particularly important feature of the
+tool.
+
+\subsection{Policy Recommendations}
+Although the state of Illinois uses modeling results and hires consultants to
+perform modeling, the responses from interviewees suggest that even more
+transparency in the model data and the models themselves are desired. A public
+comment period does not constitute genuine involvement of a participatory
+process. Creating such a process would align Illinois more closely with the
+energy justice planning principles outlined by Elmallah et al.
+\cite{elmallah_frontlining_2022}. Specifically ``shifting the balance of power
+from existing forms of energy governance.'' Illinois has an opportunity to
+employ participatory modeling to develop robust visions for its energy future.
+To that end, I suggest Illinois create such a process and use open source
+modeling tools whenever possible.
+
+\subsection{Model and Data Development}
+Several of the model features requested by the interviewees would be better
+suited by a different modeling paradigm than the one currently provided by
+\ac{osier}. For example, questions about technology adoption rates, testing
+incentive structures, or time of use rates --- issues related to human behavior
+--- are likely better addressed by \acp{abm}. Questions about energy efficiency
+might be better served by 1) \acp{bem} but also 2) better data about the cost of
+efficiency improvements. \ac{nrel} has a large amount of simulated building-level energy use data along with the performance of various efficiency upgrades
+but no information on cost \cite{wilson_end-use_2022}. \ac{osier} could readily
+represent efficiency as a ``technology'' option, but this would require capital
+cost data on a per kW basis. Some of this data exists but
+the data have large uncertainties \cite{less_cost_2021}.
+
+
+\subsection{Limitations of this study}
+This study has a couple of limitations. First, despite the varied contexts, all
+of the study participants have an Illinois perspective. Illinois is a
+progressive state with a deregulated electricity market. Municipalities in less
+progressive states or states with vertically integrated electricity markets may
+have even less choice over their energy supply than in Illinois. Second,
+\ac{osier} was already mostly complete at the time of this study. Ideally, this
+study could have been a co-creative process that developed a tool with the
+features requested by city planners. Interviewees also had limited exposure to
+\ac{osier} before offering their insights. Lastly, this study did not actually
+employ \ac{osier} in a planning or energy visioning process.
