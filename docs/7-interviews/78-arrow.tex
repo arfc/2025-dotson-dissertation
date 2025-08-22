@@ -1,0 +1,57 @@
+\section{Arrow's Impossibility Theorem}
+\label{section:arrows-thm}
+
+Modern social-choice theory was founded in 1950 with the publication of Arrow's
+\textit{A Difficulty in the Concept of Social Welfare}
+\cite{arrow_difficulty_1950}. The field of social-choice theory concerns itself
+with how society makes rational decisions given the plurality of individual
+preferences. Formally, given a set of possible choices $a_i (i: 1,..., N)$, and
+a set of individuals $x_j (j:1, ...,M)$, each with a preference order, $o_j$,
+over the options that allows for strict ranking ($a_i > a_j$) and equivalence
+($a_i \sim a_j$), how should the group decide the best option $a_i$
+\cite{franssen_arrows_2005}? Ideally, there exists a utility function, $f$, that
+maps the collection of individual preference orders, $P$ onto a collective
+preference order, $O$. $f: P \mapsto O$. Of course, there are trivial solutions,
+such as a dictatorship where only one preference order matters. To ensure a
+``faithful translation'' of $P$ onto $O$, Arrow proposed a set of constraints on
+$f$ \cite{arrow_difficulty_1950,franssen_arrows_2005}. Given a set of options
+$A$ the following must be satisfied:
+\begin{enumerate}
+    \item \textbf{Collective Rationality:} The collection of preference orders,
+    $P \subset A\times A$, must be
+    \begin{enumerate}
+        \item complete or connected --- all options and their relationships are
+        represented in at least one preference order, i.e., $(a_i > a_j | a_i <
+        a_j)$ $\in$ $P$, and
+        \item transitive --- if there are preference orders $a_i > a_j$ and $a_j
+        > a_k$ in $P$, then $a_i > a_k$ must also exist in $P$.
+    \end{enumerate}
+    \item \textbf{Unrestricted Domain:} There are no preference orders that are
+    \textit{a priori} excluded from the domain $P$.
+    \item \textbf{Non-dictatorship:} There is no individual $x_i$ whose
+    preferences always prevail. That is, for all possible $P \in (P_1, ... P_N)
+    \in \Pi(P)^N$ , when $x_i$ prefers $a_i > a_j$ that the utility function
+    $f(P_i)$ always results in $a_i > a_j$.
+    \item \textbf{Pareto Efficiency:} If all individuals prefer $a_i > a_j$,
+    then $a_i$ is strictly better for any $f(P_i)$.
+    \item \textbf{\Ac{iia}:} Given $a_i > a_j$ the addition or removal of a
+    third option, $a_k \neq a_i, a_j$, does not change the original preference
+    order to $a_i < a_j$.
+\end{enumerate}
+
+Essentially, Arrow's Impossibility theorem says that a universal preference
+order cannot exist without violating one or more of the above constraints.
+Franssen argues that \blockcquote[p. 42]{franssen_arrows_2005}{Arrow’s theorem
+applies fully to multi-criteria decision problems as they occur in engineering
+design, making solution methods to such problems subject to the theorem’s
+negative result.} Arrow's theorem has at least three consequences for
+participatory modeling. First, there is no one-size fits all approach to public
+engagement or decision-making. Participatory processes must be appropriately
+contextualized for each new situation, or ``place-based''
+\cite{elmallah_frontlining_2022}. Second, ideals of justice can never be
+adequately captured by an aggregated metric since this would imply a utility
+function that maps individual preferences onto a collective preference
+\cite{jafino_enabling_2021}. Finally, since such a utility function cannot exist
+participatory processes must go beyond survey ranking of modeled solutions and
+include a deliberative component to evaluate tradeoffs among alternatives and
+their significance.
