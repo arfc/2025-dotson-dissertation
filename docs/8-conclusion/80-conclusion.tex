@@ -3,11 +3,12 @@ generations. Importantly, the effects of climate change are not felt uniformly
 by everyone. Instead, its negative impacts are disproportionately felt by the
 most vulnerable members of society and by historically marginalized communities.
 Addressing climate change requires a radical change in the ways we produce
-energy by transitioning from fossil fuels to clean energy. \Acfp{esom} are
-essential tools for facilitating the transition from a fossil-fuel based economy
-to a clean energy economy. However, current \acp{esom} have several limitations
-that inhibit meaningful dialogue about the best path forward. This thesis' 
-central goal was attending to these limitations.
+energy by transitioning from fossil fuels to clean energy. Energy system
+optimization models (ESOMs) are essential tools for facilitating the transition
+from a fossil-fuel based economy to a clean energy economy. However, current
+\acp{esom} have several limitations that inhibit meaningful dialogue about the
+best path forward. This thesis's central goal was to attend to these
+limitations.
 
 Chapter \ref{chapter:lit-review} characterized the problem of climate change as
 a wicked problem with disproportionate impacts, introduced energy justice, and
@@ -21,10 +22,10 @@ energy modeling literature.
     such as \acf{moo}.
     \item There are no existing \ac{esom} frameworks that use \ac{moo} to
     generate solutions.
-    \item The studies that used \ac{moo}, they model at most three objectives
-    and do not demonstrate the potential to optimize many objectives nor allow
-    users to define new objectives.
-    \item \ac{esom} studies seldom engage with energy justice and those that do
+    \item The studies that used \ac{moo} modeled at most three objectives and do
+    not demonstrate the potential to optimize many objectives, nor allow users
+    to define new objectives.
+    \item \ac{esom} studies seldom engage with energy justice, and those that do
     focus on distributive justice due to its quantifiability. This means that
     the role of \acp{esom} in attending to procedural and recognition justice is
     unclear.
@@ -45,10 +46,10 @@ expansion problems, which are capable of both mono- and \acl{moo}. Enabling
 \ac{moo} has important implications for energy justice, specifically procedural
 justice, because rather than presenting a single ``optimal'' solution, \ac{moo}
 generates a \textit{set} of co-optimal solutions. Now, decision-makers are faced
-with tradeoffs that are typically obfuscated by a cost metric and critically,
+with tradeoffs that are typically obfuscated by a cost metric and, critically,
 non-expert stakeholders can express preferences for each solution, thereby
 supporting procedural justice. Second, \ac{osier} addresses structural certainty
-with two methods. Of course one is \ac{moo}, which reduces (but does not
+with two methods. Of course, one is \ac{moo}, which reduces (but does not
 eliminate) structural uncertainty by increasing the number of modeled
 objectives. The other is a novel algorithm that extends the traditional \ac{mga}
 method into N-dimensional space. This method allows users to efficiently search
@@ -58,7 +59,7 @@ sub-optimal solutions are maximally different. This process expands the number
 of considered options and allows decision-makers to account for additional
 unmodeled objectives. Finally, \ac{osier} implements two different energy
 dispatch algorithms with tradeoffs unto themselves. One dispatch method is
-formulated as a \acf{lp} which has perfect foresight and guarantees optimality.
+formulated as a \acf{lp}, which has perfect foresight and guarantees optimality.
 The other method uses a rules-based approach whose myopia does not guarantee an
 optimal solution, but can be an order of magnitude faster than its \ac{lp}
 counterpart. The rules-based algorithm also enables parallelization for further
@@ -71,7 +72,7 @@ results and that they mostly differ when non-dispatchable technologies (e.g.,
 solar or wind) are included in the portfolio. Then I showed how these two
 algorithms scale with problem size by varying the number of timesteps in each
 solve. As expected, the rules-based algorithm outperformed its optimal sibling.
-For small problems, the former can be 40 times faster and for larger problems
+For small problems, the former can be 40 times faster, and for larger problems
 the speed advantage stabilizes to be 2.5 times faster than the linear program.
 The final experiment in the first set showed that parallelization is possible
 with \ac{osier} for a modest benefit. The second set of experiments compared
@@ -84,40 +85,41 @@ emissions. Finally, in Chapter \ref{chapter:benchmark-results} I demonstrated
 that \ac{osier} is capable of optimizing more than three objectives, which is
 more than any current \ac{esom} study in the literature.
 
-Chapter \ref{chapter:examples} further demonstrated \ac{osier}'s capabilites
+Chapter \ref{chapter:examples} further demonstrated \ac{osier}'s capabilities
 with two timely examples. The first example used \ac{osier} to reexamine the
 results from a fuel cycle comparison study. This example presented a method for
 identifying ``high tradeoff'' compromise solutions and showed that analyzing
 fuel cycle options through the lens of Pareto optimality leads to different
 recommendations. The second example demonstrated \ac{osier}'s ability to
 optimize new objectives by introducing \acf{eroi} and identifying appealing
-options to power a hypothetical datacenter. The results from this example
-evinced a tradeoff between cost and emissions or cost and \ac{eroi} but not
-necessarily a tradeoff between emissions and \ac{eroi} because natural gas and
-nuclear are both high \ac{eroi} technologies but the former is a low-cost
-high-emissions technology and the latter is higher-cost but zero-emissions.
+options to power a hypothetical data center. The results from this example
+evinced a tradeoff between cost and emissions or cost and \ac{eroi}, but not
+necessarily a tradeoff between emissions and \ac{eroi}. This is because natural
+gas and nuclear are both high \ac{eroi} technologies, but the former is a
+low-cost, high-emissions technology, and the latter is higher-cost but
+zero-emissions.
 
 The final chapter, Chapter \ref{chapter:communities}, fulfilled the final goal
 of this thesis --- to validate \ac{osier}'s usefulness --- through a set of
 thirteen interviews supplemented by a document review. The interviewees were
 generally enthusiastic about \ac{osier} and believed it could be a useful tool
-for planning and decision making. In addition to evaluating \ac{osier}, this
+for planning and decision-making. In addition to evaluating \ac{osier}, this
 study presented findings related to the ways municipalities use (or do not use)
 \acp{esom} to inform their energy policies and how state and municipal planners
 incorporate justice into their work. The results of this study were consistent
-with findings in the literature which indicate that municipalities tend not to
-use \acp{esom} due to deficit in knowledge or expertise. However, this chapter
+with findings in the literature, which indicate that municipalities tend not to
+use \acp{esom} due to a deficit in knowledge or expertise. However, this chapter
 went beyond this diagnosis and identified structural barriers caused by the
 structure of Illinois' electricity markets that prevent the use of modeling
 tools, even if the knowledge deficit could be ameliorated. Further, I found
 that, at the state level, Illinois discursively prioritizes justice. This is
-evidenced by the policies in \ac{ceja}, which promote a just distribution of
-benefits, and \ac{ceja}'s policy design proces, which included consultation with
-``frontline'' communities (i.e., those communities experiencing the most direct
-environmental harms from climate change and/or polluting industry). Despite
-this, Illinois does not use a participatory process for its energy modeling
-exercises. Thus, I recommended that Illinois policy makers develop such a
-process to attend to procedural justice 
+evidenced by the policies in the \acf{ceja}, which promote a just distribution
+of benefits, and \ac{ceja}'s policy design process, which included consultation
+with ``frontline'' communities (i.e., those communities experiencing the most
+direct environmental harms from climate change and/or polluting industry).
+Despite this, Illinois does not use a participatory process for its energy
+modeling exercises. Thus, I recommended that Illinois policymakers develop such
+a process to attend to procedural justice 
  
 \section{Limitations and Future Work}
 \label{section:limitations-future-work}
@@ -125,7 +127,7 @@ This thesis introduced the novel \ac{esom} framework, \ac{osier}. Despite being
 the first \ac{esom} to employ \ac{moo} and thereby fill a significant gap in the
 literature, it still has some limitations. First, \ac{osier} does not model
 multiple years in a model time horizon. For this reason, \ac{osier} does not
-endogenously retire existing power plants, ammortize investment costs, or
+endogenously retire existing power plants, amortize investment costs, or
 consider construction time. The dispatch models in \ac{osier} do not include
 power flow constraints and do not have a notion of transmission between regions.
 \ac{osier} is designed to model the electricity sector, but could model other
@@ -140,19 +142,19 @@ carriers could be handled by coupling \ac{osier} with another \ac{esom}, such as
 be a strong coupling where \ac{osier} drives a secondary model via a genetic
 algorithm. Alternatively, this could take the form of a two-step process where
 modellers first use \ac{osier} to define some ideal final state (e.g., an
-emissions free energy system in 2050). Then use the results to fix the decision
+emissions-free energy system by 2050). Then use the results to fix the decision
 variables in the final modeled year and allow the second \ac{esom} to define the
 least-cost trajectory to the ideal final state. Lastly, despite enabling
 parallelization with a new dispatch model, the scaling study in Chapter
 \ref{chapter:benchmark-results} did not demonstrate sufficient speed
 improvements to warrant its use. Future work should investigate ways to
-effectively take advantage of the ``embarrassingly paralellizable'' nature of
+effectively take advantage of the ``embarrassingly parallelizable'' nature of
 \acp{ga} and \ac{osier}.
 
 The next set of limitations relates to the energy planning study in Chapter
 \ref{chapter:communities}. One important outcome of this study was an evaluation
-of \ac{osier} tool developed in this thesis. However, interviewees did not have
-an opportunity to engage with \ac{osier} outside of a brief introductory
+of the \ac{osier} tool developed in this thesis. However, interviewees did not
+have an opportunity to engage with \ac{osier} outside of a brief introductory
 presentation. Interviewees suggested features they would like to see in a
 modeling tool and ways such a tool could be used, but this thesis did not
 implement those features into \ac{osier}. Further, Chapter
@@ -161,6 +163,6 @@ process with energy modeling and, through interviews, generated empirical
 evidence that \ac{osier} could be useful for facilitating dialogue and
 communication. Yet, the study did not employ \ac{osier} in a participatory
 modeling exercise. Future work in this area should demonstrate \ac{osier} in
-such a process and should implement the suggestions from interviewees such as
+such a process and should implement the suggestions from interviewees, such as
 modeling efficiency measures, bi-directional \ac{ev} charging, and demand
 response technologies.
