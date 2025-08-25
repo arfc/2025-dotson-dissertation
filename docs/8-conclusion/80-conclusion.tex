@@ -1,10 +1,13 @@
-Climate change is a wicked problem that must be solved to ensure the Earth
-remains habitable for future generations of humans. Importantly, the effects of
-climate change are not felt uniformly by everyone. Instead, its negative impacts
-are disproportionately felt by the most vulnerable members of society and by
-historically marginalized communities. Addressing climate change requires a
-radical change in the ways we produce energy by transitioning from fossil fuels
-to clean energy.
+Climate change must be solved to ensure the Earth remains habitable for future
+generations. Importantly, the effects of climate change are not felt uniformly
+by everyone. Instead, its negative impacts are disproportionately felt by the
+most vulnerable members of society and by historically marginalized communities.
+Addressing climate change requires a radical change in the ways we produce
+energy by transitioning from fossil fuels to clean energy. \Acfp{esom} are
+essential tools for facilitating the transition from a fossil-fuel based economy
+to a clean energy economy. However, current \acp{esom} have several limitations
+that inhibit meaningful dialogue about the best path forward. This thesis' 
+central goal was attending to these limitations.
 
 Chapter \ref{chapter:lit-review} characterized the problem of climate change as
 a wicked problem with disproportionate impacts, introduced energy justice, and
@@ -61,25 +64,25 @@ optimal solution, but can be an order of magnitude faster than its \ac{lp}
 counterpart. The rules-based algorithm also enables parallelization for further
 speed gains.
 
-Chapter \ref{chapter:benchmark-results} validated \ac{osier}'s technical
-aspects with several experiments. The first set of experiments compared the two
-dispatch algorithms. I showed that \ac{osier}'s two dispatch methods generate
-consistent results and that they mostly differ when non-dispatchable
-technologies (e.g., solar or wind) are included in the portfolio. Then I showed
-how these two algorithms scale with problem size by varying the number of
-timesteps in each solve. As expected, the rules-based algorithm outperformed its
-optimal sibling. For small problems, the former can be 40 times faster and for
-larger problems the speed advantage stabilizes to be 2.5 times faster than the
-linear program. The final experiment in the first set showed that
-parallelization is possible with \ac{osier} for a modest benefit. The second set
-of experiments compared different \acp{ga} and compared \ac{osier} to the mature
-capacity expansion framework, \texttt{Temoa}. \ac{osier}'s least cost solution
-was within 0.5\% of \texttt{Temoa}'s. This experiment also showed that none of
-\texttt{Temoa}'s \ac{mga} solutions performed better along its \ac{co2}
-emissions objective, while \ac{osier} illustrated a serious tradeoff between
-cost and carbon emissions. Finally, in Chapter \ref{chapter:benchmark-results} I
-demonstrated that \ac{osier} is capable of optimizing more than three
-objectives, which is more than any current \ac{esom} study in the literature.
+Chapter \ref{chapter:benchmark-results} validated \ac{osier}'s technical aspects
+with several experiments. The first set of experiments compared the two dispatch
+algorithms. I showed that \ac{osier}'s two dispatch methods generate consistent
+results and that they mostly differ when non-dispatchable technologies (e.g.,
+solar or wind) are included in the portfolio. Then I showed how these two
+algorithms scale with problem size by varying the number of timesteps in each
+solve. As expected, the rules-based algorithm outperformed its optimal sibling.
+For small problems, the former can be 40 times faster and for larger problems
+the speed advantage stabilizes to be 2.5 times faster than the linear program.
+The final experiment in the first set showed that parallelization is possible
+with \ac{osier} for a modest benefit. The second set of experiments compared
+different \acp{ga} and compared \ac{osier} to the mature capacity expansion
+framework, \texttt{Temoa}. \ac{osier}'s least cost solution was within 0.5\% of
+\texttt{Temoa}'s. This experiment also showed that none of \texttt{Temoa}'s
+\ac{mga} solutions performed better along its \ac{co2} emissions objective,
+while \ac{osier} illustrated a serious tradeoff between cost and carbon
+emissions. Finally, in Chapter \ref{chapter:benchmark-results} I demonstrated
+that \ac{osier} is capable of optimizing more than three objectives, which is
+more than any current \ac{esom} study in the literature.
 
 Chapter \ref{chapter:examples} further demonstrated \ac{osier}'s capabilites
 with two timely examples. The first example used \ac{osier} to reexamine the
@@ -116,18 +119,48 @@ this, Illinois does not use a participatory process for its energy modeling
 exercises. Thus, I recommended that Illinois policy makers develop such a
 process to attend to procedural justice 
  
-\section{Limitations}
-\label{section:conc-limitations}
-This thesis introduced the novel \ac{esom} framework, \ac{osier}. Despite
-being the first \ac{esom} to employ \ac{moo} and thereby fill a significant
-gap in the literature, it still has some limitations. First, \ac{osier} 
-does not model multiple years in a model time horizon. For this reason, \ac{osier}
-does not endogenously retire existing power plants. The dispatch models in \ac{osier} do 
-not include power flow constraints and do not have a notion of transmission between regions.
-\ac{osier} is designed to model the electricity sector, but could model other energy carriers
-with some creativity and careful unit analysis. However, \ac{osier} does not have a method to 
-convert among energy carriers.
+\section{Limitations and Future Work}
+\label{section:limitations-future-work}
+This thesis introduced the novel \ac{esom} framework, \ac{osier}. Despite being
+the first \ac{esom} to employ \ac{moo} and thereby fill a significant gap in the
+literature, it still has some limitations. First, \ac{osier} does not model
+multiple years in a model time horizon. For this reason, \ac{osier} does not
+endogenously retire existing power plants, ammortize investment costs, or
+consider construction time. The dispatch models in \ac{osier} do not include
+power flow constraints and do not have a notion of transmission between regions.
+\ac{osier} is designed to model the electricity sector, but could model other
+energy carriers with some creativity and careful unit analysis. However,
+\ac{osier} does not have a method to convert between energy carriers. Similarly,
+the fuel cycle study examined in Chapter \ref{chapter:examples} is limited to
+the existing data from the \acf{set} since fuel cycle analysis requires several
+stages of unit conversions. Future work could address these issues in several
+ways. \ac{osier}'s lack of time horizon and inability to model multiple energy
+carriers could be handled by coupling \ac{osier} with another \ac{esom}, such as
+\ac{pypsa}, \ac{temoa}, or the fuel cycle simulator, \texttt{Cyclus}. This could
+be a strong coupling where \ac{osier} drives a secondary model via a genetic
+algorithm. Alternatively, this could take the form of a two-step process where
+modellers first use \ac{osier} to define some ideal final state (e.g., an
+emissions free energy system in 2050). Then use the results to fix the decision
+variables in the final modeled year and allow the second \ac{esom} to define the
+least-cost trajectory to the ideal final state. Lastly, despite enabling
+parallelization with a new dispatch model, the scaling study in Chapter
+\ref{chapter:benchmark-results} did not demonstrate sufficient speed
+improvements to warrant its use. Future work should investigate ways to
+effectively take advantage of the ``embarrassingly paralellizable'' nature of
+\acp{ga} and \ac{osier}.
 
-\section{Future Work}
-\label{section:future-work}
-
+The next set of limitations relates to the energy planning study in Chapter
+\ref{chapter:communities}. One important outcome of this study was an evaluation
+of \ac{osier} tool developed in this thesis. However, interviewees did not have
+an opportunity to engage with \ac{osier} outside of a brief introductory
+presentation. Interviewees suggested features they would like to see in a
+modeling tool and ways such a tool could be used, but this thesis did not
+implement those features into \ac{osier}. Further, Chapter
+\ref{chapter:communities} provided a theoretical basis for using a participatory
+process with energy modeling and, through interviews, generated empirical
+evidence that \ac{osier} could be useful for facilitating dialogue and
+communication. Yet, the study did not employ \ac{osier} in a participatory
+modeling exercise. Future work in this area should demonstrate \ac{osier} in
+such a process and should implement the suggestions from interviewees such as
+modeling efficiency measures, bi-directional \ac{ev} charging, and demand
+response technologies.
