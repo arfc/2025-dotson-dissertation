@@ -51,10 +51,10 @@ Some quantities of interest depend on the \textit{capacity} of each technology.
 For example, land use of different energy producers is often reported as a land
 density $\text{km}^2/\text{MW}$. A generalized specific \textit{density} with respect to power 
 may be $\text{unit}/\text{MW}$. The objective function for these quantities reads
-\begin{align}
+\begin{align} 
     \mathcal{K} &= \sum_g^G \textbf{CAP}_g \kappa_g ,
     \intertext{Where}
-    \kappa &= \text{the power density of the \textit{g-th} technology} \quad \left[\frac{-}{MW}\right].
+    \kappa &= \text{the power density of the \textit{g$^{th}$} technology} \quad \left[\frac{-}{MW}\right].
 \end{align}
 
 Table \ref{tab:objectives-per-capacity} lists some example objectives that could be
@@ -85,7 +85,7 @@ may be in $\text{unit}/\text{MWh}$. The objective function for these quantities 
 \begin{align}
     \mathcal{E} &= \sum_g^G \xi_g \sum_t^T x_{g,t},
     \intertext{where}
-    \xi_g &= \text{the energy density of the \textit{g-th} technology}\quad
+    \xi_g &= \text{the energy density of the \textit{g$^{th}$} technology}\quad
     \left[\frac{-}{MWh}\right].
 \end{align}
 
@@ -220,10 +220,10 @@ Code listing \ref{listing:user-defined-objective}.
 \subsection{Constraints}
 \label{section:constraints}
 
-Besides the physical constraints defined in Section \ref{section:dispatch},
+Besides the physical constraints defined in Section \ref{section:dispatch_model},
 \ac{osier} does not have any default constraints. This is because each
 additional constraint corresponds to an additional assumption and will affect
-the trade-off analysis that makes \ac{moo} so powerful. However, there are some
+the tradeoff analysis that makes \ac{moo} so powerful. However, there are some
 circumstances where the optimal solutions are still
 infeasible in practice. For instance, if a community wants to determine the best
 energy mix according to their unique objectives, this community might not have

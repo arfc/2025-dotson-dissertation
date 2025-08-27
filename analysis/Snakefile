@@ -17,6 +17,7 @@ ch5_log = "ch5.log"
 ch4_log = "ch4.log"
 ch3_log = "ch3.log"
 ch2_log = "ch2.log"
+ch1_log = "ch1.log"
 
 with open(f"{docs_path}Makefile", "r") as file:
     lines = file.readlines()
@@ -453,6 +454,70 @@ rule interview_chapter:
             echo $file >> {output}
         done
         """
+#============================INTRODUCTION================================
+
+rule retrieve_mauna_loa_data:
+    output:
+        mauna_loa_data = f"{data_path}co2_mlo_surface-insitu_1_ccgg_DailyData.txt"
+    shell: f"""
+            (cd {data_path} && curl -O https://gml.noaa.gov/aftp/data/trace_gases/co2/in-situ/surface/txt/co2_mlo_surface-insitu_1_ccgg_DailyData.txt)
+            """
+
+rule retrieve_epa_inventory:
+    output:
+        epa_inventory = f"{data_path}us-ghg-inventory-2024-chapter-executive-summary_04-16-2024.pdf"
+    shell:
+        f"""
+        (cd {data_path} && curl -O https://www.epa.gov/system/files/documents/2024-04/us-ghg-inventory-2024-chapter-executive-summary_04-16-2024.pdf)
+        """
+
+rule plot_mauna_loa:
+    input:
+        mauna_loa_data = f"{data_path}co2_mlo_surface-insitu_1_ccgg_DailyData.txt"
+    output:
+        mauna_loa_plot = f"{docs_path}figures/01_introduction/mauna-loa-co2.pgf"
+    script:
+        "scripts/01-introduction-scripts/plot_mauna_loa.py"
+
+rule plot_source_emissions:
+    output:
+        source_emissions_plot = f"{docs_path}figures/01_introduction/emissions-by-source.pgf"
+    script:
+        "scripts/01-introduction-scripts/plot_source_emissions.py"
+
+rule plot_sector_emissions:
+    input:
+        epa_inventory = f"{data_path}us-ghg-inventory-2024-chapter-executive-summary_04-16-2024.pdf"
+    output:
+        sector_emissions_plot = f"{docs_path}figures/01_introduction/emissions-by-sector.pgf"
+    script:
+        "scripts/01-introduction-scripts/plot_sector_emissions.py"
+
+
+rule build_example_dag:
+    params:
+        chapter = "introduction_chapter"
+    input: "Snakefile"
+    output: "introduction_chapter_dag.png"
+    shell: 
+        "snakemake {params.chapter} --dag | dot -Tpng > {output}"
+
+
+rule introduction_chapter:
+    input:
+        dag = "dag.png",
+        example_dag = "introduction_chapter_dag.png",
+        mauna_loa_plot = f"{docs_path}figures/01_introduction/mauna-loa-co2.pgf",
+        source_emissions_plot = f"{docs_path}figures/01_introduction/emissions-by-source.pgf",
+        sector_emissions_plot = f"{docs_path}figures/01_introduction/emissions-by-sector.pgf"
+    output:
+        ch1_log
+    shell:
+        """
+        for file in {input}; do
+            echo $file >> {output}
+        done
+        """
 
 
 #============================BUILD RULE================================
@@ -466,7 +531,7 @@ if sys.platform == 'Windows':
             ch4_log=ch4_log,
             ch3_log=ch3_log,
             ch2_log=ch2_log,
-            dag = "dag.png"
+            ch1_log=ch1_log,
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -485,7 +550,7 @@ elif sys.platform in ['darwin', 'linux']:
             ch4_log=ch4_log,
             ch3_log=ch3_log,
             ch2_log=ch2_log,
-            dag = "dag.png"
+            ch1_log=ch1_log,
         output: f"{docs_path}{output_name}.pdf"
         shell:
             f"""
@@ -497,4 +562,4 @@ rule build_dag:
     output:
         "dag.png"
     shell:
-        "snakemake --dag | dot -Tpng > {output}"
+        "snakemake --rulegraph | dot -Tpng > {output}"

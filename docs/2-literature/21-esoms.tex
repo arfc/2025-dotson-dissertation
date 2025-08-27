@@ -71,10 +71,10 @@ power model the infrastructure aspects of electricity systems -- transmission
 and distribution -- rather than the optimal dispatch of electricity producers
 \cite{thurner_pandapower_2018, vera_gridcal_2022, matke_structure_2017}.
 
-There is an overwhelming number of models with varying levels sophistication and
+There are an overwhelming number of models with varying levels sophistication and
 capabilities. However, the inability to optimize any objective besides cost
 presents a significant gap in the existing space of energy modeling tools.
-Further, since none of these tools allow for multiple objectives, true trade off
+Further, since none of these tools allow for multiple objectives, true tradeoff
 analysis is rendered impossible.
 
 
@@ -104,7 +104,7 @@ analysis is rendered impossible.
 %     this). \end{enumerate} \end{itemize}
 
 \subsection{Economic Dispatch and Social Welfare}
-\Ac{lp} or \ac{milp} are the dominant optimization approaches among the
+\Ac{lp} and \ac{milp} are the dominant optimization approaches among the
 frameworks in Table \ref{tab:esoms}. Economic dispatch models optimize the power
 output of \textit{dispatchable} generators in a model system
 \cite{de_queiroz_repurposing_2019, neumann_near-optimal_2021}. They all share
@@ -190,7 +190,7 @@ sampled using formal methods like \ac{mc} or \ac{pa}
 TEMOA, TIMES, or ESME use these techniques to generate many model runs. Another
 method for handling parametric uncertainty is \ac{sp}, where parameters are
 replaced with non-linear risk functions \cite{yue_review_2018,
-decarolis_multi-stage_2012}. Although parametric uncertainty is important the
+decarolis_multi-stage_2012}. Although parametric uncertainty is important, the
 analysis of uncertain values is not a focus of this thesis.
 
 Structural uncertainty relates to \textit{unmodeled objectives}
@@ -249,9 +249,10 @@ option'' \cite{taebi_bridging_2017,van_uffelen_revisiting_2024}. Choosing one or
 several objectives to optimize implies a normative premise --- even if the
 results are presented without a corresponding normative conclusion. The same
 could be said for any choice in the development of an \ac{esom}: Spatial scale,
-time scale, which technologies are included in the model, and more. Chapter
-\ref{chapter:modeling-theory} expands on all three forms of uncertainty and
-introduces a conceptual framework for understanding the modeling process through
-the lens of these uncertainties. 
+time scale, which technologies are included in the model, and more. 
+% Chapter
+% \ref{chapter:modeling-theory} expands on all three forms of uncertainty and
+% introduces a conceptual framework for understanding the modeling process through
+% the lens of these uncertainties. 
 
 

@@ -8,6 +8,7 @@
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{minted}
 \usepackage{relsize}
+\usepackage{pdflscape}
 \usepackage[normalem]{ulem}
 \usepackage{pifont}
 \newcommand{\cmark}{\ding{51}}%
@@ -119,20 +120,17 @@ text width=22em, text centered, rounded corners, minimum height=3em]
 
 \frontmatter
 
-% \begin{abstract}
-% This is a comprehensive study of caffeine consumption by graduate
-% students at the University of Illinois who are in the very final
-% stages of completing their doctoral degrees. A study group of six
-% hundred doctoral students\ldots.
-% \end{abstract}
+\begin{abstract}
+    \input{01-abstract.tex}
+\end{abstract}
 
-% \begin{dedication}
-% [F]or the kids like me who got ADHD.\\
-% \rule{17em}{0.4pt}\\
-% \hspace{13em} ``ISIS''\\
-% % \hspace{8em} --- Joyner Lucas\\ 
-% \hspace{10em} Joyner Lucas\\ 
-% \end{dedication}
+\begin{dedication}
+[F]or the kids like me who got ADHD.\\
+\rule{17em}{0.4pt}\\
+\hspace{13em} ``ISIS''\\
+% \hspace{8em} --- Joyner Lucas\\ 
+\hspace{10em} Joyner Lucas\\ 
+\end{dedication}
 
 % \begin{acknowledgments}   
 % People to acknowledge
@@ -154,8 +152,8 @@ text width=22em, text centered, rounded corners, minimum height=3em]
     \hypersetup{linkcolor=black}  % disable link coloring locally
     \tableofcontents
     % the Graduate College doesn't recommend including lot or lof
-    % \listoftables
-    % \listoffigures
+    \listoftables
+    \listoffigures
 }
 
 \chapter{List of Abbreviations}
