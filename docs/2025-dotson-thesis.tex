@@ -28,6 +28,7 @@
 \usepackage{booktabs}
 \usepackage{colortbl}
 \usepackage{xltabular}
+\usepackage{multirow}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{graphics}
@@ -126,9 +127,11 @@ text width=22em, text centered, rounded corners, minimum height=3em]
 % \end{abstract}
 
 % \begin{dedication}
-% [F]or the kids like me who got ADHD.
-
-% \hspace{4em} --- Joyner Lucas, ``Isis''
+% [F]or the kids like me who got ADHD.\\
+% \rule{17em}{0.4pt}\\
+% \hspace{13em} ``ISIS''\\
+% % \hspace{8em} --- Joyner Lucas\\ 
+% \hspace{10em} Joyner Lucas\\ 
 % \end{dedication}
 
 % \begin{acknowledgments}   
@@ -143,7 +146,6 @@ text width=22em, text centered, rounded corners, minimum height=3em]
 %     \item Gwendolyn Chee
 %     \item Roberto Fairhurst
 %     \item Members of ARFC
-%     \item Ceser Zambrano (if he helps me with data from the SET tool.)
     %   \item John Albers (for securing interviews)
 % \end{itemize}
 % \end{acknowledgments}
@@ -155,9 +157,6 @@ text width=22em, text centered, rounded corners, minimum height=3em]
     % \listoftables
     % \listoffigures
 }
-
-% \listoftables
-% \listoffigures
 
 \chapter{List of Abbreviations}
 
@@ -175,16 +174,7 @@ text width=22em, text centered, rounded corners, minimum height=3em]
 \mainmatter
 
 \input{00-outline}
-% \chapter{Motivation and Introduction}
-% % input individual chapters files
-% \input{1-introduction}
 
-% \input{2-literature/20-literature}
-% \input{3-methods/30-methods}
-% \input{4-benchmark-results/40-benchmark}
-% \input{5-proposal/50-outline}
-
-% \chapter{Conclusions}
 
 % per Graduate College preference, place the \appendix and the appendices content before the
 % bibliography (here) only if the appendices contain references.
@@ -195,17 +185,15 @@ text width=22em, text centered, rounded corners, minimum height=3em]
 
 % the below lines are only needed if bibliography precedes appendices
 % uses https://tex.stackexchange.com/a/440212 to continue page numbering
-% \clearpage
-% \setcounter{counterforappendices}{\value{page}}
-% \mainmatter
-% \setcounter{page}{\value{counterforappendices}}
+\clearpage
+\setcounter{counterforappendices}{\value{page}}
+\mainmatter
+\setcounter{page}{\value{counterforappendices}}
 
-% \appendix
+\appendix
 
-% \chapter{An appendix}
-
-% \lipsum[1-5]
-
-% \input{Appendix.tex}
+\chapter{Interview Guide}
+\label{chapter:interview-guide}
+\input{A-appendix/interview_guide.tex}
 
 \end{document}
