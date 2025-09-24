@@ -1,4 +1,4 @@
-manuscript = 2023-dotson-defense
+manuscript = 2025-dotson-defense
 references = $(wildcard *.bib)
 latexopt   = -halt-on-error -file-line-error -shell-escape
 

@@ -108,9 +108,11 @@ text width=22em, text centered, rounded corners, minimum height=3em]
 
 %%%% Acronym support
 
-% \usepackage[acronym,toc]{glossaries}
+\usepackage[acronym,toc]{glossaries}
+\include{acros}
 % \usepackage{acronym}
-% \input{../docs/acros}
+% \newcommand{\acro}[3]{\acrodef{#1}[#2]{#3}}
+
 
 % \makeglossaries
 
@@ -163,29 +165,15 @@ text width=22em, text centered, rounded corners, minimum height=3em]
 \end{frame}
 }
 
-\section{Introduction}
-\input{00-overview.tex}
-% \section{Motivation and Background}
-% \input{motivation/00-motivation.tex}
-% \section{Technical Gap \#1}
-% \input{tech-gaps/01-gap.tex}
-% \section{Proposal \#1}
-% \input{proposal/norm-premise.tex}
-% \section{Tale of Three Uncertainties}
-% \input{uncertainty/00-uncertainty.tex}
-% \section{Technical Gap \#3}
-% \input{tech-gaps/03-gap.tex}
-% \input{proposal/case-study.tex}
+\input{01-introduction.tex}
 
-% \section{Conclusion}
-% \input{conclusion}
 % \input{acks}
 %%--------------------------------%%
 %%--------------------------------%%
 \begin{frame}[allowframebreaks]
   \frametitle{References}
   \bibliographystyle{plain}
-  {\footnotesize \bibliography{../docs/2023-dotson-prelim.bib} }
+  {\footnotesize \bibliography{../docs/2025-dotson-phd.bib} }
 
 \end{frame}
 
