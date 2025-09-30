@@ -10,6 +10,31 @@
 
 
 \begin{frame}
+    \frametitle{Verifying the Original Method}
+
+    \begin{figure}
+        \centering
+        \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/temoa_osier_benchmark_01.pgf}}
+        \caption{Comparison of the least-cost solutions from \gls{osier} and \gls{temoa}, as well as their sub-optimal spaces.
+        \boldorange{\gls{osier}'s least-cost solution is within 0.5\% of \gls{temoa}'s}.}
+        \label{fig:osier-temoa-benchmark}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Verifying the New Method}
+
+    \begin{table}
+        \centering
+        \caption{Results from a small study comparing the two dispatch algorithms.
+        \boldorange{Except for case three, the two algorithms show perfect agreement.}}
+        \label{tab:alg-comparison}
+        \resizebox{\columnwidth}{!}{\input{../docs/tables/algorithm_comparison_results_edited.tex}}
+    \end{table}
+
+\end{frame}
+
+\begin{frame}
     \frametitle{Comparing the methods}
 
     \begin{enumerate}
@@ -22,21 +47,59 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Verifying the Original Method}
+    \frametitle{Time scaling for two dispatch algorithms}
 
-    [Show the osier vs temoa plot]
+    \begin{figure}
+        \centering
+        \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/algorithm_scaling_plot.pgf}}
+        \caption{Scaling results for the two dispatch algorithms. \boldorange{The 
+        logical dispatch algorithm demonstrates a 2.5x - 40x speedup over the original
+        formulation.}}
+        \label{fig:time-scaling}
+    \end{figure}
+    
+\end{frame}
 
+
+\begin{frame}
+    \frametitle{Demonstrating parallelization}
+
+    \begin{figure}
+        \centering
+        \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/thread_scaling_plot.pgf}}
+        \caption{\boldorange{The logical dispatch algorithm unlocks parallelization.}}
+        \label{fig:parallel}
+    \end{figure}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Verifying the New Method}
+    \frametitle{Summary Comparison}
 
-    [Show the dispatch comparison plot ]
+    Benefits of logical dispatch
 
+    \begin{enumerate}
+        \item faster
+        \item allows parallelization
+        \item more accessible
+        \begin{itemize}
+            \item simpler algorithm / easier to understand
+            \item does not require an external solver
+        \end{itemize}
+    \end{enumerate}
+    
 \end{frame}
+
 
 \subsection{N-Dimensional \gls{mga}}
 
 \begin{frame}
-    \frametitle{MGA}
+    \frametitle{What is \gls{mga}?}
+
+     \begin{enumerate}
+        \item There may be appealing solutions in a model's inferior space
+        \item We relax the objective function by a fixed \% and efficiently sample
+        sub-optimal space by looking for ``maximally different solutions.''
+     \end{enumerate}
+
 \end{frame}
+
