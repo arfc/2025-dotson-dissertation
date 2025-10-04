@@ -86,6 +86,8 @@
             \item does not require an external solver
         \end{itemize}
     \end{enumerate}
+
+    
     
 \end{frame}
 
@@ -94,12 +96,28 @@
 
 \begin{frame}
     \frametitle{What is \gls{mga}?}
+    \begin{block}{The \gls{mga} Idea}
+    
+         \begin{enumerate}
+            \item There may be appealing solutions in a model's inferior space
+            \item We relax the objective function by a fixed \% and efficiently sample
+            sub-optimal space by looking for ``maximally different solutions.''
+         \end{enumerate}    
+    \end{block}
+        \begin{figure}
+            \centering
+            \resizebox{!}{0.6\textheight}{\input{../docs/figures/04_benchmark_chapter/naive_mga_lp.pgf}}
+            \caption{Simple \gls{mga} procedure.}
+        \end{figure}
+\end{frame}
 
-     \begin{enumerate}
-        \item There may be appealing solutions in a model's inferior space
-        \item We relax the objective function by a fixed \% and efficiently sample
-        sub-optimal space by looking for ``maximally different solutions.''
-     \end{enumerate}
-
+\begin{frame}
+    \frametitle{N-Dimensional \gls{mga}}
+    \begin{figure}
+        \centering
+        \resizebox{\columnwidth}{!}{\input{../docs/figures/03_osier_chapter/mga-fft-example.pgf}}
+        \caption{\gls{osier} addresses persistent structural uncertainty by extending \gls{mga} to N-dimensions and sampling the near optimal
+        space with a farthest-first-traversal.}
+    \end{figure}
 \end{frame}
 

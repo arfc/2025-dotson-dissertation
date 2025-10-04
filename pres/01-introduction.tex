@@ -1,5 +1,6 @@
 \section{Introduction}
 
+\subsection{Background}
 \begin{frame}
     \frametitle{The Clean Energy Transition}
     Our changing climate and additional demand drivers from data 
@@ -49,6 +50,7 @@
     \end{enumerate}
 \end{frame}
 
+\subsection{Introducing \gls{osier}}
 \begin{frame}
     \frametitle{\gls{osier}}
     I developed \gls{osier} to fill these gaps by \cite{dotson_osier_2024}
@@ -56,7 +58,13 @@
         \item optimizing multi- and many-objective problems,
         \item allowing user-defined objectives.
     \end{enumerate}
-    [Show the 4-objective problem from the prelim]
+    
+    \begin{figure}
+        \centering
+        \resizebox{0.95\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/4_obj_objective_space_MGA.pgf}}
+        \caption{Objective space for a four-objective problem.}
+        \label{fig:4-obj-space}
+    \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -71,6 +79,15 @@
     % [Show the data flow diagram]
 
     % Osier works by leveraging genetic algorithsm... 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Pareto Fronts}
+    \begin{figure}
+        \centering
+        \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/02_literature_review/truss2d_pareto.pgf}}
+        \caption{\gls{osier} generates a set of \boldorange{co-optimal solutions} called a \boldorange{Pareto front}.}
+    \end{figure}
 \end{frame}
 
 \begin{frame}

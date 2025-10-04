@@ -1,13 +1,88 @@
 \section{\gls{osier} for Nuclear Fuel Cycle Analysis}
 
-\subsection{The \gls{set}}
+\subsection{\gls{set} History}
 \begin{frame}
-    \frametitle{Evaluating nuclear fuel cycles}
+    \frametitle{Identifying promising fuel cycles}
+    \begin{block}{Which fuel cycle should the U.S. pursue?}
+        In 2011, the U.S. \Gls{DOE} commissioned the Nuclear Fuel Cycle
+        Evaluation and Screening Study (``the Study'').
+    \end{block}
+    % \pause
+    \begin{block}{How were recommendations made?}
+        % \begin{itemize}[<+->]
+        \begin{itemize}
+            \item Thousands of fuel cycle options were filtered into 40
+            ``evaluation groups'' (e.g., ``EG01'').
+            \item These evaluation groups were measured against nine metrics,
+            using the \gls{set}.
+        \end{itemize}
+    \end{block}
+\end{frame}
 
-    [Describe the \gls{set}]
+\subsection{\gls{set} Methodology}
+\begin{frame}
+    \frametitle{\gls{set} Methodology}
+    \begin{columns}
+        \column[t]{3.5cm}
+        \begin{block}{Metrics in the \gls{set}}
+            \begin{enumerate}
+                \item Nuclear waste management
+                \item Proliferation risk
+                \item Nuclear Material security risk
+                \item Safety
+                \item Environmental impacts
+                \item Resource Utilization
+                \item Development and deployment risk
+                \item Institutional issues
+                \item Economics
+            \end{enumerate}        
+        \end{block}
+        \column[t]{6.5cm}
+          \begin{figure}[htbp!]
+            \begin{center}
+            % \resizebox{\columnwidth}{!}{\input{../docs/figures/set_bin_plot.pgf}}
+            \resizebox{\columnwidth}{!}{\input{../docs/figures/05_examples_chapter/set_bin_plot.pgf}}
+            \end{center}
+                \caption{Binned groups for SNF+HLW activity at 100 years.
+                Reproduced from \cite{wigeland_nuclear_2014}.}
+            \label{fig:set_activity_bin}
+        \end{figure}
+    \end{columns}
+\end{frame}
 
+\subsection{Results}
+\begin{frame}
+    \frametitle{Analyzing fuel cycles through Pareto optimality}
+        
+  \begin{figure}[htbp!]
+    \begin{center}
+      \resizebox{0.9\columnwidth}{!}{\input{../docs/figures/05_examples_chapter/full_set_plot.pgf}}
+    \end{center}
+          \caption{Pareto optimal solutions for the \gls{set}.}
+    \label{fig:full-set-pcp}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Analyzing fuel cycles through Pareto optimality}
+  \frametitle{High Tradeoff (``Knee'') Solution}
+  % a comment
+        
+  \begin{figure}[htbp!]
+    \begin{center}
+      \resizebox{0.9\columnwidth}{!}{\input{../docs/figures/05_examples_chapter/single-eg_set_plot.pgf}}
+    \end{center}
+          \caption{EG04 minimizes tradeoff across all objectives and evaluation groups.}
+    \label{fig:single-eg-pcp}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Summary}
+    \begin{table}
+        \centering
+        \caption{Summary of non-optimal solutions and disagreement. Highlighted
+        rows indicate disagreement between \Gls{osier} and \Gls{set} results.}
+        \label{tab:non-optimal-subset}
+        \resizebox{\columnwidth}{!}{\input{../docs/tables/non-optimal-subset.tex}}
+    \end{table}
 \end{frame}
