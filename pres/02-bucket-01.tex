@@ -1,10 +1,53 @@
 \section{Bucket \#1: Technical Improvements to \gls{osier}}
 
 \subsection{Logical Dispatch Algorithm}
+
 \begin{frame}
     \frametitle{What is the dispatch algorithm?}
 
-    [Show the osier flow again]
+    \begin{figure}
+        \centering
+        \includegraphics[width=\columnwidth]{../docs/figures/03_osier_chapter/osier_flow.png}
+        \caption{Flow of data into and within \gls{osier}}
+        \label{fig:osier-flow}
+    \end{figure}
+    % [Show the data flow diagram]
+
+    % Osier works by leveraging genetic algorithsm... 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Comparing the two methods}
+
+    \begin{columns}
+        
+        \column[t]{5cm}
+
+        \begin{block}{Optimal Dispatch (Original Method)}
+            \begin{itemize}[<+->]
+                \item Select the decision variables, $x_{g,t}$, which minimize
+                the operational cost of the model according to some constraints.
+                \item Decision variables correspond to the \textit{generation}
+                of each technology at each timestep in the model.
+                \item Perfect foresight, guaranteed optimality.
+            \end{itemize}
+        \end{block}
+        % \pause
+        \column[t]{5cm}
+        \begin{block}{Logical Dispatch (New Method)}
+            \begin{itemize}[<+->]
+                \item Simple algorithm
+            \begin{enumerate}
+                \item Sort the technologies by total operating cost (ties are
+                broken by efficiency).
+                \item For each demand timestep, calculate the power output for
+                each technology until demand is met, or you run out of
+                technologies.
+            \end{enumerate}
+            \item Myopic, dispatch optimality is not guaranteed.
+            \end{itemize}
+        \end{block}
+    \end{columns}
 
 \end{frame}
 
@@ -15,10 +58,36 @@
     \begin{figure}
         \centering
         \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/temoa_osier_benchmark_01.pgf}}
-        \caption{Comparison of the least-cost solutions from \gls{osier} and \gls{temoa}, as well as their sub-optimal spaces.
-        \boldorange{\gls{osier}'s least-cost solution is within 0.5\% of \gls{temoa}'s}.}
+        \caption{Comparison of the least-cost solutions from \gls{osier} and
+        \gls{temoa}, as well as their sub-optimal spaces.
+        \boldorange{\gls{osier}'s least-cost solution is within 0.5\% of
+        \gls{temoa}'s}.}
         \label{fig:osier-temoa-benchmark}
     \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\textit{In silico} Experiments}
+
+    In order to verify the new dispatch algorithm I conducted several 
+    experiments.
+    \pause
+    \begin{block}{Direct comparison}
+        Compare the dispatch results from the two algorithms with three different technology mixes.
+        \begin{enumerate}
+            \item Natural Gas and Nuclear
+            \item ``\dots'' plus Wind
+            \item ``\dots'' plus Storage
+        \end{enumerate}
+    \end{block}
+    \pause
+    \begin{block}{Time scaling}
+        Measure the solve time for each algorithm as the number of modeled timesteps increases.
+    \end{block}
+    \pause
+    \begin{block}{Thread scaling}
+        Demonstrate parallelization with the the new dispatch algorithm.
+    \end{block}
 \end{frame}
 
 \begin{frame}
@@ -26,25 +95,23 @@
 
     \begin{table}
         \centering
-        \caption{Results from a small study comparing the two dispatch algorithms.
-        \boldorange{Except for case three, the two algorithms show perfect agreement.}}
+        \caption{Results from a small study comparing the two dispatch
+        algorithms. \boldorange{Except for case three, the two algorithms show
+        perfect agreement.}}
         \label{tab:alg-comparison}
-        \resizebox{\columnwidth}{!}{\input{../docs/tables/algorithm_comparison_results_edited.tex}}
+        \resizebox{0.8\columnwidth}{!}{\input{../docs/tables/algorithm_comparison_results_edited.tex}}
     \end{table}
 
 \end{frame}
 
-\begin{frame}
-    \frametitle{Comparing the methods}
+% \begin{frame} \frametitle{Comparing the methods}
 
-    \begin{enumerate}
-        \item The original algorithm is a linear program and optimizes all
-        timesteps simultaneously.
-        \item The new algorithm is based on merit order rules, the least
-        expensive technology is dispatched first. This algorithm is myopic.
-    \end{enumerate}
+%     \begin{enumerate} \item The original algorithm is a linear program and
+%         optimizes all timesteps simultaneously. \item The new algorithm is
+%         based on merit order rules, the least expensive technology is
+%         dispatched first. This algorithm is myopic. \end{enumerate}
     
-\end{frame}
+% \end{frame}
 
 \begin{frame}
     \frametitle{Time scaling for two dispatch algorithms}
@@ -52,9 +119,9 @@
     \begin{figure}
         \centering
         \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/algorithm_scaling_plot.pgf}}
-        \caption{Scaling results for the two dispatch algorithms. \boldorange{The 
-        logical dispatch algorithm demonstrates a 2.5x - 40x speedup over the original
-        formulation.}}
+        \caption{Scaling results for the two dispatch algorithms.
+        \boldorange{The logical dispatch algorithm demonstrates a 2.5x - 40x
+        speedup over the original formulation.}}
         \label{fig:time-scaling}
     \end{figure}
     
@@ -67,7 +134,8 @@
     \begin{figure}
         \centering
         \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/thread_scaling_plot.pgf}}
-        \caption{\boldorange{The logical dispatch algorithm unlocks parallelization.}}
+        \caption{\boldorange{The logical dispatch algorithm unlocks
+        parallelization.}}
         \label{fig:parallel}
     \end{figure}
 \end{frame}
@@ -87,8 +155,6 @@
         \end{itemize}
     \end{enumerate}
 
-    
-    
 \end{frame}
 
 
@@ -96,19 +162,27 @@
 
 \begin{frame}
     \frametitle{What is \gls{mga}?}
-    \begin{block}{The \gls{mga} Idea}
-    
-         \begin{enumerate}
-            \item There may be appealing solutions in a model's inferior space
-            \item We relax the objective function by a fixed \% and efficiently sample
-            sub-optimal space by looking for ``maximally different solutions.''
-         \end{enumerate}    
-    \end{block}
+
+    \begin{columns}
+        \column[t]{3.5cm}
+        \begin{block}{The \gls{mga} Idea}
+            \begin{enumerate}[<+->]
+                \item There may be appealing solutions in a model's inferior
+                space due to \boldorange{structural uncertainty}.
+                \item We \boldorange{relax the objective function} by a fixed \% 
+                \item Then efficiently sample sub-optimal space by looking for
+                \boldorange{``maximally different solutions''} \cite{decarolis_using_2011}.
+            \end{enumerate}    
+        \end{block}
+        % \pause
+    \column[t]{7cm}
         \begin{figure}
             \centering
-            \resizebox{!}{0.6\textheight}{\input{../docs/figures/04_benchmark_chapter/naive_mga_lp.pgf}}
+            % \resizebox{!}{0.6\textheight}{\input{../docs/figures/04_benchmark_chapter/naive_mga_lp.pgf}}
+            \resizebox{\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/naive_mga_lp.pgf}}
             \caption{Simple \gls{mga} procedure.}
         \end{figure}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -116,8 +190,9 @@
     \begin{figure}
         \centering
         \resizebox{\columnwidth}{!}{\input{../docs/figures/03_osier_chapter/mga-fft-example.pgf}}
-        \caption{\gls{osier} addresses persistent structural uncertainty by extending \gls{mga} to N-dimensions and sampling the near optimal
-        space with a farthest-first-traversal.}
+        \caption{\gls{osier} addresses persistent structural uncertainty by
+        extending \gls{mga} to N-dimensions and sampling the near optimal space
+        with a farthest-first-traversal.}
     \end{figure}
 \end{frame}
 

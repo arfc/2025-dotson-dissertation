@@ -1,5 +1,25 @@
 \section{\gls{osier} for Nuclear Fuel Cycle Analysis}
 
+\begin{frame}
+    \frametitle{Recap \#1}
+
+    So far we have seen two technical improvements to \gls{osier}
+    % \newline
+
+    \begin{enumerate}
+        \item A new dispatch algorithm and
+        \item an improved \gls{mga} algorithm.
+    \end{enumerate}
+
+    % \newline
+    These methods relate to generating solutions. But how should we evaluate 
+    solutions?
+    
+    % \newline
+    In this section, I demonstrate \gls{osier} by analyzing nuclear fuel cycle options
+    and introducing a method to select a ``high compromise'' solution.
+\end{frame}
+
 \subsection{\gls{set} History}
 \begin{frame}
     \frametitle{Identifying promising fuel cycles}
@@ -9,8 +29,8 @@
     \end{block}
     % \pause
     \begin{block}{How were recommendations made?}
-        % \begin{itemize}[<+->]
-        \begin{itemize}
+        % \begin{itemize}
+        \begin{itemize}[<+->]
             \item Thousands of fuel cycle options were filtered into 40
             ``evaluation groups'' (e.g., ``EG01'').
             \item These evaluation groups were measured against nine metrics,

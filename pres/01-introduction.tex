@@ -36,17 +36,18 @@
 \begin{frame}
     \frametitle{\glspl{esom}}
     \Glspl{esom} are a class of tools designed to 
-    optimize this transition. (Provide examples?)
+    optimize this transition.
+    \\
+    % (Provide examples?)
 
     They will become more important with more \gls{vre}
     and more volatile weather.
-
+    \\\\
     \textit{But they have at least two big flaws}.
-    \begin{enumerate}
+    \begin{enumerate}[<+->]
         \item All current \glspl{esom} optimize a single objective --- cost.
         \item \glspl{esom} struggle to model the ``human dimension'' thereby
         limiting their ability to address justice \cite{pfenninger_energy_2014}.
-
     \end{enumerate}
 \end{frame}
 
@@ -74,7 +75,7 @@
         \centering
         \includegraphics[width=\columnwidth]{../docs/figures/03_osier_chapter/osier_flow.png}
         \caption{Flow of data into and within \gls{osier}}
-        \label{fig:osier-flow}
+        \label{fig:osier-flow-1}
     \end{figure}
     % [Show the data flow diagram]
 
@@ -93,24 +94,24 @@
 \begin{frame}
     \frametitle{Goals from Preliminary Exam}
 
-    The goals fall into two large buckets
-
-    \begin{enumerate}
-        \item \boldorange{Improve} \gls{osier} by
-        \begin{enumerate}
-            \item Adding a new, faster, dispatch algorithm
-            \item Developing an enhanced \gls{mga} algorithm
+    \begin{block}{Prelim Goals}
+        \begin{enumerate}[<+->]
+            \item \boldorange{Improve} \gls{osier} by
+            \begin{enumerate}
+                \item Adding a new, faster, dispatch algorithm
+                \item Developing an enhanced \gls{mga} algorithm
+            \end{enumerate}
+            \item \boldorange{Validate} \gls{osier}'s usefulness through a 
+            multiple-case study of energy decision-making in Illinois.
         \end{enumerate}
-        \item \boldorange{Validate} \gls{osier}'s usefulness through a 
-        multiple-case study of energy decision-making in Illinois.
-    \end{enumerate}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Objectives of this presentation}
-    \begin{enumerate}
-        \item Show the technical improvements to \gls{osier}.
-        \item Demonstrate how \gls{osier} can be used to evaluate nuclear fuel cycle options.
-        \item Share the results from the case study.
-    \end{enumerate}
+    \end{block}
+    \pause
+    \begin{block}{Presentation Objectives}
+        \frametitle{Objectives of this presentation}
+        \begin{enumerate}[<+->]
+            \item Show the technical improvements to \gls{osier}.
+            \item Demonstrate how \gls{osier} can be used to evaluate nuclear fuel cycle options.
+            \item Share the results from the case study.
+        \end{enumerate}
+    \end{block}
 \end{frame}
