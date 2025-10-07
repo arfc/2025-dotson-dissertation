@@ -3,22 +3,26 @@
 \subsection{Background}
 
 \begin{frame}
-    \frametitle{The Clean Energy Transition}
-    Our changing climate and additional demand drivers from data 
-    centers and \gls{ai} require a just transition from fossil 
-    fuels to clean energy.
-    \begin{columns}
-        \column[t]{5.5cm}    
-        \begin{figure}
-            \centering
-            \resizebox{\columnwidth}{!}{\input{../docs/figures/01_introduction/mauna-loa-co2.pgf}}
-        \end{figure}
-        \column[t]{5.25cm}    
-        \begin{figure}
-            \centering
-            \resizebox{\columnwidth}{!}{\input{../docs/figures/01_introduction/emissions-by-source.pgf}}
-        \end{figure}
-    \end{columns}
+    \frametitle{The Challenge at Hand}
+    \begin{block}{Purpose of Energy System Modeling}
+        Modeling allows us to make predictions, test hypotheses, and understand
+        counterintuitive behavior.\\~\\
+        \textit{Models inform energy policy with prescriptive analyses
+        \cite{decarolis_using_2011}.}
+    \end{block}
+    \begin{block}{Problem} % But, models are limited. Quantitative models are
+    % especially limited in their ability to describe the ``human dimension.''
+        Policies affect people --- energy systems models cannot adequately
+        capture the ``human dimension'' \cite{pfenninger_energy_2014}.
+    \end{block}
+    \begin{block}{What is the ``human dimension?''}
+        \begin{enumerate}
+            \item People have preferences about their sources of energy that are
+            ignored.
+            \item Models cannot describe policy outcomes related to fairness or
+            justice.
+        \end{enumerate}
+    \end{block}
 \end{frame}
 
 \begin{frame}
@@ -47,6 +51,188 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Distributional}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[vertex](v3) at (0,2)
+                    {\textcolor{black}{\textbf{Distribution}}};
+                    \node[unfocus](v2) at (0,0)
+                    {\textcolor{gray}{\textbf{Procedural}}}; \node[unfocus](v1)
+                    at (0,-2) {\textcolor{gray}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{Distributional Justice}
+            Related to the distribution of burdens and benefits.
+        \end{block}
+        \begin{block}{Normative Question}
+            What is the fairest way to distribute benefits and burdens?
+        \end{block}
+        \begin{block}{Examples of injustice}
+            \begin{itemize}
+                \item Dispossession of land and benefits
+                \cite{yenneti_spatial_2016,sovacool_dispossessed_2021}. 
+                \item Poorer air quality around fossil fuel plants --- primarily
+                located in poorer communities \cite{mohai_which_2015}.
+                \item Solar panel subsidies and installations benefitting
+                wealthier communities \cite{reames_distributional_2020}.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Procedural}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[unfocus](v3) at (0,2)
+                    {\textcolor{gray}{\textbf{Distribution}}}; \node[vertex](v2)
+                    at (0,0) {\textcolor{black}{\textbf{Procedural}}};
+                    \node[unfocus](v1) at (0,-2)
+                    {\textcolor{gray}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{Procedural Justice}
+            Related to decision-making processes --- method and inclusion.
+        \end{block}
+        \begin{block}{Normative Question}
+            What is the fairest way to make decisions affecting specific groups
+            of people?
+        \end{block}
+        \begin{block}{Examples of injustice}
+            \begin{itemize}
+                \item Dismissal of testimony for its lack of technical expertise
+                \cite{johnson_dakota_2021}. 
+                \item Lack of transparency in decision making.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Recognitional}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[unfocus](v3) at (0,2)
+                    {\textcolor{gray}{\textbf{Distribution}}};
+                    \node[unfocus](v2) at (0,0)
+                    {\textcolor{gray}{\textbf{Procedural}}}; \node[vertex](v1)
+                    at (0,-2) {\textcolor{black}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{Recognitional Justice}
+            Related to social value of people or groups derived from
+            relationships, laws, and cultural standing.
+        \end{block}
+        \begin{block}{Normative Question}
+            How much and in what ways should a person or group of people be
+            valued?
+        \end{block}
+        \begin{block}{Examples of injustice}
+            \begin{itemize}
+                \item Energy policies that interfere with loving relationships
+                (e.g., stress from energy
+                insecurity) \cite{van_uffelen_revisiting_2022}.
+                \item Lack of labor protections for
+                workers \cite{van_uffelen_revisiting_2022}.
+                \item Exclusion from a policy process\cite{van_uffelen_revisiting_2022}.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Climate change highlights energy system injustices}
+    Our changing climate and additional demand drivers from data 
+    centers and \gls{ai} require a just transition from fossil 
+    fuels to clean energy.
+    \begin{columns}
+        \column[t]{5cm}
+        \begin{figure}
+            \centering
+            \resizebox{\columnwidth}{!}{\input{../docs/figures/01_introduction/mauna-loa-co2.pgf}}
+            % \resizebox{\columnwidth}{!}{\input{../docs/figures/mauna-loa-co2.pgf}}            
+            \caption{Observed increase in CO$_2$ levels at Mauna Loa Observatory
+            \cite{kane_atmospheric_1996}.}
+            \label{figure:mauna-loa}
+        \end{figure}
+        
+        \column[t]{5cm}
+        \begin{figure}
+            \centering
+            \resizebox{\columnwidth}{!}{\input{../docs/figures/01_introduction/emissions-by-source.pgf}}
+            % \resizebox{\columnwidth}{!}{\input{../docs/figures/emissions-by-source.pgf}}
+            \caption{Lifecycle carbon emissions by energy source
+            \cite{united_nations_economic_commission_for_europe_carbon_2022}.}
+            \label{figure:energy-emissions}
+        \end{figure}
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Addressing climate change?}
+
+        \begin{block}{Energy Transition}
+            \begin{enumerate}
+                \item Requires new, low carbon, energy projects.
+                \item Adhering to values of democracy necessitates local support
+                for these projects.
+            \end{enumerate}
+        \end{block}
+        \begin{block}{Public Opposition --- it's not NIMBY}
+            Perceptions of fairness and inclusion, rather than NIMBY attitudes,
+            condition local support
+            \cite{konisky_proximity_2021,aitken_why_2010,stokes_prevalence_2023,firestone_public_2012-1}.
+        \end{block}
+        \begin{block}{}
+            Public testimony can be dismissed for being non-technical
+            \cite{johnson_dakota_2021}. Existing energy planning processes and
+            new energy projects (even ``clean energy'' projects) reproduce
+            existing sociopolitical structures that violate principles of
+            justice.
+        \end{block}
+\end{frame}
+
+\begin{frame}
     \frametitle{\glspl{esom}}
     \Glspl{esom} are a class of tools designed to 
     optimize this transition.
@@ -63,6 +249,114 @@
         limiting their ability to address justice \cite{pfenninger_energy_2014}.
     \end{enumerate}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Energy Modeling and Distributional Justice}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[vertex](v3) at (0,2)
+                    {\textcolor{black}{\textbf{Distribution}}};
+                    \node[unfocus](v2) at (0,0)
+                    {\textcolor{gray}{\textbf{Procedural}}}; \node[unfocus](v1)
+                    at (0,-2) {\textcolor{gray}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{ESOMs and Distributional Justice}
+            ESOM literature has begun considering distributional justice
+            \cite{neumann_near-optimal_2021,sasse_distributional_2019,obrecht_integrating_2020}.
+        \end{block}
+        \begin{block}{}
+            \begin{itemize}
+                \item Quantifiable
+                \item ``Objective'' --- research questions can be purely
+                descriptive.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Energy Modeling and Procedural/Recognition Justice}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[unfocus](v3) at (0,2){\textcolor{gray}{\textbf{Distribution}}}; 
+                    \node[vertex](v2) at (0,0) {\textcolor{black}{\textbf{Procedural}}};
+                    \node[vertex](v1) at (0,-2){\textcolor{black}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{Procedural Justice}
+            ESOM literature now emphasizes code and data transparency
+            \cite{decarolis_formalizing_2017} and highlights the importance of
+            producing \textit{insight} rather than \textit{answers}
+            \cite{decarolis_using_2011}.
+        \end{block}
+        \pause
+        \begin{block}{}
+            However, the literature does not consider the ways its methods
+            inform policies. Do energy system models make this more transparent or less?
+        \end{block}
+        \pause
+        \begin{block}{Recognition Justice}
+            As a corrolary of its lack of self-awareness, the ESOM literature
+            does not address recognition justice at all --- modeling is
+            independent from public influence.
+        \end{block}
+        \begin{block}{}
+            How inclusive is energy modeling of community preferences?
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+% \begin{frame}
+%     \frametitle{Three tenets of justice}
+%     \begin{figure}
+%         \centering
+%         % \resizebox{0.7\columnwidth}{!}{
+%             \begin{tikzpicture}
+%                 \begin{scope}[blend group = soft light]
+%                     % \fill[red!30!white]   ( 90:1.2) circle (2);
+%                     \fill[illiniorange]   ( 90:1.2) circle (2);
+%                     % \fill[green!30!white] (210:1.2) circle (2);
+%                     \fill[illiniorange] (210:1.2) circle (2);
+%                     % \fill[blue!30!white]  (330:1.2) circle (2);
+%                     \fill[illiniorange]  (330:1.2) circle (2);
+%                 \end{scope}
+%                 \node at ( 90:2)    {Recognition}; 
+%                 \node at ( 210:2) {Distribution}; 
+%                 \node at ( 330:2)   {Procedural}; 
+%                 \node[font=\Large] {\textcolor{black}{Justice}};
+%               \end{tikzpicture}
+
+%         % }
+%         \caption{Three aspects of justice \cite{schlosberg_1_2007}.}
+%     \end{figure}
+% \end{frame}
 
 \subsection{Introducing \gls{osier}}
 \begin{frame}
