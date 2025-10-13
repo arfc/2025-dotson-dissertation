@@ -51,6 +51,33 @@
 
 \end{frame}
 
+% \begin{frame}
+%     \frametitle{Comparing the two methods}
+
+%     \begin{columns}
+        
+%         \column[t]{5cm}
+
+%         \begin{block}{Optimal Dispatch (Original Method)}
+%         \begin{align}
+%             \left(\sum_t^T\sum_g^G \left[C_{g,t}^{fuel} + C_{g,t}^{vom}\right]x_{g,t}
+%             \right)+\left(\sum_t^T\sum_g^S x_{g,t}c_{g,t}\pi\right)
+%         \end{align}
+%         \end{block}
+%         % \pause
+%         \column[t]{5cm}
+%         \begin{block}{Logical Dispatch (New Method)}
+%             \begin{figure}
+%                 \centering
+%                 \resizebox{!}{\textheight}{\input{../docs/figures/03_osier_chapter/dispatch-flow.tex}}
+%                     \caption{The hierarchical dispatch flow.}
+%                     \label{fig:hierarchy_algorithm}
+%             \end{figure}
+%         \end{block}
+%     \end{columns}
+
+% \end{frame}
+
 
 \begin{frame}
     \frametitle{Verifying the Original Method}
@@ -118,7 +145,7 @@
 
     \begin{figure}
         \centering
-        \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/algorithm_scaling_plot.pgf}}
+        \resizebox{0.72\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/algorithm_scaling_plot.pgf}}
         \caption{Scaling results for the two dispatch algorithms.
         \boldorange{The logical dispatch algorithm demonstrates a 2.5x - 40x
         speedup over the original formulation.}}
@@ -133,7 +160,7 @@
 
     \begin{figure}
         \centering
-        \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/thread_scaling_plot.pgf}}
+        \resizebox{0.72\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/thread_scaling_plot.pgf}}
         \caption{\boldorange{The logical dispatch algorithm unlocks
         parallelization.}}
         \label{fig:parallel}
