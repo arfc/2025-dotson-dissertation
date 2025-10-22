@@ -40,7 +40,7 @@
                     \fill[illiniorange]  (330:1.2) circle (2);
                 \end{scope}
                 \node at ( 90:2)    {Recognition}; 
-                \node at ( 210:2) {Distribution}; 
+                \node at ( 210:2) {Distributive}; 
                 \node at ( 330:2)   {Procedural}; 
                 \node[font=\Large] {\textcolor{black}{Justice}};
               \end{tikzpicture}
@@ -52,8 +52,8 @@
 
 \begin{frame}
     \frametitle{Climate change highlights energy system injustices}
-    Our changing climate and additional demand drivers from data 
-    centers and \gls{ai} require a just transition from fossil 
+    Our \boldorange{changing climate} and additional demand drivers from data 
+    centers and \gls{ai} \boldorange{disproportionately impact} marginalized groups and require a \boldorange{just transition} from fossil 
     fuels to clean energy.
     \begin{columns}
         \column[t]{5cm}
@@ -82,7 +82,7 @@
 \begin{frame}
     \frametitle{Addressing climate change?}
 
-        \begin{block}{Energy Transition}
+        \begin{block}{Just Energy Transition}
             \begin{enumerate}
                 \item Requires new, low carbon, energy projects.
                 \item Adhering to values of democracy necessitates local support
@@ -193,7 +193,7 @@
         \end{block}
         \pause
         \begin{block}{Recognition Justice}
-            As a corrolary of its lack of self-awareness, the ESOM literature
+            As a corollary of its lack of self-awareness, the ESOM literature
             does not address recognition justice at all --- modeling is
             independent from public influence.
         \end{block}
@@ -292,6 +292,51 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Dispatch Modeling}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\columnwidth]{images/osier_dispatch_example.png}
+        \caption{\gls{osier} dispatch for an energy system with natural gas plus battery storage.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{User defined objectives}
+    % \scriptsize
+    \begin{minted}[ frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray,
+fontsize=\footnotesize, linenos ]{python} 
+
+    nuclear.readiness = 9
+    fusion.readiness = 3
+
+    technology_list = [nuclear, fusion]
+
+    def osier_objective(technology_list, solved_dispatch_model): 
+        """ 
+            Calculate the capacity-weighted technology readiness 
+            score for this energy mix. 
+        """
+
+        total_capacity = np.array([t.capacity for t in technology_list]).sum()
+        
+        objective_value = np.array([t.readiness*t.capacity 
+                                    for t in technology_list]).sum()
+
+        return objective_value / total_capacity
+    \end{minted}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Constrained optimization}
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.85\columnwidth]{images/osier_constraint.png}
+            \caption{Osier Pareto front with and without emissions constraint.}
+        \end{figure}
+\end{frame}
+
+\begin{frame}
     \frametitle{High-dimensional Pareto fronts}
     \begin{figure}
         \centering
@@ -299,6 +344,12 @@
         \caption{Objective space for a four-objective problem.}
         \label{fig:4-obj-space}
     \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Documenation as a feature}
+    \url{https://osier.readthedocs.io}
 \end{frame}
 
 
