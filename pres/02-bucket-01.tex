@@ -1,0 +1,259 @@
+\section{Technical Improvements to \gls{osier}}
+
+\subsection{Logical Dispatch Algorithm}
+
+\begin{frame}
+    \frametitle{What is the dispatch algorithm?}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=\columnwidth]{../docs/figures/03_osier_chapter/osier_flow.png}
+        \caption{Flow of data into and within \gls{osier}}
+        \label{fig:osier-flow}
+    \end{figure}
+    % [Show the data flow diagram]
+
+    % Osier works by leveraging genetic algorithsm... 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Comparing the two methods}
+
+    \begin{columns}
+        
+        \column[t]{5cm}
+
+        \begin{block}{Optimal Dispatch (Original Method)}
+            \begin{itemize}[<+->]
+                \item Select the decision variables, $x_{g,t}$, which minimize
+                the operational cost of the model according to some constraints.
+                \item Decision variables correspond to the \textit{generation}
+                of each technology at each timestep in the model.
+                \item Perfect foresight, guaranteed optimality.
+            \end{itemize}
+        \end{block}
+        % \pause
+        \column[t]{5cm}
+        \begin{block}{Logical Dispatch (New Method)}
+            \begin{itemize}[<+->]
+                \item Simple algorithm
+            \begin{enumerate}
+                \item Sort the technologies by total operating cost (ties are
+                broken by efficiency).
+                \item For each demand timestep, calculate the power output for
+                each technology until demand is met, or you run out of
+                technologies.
+            \end{enumerate}
+            \item Myopic, dispatch optimality is not guaranteed.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+
+\end{frame}
+
+% \begin{frame}
+%     \frametitle{Comparing the two methods}
+
+%     \begin{columns}
+        
+%         \column[t]{5cm}
+
+%         \begin{block}{Optimal Dispatch (Original Method)}
+%         \begin{align}
+%             \left(\sum_t^T\sum_g^G \left[C_{g,t}^{fuel} + C_{g,t}^{vom}\right]x_{g,t}
+%             \right)+\left(\sum_t^T\sum_g^S x_{g,t}c_{g,t}\pi\right)
+%         \end{align}
+%         \end{block}
+%         % \pause
+%         \column[t]{5cm}
+%         \begin{block}{Logical Dispatch (New Method)}
+%             \begin{figure}
+%                 \centering
+%                 \resizebox{!}{\textheight}{\input{../docs/figures/03_osier_chapter/dispatch-flow.tex}}
+%                     \caption{The hierarchical dispatch flow.}
+%                     \label{fig:hierarchy_algorithm}
+%             \end{figure}
+%         \end{block}
+%     \end{columns}
+
+% \end{frame}
+
+
+\begin{frame}
+    \frametitle{Verifying the Original Method}
+
+    \begin{figure}
+        \centering
+        \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/temoa_osier_benchmark_01.pgf}}
+        \caption{Comparison of the least-cost solutions from \gls{osier} and
+        \gls{temoa}, as well as their sub-optimal spaces.
+        \boldorange{\gls{osier}'s least-cost solution is within 0.5\% of
+        \gls{temoa}'s}.}
+        \label{fig:osier-temoa-benchmark}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\textit{In silico} Experiments}
+
+    In order to verify the new dispatch algorithm I conducted several 
+    experiments.
+    \pause
+    \begin{block}{Direct comparison}
+        Compare the dispatch results from the two algorithms with three different technology mixes.
+        \begin{enumerate}
+            \item Natural Gas and Nuclear
+            \item ``\dots'' plus Wind
+            \item ``\dots'' plus Storage
+        \end{enumerate}
+    \end{block}
+    \pause
+    \begin{block}{Time scaling}
+        Measure the solve time for each algorithm as the number of modeled timesteps increases.
+    \end{block}
+    \pause
+    \begin{block}{Thread scaling}
+        Demonstrate parallelization with the the new dispatch algorithm.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Verifying the New Method}
+
+    \begin{table}
+        \centering
+        \caption{Results from a small study comparing the two dispatch
+        algorithms. \boldorange{Except for case three, the two algorithms show
+        perfect agreement.}}
+        \label{tab:alg-comparison}
+        \resizebox{0.8\columnwidth}{!}{\input{../docs/tables/algorithm_comparison_results_edited.tex}}
+    \end{table}
+
+\end{frame}
+
+% \begin{frame} \frametitle{Comparing the methods}
+
+%     \begin{enumerate} \item The original algorithm is a linear program and
+%         optimizes all timesteps simultaneously. \item The new algorithm is
+%         based on merit order rules, the least expensive technology is
+%         dispatched first. This algorithm is myopic. \end{enumerate}
+    
+% \end{frame}
+
+\begin{frame}
+    \frametitle{Time scaling for two dispatch algorithms}
+
+    \begin{figure}
+        \centering
+        \resizebox{0.72\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/algorithm_scaling_plot.pgf}}
+        \caption{Scaling results for the two dispatch algorithms.
+        \boldorange{The logical dispatch algorithm demonstrates a 2.5x - 40x
+        speedup over the original formulation.}}
+        \label{fig:time-scaling}
+    \end{figure}
+    
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Demonstrating parallelization}
+
+    \begin{figure}
+        \centering
+        \resizebox{0.72\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/thread_scaling_plot.pgf}}
+        \caption{\boldorange{The logical dispatch algorithm unlocks
+        parallelization.}}
+        \label{fig:parallel}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Summary Comparison}
+
+    Benefits of logical dispatch
+
+    \begin{enumerate}
+        \item faster
+        \item allows parallelization
+        \item more accessible
+        \begin{itemize}
+            \item simpler algorithm / easier to understand
+            \item does not require an external solver
+        \end{itemize}
+    \end{enumerate}
+
+    \pause
+
+    \begin{block}{Next up:}
+         Modeling-to-generative alternatives (MGA) --- addressing structural uncertainty.
+    \end{block}
+
+\end{frame}
+
+\subsection{N-Dimensional \gls{mga}}
+
+\begin{frame}
+    \frametitle{What is \gls{mga}?}
+
+    \begin{columns}
+        \column[t]{3.5cm}
+        \begin{block}{The \gls{mga} Idea}
+            \begin{enumerate}[<+->]
+                \item There may be appealing solutions in a model's inferior
+                space due to \boldorange{structural uncertainty}.
+                \item We \boldorange{relax the objective function} by a fixed \% 
+                \item Then efficiently sample sub-optimal space by looking for
+                \boldorange{``maximally different solutions''} \cite{decarolis_using_2011}.
+            \end{enumerate}    
+        \end{block}
+        % \pause
+    \column[t]{7cm}
+        \begin{figure}
+            \centering
+            % \resizebox{!}{0.6\textheight}{\input{../docs/figures/04_benchmark_chapter/naive_mga_lp.pgf}}
+            \resizebox{\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/naive_mga_lp.pgf}}
+            \caption{Simple \gls{mga} procedure.}
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{MGA in \gls{osier}}
+    \begin{figure}
+        \centering
+        \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/osier_mga_subset_01.pgf}}
+        \caption{Pareto front and sub-optimal space for MGA in \gls{osier}. This is the same problem from Figure \ref{fig:osier-temoa-benchmark}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{N-Dimensional \gls{mga}}
+    \begin{figure}
+        \centering
+        \resizebox{\columnwidth}{!}{\input{../docs/figures/03_osier_chapter/mga-fft-example.pgf}}
+        \caption{\gls{osier} addresses persistent structural uncertainty by
+        extending \gls{mga} to N-dimensions and sampling the near optimal space
+        with a farthest-first-traversal.}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Recap \#1}
+
+    So far we have seen two technical improvements to \gls{osier}
+    % \newline
+
+    \begin{enumerate}
+        \item A new dispatch algorithm and
+        \item an improved \gls{mga} algorithm.
+    \end{enumerate}
+
+    % \newline
+    These methods relate to generating solutions. But how should we evaluate 
+    solutions?
+    
+    % \newline
+    In the next section, I demonstrate \gls{osier} by analyzing nuclear fuel cycle options
+    and introducing a method to select a ``high compromise'' solution.
+\end{frame}

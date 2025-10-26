@@ -1,0 +1,379 @@
+\section{Introduction}
+
+\subsection{Background}
+
+\begin{frame}
+    \frametitle{The Challenge at Hand}
+    \begin{block}{Purpose of Energy System Modeling}
+        Modeling allows us to make predictions, test hypotheses, and understand
+        counterintuitive behavior.\\~\\
+        \textit{Models inform energy policy with prescriptive analyses
+        \cite{decarolis_using_2011}.}
+    \end{block}
+    \begin{block}{Problem} % But, models are limited. Quantitative models are
+    % especially limited in their ability to describe the ``human dimension.''
+        Policies affect people --- energy systems models cannot adequately
+        capture the ``human dimension'' \cite{pfenninger_energy_2014}.
+    \end{block}
+    \begin{block}{What is the ``human dimension?''}
+        \begin{enumerate}
+            \item People have preferences about their sources of energy that are
+            ignored.
+            \item Models cannot describe policy outcomes related to fairness or
+            justice.
+        \end{enumerate}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Three tenets of justice}
+    \begin{figure}
+        \centering
+        % \resizebox{0.7\columnwidth}{!}{
+            \begin{tikzpicture}
+                \begin{scope}[blend group = soft light]
+                    % \fill[red!30!white]   ( 90:1.2) circle (2);
+                    \fill[illiniorange]   ( 90:1.2) circle (2);
+                    % \fill[green!30!white] (210:1.2) circle (2);
+                    \fill[illiniorange] (210:1.2) circle (2);
+                    % \fill[blue!30!white]  (330:1.2) circle (2);
+                    \fill[illiniorange]  (330:1.2) circle (2);
+                \end{scope}
+                \node at ( 90:2)    {Recognition}; 
+                \node at ( 210:2) {Distributive}; 
+                \node at ( 330:2)   {Procedural}; 
+                \node[font=\Large] {\textcolor{black}{Justice}};
+              \end{tikzpicture}
+
+        % }
+        \caption{Three aspects of justice \cite{schlosberg_1_2007}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Climate change highlights energy system injustices}
+    Our \boldorange{changing climate} and additional demand drivers from data 
+    centers and \gls{ai} \boldorange{disproportionately impact} marginalized groups and require a \boldorange{just transition} from fossil 
+    fuels to clean energy.
+    \begin{columns}
+        \column[t]{5cm}
+        \begin{figure}
+            \centering
+            \resizebox{\columnwidth}{!}{\input{../docs/figures/01_introduction/mauna-loa-co2.pgf}}
+            % \resizebox{\columnwidth}{!}{\input{../docs/figures/mauna-loa-co2.pgf}}            
+            \caption{Observed increase in CO$_2$ levels at Mauna Loa Observatory
+            \cite{kane_atmospheric_1996}.}
+            \label{figure:mauna-loa}
+        \end{figure}
+        
+        \column[t]{5cm}
+        \begin{figure}
+            \centering
+            \resizebox{\columnwidth}{!}{\input{../docs/figures/01_introduction/emissions-by-source.pgf}}
+            % \resizebox{\columnwidth}{!}{\input{../docs/figures/emissions-by-source.pgf}}
+            \caption{Lifecycle carbon emissions by energy source
+            \cite{united_nations_economic_commission_for_europe_carbon_2022}.}
+            \label{figure:energy-emissions}
+        \end{figure}
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Addressing climate change?}
+
+        \begin{block}{Just Energy Transition}
+            \begin{enumerate}
+                \item Requires new, low carbon, energy projects.
+                \item Adhering to values of democracy necessitates local support
+                for these projects.
+            \end{enumerate}
+        \end{block}
+        \begin{block}{Public Opposition --- it's not NIMBY}
+            Perceptions of fairness and inclusion, rather than NIMBY attitudes,
+            condition local support
+            \cite{konisky_proximity_2021,aitken_why_2010,stokes_prevalence_2023,firestone_public_2012-1}.
+        \end{block}
+        \begin{block}{}
+            Public testimony can be dismissed for being non-technical
+            \cite{johnson_dakota_2021}. Existing energy planning processes and
+            new energy projects (even ``clean energy'' projects) reproduce
+            existing sociopolitical structures that violate principles of
+            justice.
+        \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\glspl{esom}}
+    \Glspl{esom} are a class of tools designed to 
+    optimize this transition.
+    \\
+    % (Provide examples?)
+
+    They will become more important with more \gls{vre}
+    and more volatile weather.
+    \\\\
+    \textit{But they have at least two big flaws}.
+    \begin{enumerate}[<+->]
+        \item All current \glspl{esom} optimize a single objective --- cost.
+        \item \glspl{esom} struggle to model the ``human dimension'' thereby
+        limiting their ability to address justice \cite{pfenninger_energy_2014}.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Energy Modeling and Distributional Justice}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[vertex](v3) at (0,2)
+                    {\textcolor{black}{\textbf{Distribution}}};
+                    \node[unfocus](v2) at (0,0)
+                    {\textcolor{gray}{\textbf{Procedural}}}; \node[unfocus](v1)
+                    at (0,-2) {\textcolor{gray}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{ESOMs and Distributional Justice}
+            ESOM literature has begun considering distributional justice
+            \cite{neumann_near-optimal_2021,sasse_distributional_2019,obrecht_integrating_2020}.
+        \end{block}
+        \begin{block}{}
+            \begin{itemize}
+                \item Quantifiable
+                \item ``Objective'' --- research questions can be purely
+                descriptive.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Energy Modeling and Procedural/Recognition Justice}
+    \begin{columns}
+        \column[t]{3cm}
+        \begin{figure}
+            \centering
+            \resizebox{0.7\columnwidth}{!}{
+                \begin{tikzpicture}[nodes={text depth=0.25ex,text height=1.25ex distance=1.7cm}]
+                    \tikzstyle{every node}=[font=\small] \tikzstyle{vertex} =
+                    [circle, draw=black, fill=trueilliniorange]
+                    \tikzstyle{unfocus} = [circle, draw=gray, fill=illiniorange]
+                    \tikzstyle{hidden} = [draw=none] \tikzstyle{edge} = [<->,
+                    very thick]
+                    
+                    \node[unfocus](v3) at (0,2){\textcolor{gray}{\textbf{Distribution}}}; 
+                    \node[vertex](v2) at (0,0) {\textcolor{black}{\textbf{Procedural}}};
+                    \node[vertex](v1) at (0,-2){\textcolor{black}{\textbf{Recognition}}};
+        
+            \end{tikzpicture}}
+        \end{figure}
+        \column[t]{7cm}
+        \begin{block}{Procedural Justice}
+            ESOM literature now emphasizes code and data transparency
+            \cite{decarolis_formalizing_2017} and highlights the importance of
+            producing \textit{insight} rather than \textit{answers}
+            \cite{decarolis_using_2011}.
+        \end{block}
+        \pause
+        \begin{block}{}
+            However, the literature does not consider the ways its methods
+            inform policies. Do energy system models make this more transparent or less?
+        \end{block}
+        \pause
+        \begin{block}{Recognition Justice}
+            As a corollary of its lack of self-awareness, the ESOM literature
+            does not address recognition justice at all --- modeling is
+            independent from public influence.
+        \end{block}
+        \begin{block}{}
+            How inclusive is energy modeling of community preferences?
+        \end{block}
+    \end{columns}
+    
+\end{frame}
+
+% \begin{frame}
+%     \frametitle{Three tenets of justice}
+%     \begin{figure}
+%         \centering
+%         % \resizebox{0.7\columnwidth}{!}{
+%             \begin{tikzpicture}
+%                 \begin{scope}[blend group = soft light]
+%                     % \fill[red!30!white]   ( 90:1.2) circle (2);
+%                     \fill[illiniorange]   ( 90:1.2) circle (2);
+%                     % \fill[green!30!white] (210:1.2) circle (2);
+%                     \fill[illiniorange] (210:1.2) circle (2);
+%                     % \fill[blue!30!white]  (330:1.2) circle (2);
+%                     \fill[illiniorange]  (330:1.2) circle (2);
+%                 \end{scope}
+%                 \node at ( 90:2)    {Recognition}; 
+%                 \node at ( 210:2) {Distribution}; 
+%                 \node at ( 330:2)   {Procedural}; 
+%                 \node[font=\Large] {\textcolor{black}{Justice}};
+%               \end{tikzpicture}
+
+%         % }
+%         \caption{Three aspects of justice \cite{schlosberg_1_2007}.}
+%     \end{figure}
+% \end{frame}
+
+\subsection{Introducing \gls{osier}}
+\begin{frame}
+    \frametitle{\gls{osier}}
+    I developed \gls{osier} to fill these gaps by \cite{dotson_osier_2024}
+    \begin{enumerate}[<+->]
+        \item optimizing multi- and many-objective problems,
+        \item allowing user-defined objectives,
+        \item facilitating multi-criteria decision making,
+        \item being accessible and usable.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{How \gls{osier} Works}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=\columnwidth]{../docs/figures/03_osier_chapter/osier_flow.png}
+        \caption{Flow of data into and within \gls{osier}}
+        \label{fig:osier-flow-1}
+    \end{figure}
+    % [Show the data flow diagram]
+
+    % Osier works by leveraging genetic algorithms... 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Evolutionary Algorithms}
+
+    \begin{columns}
+        \column[t]{6cm}
+        \begin{block}{Evolutionary Algorithms for Energy System Optimization}
+            \begin{itemize}
+            \item Inspired by natural selection
+            \item Parallelizable
+            \item Superior to pure linear programming methods for
+                \begin{itemize}
+                    \item independence from problem convexity
+                    \item good sampling/spacing of points along solution set.
+                \end{itemize}
+            \end{itemize}
+            
+            Right: Evolutionary algorithm flow \cite{deb_evolutionary_2014}.
+        \end{block}
+            \column[t]{4cm}
+            \centering
+            \begin{figure}
+            \includegraphics[width=0.75\linewidth]{images/ea-flow.png}  
+            \end{figure}
+        \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Pareto Fronts}
+    \begin{figure}
+        \centering
+        \resizebox{0.75\columnwidth}{!}{\input{../docs/figures/02_literature_review/truss2d_pareto.pgf}}
+        \caption{\gls{osier} generates a set of \boldorange{co-optimal solutions} called a \boldorange{Pareto front}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dispatch Modeling}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\columnwidth]{images/osier_dispatch_example.png}
+        \caption{\gls{osier} dispatch for an energy system with nuclear plus battery storage.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{User defined objectives}
+    % \scriptsize
+    \begin{minted}[ frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray,
+fontsize=\footnotesize, linenos ]{python} 
+
+    nuclear.readiness = 9
+    fusion.readiness = 3
+
+    technology_list = [nuclear, fusion]
+
+    def osier_objective(technology_list, solved_dispatch_model): 
+        """ 
+            Calculate the capacity-weighted technology readiness 
+            score for this energy mix. 
+        """
+
+        total_capacity = np.array([t.capacity for t in technology_list]).sum()
+        
+        objective_value = np.array([t.readiness*t.capacity 
+                                    for t in technology_list]).sum()
+
+        return objective_value / total_capacity
+    \end{minted}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Constrained optimization}
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.75\columnwidth]{images/osier_constraint.png}
+            \caption{Osier Pareto front with and without emissions constraint.}
+        \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{High-dimensional Pareto fronts}
+    \begin{figure}
+        \centering
+        \resizebox{\columnwidth}{!}{\input{../docs/figures/04_benchmark_chapter/4_obj_objective_space_MGA.pgf}}
+        \caption{Objective space for a four-objective problem.}
+        \label{fig:4-obj-space}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Documentation as a feature}
+    \url{https://osier.readthedocs.io}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Goals from Preliminary Exam}
+
+    \begin{block}{Prelim Goals}
+        \begin{enumerate}[<+->]
+            \item \boldorange{Improve} \gls{osier} by
+            \begin{enumerate}
+                \item Adding a new, faster, dispatch algorithm
+                \item Developing an enhanced \gls{mga} algorithm
+            \end{enumerate}
+            \item \boldorange{Validate} \gls{osier}'s usefulness through a 
+            multiple-case study of energy decision-making in Illinois.
+        \end{enumerate}
+    \end{block}
+    \pause
+    \begin{block}{Presentation Objectives}
+        \frametitle{Objectives of this presentation}
+        \begin{enumerate}[<+->]
+            \item Show the technical improvements to \gls{osier}.
+            \item Demonstrate how \gls{osier} can be used to evaluate nuclear fuel cycle options.
+            \item Share the results from the case study.
+        \end{enumerate}
+    \end{block}
+\end{frame}

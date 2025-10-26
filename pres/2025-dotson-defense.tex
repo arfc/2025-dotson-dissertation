@@ -3,17 +3,17 @@
 %
 
 
-%\documentclass[11pt,handout]{beamer}
+% \documentclass[9pt,handout]{beamer}
 \documentclass[9pt]{beamer}
 \usetheme[white]{Illinois}
 %\title[short title]{long title}
 \title[Short Title]{Towards a Holistic Integration of Energy Justice and Energy System Engineering}
 %\subtitle[short subtitle]{long subtitle}
-\subtitle[Short SubTitle]{Preliminary Exam}
+\subtitle[Short SubTitle]{Thesis Defense}
 %\author[short name]{long name}
 \author[Your Name]{Samuel G. Dotson\\Advanced Reactors and Fuel Cycles Group}
 %\date[short date]{long date}
-\date[01.09.2024]{January 9, 2024}
+\date[10.23.2025]{October 23, 2025}
 %\institution[short name]{long name}
 \institute[UIUC]{University of Illinois at Urbana-Champaign}
 
@@ -30,6 +30,8 @@
 \usepackage{tikz}
 \usepackage{soul}
 \usepackage{pgfplots}
+\usepackage[table, dvipsnames]{xcolor}
+
 
 
 \definecolor{LightGray}{gray}{0.9}
@@ -103,14 +105,17 @@ text width=22em, text centered, rounded corners, minimum height=3em]
 %Those icons in the references are terrible looking
 \setbeamertemplate{bibliography item}[text]
 \setbeamertemplate{caption}[numbered]
+% \beamerdefaultoverlayspecification{<+->}
 
 \newcommand{\mathdefault}[1][]{}
 
 %%%% Acronym support
 
-% \usepackage[acronym,toc]{glossaries}
+\usepackage[acronym,toc]{glossaries}
+\include{acros}
 % \usepackage{acronym}
-% \input{../docs/acros}
+% \newcommand{\acro}[3]{\acrodef{#1}[#2]{#3}}
+
 
 % \makeglossaries
 
@@ -163,29 +168,21 @@ text width=22em, text centered, rounded corners, minimum height=3em]
 \end{frame}
 }
 
-\section{Introduction}
-\input{00-overview.tex}
-\section{Motivation and Background}
-\input{motivation/00-motivation.tex}
-% \section{Technical Gap \#1}
-% \input{tech-gaps/01-gap.tex}
-% \section{Proposal \#1}
-% \input{proposal/norm-premise.tex}
-% \section{Tale of Three Uncertainties}
-% \input{uncertainty/00-uncertainty.tex}
-% \section{Technical Gap \#3}
-% \input{tech-gaps/03-gap.tex}
-% \input{proposal/case-study.tex}
+\input{01-introduction.tex}
+\input{02-bucket-01.tex}
+\input{03-osier-demonstration.tex}
+\input{04-motivating-interlude.tex}
+\input{05-bucket-02.tex}
+\input{06-future-work.tex}
+\input{acks}
+\input{07-backup-slides.tex}
 
-% \section{Conclusion}
-% \input{conclusion}
-% \input{acks}
 %%--------------------------------%%
 %%--------------------------------%%
 \begin{frame}[allowframebreaks]
   \frametitle{References}
   \bibliographystyle{plain}
-  {\footnotesize \bibliography{../docs/2023-dotson-prelim.bib} }
+  {\footnotesize \bibliography{../docs/2025-dotson-phd.bib} }
 
 \end{frame}
 
