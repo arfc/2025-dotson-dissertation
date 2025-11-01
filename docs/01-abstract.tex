@@ -1,59 +1,28 @@
 Solving climate change will require our globalized society to transition from
 fossil fuel infrastructure to clean energy infrastructure. This transition must
 also be done equitably and justly to prevent entrenching further injustices to
-marginalized and vulnerable communities. An economy-wide transition presents a
-challenge unto itself due to the spatial, temporal, and topological complexities
-of energy systems. Energy system optimization models (ESOMs) are a class of
-tools designed to optimize this transition used by energy planners and
-decision-makers to generate insights that inform policy. However, ESOMs have a
-few critical gaps. First, current ESOMs exclusively optimize on cost, yet real
-world decisions are also informed by non-financial priorities, such as
-sustainability and social benefits. Since these objectives cannot be neatly
-captured by a cost metric, ESOMs fail to optimize for these goals. Second, ESOMs
-struggle to meaningfully incorporate concepts of justice. Some studies model
-distributive justice --- related to the way benefits and burdens are shared
-among society's members --- but do so in an \textit{ex post} fashion. Procedural
-justice and recognition justice --- aspects of justice related to the
-policymaking process and context in which decisions are made --- are frequently
-sidelined. Indeed, ESOMs may be misused during a policymaking process to dismiss
-public input for lack of rigor. This thesis attends to these flaws in ESOM tools
-by developing the first multi-objective energy system optimization framework,
-\texttt{Osier}.
-
-Rather than returning a single optimal solution, multi-objective optimization
-generates a set of co-optimal solutions called a \textit{Pareto front}, where no
-objective can be improved without making another objective worse. The existence
-of a Pareto front evinces tradeoffs which can only be resolved through dialogue
-in a participatory process. \texttt{Osier} allows users to optimize arbitrarily
-many objectives and define new objectives to create a bespoke, contextualized,
-model. This thesis recognizes that some structural uncertainty will persist
-regardless of the number of objectives. Thus, \texttt{Osier} leverages genetic
-algorithms for their ability to sample complex Pareto fronts and because their
-search methods automatically sample sub-optimal space. Further, this thesis
-develops a novel algorithm to calculate a subset of maximally different
-solutions within the sub-optimal space to address this uncertainty related to
-unmodeled objectives. By producing multiple solutions, \texttt{Osier} gives
-modelers and decision-makers the tools to meaningfully engage with public
-stakeholders and learn their preferences, thereby attending to issues of
-procedural and recognition justice.
+marginalized and vulnerable communities. To that end, this thesis develops the
+first multi-objective energy system optimization framework, \texttt{Osier}, to
+enhance the democratic engagement necessary for a just transition. Rather than
+making projections about the future, \texttt{Osier} accomplishes this goal by
+combining user-supplied energy demand data with technology-specific data (e.g.,
+emissions, land-use, cost) and delivers a set of co-optimal energy systems
+(i.e., capacities for different energy generating technologies) that balance
+competing priorities (e.g., emissions, cost, or land-use). Further,
+\texttt{Osier} acknowledges structural uncertainty --- the existence of
+unmodeled or \textit{unmodelable} objectives --- by extending the conventional
+modeling-to-generate-alternatives approach into N-dimensional objective space.
+This approach does not promise to model the unmodelable, rather it recognizes
+that any presentation of ``optimal'' solutions will necessarily miss these
+unmodelable priorities and that interesting solutions may be contained in
+models sub-optimal space.
 
 This thesis verified \texttt{Osier}'s suitability for energy modeling problems
-with several \textit{in silico} experiments. The first set of experiments demonstrate that
-\texttt{Osier} produces results that are internally consistent within its suite
-of available methods. The next set of experiments compare \texttt{Osier} to a
-more mature ESOM, \texttt{Temoa}, to verify that \texttt{Osier} produces results
-consistent with known methods. The results for a least-cost optimization with
-\texttt{Osier} and \texttt{Temoa} show strong agreement, with 0.5\% of each
-other. In addition to benchmarking exercises, this thesis applies \texttt{Osier}
-to two timely examples. The first uses \texttt{Osier} to reanalyze a set of
-nuclear fuel cycle options through the lens of Pareto optimality. The second
-shows how \texttt{Osier} optimizes a novel objective,
-energy-return-on-investment, for a hypothetical data center. Finally, this
-thesis validates earlier claims of \texttt{Osier}'s usefulness for energy
-planning through a qualitative study of municipal and state-level energy
-planners in Illinois. The results of thirteen expert interviews demonstrate
-enthusiasm for a new tool that can optimize objectives beyond cost. However,
-this study surfaced structural barriers to ESOM usage at the municipal level
-which must be addressed before ESOMs, like \texttt{Osier}, can be adopted.
-Lastly, I recommend that the state of Illinois develop a participatory process
-for its energy modeling exercises.
+with several \textit{in silico} experiments. The first set of experiments
+establish \texttt{Osier}'s superiority at exploring decision space over the
+mature \texttt{Temoa} framework. A second set of experiments demonstrates
+\texttt{Osier} on relevant problems, such as deciding among many nuclear fuel
+cycle options. Finally, this thesis presents the results of thirteen expert
+interviews which support \texttt{Osier}'s utility for facilitating democratic
+engagement between decision makers and their constituents, thereby attending
+to issues related to procedural and recognition justice.
