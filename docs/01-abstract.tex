@@ -1,28 +1,36 @@
 Solving climate change will require our globalized society to transition from
 fossil fuel infrastructure to clean energy infrastructure. This transition must
 also be done equitably and justly to prevent entrenching further injustices to
-marginalized and vulnerable communities. To that end, this thesis develops the
-first multi-objective energy system optimization framework, \texttt{Osier}, to
-enhance the democratic engagement necessary for a just transition. Rather than
-making projections about the future, \texttt{Osier} accomplishes this goal by
-combining user-supplied energy demand data with technology-specific data (e.g.,
-emissions, land-use, cost) and delivers a set of co-optimal energy systems
-(i.e., capacities for different energy generating technologies) that balance
-competing priorities (e.g., emissions, cost, or land-use). Further,
-\texttt{Osier} acknowledges structural uncertainty --- the existence of
-unmodeled or \textit{unmodelable} objectives --- by extending the conventional
-modeling-to-generate-alternatives approach into N-dimensional objective space.
-This approach does not promise to model the unmodelable, rather it recognizes
-that any presentation of ``optimal'' solutions will necessarily miss these
-unmodelable priorities and that interesting solutions may be contained in a
-models sub-optimal space.
+marginalized and vulnerable communities. Current energy planning tools optimize
+for a singular cost objective which challenges decision-makers' ability to
+balance competing priorities such as sustainability, employment, or land use.
+This thesis develops the first multi-objective energy system optimization
+framework, \texttt{Osier}, to enhance the democratic engagement necessary for a
+just transition. 
 
-This thesis verified \texttt{Osier}'s suitability for energy modeling problems
-with several \textit{in silico} experiments. The first set of experiments
-establish \texttt{Osier}'s superiority at exploring decision space over the
-mature \texttt{Temoa} framework. A second set of experiments demonstrates
-\texttt{Osier} on relevant problems, such as deciding among many nuclear fuel
-cycle options. Finally, this thesis presents the results of thirteen expert
-interviews which support \texttt{Osier}'s utility for facilitating democratic
-engagement between decision makers and their constituents, thereby attending
-to issues related to procedural and recognition justice.
+\texttt{Osier} stores information about different energy technologies (e.g.,
+wind, solar, nuclear), including their costs, emissions, and other data. Users
+provide energy demand data and define one or more goals for their energy system,
+such as minimizing cost, maximizing renewable energy, or minimizing land use.
+\texttt{Osier} then presents a set of co-optimal energy portfolios that
+prescribe how much of each technology should be built. Further, \texttt{Osier}
+recognizes that some objectives resist quantification. Rather than claiming to
+model the unmodelable, \texttt{Osier} samples near-optimal solution space using
+a novel algorithm developed herein. Together, these solution sets expose
+tradeoffs and allows communities, planners, and decision-makers to deliberate
+over priorities. Beyond planning, \texttt{Osier} serves as an accountability
+tool that allows communities or non-profit organizations to evaluate the
+alignment between implemented policies and stated values. By producing multiple
+solutions, \texttt{Osier} gives modelers and decision-makers the tools to
+meaningfully engage with public stakeholders and learn their preferences,
+thereby attending to issues of procedural and recognition justice.
+
+This thesis verified \texttt{Osier} through a set of benchmarking experiments,
+demonstrating comparable results for a least-cost optimization within 0.5\% of
+the mature modeling framework, \texttt{Temoa}. In addition to benchmarking
+exercises, this thesis applies \texttt{Osier} to two timely examples related to
+nuclear fuel cycle options and powering new data centers. Finally, this
+thesis presents results from thirteen expert interviews with Illinois energy planners which
+support \texttt{Osier}'s utility for enhancing democratic engagement by enabling
+stakeholders to explore tradeoffs and articulate their values, though structural
+barriers to energy modeling adoption at the municipal level persist.
