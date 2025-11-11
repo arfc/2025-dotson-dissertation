@@ -72,7 +72,7 @@ if __name__ == "__main__":
     n_vars = 10
     n_objs = 2
     threshold = 14.3
-    seed = 123
+    seed = 42
 
 
     # Get data history
@@ -161,7 +161,7 @@ if __name__ == "__main__":
     ax.scatter(x=F_hist_masked[random_indices,0], 
                 y=F_hist_masked[random_indices,1], 
                 fc='None', 
-                ec=color_1, 
+                ec=color_2, 
                 alpha=1, 
                 s=size, 
                 label='osier (tested points)'
