@@ -57,23 +57,23 @@ jobs:
             ${{ runner.os }}-latex-
 
       # Install LaTeX on each OS
-      # - name: Install LaTeX
-      #   env: 
-      #     CACHE_HIT: ${{ steps.latex-cache.outputs.cache-hit }}
-      #   run: |
-      #     if [[ ${{ matrix.os }} == 'ubuntu-latest' ]]; then
-      #       sudo apt-get update
-      #       sudo apt-get install -y texlive-full biber
-      #     elif [[ ${{ matrix.os }} == 'macos-latest' ]]; then
-      #       brew install --cask mactex-no-gui
-      #       sudo tlmgr update --self && sudo tlmgr install biber
-      #     elif [[ ${{ matrix.os }} == 'windows-latest' ]]; then
-      #       choco install miktex -y
-      #       miktexsetup finish
-      #       initexmf --update-fndb
-      #       initexmf --mklinks
-      #       initexmf --mklangs
-      #     fi
+      - name: Install LaTeX
+        env: 
+          CACHE_HIT: ${{ steps.latex-cache.outputs.cache-hit }}
+        run: |
+          if [[ ${{ matrix.os }} == 'ubuntu-latest' ]]; then
+            sudo apt-get update
+            sudo apt-get install -y texlive-full biber
+          elif [[ ${{ matrix.os }} == 'macos-latest' ]]; then
+            brew install --cask mactex-no-gui
+            sudo tlmgr update --self && sudo tlmgr install biber
+          elif [[ ${{ matrix.os }} == 'windows-latest' ]]; then
+            choco install miktex -y
+            miktexsetup finish
+            initexmf --update-fndb
+            initexmf --mklinks
+            initexmf --mklangs
+          fi
       
       - name: Debug conda environment
         shell: bash -l {0}
