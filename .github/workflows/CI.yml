@@ -77,7 +77,11 @@ jobs:
 
       # Execute the Snakemake workflow
       - name: Run Snakemake workflow
+        shell: bash -l {0}  # Explicitly use login shell
         run: |
+          conda activate 2025-dotson-thesis
+          which python
+          which snakemake
           cd analysis && snakemake -j2
 
       # Upload the generated PDF as an artifact
