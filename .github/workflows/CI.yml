@@ -74,6 +74,20 @@ jobs:
       #       initexmf --mklinks
       #       initexmf --mklangs
       #     fi
+      
+      - name: Debug conda environment
+        shell: bash -l {0}
+        run: |
+          echo "Conda info:"
+          conda info
+          echo "Conda envs:"
+          conda env list
+          echo "Current PATH:"
+          echo $PATH
+          echo "Which python:"
+          which python
+          echo "Which snakemake:"
+          which snakemake || echo "snakemake not found"
 
       # Execute the Snakemake workflow
       - name: Run Snakemake workflow
