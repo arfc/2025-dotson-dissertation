@@ -96,7 +96,7 @@ jobs:
           conda activate 2025-dotson-thesis
           which python
           which snakemake
-          cd analysis && snakemake -j2
+          cd analysis && snakemake -j2 --force
 
       # Upload the generated PDF as an artifact
       - name: Upload PDF artifact
