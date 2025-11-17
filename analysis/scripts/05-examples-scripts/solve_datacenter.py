@@ -37,10 +37,11 @@ if __name__ == "__main__":
     with open(snakemake.input.dc_problem, "rb") as file:
         problem = pickle.load(file)
     
+    use_checkpoints = False
 
     checkpoint_list = glob("checkpoint_*.pkl")
     checkpoint_list.sort()
-    if len(checkpoint_list) > 0:
+    if (len(checkpoint_list) > 0) and use_checkpoints:
         with open(checkpoint_list[-1], 'rb') as f:
             algorithm = pickle.load(f)
             algorithm.termination = MaximumGenerationTermination(200)

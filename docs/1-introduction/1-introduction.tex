@@ -1,3 +1,69 @@
+Solving climate change will require our globalized society to transition from
+fossil fuel infrastructure to clean energy infrastructure. This transition must
+also be done equitably and justly to prevent entrenching further injustices to
+marginalized and vulnerable communities. Current energy planning tools optimize
+for a singular cost objective which challenges decision-makers' ability to
+balance competing priorities such as sustainability, employment, or land use.
+This thesis develops the first multi-objective energy system optimization
+framework, \ac{osier}, to enhance the democratic engagement necessary for a just
+transition. 
+
+\section{Research Objectives and Outcomes}
+
+\ac{osier} stores comprehensive information about energy generation technologies
+(e.g., wind, solar, nuclear, natural gas, etc.), including their costs, carbon
+emissions, land use requirements, generation variability, and other relevant
+characteristics. Users provide energy demand data and specify multiple,
+simultaneous competing goals (e.g., minimizing cost while maximizing local jobs
+and minimizing \ac{co2} emissions). \ac{osier} then identifies multiple optimal
+energy portfolios --- each specifying how much of each technology type should be
+installed to meet energy demand --- that represent different balances between
+these competing objectives. Rather than prescribing a single solution,
+\ac{osier} generates a set of co-optimal solutions, called a \textit{Pareto
+front}, where improving one objective necessarily worsens another, making
+tradeoffs explicit and negotiable.
+
+It is important to clarify what \ac{osier} is and is not. \ac{osier} is a
+prescriptive optimization tool, not a projection or forecasting model. It
+identifies what should be built to achieve specified goals rather than
+predicting what will happen under various scenarios. \ac{osier} cannot model
+unquantifiable values that defy mathematical formulation, though it can optimize
+proxy metrics (such as using job creation as a proxy for economic development).
+The tool's power lies in making quantifiable tradeoffs explicit and structured,
+thereby enhancing rather than replacing human deliberation. Beyond planning,
+\ac{osier} can serve as an accountability tool, enabling communities and
+advocacy organizations to evaluate whether implemented energy policies align
+with stated priorities.
+
+This dissertation has three primary objectives. 
+\begin{enumerate}
+    \item Create an open-source tool that fills two major gaps in the energy
+    modeling literature by enabling \acf{moo} and by facilitating open dialogue
+    and thereby producing more just energy policies. This objective is supported
+    by Chapter \ref{chapter:lit-review}, Chapter \ref{chapter:osier}, Chapter
+    \ref{chapter:benchmark-results}, and Chapter \ref{chapter:examples}.
+    \item Demonstrate the importance of participatory and deliberative processes
+    for developing robust energy policy. This objective is supported by Chapter
+    \ref{chapter:lit-review} and Chapter \ref{chapter:communities}
+    \item Evaluate the role of energy modeling in decision-making processes and
+    assess the the usability of the aforementioned tool from the perspective of
+    energy planners, policymakers, and advocates in the state of Illinois. This
+    objective is supported by Chapter \ref{chapter:communities}.
+\end{enumerate}
+
+Chapter \ref{chapter:lit-review} discusses the existing literature and work from
+several spanning disciplines, including risk assessment, energy justice, and
+energy system optimization. Chapter \ref{chapter:osier} details the technical
+methods I applied to create a flexible multi-objective optimization framework
+called \ac{osier}. Chapter \ref{chapter:benchmark-results} validates \ac{osier}
+as an \ac{esom} by comparing its results against an established representative
+\ac{esom}. Chapter \ref{chapter:examples} further demonstrates \ac{osier} with
+two timely examples related to fuel cycle evaluation and data center
+development. Finally, Chapter \ref{chapter:communities} presents and analyzes
+the results from the Illinois case studies.
+
+\section{Motivation and Background}
+
 Climate change produced by growing atmospheric CO$_2$ concentrations
 \cite{kane_atmospheric_1996} from human activity has led to increased exposure
 to hazards worldwide and domestically: increased storm severity, more extreme
@@ -43,40 +109,47 @@ source \cite{united_nations_economic_commission_for_europe_carbon_2022}.
 \FloatBarrier
 
 Therefore, to achieve the almost universally shared goal of halting and
-reversing the effects of climate change \cite{united_nations_paris_2015}, our
-globalized society must transition away from fossil fuels to clean energy
-technologies such as nuclear and renewable energy and switch our transportation
-systems to electric or hydrogen powered vehicles
-\cite{intergovernmental_panel_on_climate_change_climate_2021}. 
-
+reversing the effects of anthropogenic climate change
+\cite{united_nations_paris_2015}, our globalized society must transition away
+from fossil fuels to clean energy technologies such as nuclear and renewable
+energy and switch our transportation systems to electric or hydrogen powered
+vehicles \cite{intergovernmental_panel_on_climate_change_climate_2021}.
 Naturally, the importance of modeling energy systems to gain insight and form
 strategies to achieve this transition has grown. Especially since the spatial
 and temporal complexities are also expected to grow with greater penetration of
 \ac{vre}, such as solar and wind energy --- two energy sources that are
 spatially diffuse and temporally challenging to predict. A class of tools called
 \acp{esom} are the most common method for understanding our energy systems.
-However, while climate change may be the most immediate existential threat to
-society \cite{hickman_climate_2021}, it is a focusing issue that brings
-challenges of equity and disproportional impacts to the fore. These latter
-challenges have always been concomitant with our energy system, but energy
-system modeling has largely ignored the ways energy systems mediate
-socio-political power alongside transporting electrons and fuel. For example,
-fossil fueled power plants have always been associated with air pollution and
-worsened health for nearby communities --- commonly poorer and black
-communities, which are already marginalized, evincing a violation of fairness
-and justice principles \cite{mohai_which_2015}. Studying these consequences of
-our energy choices historically belonged to domain of the environmental justice
-literature \cite{schlosberg_reconceiving_2004,mohai_environmental_2009} but has
-developed further into the discipline of energy justice
-\cite{sovacool_energy_2015}. 
+
+However, current \acp{esom} face critical limitations that hinder their ability
+to support a just energy transition. Existing \acp{esom} optimize exclusively
+for cost, providing decision-makers with a single ``best'' solution. Yet
+real-world energy decisions involve tradeoffs among multiple competing
+objectives, such as cost, carbon emissions, job creation, land use, and equity
+considerations. This single-objective approach prevents meaningful public
+engagement, since communities cannot deliberate over priorities when presented
+with only one supposedly optimal answer. Further, while climate change is among
+the most immediate existential threats to society \cite{hickman_climate_2021},
+it is also a focusing issue that brings challenges of equity and disproportional
+impacts to the fore. These latter challenges have always been concomitant with
+our energy system, but energy system modeling has largely ignored the ways
+energy systems mediate socio-political power alongside transporting electrons
+and fuel. For example, fossil fueled power plants have always been associated
+with air pollution and worsened health for nearby communities --- commonly
+poorer and black communities, which are already marginalized, evincing a
+violation of fairness and justice principles \cite{mohai_which_2015}. 
+% Studying these consequences of our energy choices historically belonged to
+% domain of the environmental justice literature
+% \cite{schlosberg_reconceiving_2004,mohai_environmental_2009} but has developed
+% further into the discipline of energy justice \cite{sovacool_energy_2015}. 
 
 The energy transition will require a great expansion of our energy
-infrastructure to build replace fossil-fueled energy with clean energy and
-additional transmission networks to carry electrons. Although the technology to
-accomplish this transition is mature, there is still local public opposition to
-many energy projects \cite{wolsink_wind_2007}. Particularly in empowered and
-affluent communities \cite{stokes_prevalence_2023}. \acp{esom} cannot capture
-these ``human dimensions'' of energy systems despite some awareness of their
+infrastructure to replace fossil-fueled energy with clean energy and additional
+transmission networks to carry electrons. Although the technology to accomplish
+this transition is mature, there is still local public opposition to many energy
+projects \cite{wolsink_wind_2007}, particularly in empowered and affluent
+communities \cite{stokes_prevalence_2023}. \acp{esom} cannot capture these
+``human dimensions'' of energy systems despite some awareness of their
 importance \cite{pfenninger_energy_2014}. This is because they only optimize a
 single objective --- cost (or some other aggregated economic metric). People
 have and express preferences over many dimensions simultaneously. Further, even
@@ -89,7 +162,6 @@ benefits of multi-objective optimization have been understood for some time, yet
 only recent advances in computing power have made them a practical method for
 energy modeling. Hobbs (1995) wrote:
 
-% \cite{hobbs_optimization_1995}.    
 \begin{quote}
     \blockcquote[p.12]{hobbs_optimization_1995}{Multi-objective methods are more
     appropriately used to help people to understand the problem better, explore
@@ -110,35 +182,6 @@ framework leading to greater perceptions of legitimacy through an iterative
 articulation of values and priorities involving the public as key deliberators.
 The result is a step towards a holistic integration of energy justice and energy
 system engineering.
-
-\section{Research Objectives}
-
-This dissertation has three primary objectives. 
-\begin{enumerate}
-    \item Create an open-source tool that fills two major gaps in the energy
-    modeling literature by enabling \acf{moo} and by facilitating open dialogue
-    and thereby producing more just energy policies. This objective is supported
-    by Chapter \ref{chapter:lit-review}, Chapter \ref{chapter:osier}, Chapter
-    \ref{chapter:benchmark-results}, and Chapter \ref{chapter:examples}.
-    \item Demonstrate the importance of participatory and deliberative processes
-    for developing robust energy policy. This objective is supported by Chapter
-    \ref{chapter:lit-review} and Chapter \ref{chapter:communities}
-    \item Evaluate the role of energy modeling in decision-making processes and
-    assess the the usability of the aforementioned tool from the perspective of
-    energy planners, policymakers, and advocates in the state of Illinois. This
-    objective is supported by Chapter \ref{chapter:communities}.
-\end{enumerate}
-
-Chapter \ref{chapter:lit-review} discusses the existing literature and work from
-several spanning disciplines, including risk assessment, energy justice, and
-energy system optimization. Chapter \ref{chapter:osier} details the technical
-methods I applied to create a flexible multi-objective optimization framework
-called \ac{osier}. Chapter \ref{chapter:benchmark-results} validates \ac{osier}
-as an \ac{esom} by comparing its results against an established representative
-\ac{esom}. Chapter \ref{chapter:examples} further demonstrates \ac{osier} with
-two timely examples related to fuel cycle evaluation and data center
-development. Finally, Chapter \ref{chapter:communities} presents and analyzes
-the results from the Illinois case studies.
 
 \section{Reproducing this work}
 In an effort to adhere to the scientific computing best practices described by

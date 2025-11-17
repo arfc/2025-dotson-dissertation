@@ -54,7 +54,7 @@ dependencies:
     - deap
     - dill
     - openpyxl
-    - git+https://github.com/arfc/osier.git
+    - osier
     - highspy
     - python-dotenv
     - git+https://github.com/kmax12/gridstatus.git

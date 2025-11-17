@@ -270,8 +270,8 @@ rule benchmark_chapter:
         done
         """
 #============================EXAMPLES CHAPTER================================
-app_d_url = "https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20D.pdf"
-app_c_url = "https://fuelcycleevaluation.inl.gov/Shared%20Documents/ES%20Appendix%20C.pdf"
+app_d_url = "https://sai.inl.gov/content/uploads/29/2024/11/es_appendix_d.pdf"
+app_c_url = "https://sai.inl.gov/content/uploads/29/2024/11/es_appendix_c.pdf"
 atbe_url = "https://oedi-data-lake.s3.amazonaws.com/ATB/electricity/csv/2024/v3.0.0/ATBe.csv"
 
 rule retrieve_fuel_cycles_report_D:
