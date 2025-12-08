@@ -67,7 +67,8 @@
 \newif\if@thesiscrpage \@thesiscrpagetrue
 \let\nocopyrightpage\@thesiscrpagefalse
 \phdthesis
-\college{Grainger College of Engineering}
+% \college{Grainger College of Engineering}
+\college{Graduate College}
 \def\@degreeyear{\number\year}
 \renewcommand\maketitle{
     \if@thesiscrpage
